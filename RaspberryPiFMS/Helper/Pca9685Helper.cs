@@ -3,198 +3,82 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using Unosquare.RaspberryIO.Abstractions;
+using Unosquare.WiringPi;
 
 namespace RaspberryPiFMS.Helper
 {
     public class Pca9685
     {
-        /// <summary>
-        /// I2C Device
-        /// </summary>
-        private II2CDevice _device;
+        int SUBADR1 = 0x02;
+        int SUBADR2 = 0x03;
+        int SUBADR3 = 0x04;
+        int MODE1 = 0x00;
+        int PRESCALE = 0xFE;
+        int LED0_ON_L = 0x06;
+        int LED0_ON_H = 0x07;
+        int LED0_OFF_L = 0x08;
+        int LED0_OFF_H = 0x09;
+        int ALLLED_ON_L = 0xFA;
+        int ALLLED_ON_H = 0xFB;
+        int ALLLED_OFF_L = 0xFC;
+        int ALLLED_OFF_H = 0xFD;
 
-        private double _pwmFrequency;
+        private II2CDevice device;
 
-        private byte _prescale;
-
-        /// <summary>
-        /// Get default clock rate. Set if you are using external clock.
-        /// </summary>
-        public double ClockRate
+        public Pca9685(int addr = 0x40)
         {
-            get;
-            set;
-        } = 25000000.0;
+            I2CBus bus = new I2CBus();
+            device = bus.AddDevice(addr);
+            device.WriteAddressByte(MODE1, 0x00);
+        }
 
-
-        /// <summary>
-        /// Set PWM frequency or get effective value.
-        /// </summary>
-        public double PwmFrequency
+        private void Write(int reg, byte value)
         {
-            get
-            {
-                return _pwmFrequency;
-            }
-            set
-            {
-                Prescale = GetPrescale(value);
-            }
+            device.WriteAddressByte(reg, value);
+        }
+
+        private byte Read(int reg)
+        {
+            return device.ReadAddressByte(reg);
         }
 
         /// <summary>
-        /// Set PWM frequency using prescale value or get the value.
+        /// 设置PWM频率
         /// </summary>
-        public byte Prescale
+        /// <param name="freq"></param>
+        public void SetPWMFreq(double freq)
         {
-            get
-            {
-                return _prescale;
-            }
-            set
-            {
-                byte b = (byte)((value < 3) ? 3 : value);
-                SetPwmFrequency(b);
-                _prescale = b;
-                _pwmFrequency = GetFreq(b);
-            }
-        }
+            double prescaleval = 25000000.0;   // 25MHz
+            prescaleval /= 4096.0;       // 12-bit
+            prescaleval /= (float)freq;
+            prescaleval -= 1.0;
 
-        /// <summary>
-        /// Initialize PCA9685
-        /// </summary>
-        /// <param name="i2cDevice">The I2C device to be used</param>
-        public Pca9685(II2CDevice i2cDevice)
-        {
-            _device = i2cDevice;
-            SetPwm(0, 0);
-            byte[] span = new byte[2] { 1, 4 };
+            var prescale = Math.Floor(prescaleval + 0.5);
 
-            _device.Write(span);
-
-            span = new byte[2] { 0, 1 };
-
-            _device.Write(span);
+            var oldmode = Read(MODE1);
+            var newmode = (oldmode & 0x7F) | 0x10;       // sleep
+            Write(MODE1, Convert.ToByte(newmode));      // go to sleep
+            Write(PRESCALE, Convert.ToByte(Math.Floor(prescale)));
+            Write(MODE1, oldmode);
             Thread.Sleep(5);
-            int num = _device.Read();
-            num &= -17;
-            span = span = new byte[2] { 0, (byte)num };
-
-            _device.Write(span);
-            Thread.Sleep(5);
+            Write(MODE1, Convert.ToByte(oldmode | 0x80));
         }
 
         /// <summary>
-        /// Set a single PWM channel
+        /// 设置舵机角度
         /// </summary>
-        /// <param name="on">The turn-on time of specfied channel</param>
-        /// <param name="off">The turn-off time of specfied channel</param>
-        /// <param name="channel">target channel</param>
-        public void SetPwm(int on, int off, int channel)
+        /// <param name="channel">0-15通道</param>
+        /// <param name="angle">角度</param>
+        public void SetPWMAngle(int channel, double angle)
         {
-            on &= 0xFFF;
-            off &= 0xFFF;
-            channel &= 0xF;
-
-            byte[] span = new byte[2] { (byte)(6 + 4 * channel), (byte)on };
-
-            _device.Write(span);
-
-            span = new byte[2] { (byte)(7 + 4 * channel), (byte)(on >> 8) };
-
-            _device.Write(span);
-
-            span = new byte[2] { (byte)(8 + 4 * channel), (byte)off };
-
-            _device.Write(span);
-
-            span = new byte[2] { (byte)(9 + 4 * channel), (byte)(off >> 8) };
-
-            _device.Write(span);
+            var off = ConvertAngle(angle);
+            Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
+            Write(LED0_ON_H + 4 * channel, 0 >> 8);
+            Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
+            Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
         }
 
-        /// <summary>
-        /// Set all PWM channels
-        /// </summary>
-        /// <param name="on">The turn-on time of all channels</param>
-        /// <param name="off">The turn-on time of all channels</param>
-        public void SetPwm(int on, int off)
-        {
-            on &= 0xFFF;
-            off &= 0xFFF;
-
-
-            byte[] span = new byte[2] { 250, (byte)on };
-
-            _device.Write(span);
-
-            span = new byte[2] { 251,
-                (byte)(on >> 8) };
-
-
-            _device.Write(span);
-
-            span = new byte[2] {  252,
-                (byte)off};
-
-            _device.Write(span);
-
-            span = new byte[2] {  253,
-                (byte)(off >> 8)};
-
-            _device.Write(span);
-        }
-
-        /// <summary>
-        /// Get prescale of specified PWM frequency
-        /// </summary>
-        private byte GetPrescale(double freq_hz)
-        {
-            return (byte)Math.Round(ClockRate / 4096.0 / freq_hz - 1.0);
-        }
-
-        /// <summary>
-        /// Get PWM frequency of specified prescale
-        /// </summary>
-        private double GetFreq(byte prescale)
-        {
-            return ClockRate / 4096.0 / (double)(prescale + 1);
-        }
-
-        /// <summary>
-        /// Set PWM frequency by using prescale
-        /// </summary>
-        private void SetPwmFrequency(byte prescale)
-        {
-            byte b = _device.Read();
-            int num = (sbyte)b | 0x10;
-
-            byte[] span = new byte[2] { 0, (byte)num };
-
-            _device.Write(span);
-            span = new byte[2] { 254, prescale };
-            ;
-            _device.Write(span);
-            span = new byte[2] { 0, b };
-
-            _device.Write(span);
-            Thread.Sleep(5);
-            span = new byte[2] { 0, (byte)(b | 0x80) };
-
-            _device.Write(span);
-        }
-
-        public byte GetByte()
-        {
-            return _device.Read();
-        }
-
-        /// <summary>
-        /// 角度转换成off
-        /// </summary>
-        /// <param name="angle"></param>
-        /// <returns></returns>
-        public int ConvertAngle(double angle)
+        private int ConvertAngle(double angle)
         {
             double ms = 0.5 + (60 / 180) * (2.5 - 0.5);
             return Convert.ToInt32(4096 * ms / 20);
