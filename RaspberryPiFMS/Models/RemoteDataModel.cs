@@ -10,6 +10,7 @@ namespace RaspberryPiFMS.Models
     /// </summary>
     public class RemoteDataModel
     {
+        #region 操作数据
         /// <summary>
         /// 偏航数据
         /// </summary>
@@ -47,7 +48,7 @@ namespace RaspberryPiFMS.Models
         public bool gear;
 
         /// <summary>
-        /// 减速板
+        /// 减速板0-70
         /// </summary>
         [JsonProperty("AirBreak")]
         public double airBreak;
@@ -58,6 +59,22 @@ namespace RaspberryPiFMS.Models
         [JsonProperty("PushBack")]
         public bool pushBack;
 
+        /// <summary>
+        /// 配平
+        /// </summary>
+        [JsonProperty("Trim")]
+        public double trim;
+
+        #endregion
+
+        /// <summary>
+        /// 数据时间戳
+        /// </summary>
+        [JsonProperty("TimeStamp")]
+        public long timeStamp;
+
+        
+        #region 导航设定
         /// <summary>
         /// 垂直导航
         /// </summary>
@@ -71,26 +88,49 @@ namespace RaspberryPiFMS.Models
         public bool lnav;
 
         /// <summary>
-        /// 数据时间戳
+        /// 自动配平
         /// </summary>
-        [JsonProperty("TimeStamp")]
-        public long timeStamp;
+        [JsonProperty("AutoTrim")]
+        public bool autoTrim;
 
-        [JsonProperty("Trim")]
-        public double trim;
-        //[JsonProperty("CustomB")]
-        //public bool customB;
+        /// <summary>
+        /// 自动油门
+        /// </summary>
+        [JsonProperty("AutoThrottel")]
+        public bool autoThrottel;
+        #endregion
 
-        //[JsonProperty("CustomA")]
-        //public bool customA;
+        #region 灯光组
 
-        //[JsonProperty("MenuL")]
-        //public bool menuL;
-
-        //[JsonProperty("MenuR")]
-        //public bool menuR;
-
-
+        /// <summary>
+        /// 滑行灯
+        /// </summary>
+        public bool taxiLight;
+        /// <summary>
+        /// 跑道脱离灯
+        /// </summary>
+        public bool runwayLight;
+        /// <summary>
+        /// 标志灯
+        /// </summary>
+        public bool logoLight;
+        /// <summary>
+        /// 着陆灯
+        /// </summary>
+        public bool landingLight;
+        /// <summary>
+        /// 机翼检查灯
+        /// </summary>
+        public bool wingInspectionLight;
+        /// <summary>
+        /// 位置灯
+        /// </summary>
+        public bool positionLight;
+        /// <summary>
+        /// 防撞灯
+        /// </summary>
+        public bool antiCollisionLight;
+        #endregion
         public void SetDefault()
         {
             yaw = 0;

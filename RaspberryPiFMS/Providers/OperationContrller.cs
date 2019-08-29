@@ -9,9 +9,21 @@ namespace RaspberryPiFMS.Providers
 {
     public class OperationContrller
     {
+        /// <summary>
+        /// 是否垂直导航
+        /// </summary>
         private bool isVanv;
+        /// <summary>
+        /// 是否水平导航
+        /// </summary>
         private bool isLanv;
+        /// <summary>
+        /// 是否自动油门
+        /// </summary>
         private bool isAutoThrottel;
+        /// <summary>
+        /// 是否自动配平
+        /// </summary>
         private bool isAutoTrim;
 
         private ThreadStart contrllerT;
@@ -28,7 +40,7 @@ namespace RaspberryPiFMS.Providers
         /// <param name="isVanv">是否自动垂直导航</param>
         /// <param name="isLanv">是否自动水平导航</param>
         /// <param name="isAutoThrottel">是否自动油门</param>
-        public void SetContrlMode(bool isVanv,bool isLanv,bool isAutoThrottel,bool isAutoTrim)
+        public void SetContrlMode(bool isVanv, bool isLanv, bool isAutoThrottel, bool isAutoTrim)
         {
             this.isVanv = isVanv;
             this.isLanv = isLanv;
@@ -36,6 +48,9 @@ namespace RaspberryPiFMS.Providers
             this.isAutoTrim = isAutoTrim;
         }
 
+        /// <summary>
+        /// 初始化控制器，执行控制单元
+        /// </summary>
         public OperationContrller()
         {
             autoData = new AutoFlightModel();
@@ -53,15 +68,64 @@ namespace RaspberryPiFMS.Providers
         {
             while (true)
             {
+                //自动导航设置
+                isVanv = remoteData.vnav;
+                isLanv = remoteData.lnav;
+                isAutoThrottel = remoteData.autoThrottel;
+                isAutoTrim = remoteData.autoTrim;
 
+                #region 处理自动导航模式
+                if (isVanv)
+                {
+                    contrlData.pitch = autoData.pitch;
+                }
+                else
+                {
+                    contrlData.pitch = remoteData.pitch + 40;
+                }
 
+                if (isLanv)
+                {
+                    contrlData.roll = autoData.roll;
+                }
+                else
+                {
+                    contrlData.roll = remoteData.roll;
+                }
+                if (isAutoThrottel)
+                {
+                    contrlData.throttel = autoData.Lthrottel;
+                }
+                else
+                {
+                    contrlData.throttel = remoteData.throttle;
+                }
+                if (isAutoTrim)
+                {
+                    contrlData.throttel = autoData.trim;
+                }
+                else
+                {
+                    contrlData.throttel = remoteData.trim;
+                }
+                #endregion
 
-
-
-
-
-
-                baseContrl.contrlData = contrlData;
+                contrlData.airBreak = remoteData.airBreak;
+                contrlData.flap = remoteData.flap;
+                if (remoteData.gear)
+                {
+                    contrlData.gear = 90;
+                }
+                if (remoteData.pushBack)
+                {
+                    contrlData.pushBack = 90;
+                }
+                #region 灯光组先空
+                #endregion
+                lock (baseContrl.contrlData)
+                {
+                    baseContrl.contrlData = contrlData;
+                }
             }
         }
 

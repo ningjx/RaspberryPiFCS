@@ -29,6 +29,10 @@ namespace RaspberryPiFMS.Helper
             {
                 Thread.Sleep(10);
                 if(contrlData.roll != buffData.roll)
+                {
+                    pca.SetPWMAngle(0, contrlData.roll);
+                    //pca.SetPWMAngle(15,80 - contrlData.roll);
+                }
                     pca.SetPWMAngle(0, contrlData.roll);
                 if(contrlData.yaw != buffData.yaw)
                     pca.SetPWMAngle(1, contrlData.yaw);
@@ -44,8 +48,11 @@ namespace RaspberryPiFMS.Helper
                     pca.SetPWMAngle(6, contrlData.pushBack);
                 if(contrlData.trim != buffData.trim)
                     pca.SetPWMAngle(7, contrlData.trim);
+                if (contrlData.throttel != buffData.throttel)
+                    pca.SetPWMAngle(15, contrlData.throttel);
 
-                if(contrlData.taxiLight != buffData.taxiLight)
+
+                if (contrlData.taxiLight != buffData.taxiLight)
                     pca.SetPWMAngle(8, contrlData.taxiLight);
                 if(contrlData.runwayLight != buffData.runwayLight)
                     pca.SetPWMAngle(9, contrlData.runwayLight);

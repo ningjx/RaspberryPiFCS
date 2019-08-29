@@ -47,6 +47,11 @@ namespace RaspberryPiFMS.Models
         /// </summary>
         public double trim;
 
+        /// <summary>
+        /// 节流阀
+        /// </summary>
+        public double throttel;
+
         #region 灯光组
         /// <summary>
         /// 滑行灯
