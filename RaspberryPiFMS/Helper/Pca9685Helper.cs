@@ -26,6 +26,7 @@ namespace RaspberryPiFMS.Helper
 
         private II2CDevice device;
         #endregion
+
         public Pca9685(int addr = 0x40, double freq = 50)
         {
             I2CBus bus = new I2CBus();

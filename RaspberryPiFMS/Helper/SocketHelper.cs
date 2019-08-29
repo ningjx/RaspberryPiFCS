@@ -17,7 +17,7 @@ namespace RaspberryPiFMS.Helper
         public SocketHelper()
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            ipAddress = "106.14.115.249";
+            ipAddress = "";
             port = 35415;
             ipe = new IPEndPoint(IPAddress.Parse(ipAddress), port);
             ep = ipe;
