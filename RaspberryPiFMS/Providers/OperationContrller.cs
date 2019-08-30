@@ -7,6 +7,9 @@ using RaspberryPiFMS.Helper;
 
 namespace RaspberryPiFMS.Providers
 {
+    /// <summary>
+    /// 启动控制器和网络线程，合并远程遥控和自动控制
+    /// </summary>
     public class OperationContrller
     {
         /// <summary>
@@ -31,15 +34,19 @@ namespace RaspberryPiFMS.Providers
 
         private BaseContrl baseContrl;
         private ContrlModel contrlData;
+        private NetContrller netContrller;
+
 
         public AutoFlightModel autoData;
         public RemoteDataModel remoteData;
+
         /// <summary>
         /// 设置控制模式
         /// </summary>
         /// <param name="isVanv">是否自动垂直导航</param>
         /// <param name="isLanv">是否自动水平导航</param>
         /// <param name="isAutoThrottel">是否自动油门</param>
+        /// <param name="isAutoTrim">是否自动配平</param>
         public void SetContrlMode(bool isVanv, bool isLanv, bool isAutoThrottel, bool isAutoTrim)
         {
             this.isVanv = isVanv;
@@ -54,15 +61,22 @@ namespace RaspberryPiFMS.Providers
         public OperationContrller()
         {
             autoData = new AutoFlightModel();
-            remoteData = new RemoteDataModel();
-            baseContrl = new BaseContrl();
             contrlData = new ContrlModel();
+            remoteData = new RemoteDataModel();
+            Console.Write($"启动控制器");
+            baseContrl = new BaseContrl();
+            Console.Write($"启动控制器完成");
+            Console.Write($"启动远程控制"); 
+            netContrller = new NetContrller();
+            Console.Write($"启动远程控制完成");
 
-            remoteData.SetDefault();
             contrllerT = () => Contrller();
             contrller = new Thread(contrllerT);
             contrller.Start();
         }
+
+
+
 
         private void Contrller()
         {

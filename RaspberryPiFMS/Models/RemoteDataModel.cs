@@ -131,8 +131,10 @@ namespace RaspberryPiFMS.Models
         /// </summary>
         public bool antiCollisionLight;
         #endregion
-        public void SetDefault()
+
+        public RemoteDataModel()
         {
+            timeStamp = 0;
             yaw = 0;
             roll = 0;
             pitch = 0;

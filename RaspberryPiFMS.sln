@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.28822.285
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaspberryPiFMS", "RaspberryPiFMS\RaspberryPiFMS.csproj", "{7CF6142E-849A-45D1-A54D-BC1C1FD48551}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspberryPiFMSTest", "RaspberryPiFMSTest\RaspberryPiFMSTest.csproj", "{C6E025EE-DD6F-48FD-9408-4ADE3B6DC1FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaspberryPiFMSTest", "RaspberryPiFMSTest\RaspberryPiFMSTest.csproj", "{C6E025EE-DD6F-48FD-9408-4ADE3B6DC1FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

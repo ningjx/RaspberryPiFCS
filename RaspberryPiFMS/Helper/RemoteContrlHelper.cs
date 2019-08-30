@@ -8,26 +8,6 @@ namespace RaspberryPiFMS.Helper
 {
     public class RemoteContrlHelper
     {
-        public RemoteDataModel remoteData;
 
-        private ThreadStart reciverT;
-        private Thread reciver;
-
-
-        public RemoteContrlHelper()
-        {
-            remoteData = new RemoteDataModel();
-            reciverT = () => ReciveRemoteData();
-            reciver = new Thread(reciverT);
-            reciver.
-        }
-
-
-        public void 
-
-        private void ReciveRemoteData()
-        {
-
-        }
     }
 }
