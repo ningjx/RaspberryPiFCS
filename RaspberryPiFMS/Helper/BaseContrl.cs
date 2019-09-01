@@ -27,7 +27,7 @@ namespace RaspberryPiFMS.Helper
         {
             while (true)
             {
-                Thread.Sleep(10);
+                Thread.Sleep(100);
                 if(contrlData.roll != buffData.roll)
                 {
                     pca.SetPWMAngle(0, contrlData.roll);

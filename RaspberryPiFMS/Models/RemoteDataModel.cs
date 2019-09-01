@@ -105,30 +105,37 @@ namespace RaspberryPiFMS.Models
         /// <summary>
         /// 滑行灯
         /// </summary>
+        [JsonProperty("TaxiLight")]
         public bool taxiLight;
         /// <summary>
         /// 跑道脱离灯
         /// </summary>
+        [JsonProperty("RunwayLight")]
         public bool runwayLight;
         /// <summary>
         /// 标志灯
         /// </summary>
+        [JsonProperty("LogoLight")]
         public bool logoLight;
         /// <summary>
         /// 着陆灯
         /// </summary>
+        [JsonProperty("LandingLight")]
         public bool landingLight;
         /// <summary>
         /// 机翼检查灯
         /// </summary>
+        [JsonProperty("WingInspectionLight")]
         public bool wingInspectionLight;
         /// <summary>
         /// 位置灯
         /// </summary>
+        [JsonProperty("PositionLight")]
         public bool positionLight;
         /// <summary>
         /// 防撞灯
         /// </summary>
+        [JsonProperty("AntiCollisionLight")]
         public bool antiCollisionLight;
         #endregion
 

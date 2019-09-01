@@ -42,11 +42,15 @@ namespace RaspberryPiFMS.Helper
         /// <param name="angle">角度</param>
         public void SetPWMAngle(int channel, double angle)
         {
-            var off = ConvertAngle(angle);
-            Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
-            Write(LED0_ON_H + 4 * channel, 0 >> 8);
-            Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
-            Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
+            if (angle >= 0)
+            {
+                var off = ConvertAngle(angle);
+                Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
+                Write(LED0_ON_H + 4 * channel, 0 >> 8);
+                Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
+                Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
+            }
+            
         }
 
         /// <summary>
@@ -83,7 +87,7 @@ namespace RaspberryPiFMS.Helper
 
         private int ConvertAngle(double angle)
         {
-            double ms = 0.5 + (60 / 180) * (2.5 - 0.5);
+            double ms = 0.5 + (angle / 180) * (2.5 - 0.5);
             return Convert.ToInt32(4096 * ms / 20);
         }
     }

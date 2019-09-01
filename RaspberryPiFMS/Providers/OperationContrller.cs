@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading;
 using RaspberryPiFMS.Models;
 using RaspberryPiFMS.Helper;
+using Newtonsoft.Json;
 
 namespace RaspberryPiFMS.Providers
 {
@@ -28,6 +29,9 @@ namespace RaspberryPiFMS.Providers
         /// 是否自动配平
         /// </summary>
         private bool isAutoTrim;
+        public double baseValue = 0;
+
+
 
         private ThreadStart contrllerT;
         private Thread contrller;
@@ -36,9 +40,9 @@ namespace RaspberryPiFMS.Providers
         private ContrlModel contrlData;
         private NetContrller netContrller;
 
-
+        public string testData = string.Empty;
         public AutoFlightModel autoData;
-        public RemoteDataModel remoteData;
+        public RemoteDataModel remoteData = new RemoteDataModel();
 
         /// <summary>
         /// 设置控制模式
@@ -63,12 +67,12 @@ namespace RaspberryPiFMS.Providers
             autoData = new AutoFlightModel();
             contrlData = new ContrlModel();
             remoteData = new RemoteDataModel();
-            Console.Write($"启动控制器");
+            Console.Write($"启动控制器\r\n");
             baseContrl = new BaseContrl();
-            Console.Write($"启动控制器完成");
-            Console.Write($"启动远程控制"); 
+            Console.Write($"启动控制器完成\r\n");
+            Console.Write($"启动远程控制\r\n"); 
             netContrller = new NetContrller();
-            Console.Write($"启动远程控制完成");
+            Console.Write($"启动远程控制完成\r\n");
 
             contrllerT = () => Contrller();
             contrller = new Thread(contrllerT);
@@ -82,64 +86,82 @@ namespace RaspberryPiFMS.Providers
         {
             while (true)
             {
+                
+                    //remoteData = netContrller.remoteData;
+                testData = netContrller.testData;
+                if(testData != "null")
+                    remoteData = JsonConvert.DeserializeObject<RemoteDataModel>(testData);
                 //自动导航设置
-                isVanv = remoteData.vnav;
-                isLanv = remoteData.lnav;
-                isAutoThrottel = remoteData.autoThrottel;
-                isAutoTrim = remoteData.autoTrim;
+                //isVanv = remoteData.vnav;
+                //isLanv = remoteData.lnav;
+                //isAutoThrottel = remoteData.autoThrottel;
+                //isAutoTrim = remoteData.autoTrim;
 
-                #region 处理自动导航模式
-                if (isVanv)
-                {
-                    contrlData.pitch = autoData.pitch;
-                }
-                else
-                {
-                    contrlData.pitch = remoteData.pitch + 40;
-                }
+                //#region 处理自动导航模式
+                //if (isVanv)
+                //{
+                //    contrlData.pitch = autoData.pitch;
+                //}
+                //else
+                //{
+                //    contrlData.pitch = remoteData.pitch + 40;
+                //}
 
-                if (isLanv)
-                {
-                    contrlData.roll = autoData.roll;
-                }
-                else
-                {
-                    contrlData.roll = remoteData.roll;
-                }
-                if (isAutoThrottel)
-                {
-                    contrlData.throttel = autoData.Lthrottel;
-                }
-                else
-                {
-                    contrlData.throttel = remoteData.throttle;
-                }
-                if (isAutoTrim)
-                {
-                    contrlData.throttel = autoData.trim;
-                }
-                else
-                {
-                    contrlData.throttel = remoteData.trim;
-                }
-                #endregion
+                //if (isLanv)
+                //{
+                //    contrlData.roll = autoData.roll;
+                //}
+                //else
+                //{
+                //    contrlData.roll = remoteData.roll+50;
+                //}
+                //if (isAutoThrottel)
+                //{
+                //    contrlData.throttel = autoData.Lthrottel;
+                //}
+                //else
+                //{
+                //    contrlData.throttel = remoteData.throttle;
+                //}
+                //if (isAutoTrim)
+                //{
+                //    contrlData.throttel = autoData.trim;
+                //}
+                //else
+                //{
+                //    contrlData.throttel = remoteData.trim;
+                //}
+                //#endregion
 
-                contrlData.airBreak = remoteData.airBreak;
-                contrlData.flap = remoteData.flap;
-                if (remoteData.gear)
-                {
-                    contrlData.gear = 90;
-                }
-                if (remoteData.pushBack)
-                {
-                    contrlData.pushBack = 90;
-                }
+                //contrlData.airBreak = remoteData.airBreak;
+                //contrlData.flap = remoteData.flap;
+                //if (remoteData.gear)
+                //{
+                //    contrlData.gear = 90;
+                //}
+                //if (remoteData.pushBack)
+                //{
+                //    contrlData.pushBack = 90;
+                //}
                 #region 灯光组先空
                 #endregion
-                lock (baseContrl.contrlData)
-                {
+                Console.WriteLine($"遥控数据");
+                contrlData.roll = remoteData.roll + 50;
+                //if (test == 0)
+                //    test = 90;
+                //else
+                //    test = 0;
+                //remoteData.roll = test;
+                //testData = remoteData.roll.ToString();
+                //contrlData.roll = remoteData.roll;
+                
                     baseContrl.contrlData = contrlData;
-                }
+                    baseValue = baseContrl.contrlData.roll;
+                    Console.Clear();
+
+                        Console.WriteLine($"{netContrller.remoteData.roll}\r\n{contrlData.roll}\r\n{baseValue}\r\n{testData}");
+                
+                Thread.Sleep(100);
             }
         }
 

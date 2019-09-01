@@ -26,6 +26,7 @@ namespace RaspberryPiFMS.Helper
         public SocketHelper(string ip, string point)
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            //socket.ReceiveTimeout = 500;
             ipAddress = ip;
             port = Convert.ToInt32(point);
             ipe = new IPEndPoint(IPAddress.Parse(ipAddress), port);
@@ -38,7 +39,7 @@ namespace RaspberryPiFMS.Helper
 
         public void SendData(string data)
         {
-            var byteData = new byte[500];
+            var byteData = new byte[1000];
             byteData = Encoding.ASCII.GetBytes(data);
             socket.SendTo(byteData, ipe);
         }
@@ -46,10 +47,10 @@ namespace RaspberryPiFMS.Helper
         public string ReciveData()
         {
             string data = string.Empty;
-            byte[] buffer = new byte[500];
-            socket.ReceiveFrom(buffer, ref ep);
+            byte[] buffer = new byte[1000];
+            int length = socket.ReceiveFrom(buffer, ref ep);
             data = Encoding.ASCII.GetString(buffer);
-            return data;
+            return data;//.Substring(0,length);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using RaspberryPiFMS.Providers;
+using Newtonsoft.Json;
+using System.Threading;
 
 namespace RaspberryPiFMS
 {
@@ -9,12 +11,20 @@ namespace RaspberryPiFMS
         {
             try
             {
-                Console.WriteLine("启动控制单元");
+
+                Console.WriteLine("启动控制单元\r\n");
                 OperationContrller contrller = new OperationContrller();
-                Console.WriteLine("启动控制单元成功");
+                Console.WriteLine("启动控制单元成功\r\n");
                 Console.WriteLine();
 
-
+                //while (true)
+                //{
+                //    //Console.Clear();
+                //    //Console.Write(contrller.remoteData.roll + "\r\n");
+                //    //Console.Write(contrller.testData + "\r\n");
+                //    //Console.Write(contrller.baseValue + "\r\n");
+                //    //Thread.Sleep(100);
+                //}
 
 
 
