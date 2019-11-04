@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RaspberryPiFMS.Providers;
 using Newtonsoft.Json;
+using RaspberryPiFMS.Controller;
 using RaspberryPiFMS.Models;
+using RaspberryPiFMS.Helper;
+using Swan.DependencyInjection;
+using Unosquare.RaspberryIO.Abstractions;
 
 namespace RaspberryPiFMSTest.ProviderTest
 {
@@ -43,6 +46,20 @@ namespace RaspberryPiFMSTest.ProviderTest
             {
 
             }
+        }
+        [TestMethod]
+        public void InstanceTese()
+        {
+
+        }
+    }
+
+    public class aaa
+    {
+        public string aaaa = string.Empty;
+        public aaa()
+        {
+            aaaa = "sss";
         }
     }
 }

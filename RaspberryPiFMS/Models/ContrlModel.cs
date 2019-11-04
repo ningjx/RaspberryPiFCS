@@ -83,4 +83,14 @@ namespace RaspberryPiFMS.Models
         public double antiCollisionLight;
         #endregion
     }
+    public static class ContrlModelExtraFunc
+    {
+        public static bool CompareDouble(this double nowData, double orgData)
+        {
+            if (nowData != orgData)
+                return false;
+            else
+                return true;
+        }
+    }
 }

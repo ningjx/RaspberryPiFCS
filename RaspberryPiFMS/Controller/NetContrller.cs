@@ -7,7 +7,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 
-namespace RaspberryPiFMS.Providers
+namespace RaspberryPiFMS.Controller
 {
     /// <summary>
     /// 包括数据传输、内网穿透、延迟检测三部分
@@ -21,7 +21,7 @@ namespace RaspberryPiFMS.Providers
         private string remoteIp = string.Empty;
         private string remotePort = string.Empty;
 
-        public string testData = string.Empty;
+        public string testData = "null";
 
         public IpInfoModel IpInfo
         {
@@ -88,13 +88,13 @@ namespace RaspberryPiFMS.Providers
                         testData = reciveData;
                     else
                         testData = "null";
-                    RemoteDataModel reciveModel = new RemoteDataModel();
-                    if (!string.IsNullOrEmpty(reciveData))
-                    {
-                        reciveModel = JsonConvert.DeserializeObject<RemoteDataModel>(reciveData, settings);
-                        if (reciveModel != null)//&& reciveModel.timeStamp > remoteData.timeStamp)
-                            remoteData = reciveModel;
-                    }
+                    //RemoteDataModel reciveModel = new RemoteDataModel();
+                    //if (!string.IsNullOrEmpty(reciveData))
+                    //{
+                    //    reciveModel = JsonConvert.DeserializeObject<RemoteDataModel>(reciveData, settings);
+                    //    if (reciveModel != null)//&& reciveModel.timeStamp > remoteData.timeStamp)
+                    //        remoteData = reciveModel;
+                    //}
                 }
                 catch (Exception e)
                 {
@@ -103,6 +103,8 @@ namespace RaspberryPiFMS.Providers
             }
 
         }
+
+
 
         private void DDNS()
         {

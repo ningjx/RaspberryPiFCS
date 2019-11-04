@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using RaspberryPiFMS.Helper;
 using RaspberryPiFMS.Models;
 
-namespace RaspberryPiFMS.Helper
+namespace RaspberryPiFMS.Controller
 {
     public class BaseContrl
     {
+        /// <summary>
+        /// 输入控制数据
+        /// </summary>
         public ContrlModel contrlData;
-        private ContrlModel buffData;
 
+        private ContrlModel buffData;
         private Pca9685 pca;
 
         public BaseContrl()
@@ -29,10 +33,6 @@ namespace RaspberryPiFMS.Helper
             {
                 Thread.Sleep(100);
                 if(contrlData.roll != buffData.roll)
-                {
-                    pca.SetPWMAngle(0, contrlData.roll);
-                    //pca.SetPWMAngle(15,80 - contrlData.roll);
-                }
                     pca.SetPWMAngle(0, contrlData.roll);
                 if(contrlData.yaw != buffData.yaw)
                     pca.SetPWMAngle(1, contrlData.yaw);
@@ -50,8 +50,6 @@ namespace RaspberryPiFMS.Helper
                     pca.SetPWMAngle(7, contrlData.trim);
                 if (contrlData.throttel != buffData.throttel)
                     pca.SetPWMAngle(15, contrlData.throttel);
-
-
                 if (contrlData.taxiLight != buffData.taxiLight)
                     pca.SetPWMAngle(8, contrlData.taxiLight);
                 if(contrlData.runwayLight != buffData.runwayLight)
