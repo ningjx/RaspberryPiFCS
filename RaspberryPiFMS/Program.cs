@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Threading;
 using RaspberryPiFMS.Helper;
 using RaspberryPiFMS.Controller;
+using flyfire.IO.Ports;
 
 namespace RaspberryPiFMS
 {
@@ -12,10 +13,24 @@ namespace RaspberryPiFMS
         {
             try
             {
-                RemoteController control = new RemoteController();
+                Console.WriteLine("初始化");
+
+                string[] vs = CustomSerialPort.GetPortNames();
+                Console.WriteLine("你电脑的串口列表：");
+                foreach (var i in vs)
+                {
+                    Console.WriteLine(i);
+                }
+                RemoteController control = new RemoteController(Console.ReadLine()) ;
                 while (true)
                 {
+                    if (control.data == null)
+                    {
+                        Console.WriteLine("没有");
+                        continue;
+                    }
                     Console.WriteLine(control.data.ToString());
+                    Thread.Sleep(200);
                 }
                 //Console.WriteLine("启动控制单元\r\n");
                 //OperationContrller contrller = new OperationContrller();

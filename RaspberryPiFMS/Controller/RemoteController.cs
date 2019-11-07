@@ -13,9 +13,9 @@ namespace RaspberryPiFMS.Controller
     {
         public byte[] data;
 
-        public RemoteController()
+        public RemoteController(string portName)
         {
-            CustomSerialPort sbus = new CustomSerialPort("sbus", 100000, Parity.Even, 8, StopBits.Two);
+            CustomSerialPort sbus = new CustomSerialPort(portName, 115200, Parity.Even, 8, StopBits.Two);
             sbus.Open();
             sbus.ReceivedEvent += Sbus_ReceivedEvent;
         }
