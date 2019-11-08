@@ -7,7 +7,7 @@ using RaspberryPiFMS.Models;
 
 namespace RaspberryPiFMS.Controller
 {
-    public class BaseContrl
+    public class BaseController
     {
         /// <summary>
         /// 输入控制数据
@@ -17,7 +17,7 @@ namespace RaspberryPiFMS.Controller
         private ContrlModel buffData;
         private Pca9685 pca;
 
-        public BaseContrl()
+        public BaseController()
         {
             pca = new Pca9685();
             contrlData = new ContrlModel();

@@ -12,7 +12,7 @@ namespace RaspberryPiFMS.Controller
     /// <summary>
     /// 包括数据传输、内网穿透、延迟检测三部分
     /// </summary>
-    public class NetContrller
+    public class NetController
     {
 
         public RemoteDataModel remoteData = new RemoteDataModel();
@@ -47,7 +47,7 @@ namespace RaspberryPiFMS.Controller
         private SocketHelper ddnsSocket;
         private SocketHelper dataSocket;
 
-        public NetContrller()
+        public NetController()
         {
             //ddnsSocket = new SocketHelper("106.14.115.249", "35418");
             //Console.WriteLine($"连接遥控器...\r\n");

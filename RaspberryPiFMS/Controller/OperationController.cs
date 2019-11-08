@@ -11,7 +11,7 @@ namespace RaspberryPiFMS.Controller
     /// <summary>
     /// 启动控制器和网络线程，合并远程遥控和自动控制
     /// </summary>
-    public class OperationContrller
+    public class OperationController
     {
         /// <summary>
         /// 是否垂直导航
@@ -36,9 +36,9 @@ namespace RaspberryPiFMS.Controller
         private ThreadStart contrllerT;
         private Thread contrller;
 
-        private BaseContrl baseContrl;
+        private BaseController baseContrl;
         private ContrlModel contrlData;
-        private NetContrller netContrller;
+        private NetController netContrller;
 
         public string testData = string.Empty;
         public AutoFlightModel autoData;
@@ -62,16 +62,16 @@ namespace RaspberryPiFMS.Controller
         /// <summary>
         /// 初始化控制器，执行控制单元
         /// </summary>
-        public OperationContrller()
+        public OperationController()
         {
             autoData = new AutoFlightModel();
             contrlData = new ContrlModel();
             remoteData = new RemoteDataModel();
             Console.Write($"启动控制器\r\n");
-            baseContrl = new BaseContrl();
+            baseContrl = new BaseController();
             Console.Write($"启动控制器完成\r\n");
             Console.Write($"启动远程控制\r\n"); 
-            netContrller = new NetContrller();
+            netContrller = new NetController();
             Console.Write($"启动远程控制完成\r\n");
 
             contrllerT = () => Contrller();

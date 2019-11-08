@@ -17,7 +17,7 @@ namespace RaspberryPiFMSTest.ProviderTest
         [TestMethod]
         public void NetTest()
         {
-            NetContrller a = new NetContrller();
+            NetController a = new NetController();
             //while (true)
             //{
             //    Console.WriteLine($"{a.remoteData.roll}");

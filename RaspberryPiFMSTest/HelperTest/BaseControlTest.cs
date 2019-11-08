@@ -21,7 +21,7 @@ namespace RaspberryPiFMSTest.HelperTest
         [InlineData(60)]
         public void BaseControl(double angel)
         {
-            BaseContrl bc = new BaseContrl();
+            BaseController bc = new BaseController();
             bc.contrlData.roll = angel;
         }
 
