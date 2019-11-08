@@ -7,21 +7,21 @@ using System.Threading;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 
-namespace RaspberryPiFMS.Providers
+namespace RaspberryPiFMS.Controller
 {
     /// <summary>
     /// 包括数据传输、内网穿透、延迟检测三部分
     /// </summary>
-    public class NetContrller
+    public class NetController
     {
 
-        public RemoteDataModel remoteData = new RemoteDataModel();
+        public RemoteControlModel remoteData = new RemoteControlModel();
 
         public double ping;
         private string remoteIp = string.Empty;
         private string remotePort = string.Empty;
 
-        public string testData = string.Empty;
+        public string testData = "null";
 
         public IpInfoModel IpInfo
         {
@@ -47,7 +47,7 @@ namespace RaspberryPiFMS.Providers
         private SocketHelper ddnsSocket;
         private SocketHelper dataSocket;
 
-        public NetContrller()
+        public NetController()
         {
             //ddnsSocket = new SocketHelper("106.14.115.249", "35418");
             //Console.WriteLine($"连接遥控器...\r\n");
@@ -88,13 +88,13 @@ namespace RaspberryPiFMS.Providers
                         testData = reciveData;
                     else
                         testData = "null";
-                    RemoteDataModel reciveModel = new RemoteDataModel();
-                    if (!string.IsNullOrEmpty(reciveData))
-                    {
-                        reciveModel = JsonConvert.DeserializeObject<RemoteDataModel>(reciveData, settings);
-                        if (reciveModel != null)//&& reciveModel.timeStamp > remoteData.timeStamp)
-                            remoteData = reciveModel;
-                    }
+                    //RemoteDataModel reciveModel = new RemoteDataModel();
+                    //if (!string.IsNullOrEmpty(reciveData))
+                    //{
+                    //    reciveModel = JsonConvert.DeserializeObject<RemoteDataModel>(reciveData, settings);
+                    //    if (reciveModel != null)//&& reciveModel.timeStamp > remoteData.timeStamp)
+                    //        remoteData = reciveModel;
+                    //}
                 }
                 catch (Exception e)
                 {
@@ -103,6 +103,8 @@ namespace RaspberryPiFMS.Providers
             }
 
         }
+
+
 
         private void DDNS()
         {

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RaspberryPiFMS.Providers;
 using Newtonsoft.Json;
+using RaspberryPiFMS.Controller;
 using RaspberryPiFMS.Models;
+using RaspberryPiFMS.Helper;
+using Swan.DependencyInjection;
+using Unosquare.RaspberryIO.Abstractions;
 
 namespace RaspberryPiFMSTest.ProviderTest
 {
@@ -14,7 +17,7 @@ namespace RaspberryPiFMSTest.ProviderTest
         [TestMethod]
         public void NetTest()
         {
-            NetContrller a = new NetContrller();
+            NetController a = new NetController();
             //while (true)
             //{
             //    Console.WriteLine($"{a.remoteData.roll}");
@@ -37,12 +40,26 @@ namespace RaspberryPiFMSTest.ProviderTest
                     }
                 };
                 string aa = "{\"Yaw\":0.0,\"Roll\":0.0,\"Pitch\":0.0,\"Flap\":0.0,\"Throttle\":0.0,\"Gear\":false,\"AirBreak\":0.0,\"PushBack\":false,\"Trim\":0.0,\"TimeStamp\":0,\"VerticalNavigation\":false,\"LateralNavigation\":false,\"AutoTrim\":false,\"AutoThrottel\":false,\"TaxiLight\":false,\"RunwayLight\":false,\"LogoLight\":false,\"LandingLight\":false,\"WingInspectionLight\":false,\"PositionLight\":false,\"AntiCollisionLight\":false}";
-                var a = JsonConvert.DeserializeObject<RemoteDataModel>(aa, settings);
+                var a = JsonConvert.DeserializeObject<RemoteControlModel>(aa, settings);
             }
             catch(Exception e)
             {
 
             }
+        }
+        [TestMethod]
+        public void InstanceTese()
+        {
+
+        }
+    }
+
+    public class aaa
+    {
+        public string aaaa = string.Empty;
+        public aaa()
+        {
+            aaaa = "sss";
         }
     }
 }

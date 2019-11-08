@@ -47,7 +47,7 @@ namespace RaspberryPiFMS.Helper
         public string ReciveData()
         {
             string data = string.Empty;
-            byte[] buffer = new byte[1000];
+            byte[] buffer = new byte[2];
             int length = socket.ReceiveFrom(buffer, ref ep);
             data = Encoding.ASCII.GetString(buffer);
             return data;//.Substring(0,length);
