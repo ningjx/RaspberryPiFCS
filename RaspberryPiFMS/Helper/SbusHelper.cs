@@ -11,11 +11,6 @@ namespace RaspberryPiFMS.Helper
         private TimerHelper _timer = new TimerHelper(Config.LosingSignalDelay);
         public void DecodeSignal(byte[] bytesDatas)
         {
-            //15 0  0
-            //var aa = Encoding.ASCII.GetString(bytes);
-            ////Console.Clear();
-            //Console.WriteLine(bytes.ToString());
-            //return;
             byte[] bytes = new byte[25];
             int allCount = 0;
             bool isBegin = false;
@@ -68,7 +63,7 @@ namespace RaspberryPiFMS.Helper
                 string nextByte = string.Empty;
                 if (needNext <= 8)
                 {
-                    nextByte = bytes[index + 1].GetBitByPositon(7 - needNext, needNext);
+                    nextByte = bytes[index + 1].GetBitByPositon(8 - needNext, needNext);
                     nextIndex = index + 1;
                 }
                 else

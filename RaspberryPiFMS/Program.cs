@@ -13,21 +13,25 @@ namespace RaspberryPiFMS
         {
             try
             {
-                Console.WriteLine("初始化");
-                string[] portList = Extend.GetPorts();
-                Console.WriteLine("串口列表：");
-                foreach (var i in portList)
-                {
-                    Console.WriteLine(i);
-                }
-                RemoteController control = new RemoteController(Console.ReadLine()) ;
-                Console.ReadLine();
-                //while (true)
+                //Console.WriteLine("初始化");
+                //string[] portList = Extend.GetPorts();
+                //Console.WriteLine("串口列表：");
+                //foreach (var i in portList)
                 //{
-                //    Console.WriteLine(Config.RemoteSignal.Channel01.ToString());
-                //    //Console.ReadLine();
-                //    Thread.Sleep(1000);
+                //    Console.WriteLine(i);
                 //}
+                RemoteController control = new RemoteController("COM3") ;
+                
+                while (true)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"{Config.RemoteSignal.Channel01.ToString()}\n{Config.RemoteSignal.Channel02.ToString()}\n{Config.RemoteSignal.Channel03.ToString()}\n{Config.RemoteSignal.Channel04.ToString()}\n" +
+                        $"{Config.RemoteSignal.Channel05.ToString()}\n{Config.RemoteSignal.Channel06.ToString()}\n{Config.RemoteSignal.Channel07.ToString()}\n{Config.RemoteSignal.Channel08.ToString()}\n" +
+                        $"{Config.RemoteSignal.Channel09.ToString()}\n{Config.RemoteSignal.Channel10.ToString()}\n{Config.RemoteSignal.Channel11.ToString()}\n{Config.RemoteSignal.Channel12.ToString()}\n" +
+                        $"{Config.RemoteSignal.Channel13.ToString()}\n{Config.RemoteSignal.Channel14.ToString()}\n{Config.RemoteSignal.Channel15.ToString()}\n{Config.RemoteSignal.Channel16.ToString()}");
+                    //Console.ReadLine();
+                    Thread.Sleep(100);
+                }
             }
             catch (Exception e)
             {

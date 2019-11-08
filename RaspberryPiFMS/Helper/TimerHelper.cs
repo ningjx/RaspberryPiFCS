@@ -27,7 +27,8 @@ namespace RaspberryPiFMS.Helper
 
         public void StartTimming()
         {
-            _thread.Start();
+            if (_thread.ThreadState != ThreadState.Running)
+                _thread.Start();
         }
 
         public void StopTimming()
