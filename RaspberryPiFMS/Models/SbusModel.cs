@@ -6,6 +6,7 @@ namespace RaspberryPiFMS.Models
 {
     public class SbusModel
     {
+        private int channelCount = 0;
         public int Channel01;
         public int Channel02;
         public int Channel03;
@@ -24,9 +25,10 @@ namespace RaspberryPiFMS.Models
         public int Channel16;
         public bool IsConnected;
 
-        public void SetSignal(int channel,int data)
+        public void SetSignal(int data)
         {
-            switch (channel)
+            channelCount++;
+            switch (channelCount)
             {
                 case 1:
                     Channel01 = data;
@@ -79,6 +81,8 @@ namespace RaspberryPiFMS.Models
                 default:
                     break;
             }
+            if (channelCount == 16)
+                channelCount = 0;
         }
     }
 }
