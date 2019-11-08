@@ -90,7 +90,7 @@ namespace RaspberryPiFMS.Helper
                 else
                 {
                     nextByte = bytes[index + 1].GetBitByPositon(0, 7);
-                    string nextnextByte = bytes[index + 2].GetBitByPositon(7 - (needNext - 8), needNext - 8);
+                    string nextnextByte = bytes[index + 2].GetBitByPositon(8 - (needNext - 8), needNext - 8);
                     nextByte = nextnextByte + nextByte;
                     nextIndex = index + 2;
                 }
