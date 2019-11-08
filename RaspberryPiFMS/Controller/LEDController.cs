@@ -19,10 +19,9 @@ namespace RaspberryPiFMS.Controller
         /// 红色信标灯（闪烁）
         /// </summary>
         private bool _antiCollisionLight = false;
-
         private bool _isTimerRunning = false;
-
         private Timer _timer = new Timer();
+
         public LEDController()
         {
             _timer.Enabled = true;

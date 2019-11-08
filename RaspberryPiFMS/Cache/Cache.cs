@@ -18,7 +18,12 @@ namespace RaspberryPiFMS
         /// <summary>
         /// 遥控数据
         /// </summary>
-        public static SbusModel RemoteSignal;
+        public static RemoteControlModel RemoteSignal;
+        
+        /// <summary>
+        /// 自动数据
+        /// </summary>
+        public static AutoControlModel AutoControlData;
 
         /// <summary>
         /// 丢失信号延迟时间
@@ -55,6 +60,7 @@ namespace RaspberryPiFMS
         /// </summary>
         public static bool DecodingLock;
 
+        
         static Cache()
         {
             IsRemoteConnected = true;
@@ -62,7 +68,8 @@ namespace RaspberryPiFMS
             //BaseDriver = new Pca9685();
             //LedAndPushbackDriver = new Pca9685();
             LosingSignalDelay = 3;
-            RemoteSignal = new SbusModel();
+            RemoteSignal = new RemoteControlModel();
+            AutoControlData = new AutoControlModel();
             //LedContorl = new LEDController();
             //BaseContorl = new BaseController();
         }

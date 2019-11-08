@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RaspberryPiFMS.Models
 {
-    public class SbusModel
+    public class RemoteControlModel
     {
         private int _channelCount = 0;
         public long Channel01;

@@ -15,7 +15,7 @@ namespace RaspberryPiFMS.Controller
     public class NetController
     {
 
-        public RemoteDataModel remoteData = new RemoteDataModel();
+        public RemoteControlModel remoteData = new RemoteControlModel();
 
         public double ping;
         private string remoteIp = string.Empty;

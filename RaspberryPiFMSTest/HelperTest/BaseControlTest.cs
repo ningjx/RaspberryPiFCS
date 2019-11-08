@@ -22,7 +22,6 @@ namespace RaspberryPiFMSTest.HelperTest
         public void BaseControl(double angel)
         {
             BaseController bc = new BaseController();
-            bc.contrlData.roll = angel;
         }
 
         [TestMethod]

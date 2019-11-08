@@ -37,6 +37,10 @@ namespace RaspberryPiFMS.Enum
         /// <summary>
         /// 白色防撞灯
         /// </summary>
-        AntiCollisionLightWhite = 8
+        AntiCollisionLightWhite = 8,
+
+        PushBack_L = 9,
+
+        PushBack_R = 10
     }
 }
