@@ -14,11 +14,13 @@ namespace RaspberryPiFMS.Controller
         /// <summary>
         /// 航行灯（翼尖闪烁）
         /// </summary>
-        public bool logoLight = false;
+        private bool _logoLight = false;
         /// <summary>
         /// 红色信标灯（闪烁）
         /// </summary>
-        public bool antiCollisionLight = false;
+        private bool _antiCollisionLight = false;
+
+        private bool _isTimerRunning = false;
 
         private Timer _timer = new Timer();
         public LEDController()
@@ -26,26 +28,25 @@ namespace RaspberryPiFMS.Controller
             _timer.Enabled = true;
             _timer.Interval = 1500;
             _timer.Elapsed += Timer_Elapsed;
-            _timer.Start();
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (logoLight)
+            if (_logoLight)
             {
-                Cache.LedAndPushbackDriver.SetLedOn(1);
+                Cache.LedAndPushbackDriver.SetLedOn(LedChannel.LogoLight.GetHashCode());
                 Thread.Sleep(200);
-                Cache.LedAndPushbackDriver.SetLedOff(1);
+                Cache.LedAndPushbackDriver.SetLedOff(LedChannel.LogoLight.GetHashCode());
                 Thread.Sleep(200);
-                Cache.LedAndPushbackDriver.SetLedOn(1);
+                Cache.LedAndPushbackDriver.SetLedOn(LedChannel.LogoLight.GetHashCode());
                 Thread.Sleep(200);
-                Cache.LedAndPushbackDriver.SetLedOff(1);
+                Cache.LedAndPushbackDriver.SetLedOff(LedChannel.LogoLight.GetHashCode());
             }
-            if (antiCollisionLight)
+            if (_antiCollisionLight)
             {
-                Cache.LedAndPushbackDriver.SetLedOn(2);
+                Cache.LedAndPushbackDriver.SetLedOn(LedChannel.AntiCollisionLight.GetHashCode());
                 Thread.Sleep(200);
-                Cache.LedAndPushbackDriver.SetLedOff(1);
+                Cache.LedAndPushbackDriver.SetLedOff(LedChannel.AntiCollisionLight.GetHashCode());
             }
         }
 
@@ -53,28 +54,33 @@ namespace RaspberryPiFMS.Controller
         {
             if (channel == LedChannel.AntiCollisionLight && @switch == Switch.On)
             {
-                antiCollisionLight = true;
+                _antiCollisionLight = true;
                 return;
             }
             if (channel == LedChannel.AntiCollisionLight && @switch == Switch.Off)
             {
-                antiCollisionLight = false;
+                _antiCollisionLight = false;
                 return;
             }
             if (channel == LedChannel.LogoLight && @switch == Switch.On)
             {
-                logoLight = true;
+                _logoLight = true;
                 return;
             }
             if (channel == LedChannel.LogoLight && @switch == Switch.Off)
             {
-                logoLight = false;
+                _logoLight = false;
                 return;
             }
             if (@switch == Switch.Off)
                 Cache.LedAndPushbackDriver.SetLedOff(channel.GetHashCode());
             if (@switch == Switch.On)
                 Cache.LedAndPushbackDriver.SetLedOn(channel.GetHashCode());
+
+            if(!_isTimerRunning &&(_antiCollisionLight || _logoLight))
+                _timer.Start();
+            if (!_antiCollisionLight && !_logoLight && _isTimerRunning)
+                _timer.Stop();
         }
     }
 }
