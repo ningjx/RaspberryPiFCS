@@ -17,15 +17,28 @@ namespace RaspberryPiFMS.Helper
             //Console.WriteLine(bytes.ToString());
             //return;
             byte[] bytes = new byte[25];
-            for(int i = 0; i < 25; i++)
+            int allCount = 0;
+            bool isBegin = false;
+            for(int i = 0; i < 50; i++)
             {
-                bytes[i] = bytesDatas[i];
+                if (allCount == 25)
+                {
+                    break;
+                }
+                if (bytesDatas[i] == 15)
+                {
+                    isBegin = true;
+                }
+                if (isBegin)
+                {
+                    bytes[allCount] = bytesDatas[i];
+                    allCount++;
+                }
             }
-            if (bytes.Length != 25 || bytes[0] != 0x0f || bytes[24] != 0x00 || bytes[23] != 0x00)//
+            if (bytes.Length != 25 || bytes[0] != 0x0f || bytes[24] != 0x00 || bytes[23] != 0x00)
             {
 
                 _timer.TimeStopEvent += SetSignalLose;
-                //_timer.TimeStopEvent += SetSignalConnected;
                 _timer.StartTimming();
                 return;
             }
