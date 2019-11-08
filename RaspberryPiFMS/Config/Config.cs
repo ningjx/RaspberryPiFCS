@@ -47,9 +47,11 @@ namespace RaspberryPiFMS
         /// </summary>
         public static bool IsRemoteConnected;
 
+        public static bool DecodingLock;
         static Config()
         {
             IsRemoteConnected = true;
+            DecodingLock = false;
             //BaseDriver = new Pca9685();
             //LedAndPushbackDriver = new Pca9685();
             LosingSignalDelay = 3;

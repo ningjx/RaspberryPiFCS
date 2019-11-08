@@ -42,7 +42,6 @@ namespace RaspberryPiFMS.Helper
             if (_thread.ThreadState == ThreadState.Running)
             {
                 _thread.Abort();
-                TimeFinishEvent?.Invoke();
             }
         }
 
@@ -58,6 +57,7 @@ namespace RaspberryPiFMS.Helper
         }
 
         public delegate void TimerEventHandle();
+
         /// <summary>
         /// 计时完成事件
         /// </summary>

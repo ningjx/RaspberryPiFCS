@@ -19,6 +19,10 @@ namespace RaspberryPiFMS.Helper
         /// <param name="bytesDatas"></param>
         public void DecodeSignal(byte[] bytesDatas)
         {
+            if (Config.DecodingLock)
+                return;
+            else
+                Config.DecodingLock = true;
             byte[] bytes = new byte[25];
             int allCount = 0;
             bool isBegin = false;
@@ -95,6 +99,7 @@ namespace RaspberryPiFMS.Helper
                 thisRemainder = needNext <= 8 ? 8 - needNext : 8 - (needNext - 8);
                 needNext = 11 - thisRemainder;
             }
+            Config.DecodingLock = false;
         }
 
         /// <summary>
