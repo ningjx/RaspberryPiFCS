@@ -9,9 +9,19 @@ namespace RaspberryPiFMS.Helper
     public class SbusHelper
     {
         private TimerHelper _timer = new TimerHelper(Config.LosingSignalDelay);
-        public void DecodeSignal(byte[] bytes)
+        public void DecodeSignal(byte[] bytesDatas)
         {
-            if (bytes.Length != 25 || bytes[0] != 0x0f || bytes[24] != 0x00 || bytes[23] == 0x00)
+            //15 0  0
+            //var aa = Encoding.ASCII.GetString(bytes);
+            ////Console.Clear();
+            //Console.WriteLine(bytes.ToString());
+            //return;
+            byte[] bytes = new byte[25];
+            for(int i = 0; i < 25; i++)
+            {
+                bytes[i] = bytesDatas[i];
+            }
+            if (bytes.Length != 25 || bytes[0] != 0x0f || bytes[24] != 0x00 || bytes[23] != 0x00)//
             {
 
                 _timer.TimeStopEvent += SetSignalLose;
@@ -41,24 +51,24 @@ namespace RaspberryPiFMS.Helper
                     continue;
                 }
                 //获取当前字节
-                string thisbyte = bytes[index].GetBitByPositon(0, thisRemainder - 1);
+                string thisbyte = bytes[index].GetBitByPositon(0, thisRemainder);
                 string nextByte = string.Empty;
                 if (needNext <= 8)
                 {
-                    nextByte = bytes[index + 1].GetBitByPositon(7 - needNext, 7);
+                    nextByte = bytes[index + 1].GetBitByPositon(7 - needNext, needNext);
                     nextIndex = index + 1;
                 }
                 else
                 {
                     nextByte = bytes[index + 1].GetBitByPositon(0, 7);
-                    string nextnextByte = bytes[index + 2].GetBitByPositon(7 - (needNext - 8), 7);
+                    string nextnextByte = bytes[index + 2].GetBitByPositon(7 - (needNext - 8), needNext - 8);
                     nextByte = nextnextByte + nextByte;
                     nextIndex = index + 2;
                 }
                 string thisChannel = nextByte + thisbyte;
-                Config.RemoteSignal.SetSignal(Convert.ToInt32(thisChannel));
+                Config.RemoteSignal.SetSignal(Convert.ToInt64(thisChannel,2));
 
-                thisRemainder = needNext <= 8 ? 8 - needNext :8 - (needNext - 8);
+                thisRemainder = needNext <= 8 ? 8 - needNext : 8 - (needNext - 8);
                 needNext = 11 - thisRemainder;
             }
         }
@@ -70,5 +80,10 @@ namespace RaspberryPiFMS.Helper
         {
             Config.RemoteSignal.IsConnected = true;
         }
+
+        
+
+        //public delegate void BaseControlHandle;
+        //public BaseControlHandle
     }
 }

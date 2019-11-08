@@ -21,10 +21,13 @@ namespace RaspberryPiFMS
                     Console.WriteLine(i);
                 }
                 RemoteController control = new RemoteController(Console.ReadLine()) ;
-                while (true)
-                {
-                    Console.WriteLine(Config.RemoteSignal.Channel01.ToString());
-                }
+                Console.ReadLine();
+                //while (true)
+                //{
+                //    Console.WriteLine(Config.RemoteSignal.Channel01.ToString());
+                //    //Console.ReadLine();
+                //    Thread.Sleep(1000);
+                //}
             }
             catch (Exception e)
             {

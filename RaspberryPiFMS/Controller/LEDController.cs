@@ -23,7 +23,6 @@ namespace RaspberryPiFMS.Controller
         private Timer _timer = new Timer();
         public LEDController()
         {
-            //Config.LedAndPushback = new Pca9685();
             _timer.Enabled = true;
             _timer.Interval = 1500;
             _timer.Elapsed += Timer_Elapsed;
@@ -34,19 +33,19 @@ namespace RaspberryPiFMS.Controller
         {
             if (logoLight)
             {
-                Config.LedAndPushback.SetLedOn(1);
+                Config.LedAndPushbackDriver.SetLedOn(1);
                 Thread.Sleep(200);
-                Config.LedAndPushback.SetLedOff(1);
+                Config.LedAndPushbackDriver.SetLedOff(1);
                 Thread.Sleep(200);
-                Config.LedAndPushback.SetLedOn(1);
+                Config.LedAndPushbackDriver.SetLedOn(1);
                 Thread.Sleep(200);
-                Config.LedAndPushback.SetLedOff(1);
+                Config.LedAndPushbackDriver.SetLedOff(1);
             }
             if (antiCollisionLight)
             {
-                Config.LedAndPushback.SetLedOn(2);
+                Config.LedAndPushbackDriver.SetLedOn(2);
                 Thread.Sleep(200);
-                Config.LedAndPushback.SetLedOff(1);
+                Config.LedAndPushbackDriver.SetLedOff(1);
             }
         }
 
@@ -73,9 +72,9 @@ namespace RaspberryPiFMS.Controller
                 return;
             }
             if (@switch == Switch.Off)
-                Config.LedAndPushback.SetLedOff(channel.GetHashCode());
+                Config.LedAndPushbackDriver.SetLedOff(channel.GetHashCode());
             if (@switch == Switch.On)
-                Config.LedAndPushback.SetLedOn(channel.GetHashCode());
+                Config.LedAndPushbackDriver.SetLedOn(channel.GetHashCode());
         }
     }
 }

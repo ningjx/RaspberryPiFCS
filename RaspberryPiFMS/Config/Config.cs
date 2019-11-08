@@ -7,25 +7,49 @@ namespace RaspberryPiFMS
 {
     public static class Config
     {
+        /// <summary>
+        /// AP模式
+        /// </summary>
         public static ContrlMode ContrlMode;
 
+        /// <summary>
+        /// 遥控数据
+        /// </summary>
         public static SbusModel RemoteSignal;
 
+        /// <summary>
+        /// 丢失信号延迟时间
+        /// </summary>
         public static int LosingSignalDelay;
 
-        public static LEDController Led;
+        /// <summary>
+        /// 灯光控制器
+        /// </summary>
+        public static LEDController LedContorl;
 
-        public static Pca9685 BaseControl;
+        /// <summary>
+        /// 基础动作控制器
+        /// </summary>
+        public static BaseController BaseContorl;
 
-        public static Pca9685 LedAndPushback;
+        /// <summary>
+        /// 基础动作驱动器
+        /// </summary>
+        public static Pca9685 BaseDriver;
+
+        /// <summary>
+        /// 灯光/反推驱动器
+        /// </summary>
+        public static Pca9685 LedAndPushbackDriver;
 
         static Config()
         {
-            BaseControl = new Pca9685();
-            LedAndPushback = new Pca9685();
+            //BaseDriver = new Pca9685();
+            //LedAndPushbackDriver = new Pca9685();
             LosingSignalDelay = 3;
             RemoteSignal = new SbusModel();
-            Led = new LEDController();
+            //LedContorl = new LEDController();
+            //BaseContorl = new BaseController();
         }
     }
 }

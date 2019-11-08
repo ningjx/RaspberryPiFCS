@@ -7,25 +7,25 @@ namespace RaspberryPiFMS.Models
     public class SbusModel
     {
         private int _channelCount = 0;
-        public int Channel01;
-        public int Channel02;
-        public int Channel03;
-        public int Channel04;
-        public int Channel05;
-        public int Channel06;
-        public int Channel07;
-        public int Channel08;
-        public int Channel09;
-        public int Channel10;
-        public int Channel11;
-        public int Channel12;
-        public int Channel13;
-        public int Channel14;
-        public int Channel15;
-        public int Channel16;
+        public long Channel01;
+        public long Channel02;
+        public long Channel03;
+        public long Channel04;
+        public long Channel05;
+        public long Channel06;
+        public long Channel07;
+        public long Channel08;
+        public long Channel09;
+        public long Channel10;
+        public long Channel11;
+        public long Channel12;
+        public long Channel13;
+        public long Channel14;
+        public long Channel15;
+        public long Channel16;
         public bool IsConnected;
 
-        public void SetSignal(int data)
+        public void SetSignal(long data)
         {
             _channelCount++;
             switch (_channelCount)
