@@ -33,19 +33,19 @@ namespace RaspberryPiFMS.Controller
         {
             if (logoLight)
             {
-                Config.LedAndPushbackDriver.SetLedOn(1);
+                Cache.LedAndPushbackDriver.SetLedOn(1);
                 Thread.Sleep(200);
-                Config.LedAndPushbackDriver.SetLedOff(1);
+                Cache.LedAndPushbackDriver.SetLedOff(1);
                 Thread.Sleep(200);
-                Config.LedAndPushbackDriver.SetLedOn(1);
+                Cache.LedAndPushbackDriver.SetLedOn(1);
                 Thread.Sleep(200);
-                Config.LedAndPushbackDriver.SetLedOff(1);
+                Cache.LedAndPushbackDriver.SetLedOff(1);
             }
             if (antiCollisionLight)
             {
-                Config.LedAndPushbackDriver.SetLedOn(2);
+                Cache.LedAndPushbackDriver.SetLedOn(2);
                 Thread.Sleep(200);
-                Config.LedAndPushbackDriver.SetLedOff(1);
+                Cache.LedAndPushbackDriver.SetLedOff(1);
             }
         }
 
@@ -72,9 +72,9 @@ namespace RaspberryPiFMS.Controller
                 return;
             }
             if (@switch == Switch.Off)
-                Config.LedAndPushbackDriver.SetLedOff(channel.GetHashCode());
+                Cache.LedAndPushbackDriver.SetLedOff(channel.GetHashCode());
             if (@switch == Switch.On)
-                Config.LedAndPushbackDriver.SetLedOn(channel.GetHashCode());
+                Cache.LedAndPushbackDriver.SetLedOn(channel.GetHashCode());
         }
     }
 }

@@ -25,10 +25,10 @@ namespace RaspberryPiFMS
                 while (true)
                 {
                     Console.Clear();
-                    Console.WriteLine($"{Config.RemoteSignal.Channel01.ToString()}\n{Config.RemoteSignal.Channel02.ToString()}\n{Config.RemoteSignal.Channel03.ToString()}\n{Config.RemoteSignal.Channel04.ToString()}\n" +
-                        $"{Config.RemoteSignal.Channel05.ToString()}\n{Config.RemoteSignal.Channel06.ToString()}\n{Config.RemoteSignal.Channel07.ToString()}\n{Config.RemoteSignal.Channel08.ToString()}\n" +
-                        $"{Config.RemoteSignal.Channel09.ToString()}\n{Config.RemoteSignal.Channel10.ToString()}\n{Config.RemoteSignal.Channel11.ToString()}\n{Config.RemoteSignal.Channel12.ToString()}\n" +
-                        $"{Config.RemoteSignal.Channel13.ToString()}\n{Config.RemoteSignal.Channel14.ToString()}\n{Config.RemoteSignal.Channel15.ToString()}\n{Config.RemoteSignal.Channel16.ToString()}");
+                    Console.WriteLine($"{Cache.RemoteSignal.Channel01.ToString()}\n{Cache.RemoteSignal.Channel02.ToString()}\n{Cache.RemoteSignal.Channel03.ToString()}\n{Cache.RemoteSignal.Channel04.ToString()}\n" +
+                        $"{Cache.RemoteSignal.Channel05.ToString()}\n{Cache.RemoteSignal.Channel06.ToString()}\n{Cache.RemoteSignal.Channel07.ToString()}\n{Cache.RemoteSignal.Channel08.ToString()}\n" +
+                        $"{Cache.RemoteSignal.Channel09.ToString()}\n{Cache.RemoteSignal.Channel10.ToString()}\n{Cache.RemoteSignal.Channel11.ToString()}\n{Cache.RemoteSignal.Channel12.ToString()}\n" +
+                        $"{Cache.RemoteSignal.Channel13.ToString()}\n{Cache.RemoteSignal.Channel14.ToString()}\n{Cache.RemoteSignal.Channel15.ToString()}\n{Cache.RemoteSignal.Channel16.ToString()}");
                     //Console.ReadLine();
                     Thread.Sleep(100);
                 }

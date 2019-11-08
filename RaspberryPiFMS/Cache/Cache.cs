@@ -5,7 +5,10 @@ using RaspberryPiFMS.Helper;
 
 namespace RaspberryPiFMS
 {
-    public static class Config
+    /// <summary>
+    /// 全局缓存
+    /// </summary>
+    public static class Cache
     {
         /// <summary>
         /// AP模式
@@ -47,8 +50,12 @@ namespace RaspberryPiFMS
         /// </summary>
         public static bool IsRemoteConnected;
 
+        /// <summary>
+        /// 解码器锁，防止多线程修改遥控参数
+        /// </summary>
         public static bool DecodingLock;
-        static Config()
+
+        static Cache()
         {
             IsRemoteConnected = true;
             DecodingLock = false;
