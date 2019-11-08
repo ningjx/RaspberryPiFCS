@@ -12,25 +12,19 @@ namespace RaspberryPiFMS.Controller
     public class RemoteController
     {
         private SbusHelper _sbusHelper;
-        CustomSerialPort sbus;
+        private CustomSerialPort _sbus;
         public RemoteController(string portName)
         {
             _sbusHelper = new SbusHelper();
-            sbus = new CustomSerialPort(portName, 100000, Parity.Even, 8, StopBits.Two);
-            sbus.ReceiveTimeoutEnable = false ;
-            sbus.ReceivedEvent += Sbus_ReceivedEvent;
-            sbus.Open();
-            //sbus.
+            _sbus = new CustomSerialPort(portName, 100000, Parity.Even, 8, StopBits.Two);
+            _sbus.ReceiveTimeoutEnable = false ;
+            _sbus.ReceivedEvent += Sbus_ReceivedEvent;
+            _sbus.Open();
         }
 
         public void Dispose()
         {
             Dispose();
-        }
-
-        public void GetSingnal()
-        {
-
         }
 
         private void Sbus_ReceivedEvent(object sender, byte[] bytes)

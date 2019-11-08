@@ -30,16 +30,6 @@ namespace RaspberryPiFMS
             return sb.ToString().PadLeft(8,'0');
         }
 
-        //public static int ConvertInt(this string data)
-        //{
-        //    byte byteData = new byte;
-        //    for(int i = 0; i < 12; i++)
-        //    {
-        //        char bit = data[i];
-        //        byteData[i] = Convert.ToInt32(bit);
-        //    }
-        //}
-
         public static string[] GetPorts()
         {
             return CustomSerialPort.GetPortNames();

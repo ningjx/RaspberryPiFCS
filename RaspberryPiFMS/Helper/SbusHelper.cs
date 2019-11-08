@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using RaspberryPiFMS.Helper;
+using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Helper
 {
     public class SbusHelper
     {
+        /// <summary>
+        /// 丢失信号后启动定时器，到点儿了就执行丢失信号动作
+        /// </summary>
         private TimerHelper _timer = new TimerHelper(Config.LosingSignalDelay);
+        /// <summary>
+        /// 解码遥控信号
+        /// </summary>
+        /// <param name="bytesDatas"></param>
         public void DecodeSignal(byte[] bytesDatas)
         {
             byte[] bytes = new byte[25];
@@ -33,14 +41,22 @@ namespace RaspberryPiFMS.Helper
             if (bytes.Length != 25 || bytes[0] != 0x0f || bytes[24] != 0x00 || bytes[23] != 0x00)
             {
 
-                _timer.TimeStopEvent += SetSignalLose;
-                _timer.StartTimming();
+                if (Config.IsRemoteConnected)
+                {
+                    _timer.TimeFinishEvent += SetSignalLose;
+                    _timer.StartTimming();
+                    Config.IsRemoteConnected = false;
+                }
                 return;
             }
             else
             {
-                _timer.StopTimming();
-                SetSignalConnected();
+                if (!Config.IsRemoteConnected)
+                {
+                    _timer.StopTimming();
+                    SetSignalConnected();
+                    Config.IsRemoteConnected = true;
+                }
             }
             int needNext = 3;//需要下一字节的位数
             int thisRemainder = 8;//当前字节剩余
@@ -80,18 +96,21 @@ namespace RaspberryPiFMS.Helper
                 needNext = 11 - thisRemainder;
             }
         }
+
+        /// <summary>
+        /// 丢失信号动作
+        /// </summary>
         private static void SetSignalLose()
         {
             Config.RemoteSignal.IsConnected = false;
         }
+
+        /// <summary>
+        /// 信号连接动作
+        /// </summary>
         private static void SetSignalConnected()
         {
             Config.RemoteSignal.IsConnected = true;
         }
-
-        
-
-        //public delegate void BaseControlHandle;
-        //public BaseControlHandle
     }
 }

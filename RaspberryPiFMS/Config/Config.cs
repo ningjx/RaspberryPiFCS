@@ -42,8 +42,14 @@ namespace RaspberryPiFMS
         /// </summary>
         public static Pca9685 LedAndPushbackDriver;
 
+        /// <summary>
+        /// 实时的遥控信号连接状态
+        /// </summary>
+        public static bool IsRemoteConnected;
+
         static Config()
         {
+            IsRemoteConnected = true;
             //BaseDriver = new Pca9685();
             //LedAndPushbackDriver = new Pca9685();
             LosingSignalDelay = 3;

@@ -23,7 +23,7 @@ namespace RaspberryPiFMS.Models
         public long Channel14;
         public long Channel15;
         public long Channel16;
-        public bool IsConnected;
+        public bool IsConnected = true;
 
         public void SetSignal(long data)
         {

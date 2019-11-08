@@ -25,18 +25,24 @@ namespace RaspberryPiFMS.Helper
             _thread = new Thread(_threadStart);
         }
 
+        /// <summary>
+        /// 启动计时
+        /// </summary>
         public void StartTimming()
         {
             if (_thread.ThreadState != ThreadState.Running)
                 _thread.Start();
         }
 
+        /// <summary>
+        /// 中途停止计时
+        /// </summary>
         public void StopTimming()
         {
             if (_thread.ThreadState == ThreadState.Running)
             {
                 _thread.Abort();
-                TimeStopEvent?.Invoke();
+                TimeFinishEvent?.Invoke();
             }
         }
 
@@ -48,17 +54,13 @@ namespace RaspberryPiFMS.Helper
                 Thread.Sleep(1000);
                 thisCount++;
             }
-            TimeStartEvent?.Invoke();
+            TimeFinishEvent?.Invoke();
         }
 
         public delegate void TimerEventHandle();
         /// <summary>
-        /// 开始计时事件
+        /// 计时完成事件
         /// </summary>
-        public event TimerEventHandle TimeStartEvent;
-        /// <summary>
-        /// 计时结束事件
-        /// </summary>
-        public event TimerEventHandle TimeStopEvent;
+        public event TimerEventHandle TimeFinishEvent;
     }
 }
