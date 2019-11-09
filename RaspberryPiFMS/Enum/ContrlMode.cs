@@ -12,7 +12,7 @@ namespace RaspberryPiFMS.Enum
         /// <summary>
         /// 自动驾驶关闭
         /// </summary>
-        AutoPoliteShutDown = 0,
+        Manual = 0,
 
         /// <summary>
         /// 水平导航

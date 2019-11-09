@@ -7,21 +7,23 @@ using flyfire.IO.Ports;
 
 namespace RaspberryPiFMS
 {
-    class Program
+    public class Program
     {
+        SbusHelper sbus;
         static void Main(string[] args)
         {
             try
             {
-                //Console.WriteLine("初始化");
-                //string[] portList = Extend.GetPorts();
-                //Console.WriteLine("串口列表：");
-                //foreach (var i in portList)
-                //{
-                //    Console.WriteLine(i);
-                //}
-                RemoteController control = new RemoteController("COM3") ;
-                
+                string[] ports = Extend.GetPorts();
+
+                foreach(string item in ports)
+                {
+                    Console.WriteLine(item);
+                }
+                string name = Console.ReadLine();
+                //int rate = Convert.ToInt32(Console.ReadLine());
+                RemoteController control = new RemoteController(ports[Convert.ToInt32(name)], 100000);
+                Console.WriteLine("遥控器初始化成功");
                 while (true)
                 {
                     Console.Clear();
@@ -29,7 +31,6 @@ namespace RaspberryPiFMS
                         $"[5]{Cache.RemoteSignal.Channel05.ToString()}\n[6]{Cache.RemoteSignal.Channel06.ToString()}\n[7]{Cache.RemoteSignal.Channel07.ToString()}\n[8]{Cache.RemoteSignal.Channel08.ToString()}\n" +
                         $"[9]{Cache.RemoteSignal.Channel09.ToString()}\n[10]{Cache.RemoteSignal.Channel10.ToString()}\n[11]{Cache.RemoteSignal.Channel11.ToString()}\n[12]{Cache.RemoteSignal.Channel12.ToString()}\n" +
                         $"[13]{Cache.RemoteSignal.Channel13.ToString()}\n[14]{Cache.RemoteSignal.Channel14.ToString()}\n[15]{Cache.RemoteSignal.Channel15.ToString()}\n[16]{Cache.RemoteSignal.Channel16.ToString()}");
-                    //Console.ReadLine();
                     Thread.Sleep(100);
                 }
             }

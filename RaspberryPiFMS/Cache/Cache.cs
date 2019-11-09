@@ -2,6 +2,7 @@
 using RaspberryPiFMS.Enum;
 using RaspberryPiFMS.Controller;
 using RaspberryPiFMS.Helper;
+using System;
 
 namespace RaspberryPiFMS
 {
@@ -63,15 +64,19 @@ namespace RaspberryPiFMS
         
         static Cache()
         {
+            ContrlMode = ContrlMode.Manual;
             IsRemoteConnected = true;
             DecodingLock = false;
+            Console.WriteLine("初始化Pca9685");
             //BaseDriver = new Pca9685();
             //LedAndPushbackDriver = new Pca9685();
             LosingSignalDelay = 3;
             RemoteSignal = new RemoteControlModel();
             AutoControlData = new AutoControlModel();
             //LedContorl = new LEDController();
+            Console.WriteLine("初始化基础控制器");
             //BaseContorl = new BaseController();
+            Console.WriteLine("初全局缓存初始化完成");
         }
     }
 }

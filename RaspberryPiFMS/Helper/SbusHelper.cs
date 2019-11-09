@@ -12,22 +12,22 @@ namespace RaspberryPiFMS.Helper
         /// <summary>
         /// 丢失信号后启动定时器，到点儿了就执行丢失信号动作
         /// </summary>
-        private TimerHelper _timer = new TimerHelper(Cache.LosingSignalDelay);
-
+        private Timer _timer = new Timer(Cache.LosingSignalDelay*1000);
+        public SbusHelper()
+        {
+            _timer.Elapsed += SetSignalLose;
+            _timer.AutoReset = false;
+        }
         /// <summary>
         /// 解码遥控信号
         /// </summary>
         /// <param name="bytesDatas"></param>
         public void DecodeSignal(byte[] bytesDatas)
         {
-            if (Cache.DecodingLock)
-                return;
-            else
-                Cache.DecodingLock = true;
             byte[] bytes = new byte[25];
             int allCount = 0;
             bool isBegin = false;
-            for(int i = 0; i < 50; i++)
+            for (int i = 0; i < 50; i++)
             {
                 if (allCount == 25)
                 {
@@ -43,14 +43,14 @@ namespace RaspberryPiFMS.Helper
                     allCount++;
                 }
             }
+
             if (bytes.Length != 25 || bytes[0] != 0x0f || bytes[24] != 0x00 || bytes[23] != 0x00)
             {
 
                 if (Cache.IsRemoteConnected)
                 {
-                    _timer.TimeFinishEvent += SetSignalLose;
-                    _timer.StartTimming();
                     Cache.IsRemoteConnected = false;
+                    _timer.Start();
                 }
                 return;
             }
@@ -58,11 +58,15 @@ namespace RaspberryPiFMS.Helper
             {
                 if (!Cache.IsRemoteConnected)
                 {
-                    _timer.StopTimming();
-                    SetSignalConnected();
                     Cache.IsRemoteConnected = true;
+                    _timer.Stop();
+                    SetSignalConnected();
                 }
             }
+            if (Cache.DecodingLock)
+                return;
+            else
+                Cache.DecodingLock = true;
             int needNext = 3;//需要下一字节的位数
             int thisRemainder = 8;//当前字节剩余
             int nextIndex = 1;//下一字节index
@@ -95,7 +99,7 @@ namespace RaspberryPiFMS.Helper
                     nextIndex = index + 2;
                 }
                 string thisChannel = nextByte + thisbyte;
-                Cache.RemoteSignal.SetSignal(Convert.ToInt64(thisChannel,2));
+                Cache.RemoteSignal.SetSignal(Convert.ToInt64(thisChannel, 2));
 
                 thisRemainder = needNext <= 8 ? 8 - needNext : 8 - (needNext - 8);
                 needNext = 11 - thisRemainder;
@@ -103,12 +107,10 @@ namespace RaspberryPiFMS.Helper
             Cache.DecodingLock = false;
         }
 
-        /// <summary>
-        /// 丢失信号动作
-        /// </summary>
-        private static void SetSignalLose()
+        private void SetSignalLose(object sender, System.Timers.ElapsedEventArgs e)
         {
             Cache.RemoteSignal.IsConnected = false;
+            Cache.RemoteSignal.Channel01 = Cache.RemoteSignal.Channel02 = Cache.RemoteSignal.Channel04 = 50;
         }
 
         /// <summary>

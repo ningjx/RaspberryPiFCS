@@ -29,7 +29,8 @@ namespace RaspberryPiFMS.Controller
             _excuteLock = true;
             switch (Cache.ContrlMode)
             {
-                case Enum.ContrlMode.AutoPoliteShutDown:
+                case Enum.ContrlMode.Manual:
+                    ManualControl();
                     break;
             }
             _excuteLock = false;
@@ -37,7 +38,16 @@ namespace RaspberryPiFMS.Controller
 
         private void ManualControl()
         {
-
+            if(Cache.RemoteSignal.Channel04!= _centerData.Roll)
+            {
+                Cache.BaseDriver.SetPWMAngle(1,Cache.RemoteSignal.Channel04);
+                _centerData.Roll = Cache.RemoteSignal.Channel04;
+            }
+            if (Cache.RemoteSignal.Channel03!= _centerData.Throttel)
+            {
+                Cache.BaseDriver.SetPWMAngle(2, Cache.RemoteSignal.Channel03);
+                _centerData.Throttel = Cache.RemoteSignal.Channel03;
+            }
         }
     }
 }

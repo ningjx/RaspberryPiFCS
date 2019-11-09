@@ -1,4 +1,5 @@
 ﻿using flyfire.IO.Ports;
+using RaspberryPiFMS.Enum;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,7 +39,13 @@ namespace RaspberryPiFMS
                 sb.Append("0");
             }
             sb.Append(Convert.ToString(intTmp, 2));
-            return sb.ToString().PadLeft(8,'0');
+            return sb.ToString().PadLeft(8, '0');
+        }
+
+        public static string ByteArrToStr(this byte byteData)
+        {
+            int intTmp = byteData;
+            return intTmp.ToString();
         }
 
         /// <summary>
@@ -48,6 +55,16 @@ namespace RaspberryPiFMS
         public static string[] GetPorts()
         {
             return CustomSerialPort.GetPortNames();
+        }
+
+        public static Switch GetSwitch(this long data,long midValue = 1000)
+        {
+            if (data == midValue)
+                return Switch.MId;
+            else if (data > midValue)
+                return Switch.On;
+            else
+                return Switch.Off;
         }
     }
 }
