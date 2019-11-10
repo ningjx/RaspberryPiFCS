@@ -68,7 +68,7 @@ namespace RaspberryPiFMS
             IsRemoteConnected = true;
             DecodingLock = false;
             Console.WriteLine("初始化Pca9685");
-            //BaseDriver = new Pca9685();
+            BaseDriver = new Pca9685();
             //LedAndPushbackDriver = new Pca9685();
             LosingSignalDelay = 3;
             RemoteSignal = new RemoteControlModel();

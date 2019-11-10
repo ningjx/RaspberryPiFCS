@@ -19,11 +19,13 @@ namespace RaspberryPiFMS.Controller
             _timer.Interval = 20;
             _timer.Enabled = true;
             _timer.Elapsed += Excute;
+            _timer.AutoReset = true;
             _timer.Start();
         }
 
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
         {
+            Console.WriteLine("定时任务");
             if (_excuteLock)
                 return;
             _excuteLock = true;
@@ -38,8 +40,10 @@ namespace RaspberryPiFMS.Controller
 
         private void ManualControl()
         {
+            Console.WriteLine("进入手动控制");
             if(Cache.RemoteSignal.Channel04!= _centerData.Roll)
             {
+                Console.WriteLine("设置角度");
                 Cache.BaseDriver.SetPWMAngle(1,Cache.RemoteSignal.Channel04);
                 _centerData.Roll = Cache.RemoteSignal.Channel04;
             }
