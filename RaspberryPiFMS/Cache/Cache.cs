@@ -75,7 +75,7 @@ namespace RaspberryPiFMS
             AutoControlData = new AutoControlModel();
             //LedContorl = new LEDController();
             Console.WriteLine("初始化基础控制器");
-            //BaseContorl = new BaseController();
+            BaseContorl = new BaseController();
             Console.WriteLine("初全局缓存初始化完成");
         }
     }

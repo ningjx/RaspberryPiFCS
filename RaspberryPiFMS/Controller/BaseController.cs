@@ -16,7 +16,7 @@ namespace RaspberryPiFMS.Controller
         private CenterControlModel _centerData = new CenterControlModel();
         public BaseController()
         {
-            _timer.Interval = 20;
+            _timer.Interval = 15;
             _timer.Enabled = true;
             _timer.Elapsed += Excute;
             _timer.AutoReset = true;
@@ -25,7 +25,6 @@ namespace RaspberryPiFMS.Controller
 
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
         {
-            Console.WriteLine("定时任务");
             if (_excuteLock)
                 return;
             _excuteLock = true;
@@ -40,17 +39,25 @@ namespace RaspberryPiFMS.Controller
 
         private void ManualControl()
         {
-            Console.WriteLine("进入手动控制");
-            if(Cache.RemoteSignal.Channel04!= _centerData.Roll)
+            if (Cache.RemoteSignal.Channel01 != _centerData.Yaw)
             {
-                Console.WriteLine("设置角度");
-                Cache.BaseDriver.SetPWMAngle(1,Cache.RemoteSignal.Channel04);
-                _centerData.Roll = Cache.RemoteSignal.Channel04;
+                Cache.BaseDriver.SetPWMAngle(1, Cache.RemoteSignal.Channel01);
+                _centerData.Yaw = Cache.RemoteSignal.Channel01;
+            }
+            if (Cache.RemoteSignal.Channel02 != _centerData.Pitch)
+            {
+                Cache.BaseDriver.SetPWMAngle(2, Cache.RemoteSignal.Channel02);
+                _centerData.Pitch = Cache.RemoteSignal.Channel02;
             }
             if (Cache.RemoteSignal.Channel03!= _centerData.Throttel)
             {
-                Cache.BaseDriver.SetPWMAngle(2, Cache.RemoteSignal.Channel03);
+                Cache.BaseDriver.SetPWMAngle(3, Cache.RemoteSignal.Channel03);
                 _centerData.Throttel = Cache.RemoteSignal.Channel03;
+            }
+            if (Cache.RemoteSignal.Channel04!= _centerData.Roll)
+            {
+                Cache.BaseDriver.SetPWMAngle(4, Cache.RemoteSignal.Channel04);
+                _centerData.Roll = Cache.RemoteSignal.Channel04;
             }
         }
     }
