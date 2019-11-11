@@ -21,7 +21,6 @@ namespace RaspberryPiFMSTest.HelperTest
         [InlineData(60)]
         public void BaseControl(double angel)
         {
-            BaseController bc = new BaseController();
         }
 
         [TestMethod]

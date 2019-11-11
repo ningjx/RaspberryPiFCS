@@ -33,13 +33,13 @@ namespace RaspberryPiFMS.Models
             switch (_channelCount)
             {
                 case 1:
-                    Channel01 = Math.Abs(data / 20.0 - Channel01)<Cache.De_Shanking ? Math.Abs(data / 20.0): Channel01;
+                    Channel01 = Math.Abs(data / 20.0 - Channel01) < Cache.De_Shanking ? Math.Abs(data / 20.0) : Channel01;
                     break;
                 case 2:
                     Channel02 = Math.Abs(data / 20.0 - Channel02) < Cache.De_Shanking ? Math.Abs(data / 20.0) : Channel02;
                     break;
                 case 3:
-                    Channel03 = Math.Abs((845 - data) / 7.0 - Channel03) < Cache.De_Shanking ? Math.Abs((845 - data) / 7.0) : Channel03; 
+                    Channel03 = Math.Abs((845 - data) / 7.0 - Channel03) < Cache.De_Shanking ? Math.Abs((845 - data) / 7.0) : Channel03;
                     break;
                 case 4:
                     Channel04 = Math.Abs(data / 20.0 - Channel04) < Cache.De_Shanking ? Math.Abs(data / 20.0) : Channel04;

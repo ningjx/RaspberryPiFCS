@@ -14,8 +14,10 @@ namespace RaspberryPiFMS.Controller
         private bool _excuteLock = false;
         //控制数据缓冲
         private CenterControlModel _centerData = new CenterControlModel();
-        public BaseController()
+        private Pca9685 _baseDriver;
+        public BaseController(Pca9685 baseDriver)
         {
+            _baseDriver = baseDriver;
             _timer.Interval = 15;
             _timer.Enabled = true;
             _timer.Elapsed += Excute;
@@ -41,22 +43,22 @@ namespace RaspberryPiFMS.Controller
         {
             if (Cache.RemoteSignal.Channel01 != _centerData.Yaw)
             {
-                Cache.BaseDriver.SetPWMAngle(1, Cache.RemoteSignal.Channel01);
+                _baseDriver.SetPWMAngle(1, Cache.RemoteSignal.Channel01);
                 _centerData.Yaw = Cache.RemoteSignal.Channel01;
             }
             if (Cache.RemoteSignal.Channel02 != _centerData.Pitch)
             {
-                Cache.BaseDriver.SetPWMAngle(2, Cache.RemoteSignal.Channel02);
+                _baseDriver.SetPWMAngle(2, Cache.RemoteSignal.Channel02);
                 _centerData.Pitch = Cache.RemoteSignal.Channel02;
             }
-            if (Cache.RemoteSignal.Channel03!= _centerData.Throttel)
+            if (Cache.RemoteSignal.Channel03 != _centerData.Throttel)
             {
-                Cache.BaseDriver.SetPWMAngle(3, Cache.RemoteSignal.Channel03);
+                _baseDriver.SetPWMAngle(3, Cache.RemoteSignal.Channel03);
                 _centerData.Throttel = Cache.RemoteSignal.Channel03;
             }
-            if (Cache.RemoteSignal.Channel04!= _centerData.Roll)
+            if (Cache.RemoteSignal.Channel04 != _centerData.Roll)
             {
-                Cache.BaseDriver.SetPWMAngle(4, Cache.RemoteSignal.Channel04);
+                _baseDriver.SetPWMAngle(4, Cache.RemoteSignal.Channel04);
                 _centerData.Roll = Cache.RemoteSignal.Channel04;
             }
         }

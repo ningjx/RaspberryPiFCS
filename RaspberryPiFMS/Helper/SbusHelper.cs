@@ -7,12 +7,12 @@ using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Helper
 {
-    public class SbusHelper
+    public class SbusHelper : IDisposable
     {
         /// <summary>
         /// 丢失信号后启动定时器，到点儿了就执行丢失信号动作
         /// </summary>
-        private Timer _timer = new Timer(Cache.LosingSignalDelay*1000);
+        private Timer _timer = new Timer(Cache.LosingSignalDelay * 1000);
         public SbusHelper()
         {
             _timer.Elapsed += SetSignalLose;
@@ -119,6 +119,11 @@ namespace RaspberryPiFMS.Helper
         private static void SetSignalConnected()
         {
             Cache.RemoteSignal.IsConnected = true;
+        }
+
+        public void Dispose()
+        {
+            _timer.Dispose();
         }
     }
 }

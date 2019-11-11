@@ -20,7 +20,7 @@ namespace RaspberryPiFMS
         /// 遥控数据
         /// </summary>
         public static RemoteControlModel RemoteSignal;
-        
+
         /// <summary>
         /// 自动数据
         /// </summary>
@@ -41,15 +41,7 @@ namespace RaspberryPiFMS
         /// </summary>
         public static BaseController BaseContorl;
 
-        /// <summary>
-        /// 基础动作驱动器
-        /// </summary>
-        public static Pca9685 BaseDriver;
-
-        /// <summary>
-        /// 灯光/反推驱动器
-        /// </summary>
-        public static Pca9685 LedAndPushbackDriver;
+        public static PushBackController PushBackControl;
 
         /// <summary>
         /// 实时的遥控信号连接状态
@@ -61,6 +53,25 @@ namespace RaspberryPiFMS
         /// </summary>
         public static bool DecodingLock;
 
+        public static RemoteController RemoteController;
+
+        /// <summary>
+        /// 基础动作驱动器
+        /// </summary>
+        private static Pca9685 _BaseDriver;
+
+        /// <summary>
+        /// 灯光驱动器
+        /// </summary>
+        private static Pca9685 _LedDriver;
+
+        /// <summary>
+        /// 反推驱动器
+        /// </summary>
+        private static Pca9685 _PushbackDriver;
+
+
+
         /// <summary>
         /// 遥控器数据异常过滤-过滤阈值（角度）
         /// </summary>
@@ -70,16 +81,38 @@ namespace RaspberryPiFMS
             ContrlMode = ContrlMode.Manual;
             IsRemoteConnected = true;
             DecodingLock = false;
-            Console.WriteLine("初始化Pca9685");
-            BaseDriver = new Pca9685();
-            //LedAndPushbackDriver = new Pca9685();
             LosingSignalDelay = 3;
             RemoteSignal = new RemoteControlModel();
             AutoControlData = new AutoControlModel();
-            //LedContorl = new LEDController();
-            Console.WriteLine("初始化基础控制器");
-            BaseContorl = new BaseController();
-            Console.WriteLine("初全局缓存初始化完成");
+
+            Console.Write("初始化基础驱动器");
+            _BaseDriver = new Pca9685(0x41);
+            Console.WriteLine("------Finish\r");
+
+            Console.Write("初始化基础控制器");
+            BaseContorl = new BaseController(_BaseDriver);
+            Console.WriteLine("------Finish\r");
+            #region 未实现的控制器
+            //Console.Write("初始化灯光驱动器");
+            //_LedDriver = new Pca9685(0x40);
+            //Console.WriteLine("------Finish\r");
+
+            //Console.Write("初始化灯光控制器");
+            //LedContorl = new LEDController(_LedDriver);
+            //Console.WriteLine("------Finish\r");
+
+            //Console.Write("初始化反推驱动器");
+            //_PushbackDriver = new Pca9685(0x41);
+            //Console.WriteLine("------Finish\r");
+
+            //Console.Write("初始化反推控制器");
+            //PushBackControl = new PushBackController();
+            //Console.WriteLine("------Finish\r");
+            #endregion
+            Console.Write("初始化遥控接收器");
+            RemoteController = new RemoteController();
+            Console.WriteLine("------Finish\r");
+            Console.WriteLine("全局缓存初始化完成");
         }
     }
 }

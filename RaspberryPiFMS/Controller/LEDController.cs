@@ -21,9 +21,10 @@ namespace RaspberryPiFMS.Controller
         private bool _antiCollisionLight = false;
         private bool _isTimerRunning = false;
         private Timer _timer = new Timer();
-
-        public LEDController()
+        private Pca9685 _ledDriver;
+        public LEDController(Pca9685 ledDriver)
         {
+            _ledDriver = ledDriver;
             _timer.Enabled = true;
             _timer.Interval = 1500;
             _timer.Elapsed += Timer_Elapsed;
@@ -33,19 +34,19 @@ namespace RaspberryPiFMS.Controller
         {
             if (_logoLight)
             {
-                Cache.LedAndPushbackDriver.SetLedOn(LedChannel.LogoLight.GetHashCode());
+                _ledDriver.SetLedOn(LedChannel.LogoLight.GetHashCode());
                 Thread.Sleep(200);
-                Cache.LedAndPushbackDriver.SetLedOff(LedChannel.LogoLight.GetHashCode());
+                _ledDriver.SetLedOff(LedChannel.LogoLight.GetHashCode());
                 Thread.Sleep(200);
-                Cache.LedAndPushbackDriver.SetLedOn(LedChannel.LogoLight.GetHashCode());
+                _ledDriver.SetLedOn(LedChannel.LogoLight.GetHashCode());
                 Thread.Sleep(200);
-                Cache.LedAndPushbackDriver.SetLedOff(LedChannel.LogoLight.GetHashCode());
+                _ledDriver.SetLedOff(LedChannel.LogoLight.GetHashCode());
             }
             if (_antiCollisionLight)
             {
-                Cache.LedAndPushbackDriver.SetLedOn(LedChannel.AntiCollisionLight.GetHashCode());
+                _ledDriver.SetLedOn(LedChannel.AntiCollisionLight.GetHashCode());
                 Thread.Sleep(200);
-                Cache.LedAndPushbackDriver.SetLedOff(LedChannel.AntiCollisionLight.GetHashCode());
+                _ledDriver.SetLedOff(LedChannel.AntiCollisionLight.GetHashCode());
             }
         }
 
@@ -72,11 +73,11 @@ namespace RaspberryPiFMS.Controller
                 return;
             }
             if (@switch == Switch.Off)
-                Cache.LedAndPushbackDriver.SetLedOff(channel.GetHashCode());
+                _ledDriver.SetLedOff(channel.GetHashCode());
             if (@switch == Switch.On)
-                Cache.LedAndPushbackDriver.SetLedOn(channel.GetHashCode());
+                _ledDriver.SetLedOn(channel.GetHashCode());
 
-            if(!_isTimerRunning &&(_antiCollisionLight || _logoLight))
+            if (!_isTimerRunning && (_antiCollisionLight || _logoLight))
                 _timer.Start();
             if (!_antiCollisionLight && !_logoLight && _isTimerRunning)
                 _timer.Stop();

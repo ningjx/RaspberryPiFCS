@@ -12,7 +12,7 @@ using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Controller
 {
-    public class RemoteController
+    public class RemoteController : IDisposable
     {
         private SbusHelper _sbusHelper;
         private Socket _socket;
@@ -20,7 +20,10 @@ namespace RaspberryPiFMS.Controller
         private byte[] _buffer = new byte[1000];
         public RemoteController()
         {
+            Console.Write("初始化解码器");
             _sbusHelper = new SbusHelper();
+            Console.WriteLine("------Finish\r");
+            byte[] _buffer = new byte[1000];
             _timer = new Timer(10);
             _timer.AutoReset = true;
             _timer.Elapsed += ReciveData;
@@ -31,10 +34,18 @@ namespace RaspberryPiFMS.Controller
             _timer.Start();
         }
 
+        public void Dispose()
+        {
+            _socket.Dispose();
+            _timer.Dispose();
+            _sbusHelper.Dispose();
+            Dispose();
+        }
+
         private void ReciveData(object sender, System.Timers.ElapsedEventArgs e)
         {
             int length = _socket.Receive(_buffer);
-            if(length!=0)
+            if (length != 0)
                 _sbusHelper.DecodeSignal(_buffer);
         }
     }

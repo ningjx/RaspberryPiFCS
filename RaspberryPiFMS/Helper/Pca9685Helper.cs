@@ -52,7 +52,7 @@ namespace RaspberryPiFMS.Helper
                 Write(LED0_ON_H + 4 * channel, 0 >> 8);
                 Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
                 Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
-            } 
+            }
         }
 
         public void SetLedOn(int channel)
