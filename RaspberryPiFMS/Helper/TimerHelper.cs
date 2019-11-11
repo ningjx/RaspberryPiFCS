@@ -6,8 +6,9 @@ using System.Threading;
 namespace RaspberryPiFMS.Helper
 {
     /// <summary>
-    /// 计时器
+    /// 计时器，不好用，报错，推荐System.Timers.Timer
     /// </summary>
+    [Obsolete]
     public class TimerHelper
     {
         private ThreadStart _threadStart;
