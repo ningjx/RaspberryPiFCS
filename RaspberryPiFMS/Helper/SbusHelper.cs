@@ -85,7 +85,7 @@ namespace RaspberryPiFMS.Helper
                 }
                 //获取当前字节
                 string thisbyte = bytes[index].GetBitByPositon(0, thisRemainder);
-                string nextByte = string.Empty;
+                string nextByte;
                 if (needNext <= 8)
                 {
                     nextByte = bytes[index + 1].GetBitByPositon(8 - needNext, needNext);
