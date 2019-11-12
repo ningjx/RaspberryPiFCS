@@ -93,21 +93,21 @@ namespace RaspberryPiFMS
             BaseContorl = new BaseController(_BaseDriver);
             Console.WriteLine("------Finish\r");
             #region 未实现的控制器
-            //Console.Write("初始化灯光驱动器");
-            //_LedDriver = new Pca9685(0x40);
-            //Console.WriteLine("------Finish\r");
+            Console.Write("初始化灯光驱动器");
+            _LedDriver = new Pca9685(0x40);
+            Console.WriteLine("------Finish\r");
 
-            //Console.Write("初始化灯光控制器");
-            //LedContorl = new LEDController(_LedDriver);
-            //Console.WriteLine("------Finish\r");
+            Console.Write("初始化灯光控制器");
+            LedContorl = new LEDController(_LedDriver);
+            Console.WriteLine("------Finish\r");
 
-            //Console.Write("初始化反推驱动器");
-            //_PushbackDriver = new Pca9685(0x41);
-            //Console.WriteLine("------Finish\r");
+            Console.Write("初始化反推驱动器");
+            _PushbackDriver = new Pca9685(0x41);
+            Console.WriteLine("------Finish\r");
 
-            //Console.Write("初始化反推控制器");
-            //PushBackControl = new PushBackController();
-            //Console.WriteLine("------Finish\r");
+            Console.Write("初始化反推控制器");
+            PushBackControl = new PushBackController(_PushbackDriver);
+            Console.WriteLine("------Finish\r");
             #endregion
             Console.Write("初始化遥控接收器");
             RemoteController = new RemoteController();
