@@ -27,6 +27,12 @@ namespace RaspberryPiFMS
         public static AutoControlModel AutoControlData;
 
         /// <summary>
+        /// 中心控制数据
+        /// 在不同的控制模式下，自动控制数据和遥控数据会整合到中心数据上
+        /// </summary>
+        public static CenterControlModel CenterControlData = new CenterControlModel();
+
+        /// <summary>
         /// 丢失信号延迟时间
         /// </summary>
         public static int LosingSignalDelay;

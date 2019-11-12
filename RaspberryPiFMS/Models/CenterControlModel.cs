@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RaspberryPiFMS.Enum;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,35 +10,35 @@ namespace RaspberryPiFMS.Models
         /// <summary>
         /// 滚转角度
         /// </summary>
-        public double Roll;
+        public double Roll = 50;
         /// <summary>
         /// 偏航角度
         /// </summary>
-        public double Yaw;
+        public double Yaw = 50;
         /// <summary>
         /// 俯仰角度
         /// </summary>
-        public double Pitch;
+        public double Pitch = 50;
 
         /// <summary>
-        /// 起落架角度
+        /// 起落架
         /// </summary>
-        public double Gear;
+        public bool Gear = true;
 
         /// <summary>
         /// 减速板角度
         /// </summary>
-        public double AirBreak;
+        public double AirBreak = 0;
 
         /// <summary>
-        /// 襟翼角度
+        /// 襟翼
         /// </summary>
-        public double Flap;
+        public FlapMode Flap = FlapMode.FlapUp;
 
         /// <summary>
-        /// 反推角度
+        /// 反推
         /// </summary>
-        public double PushBack;
+        public bool PushBack = false;
 
         /// <summary>
         /// 配平角度
@@ -53,32 +54,35 @@ namespace RaspberryPiFMS.Models
         /// <summary>
         /// 滑行灯
         /// </summary>
-        public double TaxiLight;
+        public bool TaxiLight;
         /// <summary>
         /// 跑道脱离灯
         /// </summary>
-        public double RunwayLight;
+        public bool RunwayLight;
         /// <summary>
         /// 标志灯
         /// </summary>
-        public double LogoLight;
+        public bool LogoLight;
         /// <summary>
         /// 着陆灯
         /// </summary>
-        public double LandingLight;
+        public bool LandingLight;
         /// <summary>
         /// 机翼检查灯
         /// </summary>
-        public double WingInspectionLight;
+        public bool WingInspectionLight;
         /// <summary>
         /// 位置灯
         /// </summary>
-        public double PositionLight;
+        public bool PositionLight;
         /// <summary>
         /// 防撞灯
         /// </summary>
-        public double AntiCollisionLight;
+        public bool AntiCollisionLight;
         #endregion
+        public CenterControlModel()
+        {
 
+        }
     }
 }
