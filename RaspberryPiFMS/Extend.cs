@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RaspberryPiFMS
 {
-    public static class Extend
+    public static class Extends
     {
         /// <summary>
         /// 提取指定长度字节为二进制字符串
@@ -22,10 +22,10 @@ namespace RaspberryPiFMS
         }
 
         /// <summary>
-        /// 字节转为二进制字符串
+        /// 字节转为二进制字符串,8位补全
         /// </summary>
         /// <param name="byteData"></param>
-        /// <returns></returns>
+        /// <returns></returns>s
         public static string ByteArrToHexStr(this byte byteData)
         {
             StringBuilder sb = new StringBuilder(2);
@@ -42,7 +42,7 @@ namespace RaspberryPiFMS
             return sb.ToString().PadLeft(8, '0');
         }
 
-        public static string ByteArrToStr(this byte byteData)
+        public static string ByteToStr(this byte byteData)
         {
             int intTmp = byteData;
             return intTmp.ToString();
