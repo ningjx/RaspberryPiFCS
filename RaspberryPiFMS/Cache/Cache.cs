@@ -86,7 +86,7 @@ namespace RaspberryPiFMS
             AutoControlData = new AutoControlModel();
 
             Console.Write("初始化基础驱动器");
-            _BaseDriver = new Pca9685(0x41);
+            _BaseDriver = new Pca9685(0x40);
             Console.WriteLine("------Finish\r");
 
             Console.Write("初始化基础控制器");
@@ -94,7 +94,7 @@ namespace RaspberryPiFMS
             Console.WriteLine("------Finish\r");
             #region 未实现的控制器
             Console.Write("初始化灯光驱动器");
-            _LedDriver = new Pca9685(0x40);
+            _LedDriver = new Pca9685(0x60);
             Console.WriteLine("------Finish\r");
 
             Console.Write("初始化灯光控制器");
@@ -102,7 +102,7 @@ namespace RaspberryPiFMS
             Console.WriteLine("------Finish\r");
 
             Console.Write("初始化反推驱动器");
-            _PushbackDriver = new Pca9685(0x41);
+            _PushbackDriver = new Pca9685(0x42);
             Console.WriteLine("------Finish\r");
 
             Console.Write("初始化反推控制器");
