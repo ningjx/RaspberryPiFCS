@@ -70,12 +70,11 @@ namespace RaspberryPiFMS
         /// </summary>
         private static Pca9685 _PushbackDriver;
 
-
-
         /// <summary>
         /// 遥控器数据异常过滤-过滤阈值（角度）
         /// </summary>
         public static int De_Shanking;
+
         static Cache()
         {
             ContrlMode = ContrlMode.Manual;
