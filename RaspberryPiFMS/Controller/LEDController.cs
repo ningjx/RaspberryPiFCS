@@ -37,17 +37,16 @@ namespace RaspberryPiFMS.Controller
             _ledTimer.Start();
         }
 
-
         //使用频道7(三挡)/8(两档)
         //8-off
         //      7-off:航行灯开 防撞灯开 LOGO灯开(根据起落架状态)
         //      7-mid:滑行灯开(根据起落架状态)
-        //      7-on:机翼检查灯开
+        //      7-on:跑道脱离灯
         //8-on
         //      7-on:起飞灯(根据起落架状态)
         //      7-mid:着陆灯(根据起落架状态)
-        //      7-off:高亮度白色防撞灯
-        //6个灯光控制
+        //      7-off:高亮度白色防撞灯 机翼检查灯开
+        //7个灯光控制
         private void Excute(object sender, ElapsedEventArgs e)
         {
 

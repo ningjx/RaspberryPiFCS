@@ -51,22 +51,40 @@ namespace RaspberryPiFMS.Models
         public double Throttel;
 
         #region 灯光组
+        //1
+        /// <summary>
+        /// 航行灯
+        /// </summary>
+        public bool FlightLight;
+        /// <summary>
+        /// 防撞灯
+        /// </summary>
+        public bool AntiCollisionLight;
+        /// <summary>
+        /// Logo灯
+        /// </summary>
+        public bool LogoLight;
+        //2
         /// <summary>
         /// 滑行灯
         /// </summary>
         public bool TaxiLight;
+        //3
         /// <summary>
         /// 跑道脱离灯
         /// </summary>
         public bool RunwayLight;
+        //4
         /// <summary>
-        /// 标志灯
+        /// 起飞灯
         /// </summary>
-        public bool LogoLight;
+        public bool TakeOffLight;
+        //5
         /// <summary>
         /// 着陆灯
         /// </summary>
         public bool LandingLight;
+        //6
         /// <summary>
         /// 机翼检查灯
         /// </summary>
@@ -75,10 +93,6 @@ namespace RaspberryPiFMS.Models
         /// 位置灯
         /// </summary>
         public bool PositionLight;
-        /// <summary>
-        /// 防撞灯
-        /// </summary>
-        public bool AntiCollisionLight;
         #endregion
         public CenterControlModel()
         {
