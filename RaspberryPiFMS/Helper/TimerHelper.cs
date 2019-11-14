@@ -1,67 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
 namespace RaspberryPiFMS.Helper
 {
     /// <summary>
-    /// 计时器，不好用，报错，推荐System.Timers.Timer
+    /// 高精度定时器
     /// </summary>
-    [Obsolete]
-    public class TimerHelper
+    public class MicroTimer
     {
-        private ThreadStart _threadStart;
-        private Thread _thread;
-        private int _finalCount = 0;
+        
+        /// <summary>
+        /// 毫秒
+        /// </summary>
+        public double Interval;
+        public TimerEventHandler Elapsed;
+        public bool AutoReset = true;
+        private bool _enable = true;
+        private Stopwatch _sw = new Stopwatch();
 
         /// <summary>
-        /// 初始化计时器
+        /// 高精度定时器
         /// </summary>
-        /// <param name="seconds">计时几秒</param>
-        public TimerHelper(int seconds)
+        /// <param name="Interval">毫秒</param>
+        /// <param name="AutoReset">是否重复执行</param>
+        public MicroTimer(double Interval,bool AutoReset)
         {
-            _finalCount = seconds;
-            _threadStart = () => StartTime();
-            _thread = new Thread(_threadStart);
+            this.Interval = Interval;
+            this.AutoReset = AutoReset;
         }
-
-        /// <summary>
-        /// 启动计时
-        /// </summary>
-        public void StartTimming()
+        public MicroTimer()
         {
-            if (_thread.ThreadState != ThreadState.Running)
-                _thread.Start();
+
         }
-
-        /// <summary>
-        /// 中途停止计时
-        /// </summary>
-        public void StopTimming()
+        public void Start()
         {
-            if (_thread.ThreadState == ThreadState.Running)
+            _sw.Reset();
+            _enable = true;
+            if (AutoReset)
             {
-                _thread.Abort();
+                _sw.Start();
+                while (_enable)
+                {
+                    if (_sw.Elapsed.TotalMilliseconds > Interval)
+                    {
+                        Elapsed.Invoke();
+                        _sw.Restart();
+                    }
+                }
+            }
+            else
+            {
+                _sw.Start();
+                while (_enable)
+                {
+                    if (_sw.Elapsed.TotalMilliseconds > Interval)
+                    {
+                        Elapsed.Invoke();
+                        _sw.Stop();
+                        break;
+                    }
+                }
             }
         }
-
-        private void StartTime()
+        public void Stop()
         {
-            int thisCount = 0;
-            while (thisCount <= _finalCount)
-            {
-                Thread.Sleep(1000);
-                thisCount++;
-            }
-            TimeFinishEvent?.Invoke();
+            _enable = false;
         }
 
-        public delegate void TimerEventHandle();
-
-        /// <summary>
-        /// 计时完成事件
-        /// </summary>
-        public event TimerEventHandle TimeFinishEvent;
+        public delegate void TimerEventHandler();
+        
     }
 }

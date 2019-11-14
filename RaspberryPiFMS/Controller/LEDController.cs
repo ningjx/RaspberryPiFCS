@@ -2,10 +2,7 @@
 using RaspberryPiFMS.Helper;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
-using System.Timers;
-using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Controller
 {
@@ -19,8 +16,8 @@ namespace RaspberryPiFMS.Controller
         /// 红色信标灯（闪烁）
         /// </summary>
         private bool _antiCollisionLight = true;
-        private Timer _timer = new Timer();
-        private Timer _ledTimer = new Timer();
+        private MicroTimer _timer = new MicroTimer();
+        private MicroTimer _ledTimer = new MicroTimer();
         private Pca9685 _ledDriver;
         private readonly List<LedChannel> _mode1 = new List<LedChannel>
         {
@@ -63,11 +60,9 @@ namespace RaspberryPiFMS.Controller
         {
             ms = Math.Abs(ms);
             _ledDriver = ledDriver;
-            _timer.Enabled = true;
             _timer.Interval = ms;
             _timer.Elapsed += Excute;
 
-            _ledTimer.Enabled = true;
             _ledTimer.Interval = 1500;
             _ledTimer.Elapsed += TwinkleLed;
             _timer.Start();
@@ -84,7 +79,7 @@ namespace RaspberryPiFMS.Controller
         //      7-mid:着陆灯(根据起落架状态)
         //      7-off:高亮度白色防撞灯 机翼检查灯开
         //7个灯光控制
-        private void Excute(object sender, ElapsedEventArgs e)
+        private void Excute()
         {
             if (Cache.RemoteSignal.Channel08 == Switch.Off)
             {
@@ -139,7 +134,7 @@ namespace RaspberryPiFMS.Controller
             }
         }
 
-        private void TwinkleLed(object sender, ElapsedEventArgs e)
+        private void TwinkleLed()
         {
             if (_flightLight)
             {

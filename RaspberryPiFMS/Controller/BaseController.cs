@@ -10,7 +10,7 @@ namespace RaspberryPiFMS.Controller
 {
     public class BaseController
     {
-        private Timer _timer = new Timer();
+        private MicroTimer _timer = new MicroTimer();
         private bool _excuteLock = false;
         //控制数据缓冲
         private Pca9685 _baseDriver;
@@ -25,13 +25,12 @@ namespace RaspberryPiFMS.Controller
             ms = Math.Abs(ms);
             _baseDriver = baseDriver;
             _timer.Interval = ms;
-            _timer.Enabled = true;
             _timer.Elapsed += Excute;
             _timer.AutoReset = true;
             _timer.Start();
         }
 
-        private void Excute(object sender, System.Timers.ElapsedEventArgs e)
+        private void Excute()
         {
             if (_excuteLock)
                 return;

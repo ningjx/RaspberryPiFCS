@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using RaspberryPiFMS.Helper;
-using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Helper
 {
-    public class SbusHelper : IDisposable
+    public class SbusHelper
     {
         /// <summary>
         /// 丢失信号后启动定时器，到点儿了就执行丢失信号动作
         /// </summary>
-        private Timer _timer = new Timer(Cache.LosingSignalDelay * 1000);
+        private MicroTimer _timer = new MicroTimer(Cache.LosingSignalDelay * 1000,false);
         public SbusHelper()
         {
             _timer.Elapsed += SetSignalLose;
-            _timer.AutoReset = false;
         }
         /// <summary>
         /// 解码遥控信号
@@ -107,7 +101,7 @@ namespace RaspberryPiFMS.Helper
             Cache.DecodingLock = false;
         }
 
-        private void SetSignalLose(object sender, System.Timers.ElapsedEventArgs e)
+        private void SetSignalLose()
         {
             Cache.RemoteSignal.IsConnected = false;
             Cache.RemoteSignal.Channel01 = Cache.RemoteSignal.Channel02 = Cache.RemoteSignal.Channel04 = 50;
@@ -119,11 +113,6 @@ namespace RaspberryPiFMS.Helper
         private static void SetSignalConnected()
         {
             Cache.RemoteSignal.IsConnected = true;
-        }
-
-        public void Dispose()
-        {
-            _timer.Dispose();
         }
     }
 }

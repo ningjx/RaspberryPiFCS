@@ -81,6 +81,9 @@ namespace RaspberryPiFMS
         /// </summary>
         public static int De_Shanking;
 
+        public static double Distance;
+
+        public static QIFDController QIFDControl;
         static Cache()
         {
             ContrlMode = ContrlMode.Manual;
@@ -117,6 +120,11 @@ namespace RaspberryPiFMS
             Console.Write("初始化遥控接收器");
             RemoteController = new RemoteController();
             Console.WriteLine("------Finish\r");
+
+            Console.Write("初始化超声波测距");
+            QIFDControl = new QIFDController(28,29);
+            Console.WriteLine("------Finish\r");
+
             Console.WriteLine("全局缓存初始化完成");
         }
     }

@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
 using System.IO.Ports;
 namespace RaspberryPiFMSTest
 {
@@ -8,6 +9,12 @@ namespace RaspberryPiFMSTest
         [TestMethod]
         public void TestMethod1()
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            while (true)
+            {
+                var aa = sw.Elapsed.TotalMilliseconds;
+            }
         }
     }
 }
