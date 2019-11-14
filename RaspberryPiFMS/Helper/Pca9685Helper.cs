@@ -1,5 +1,6 @@
 ﻿using RaspberryPiFMS.Enum;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Unosquare.RaspberryIO.Abstractions;
 using Unosquare.WiringPi;
@@ -27,6 +28,45 @@ namespace RaspberryPiFMS.Helper
         private const int ALLLED_OFF_H = 0xFD;
         private int _speed = 0;
         private II2CDevice _device;
+
+        private Dictionary<int, double> _angleBuffer = new Dictionary<int, double>
+        {
+            {1,-1 },
+            {2,-1 },
+            {3,-1 },
+            {4,-1 },
+            {5,-1 },
+            {6,-1 },
+            {7,-1 },
+            {8,-1 },
+            {9,-1 },
+            {10,-1 },
+            {11,-1 },
+            {12,-1 },
+            {13,-1 },
+            {14,-1 },
+            {15,-1 },
+            {16,-1 }
+        };
+        private Dictionary<int, int> _ledBuffer = new Dictionary<int, int>
+        {
+            {1,-1 },
+            {2,-1 },
+            {3,-1 },
+            {4,-1 },
+            {5,-1 },
+            {6,-1 },
+            {7,-1 },
+            {8,-1 },
+            {9,-1 },
+            {10,-1 },
+            {11,-1 },
+            {12,-1 },
+            {13,-1 },
+            {14,-1 },
+            {15,-1 },
+            {16,-1 }
+        };
         #endregion
 
         /// <summary>
@@ -51,6 +91,9 @@ namespace RaspberryPiFMS.Helper
         {
             if (channel < 1 || channel > 16)
                 return;
+            if (_angleBuffer[channel] == angle)
+                return;
+
             if (angle >= 0)
             {
                 channel -= 1;
@@ -59,6 +102,7 @@ namespace RaspberryPiFMS.Helper
                 Write(LED0_ON_H + 4 * channel, 0 >> 8);
                 Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
                 Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
+                _angleBuffer[channel] = angle;
             }
         }
 
@@ -66,12 +110,15 @@ namespace RaspberryPiFMS.Helper
         {
             if (channel < 1 || channel > 16)
                 return;
+            if (_ledBuffer[channel] == 1)
+                return;
             int off = 4096;
             channel -= 1;
             Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
             Write(LED0_ON_H + 4 * channel, 0 >> 8);
             Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
             Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
+            _ledBuffer[channel] = 1;
             LedOnEvent?.Invoke(channel);
         }
 
@@ -79,12 +126,15 @@ namespace RaspberryPiFMS.Helper
         {
             if (channel < 1 || channel > 16)
                 return;
+            if (_ledBuffer[channel] == 0)
+                return;
             int off = 0;
             channel -= 1;
             Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
             Write(LED0_ON_H + 4 * channel, 0 >> 8);
             Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
             Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
+            _ledBuffer[channel] = 0;
             LedOffEvent?.Invoke(channel);
         }
 

@@ -9,38 +9,42 @@ namespace RaspberryPiFMS.Enum
         /// <summary>
         /// 航行灯（翼尖闪烁）
         /// </summary>
-        LogoLight = 1,
+        FilghtLight = 1,
+        /// <summary>
+        /// Logo灯
+        /// </summary>
+        LogoLight = 2,
         /// <summary>
         /// 红色信标灯（闪烁）
         /// </summary>
-        AntiCollisionLight = 2,
+        AntiCollisionLight = 3,
         /// <summary>
         /// 滑行灯
         /// </summary>
-        TaxiLight = 3,
+        TaxiLight = 4,
         /// <summary>
-        /// 机头灯
+        /// 起飞
         /// </summary>
-        TakeoffLight = 4,
+        TakeoffLight = 5,
         /// <summary>
         /// 跑道脱离灯
         /// </summary>
-        RunwayLight = 5,
+        RunwayLight = 6,
         /// <summary>
         /// 着陆灯
         /// </summary>
-        LandingLight = 6,
+        LandingLight =7,
         /// <summary>
         /// 机翼检查灯
         /// </summary>
-        WingInspectionLight = 7,
+        WingInspectionLight = 8,
         /// <summary>
         /// 白色防撞灯
         /// </summary>
-        AntiCollisionLightWhite = 8,
+        AntiCollisionLightWhite = 9,
 
-        PushBack_L = 9,
+        PushBack_L = 10,
 
-        PushBack_R = 10
+        PushBack_R = 11
     }
 }
