@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using RaspberryPiFMS.Enum;
 using RaspberryPiFMS.Helper;
 using RaspberryPiFMS.Models;
 using Timer = System.Timers.Timer;
@@ -35,32 +36,23 @@ namespace RaspberryPiFMS.Controller
             if (_excuteLock)
                 return;
             _excuteLock = true;
-            switch (Cache.ContrlMode)
-            {
-                case Enum.ContrlMode.Manual:
-                    ManualControl();
-                    break;
-            }
+            SetControl();
             _excuteLock = false;
         }
 
         /// <summary>
         /// 映射所有遥控器可以控制的
         /// </summary>
-        private void ManualControl()
+        private void SetControl()
         {
             #region 最基本的四个通道
-            _baseDriver.SetPWMAngle(1, Cache.RemoteSignal.Channel01);
-            Cache.CenterControlData.Yaw = Cache.RemoteSignal.Channel01;
+            _baseDriver.SetPWMAngle((int)BaseChannel.Pitch, Cache.CenterControlData.Pitch);
 
-            _baseDriver.SetPWMAngle(2, Cache.RemoteSignal.Channel02);
-            Cache.CenterControlData.Pitch = Cache.RemoteSignal.Channel02;
+            _baseDriver.SetPWMAngle((int)BaseChannel.Roll, Cache.CenterControlData.Roll);
 
-            _baseDriver.SetPWMAngle(3, Cache.RemoteSignal.Channel03);
-            Cache.CenterControlData.Throttel = Cache.RemoteSignal.Channel03;
+            _baseDriver.SetPWMAngle((int)BaseChannel.Yaw, Cache.CenterControlData.Yaw);
 
-            _baseDriver.SetPWMAngle(4, Cache.RemoteSignal.Channel04);
-            Cache.CenterControlData.Roll = Cache.RemoteSignal.Channel04;
+            _baseDriver.SetPWMAngle((int)BaseChannel.Throttel, Cache.CenterControlData.Throttel);
             #endregion
         }
     }

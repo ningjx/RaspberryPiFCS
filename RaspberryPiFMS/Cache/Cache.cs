@@ -3,6 +3,7 @@ using RaspberryPiFMS.Enum;
 using RaspberryPiFMS.Controller;
 using RaspberryPiFMS.Helper;
 using System;
+using RaspberryPiFMS.ComputeCenter;
 
 namespace RaspberryPiFMS
 {
@@ -84,6 +85,8 @@ namespace RaspberryPiFMS
         public static double Distance;
 
         public static QIFDController QIFDControl;
+
+        private static ControlPolymerize _controlPolymerize;
         static Cache()
         {
             ContrlMode = ContrlMode.Manual;
@@ -97,15 +100,15 @@ namespace RaspberryPiFMS
             _BaseDriver = new Pca9685(0x40);
             Console.WriteLine("------Finish\r");
 
-            Console.Write("初始化基础控制器");
+            Console.Write("启动基础控制器");
             BaseContorl = new BaseController(_BaseDriver);
             Console.WriteLine("------Finish\r");
-            #region 未实现的控制器
+
             Console.Write("初始化灯光驱动器");
             _LedDriver = new Pca9685(0x60);
             Console.WriteLine("------Finish\r");
 
-            Console.Write("初始化灯光控制器");
+            Console.Write("启动灯光控制器");
             LedContorl = new LEDController(_LedDriver);
             Console.WriteLine("------Finish\r");
 
@@ -113,16 +116,20 @@ namespace RaspberryPiFMS
             _PushbackDriver = new Pca9685(0x42);
             Console.WriteLine("------Finish\r");
 
-            Console.Write("初始化反推控制器");
+            Console.Write("启动反推控制器");
             PushBackControl = new PushBackController(_PushbackDriver);
             Console.WriteLine("------Finish\r");
-            #endregion
-            Console.Write("初始化遥控接收器");
+
+            Console.Write("启动遥控接收器");
             RemoteController = new RemoteController();
             Console.WriteLine("------Finish\r");
 
             Console.Write("初始化超声波测距");
-            QIFDControl = new QIFDController(28,29);
+            QIFDControl = new QIFDController(28, 29);
+            Console.WriteLine("------Finish\r");
+
+            Console.Write("启动控制数据聚合");
+            _controlPolymerize = new ControlPolymerize();
             Console.WriteLine("------Finish\r");
 
             Console.WriteLine("全局缓存初始化完成");
