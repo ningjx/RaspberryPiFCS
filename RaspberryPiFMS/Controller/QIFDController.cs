@@ -42,8 +42,8 @@ namespace RaspberryPiFMS.Controller
         }
         private void Excute()
         {
-            _controller.Write(_sendPin, PinValue.High);
             _overTimer.Start();//开始超时计时
+            _controller.Write(_sendPin, PinValue.High);
             _pulseTimer.Start();//发送10us脉冲
             while (_isOverTime)
             {
