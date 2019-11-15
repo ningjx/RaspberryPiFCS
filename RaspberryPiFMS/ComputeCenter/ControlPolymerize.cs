@@ -41,6 +41,17 @@ namespace RaspberryPiFMS.ComputeCenter
             Cache.CenterControlData.PushBack = Cache.RemoteSignal.Channel11 == Switch.On ? true : false;
             Cache.CenterControlData.Flap = Cache.RemoteSignal.Channel09 == Switch.On ? FlapMode.Landing : (Cache.RemoteSignal.Channel09 == Switch.MId ? FlapMode.TakeOff : FlapMode.FlapUp);
             //Cache.RemoteSignal.Channel06
+
+            /*使用频道8(两档)/7(三挡)
+            8-off
+                  7-off:航行灯开 防撞灯开 LOGO灯开(根据起落架状态)
+                  7-mid:滑行灯开(根据起落架状态)
+                  7-on:跑道脱离灯
+            8-on  
+                  7-on:起飞灯(根据起落架状态)
+                  7-mid:着陆灯(根据起落架状态)
+                  7-off:高亮度白色防撞灯 机翼检查灯开
+            7个灯光控制*/
             if (Cache.RemoteSignal.Channel08 == Switch.Off)
             {
                 if (Cache.RemoteSignal.Channel07 == Switch.Off)//航行灯开 防撞灯开 LOGO灯开(根据起落架状态)

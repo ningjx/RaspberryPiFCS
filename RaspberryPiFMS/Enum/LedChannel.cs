@@ -34,7 +34,7 @@ namespace RaspberryPiFMS.Enum
         /// <summary>
         /// 着陆灯
         /// </summary>
-        LandingLight =8,
+        LandingLight = 8,
         /// <summary>
         /// 机翼检查灯
         /// </summary>

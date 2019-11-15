@@ -19,7 +19,7 @@ namespace RaspberryPiFMS.Controller
         private MicroTimer _timer = new MicroTimer();
         private MicroTimer _ledTimer = new MicroTimer();
         private Pca9685 _ledDriver;
-        private bool isExcuting = false;
+        private bool _isExcuting = false;
         private readonly List<LedChannel> _mode1 = new List<LedChannel>
         {
             LedChannel.TaxiLight,
@@ -64,27 +64,17 @@ namespace RaspberryPiFMS.Controller
             _timer.Interval = ms;
             _timer.Elapsed += Excute;
 
-            _ledTimer.Interval = 3000;
+            _ledTimer.Interval = 2200;
             _ledTimer.Elapsed += TwinkleLed;
             _timer.Start();
             _ledTimer.Start();
         }
 
-        //使用频道7(三挡)/8(两档)
-        //8-off
-        //      7-off:航行灯开 防撞灯开 LOGO灯开(根据起落架状态)
-        //      7-mid:滑行灯开(根据起落架状态)
-        //      7-on:跑道脱离灯
-        //8-on
-        //      7-on:起飞灯(根据起落架状态)
-        //      7-mid:着陆灯(根据起落架状态)
-        //      7-off:高亮度白色防撞灯 机翼检查灯开
-        //7个灯光控制
         private void Excute()
         {
-            if (isExcuting)
+            if (_isExcuting)
                 return;
-            isExcuting = true;
+            _isExcuting = true;
             switch (Cache.CenterControlData.AntiCollisionLight)
             {
                 case true:
@@ -157,7 +147,7 @@ namespace RaspberryPiFMS.Controller
                     _ledDriver.SetLedOff((int)LedChannel.AntiCollisionLightWhite);
                     break;
             }
-            isExcuting = false;
+            _isExcuting = false;
         }
 
         private void TwinkleLed()
