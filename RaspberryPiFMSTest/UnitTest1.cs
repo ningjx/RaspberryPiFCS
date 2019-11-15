@@ -1,3 +1,5 @@
+using MavLink4Net.Messages;
+using MavLink4Net.Messages.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RaspberryPiFMS.Helper;
 using System.Diagnostics;
@@ -9,23 +11,21 @@ namespace RaspberryPiFMSTest
     [TestClass]
     public class UnitTest1
     {
-        Stopwatch sw = new Stopwatch();
         [TestMethod]
         public void TestMethod1()
-        {
-            MicroTimer timer = new MicroTimer();
-            timer.Interval = 1000;
-            timer.AutoReset = false;
-            timer.Elapsed += Stop;
-            sw.Start();
-            timer.Start();
-            Thread.Sleep(1200);
-            var a = sw.Elapsed.Milliseconds;
+        { 
+
         }
 
-        private void Stop()
+        [TestMethod]
+        public void MavlinkTest()
         {
-            sw.Stop();
+            IMessage aa = MessageFactory.CreateMessage(MavMessageType.Heartbeat);
+            AttitudeMessage attitude = new AttitudeMessage();
+            attitude.Pitch = 0.01F;
+            attitude.Roll = 0.02F;
+            attitude.Yaw = 0.03F;
+            CrcExtraProvider.GetCrcExtra(MavMessageType.Attitude);
         }
     }
 }
