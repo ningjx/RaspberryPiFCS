@@ -16,25 +16,7 @@ namespace RaspberryPiFMS
         {
             try
             {
-                //ProcessStartInfo start = new ProcessStartInfo();
-                //start.FileName = "/home/pi/Desktop/qwe/ss.py";
-                //start.Arguments = "python ss.py";
-                //start.UseShellExecute = true;
-                //start.ErrorDialog = true;
-                //using (Process process = Process.Start(start))
-                //{
-                //    process.WaitForExit();
-                //}
-                //string[] ports = Extend.GetPorts();
-
-                //foreach (string item in ports)
-                //{
-                //    Console.WriteLine(item);
-                //}
-
-
-                RemoteController control = new RemoteController();
-                Console.WriteLine("遥控器初始化成功");
+                Cache.StartCache();
                 while (true)
                 {
                     Console.Clear();
@@ -42,7 +24,7 @@ namespace RaspberryPiFMS
                         $"[5]{Cache.RemoteSignal.Channel05.ToString()}\n[6]{Cache.RemoteSignal.Channel06.ToString()}\n[7]{Cache.RemoteSignal.Channel07.ToString()}\n[8]{Cache.RemoteSignal.Channel08.ToString()}\n" +
                         $"[9]{Cache.RemoteSignal.Channel09.ToString()}\n[10]{Cache.RemoteSignal.Channel10.ToString()}\n[11]{Cache.RemoteSignal.Channel11.ToString()}\n[12]{Cache.RemoteSignal.Channel12.ToString()}\n" +
                         $"[13]{Cache.RemoteSignal.Channel13.ToString()}\n[14]{Cache.RemoteSignal.Channel14.ToString()}\n[15]{Cache.RemoteSignal.Channel15.ToString()}\n[16]{Cache.RemoteSignal.Channel16.ToString()}");
-                    Thread.Sleep(100);
+                    Thread.Sleep(50);
                 }
             }
             catch (Exception e)

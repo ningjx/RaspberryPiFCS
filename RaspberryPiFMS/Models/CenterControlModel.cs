@@ -48,7 +48,7 @@ namespace RaspberryPiFMS.Models
         /// <summary>
         /// 节流阀
         /// </summary>
-        public double Throttel;
+        public double Throttel = 0;
 
         #region 灯光组
         //1

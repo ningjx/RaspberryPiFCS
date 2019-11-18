@@ -7,10 +7,8 @@ namespace RaspberryPiFMS.Controller
 {
     public class PushBackController
     {
-        private Pca9685 _MotorDriver;
-        public PushBackController(Pca9685 motorDriver)
+        public PushBackController()
         {
-            _MotorDriver = motorDriver;
         }
     }
 }

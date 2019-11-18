@@ -1,4 +1,5 @@
 ﻿using System;
+using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Helper
 {
@@ -7,9 +8,11 @@ namespace RaspberryPiFMS.Helper
         /// <summary>
         /// 丢失信号后启动定时器，到点儿了就执行丢失信号动作
         /// </summary>
-        private MicroTimer _timer = new MicroTimer(Cache.LosingSignalDelay * 1000,false);
+        private Timer _timer = new Timer();
         public SbusHelper()
         {
+            _timer.AutoReset = false;
+            _timer.Interval = Cache.LosingSignalDelay * 1000;
             _timer.Elapsed += SetSignalLose;
         }
         /// <summary>
@@ -101,7 +104,7 @@ namespace RaspberryPiFMS.Helper
             Cache.DecodingLock = false;
         }
 
-        private void SetSignalLose()
+        private void SetSignalLose(object sender, System.Timers.ElapsedEventArgs e)
         {
             Cache.RemoteSignal.IsConnected = false;
             Cache.RemoteSignal.Channel01 = Cache.RemoteSignal.Channel02 = Cache.RemoteSignal.Channel04 = 50;

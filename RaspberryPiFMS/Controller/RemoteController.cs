@@ -16,7 +16,7 @@ namespace RaspberryPiFMS.Controller
     {
         private SbusHelper _sbusHelper;
         private Socket _socket;
-        private MicroTimer _timer;
+        private Timer _timer;
         private byte[] _buffer = new byte[1000];
         public RemoteController()
         {
@@ -24,7 +24,7 @@ namespace RaspberryPiFMS.Controller
             _sbusHelper = new SbusHelper();
             Console.WriteLine("------Finish\r");
             byte[] _buffer = new byte[1000];
-            _timer = new MicroTimer(10, true) ;
+            _timer = new Timer(10) ;
             _timer.AutoReset = true;
             _timer.Elapsed += ReciveData;
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -40,7 +40,7 @@ namespace RaspberryPiFMS.Controller
             Dispose();
         }
 
-        private void ReciveData()
+        private void ReciveData(object sender, System.Timers.ElapsedEventArgs e)
         {
             int length = _socket.Receive(_buffer);
             if (length != 0)

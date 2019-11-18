@@ -86,6 +86,5 @@ namespace RaspberryPiFMS.Models
             if (_channelCount == 16)
                 _channelCount = 0;
         }
-
     }
 }

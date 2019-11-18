@@ -11,27 +11,26 @@ namespace RaspberryPiFMS.Controller
 {
     public class BaseController
     {
-        private MicroTimer _timer = new MicroTimer();
+        private Timer _timer = new Timer();
         private bool _excuteLock = false;
-        //控制数据缓冲
-        private Pca9685 _baseDriver;
 
         /// <summary>
         /// 初始化基础控制器
         /// </summary>
         /// <param name="baseDriver"></param>
         /// <param name="ms">控制器的轮询间隔时间</param>
-        public BaseController(Pca9685 baseDriver, int ms = 15)
+        public BaseController(int ms = 10)
         {
             ms = Math.Abs(ms);
-            _baseDriver = baseDriver;
             _timer.Interval = ms;
-            _timer.Elapsed += Excute;
+            _timer.Elapsed += Excute; 
             _timer.AutoReset = true;
             _timer.Start();
         }
 
-        private void Excute()
+      
+
+        private void Excute(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (_excuteLock)
                 return;
@@ -46,13 +45,10 @@ namespace RaspberryPiFMS.Controller
         private void SetControl()
         {
             #region 最基本的四个通道
-            _baseDriver.SetPWMAngle((int)BaseChannel.Pitch, Cache.CenterControlData.Pitch);
-
-            _baseDriver.SetPWMAngle((int)BaseChannel.Roll, Cache.CenterControlData.Roll);
-
-            _baseDriver.SetPWMAngle((int)BaseChannel.Yaw, Cache.CenterControlData.Yaw);
-
-            _baseDriver.SetPWMAngle((int)BaseChannel.Throttel, Cache.CenterControlData.Throttel);
+            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Pitch, Cache.CenterControlData.Pitch);
+            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Roll, Cache.CenterControlData.Roll);
+            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Yaw, Cache.CenterControlData.Yaw);
+            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Throttel, Cache.CenterControlData.Throttel);
             #endregion
         }
     }

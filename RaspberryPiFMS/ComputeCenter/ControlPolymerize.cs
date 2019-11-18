@@ -3,12 +3,13 @@ using RaspberryPiFMS.Helper;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.ComputeCenter
 {
     public class ControlPolymerize
     {
-        private MicroTimer _timer = new MicroTimer();
+        private Timer _timer = new Timer();
 
         public ControlPolymerize()
         {
@@ -18,12 +19,18 @@ namespace RaspberryPiFMS.ComputeCenter
             _timer.Start();
         }
 
-        private void Excute()
+        private void Excute(object sender, System.Timers.ElapsedEventArgs e)
         {
             switch (Cache.ContrlMode)
             {
                 case ContrlMode.Manual:
                     ManualPolymerize();
+                    break;
+                case ContrlMode.LateralNavigation:
+                    break;
+                case ContrlMode.VerticalNavigation:
+                    break;
+                case ContrlMode.APOn:
                     break;
             }
         }
@@ -135,6 +142,19 @@ namespace RaspberryPiFMS.ComputeCenter
                     Cache.CenterControlData.WingInspectionLight = true;
                 }
             }
+        }
+
+        private void LateralNavigation()
+        {
+
+        }
+        private void VerticalNavigation()
+        {
+
+        }
+        private void APOn()
+        {
+
         }
     }
 }

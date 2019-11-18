@@ -22,6 +22,8 @@ namespace RaspberryPiFMS.Enum
         /// <summary>
         /// 垂直导航
         /// </summary>
-        VerticalNavigation = 2
+        VerticalNavigation = 2,
+
+        APOn = 3
     }
 }
