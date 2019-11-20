@@ -16,7 +16,7 @@ namespace RaspberryPiFMS
         {
             try
             {
-                Cache.StartCache();
+                Cache.SysStart();
                 while (true)
                 {
                     Console.Clear();

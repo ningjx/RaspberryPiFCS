@@ -135,7 +135,7 @@ namespace RaspberryPiFMS
             Console.WriteLine("全局缓存初始化完成");
         }
 
-        public static void StartCache()
+        public static void SysStart()
         {
             Console.WriteLine("系统启动\r");
         }
