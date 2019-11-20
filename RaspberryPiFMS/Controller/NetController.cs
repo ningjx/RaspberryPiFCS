@@ -49,7 +49,7 @@ namespace RaspberryPiFMS.Controller
 
         public NetController()
         {
-            //ddnsSocket = new SocketHelper("106.14.115.249", "35418");
+            //ddnsSocket = new SocketHelper("", "");
             //Console.WriteLine($"连接遥控器...\r\n");
             //while (string.IsNullOrEmpty(remoteIp))
             //{
@@ -60,7 +60,7 @@ namespace RaspberryPiFMS.Controller
 
             //ddnsT = () => DDNS();
             //ddns = new Thread(ddnsT);
-            dataSocket = new SocketHelper("106.14.115.249", "35418");
+            dataSocket = new SocketHelper("", "");
             netT = () => Excute();
             net = new Thread(netT);
 
