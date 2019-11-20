@@ -1,10 +1,7 @@
 ﻿using flyfire.IO.Ports;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RaspberryPiFMS.Helper;
 using RJCP.IO.Ports;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RaspberryPiFMSTest.HelperTest
 {

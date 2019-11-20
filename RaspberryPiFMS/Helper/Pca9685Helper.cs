@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Unosquare.RaspberryIO.Abstractions;
-using Unosquare.WiringPi;
 
 namespace RaspberryPiFMS.Helper
 {

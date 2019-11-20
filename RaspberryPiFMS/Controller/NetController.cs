@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using RaspberryPiFMS.Helper;
 using RaspberryPiFMS.Models;
 using System.Threading;
 using Newtonsoft.Json;
-using System.Text.RegularExpressions;
 
 namespace RaspberryPiFMS.Controller
 {

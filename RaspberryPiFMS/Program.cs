@@ -1,11 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
 using System.Threading;
-using RaspberryPiFMS.Helper;
-using RaspberryPiFMS.Controller;
-using flyfire.IO.Ports;
-
-using System.Diagnostics;
 
 namespace RaspberryPiFMS
 {

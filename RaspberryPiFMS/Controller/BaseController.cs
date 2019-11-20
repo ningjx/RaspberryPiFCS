@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 using RaspberryPiFMS.Enum;
-using RaspberryPiFMS.Helper;
-using RaspberryPiFMS.Models;
 using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Controller

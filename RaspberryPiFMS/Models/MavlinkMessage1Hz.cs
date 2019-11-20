@@ -1,5 +1,4 @@
-﻿using System;
-using MavLink4Net.Messages.Common;
+﻿using MavLink4Net.Messages.Common;
 
 namespace RaspberryPiFMS.Models
 {

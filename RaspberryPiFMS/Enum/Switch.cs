@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RaspberryPiFMS.Enum
+﻿namespace RaspberryPiFMS.Enum
 {
     public enum Switch
     {

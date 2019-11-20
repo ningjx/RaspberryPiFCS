@@ -1,7 +1,6 @@
 ﻿using flyfire.IO.Ports;
 using RaspberryPiFMS.Enum;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace RaspberryPiFMS
@@ -57,6 +56,12 @@ namespace RaspberryPiFMS
             return CustomSerialPort.GetPortNames();
         }
 
+        /// <summary>
+        /// 获取开关状态
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="midValue">中间值</param>
+        /// <returns></returns>
         public static Switch GetSwitch(this long data,long midValue = 1000)
         {
             if (data == midValue)

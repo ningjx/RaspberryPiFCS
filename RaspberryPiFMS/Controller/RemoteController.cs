@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-using flyfire.IO.Ports;
 using RaspberryPiFMS.Helper;
-using RJCP.IO.Ports;
 using Timer = System.Timers.Timer;
 
 
