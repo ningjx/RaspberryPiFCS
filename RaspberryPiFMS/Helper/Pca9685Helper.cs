@@ -76,8 +76,8 @@ namespace RaspberryPiFMS.Helper
         /// <param name="freq">PWM频率</param>
         public Pca9685(int addr = 0x40, double freq = 50)
         {
-            I2CBus bus = new I2CBus();
-            _device = bus.AddDevice(addr);
+            //I2CBus bus = new I2CBus();
+            _device = Cache.I2CBus.AddDevice(addr);
             _device.WriteAddressByte(MODE1, 0x00);
             SetPWMFreq(freq);
         }

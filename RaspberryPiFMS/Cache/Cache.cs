@@ -4,6 +4,7 @@ using RaspberryPiFMS.Controller;
 using RaspberryPiFMS.Helper;
 using System;
 using RaspberryPiFMS.ComputeCenter;
+using Unosquare.WiringPi;
 
 namespace RaspberryPiFMS
 {
@@ -12,6 +13,7 @@ namespace RaspberryPiFMS
     /// </summary>
     public static class Cache
     {
+        public static I2CBus I2CBus = new I2CBus();
         /// <summary>
         /// AP模式
         /// </summary>
