@@ -16,31 +16,29 @@ namespace RaspberryPiFMS
         /// <summary>
         /// AP模式
         /// </summary>
-        public static ContrlMode ContrlMode;
+        public static ContrlMode ContrlMode = ContrlMode.Manual;
 
+        #region 数据
         /// <summary>
         /// 遥控数据
         /// </summary>
-        public static RemoteControlModel RemoteSignal;
+        public static RemoteControlModel RemoteSignal = new RemoteControlModel();
 
         /// <summary>
         /// 自动数据
         /// </summary>
-        public static AutoControlModel AutoControlData;
+        public static AutoControlModel AutoControlData = new AutoControlModel();
 
         /// <summary>
         /// 中心控制数据
         /// 在不同的控制模式下，自动控制数据和遥控数据会整合到中心数据上
         /// </summary>
-        public static CenterControlModel CenterControlData;
+        public static CenterControlModel CenterControlData = new CenterControlModel();
 
         public static MavlinkMessage1Hz MavlinkMessage1Hz = new MavlinkMessage1Hz();
-        public static MavlinkMessage50Hz MavlinkMessage50Hz = new MavlinkMessage50Hz();
 
-        /// <summary>
-        /// 丢失信号延迟时间
-        /// </summary>
-        public static int LosingSignalDelay;
+        public static MavlinkMessage50Hz MavlinkMessage50Hz = new MavlinkMessage50Hz();
+        #endregion
         #region Controller
         public static RemoteController RemoteControl;
 
@@ -55,13 +53,12 @@ namespace RaspberryPiFMS
         public static TempController TempControl;
         #endregion
 
-        public static bool IsRemoteConnected;
+        public static bool IsRemoteConnected = true;
 
         /// <summary>
         /// 解码器锁，防止多线程修改遥控参数
         /// </summary>
-        public static bool DecodingLock;
-
+        public static bool DecodingLock = false;
 
         public static I2CBus I2CBus = new I2CBus();
 
@@ -72,25 +69,28 @@ namespace RaspberryPiFMS
         public static Pca9685 PushbackDriver;
 
         /// <summary>
+        /// 丢失信号延迟时间
+        /// </summary>
+        public static int LosingSignalDelay = 3;
+
+        /// <summary>
         /// 遥控器数据异常过滤-过滤阈值（角度）
         /// </summary>
-        public static int De_Shanking;
+        public static int De_Shanking = 20;
 
         public static double Distance;
 
-        
         private static ControlPolymerize _controlPolymerize;
 
         static Cache()
         {
-            ContrlMode = ContrlMode.Manual;
-            IsRemoteConnected = true;
-            DecodingLock = false;
-            LosingSignalDelay = 3;
-            RemoteSignal = new RemoteControlModel();
-            AutoControlData = new AutoControlModel();
-            CenterControlData = new CenterControlModel();
-            De_Shanking = 50;
+            //ContrlMode = ContrlMode.Manual;
+            //IsRemoteConnected = true;
+            //DecodingLock = false;
+            //RemoteSignal = new RemoteControlModel();
+            //AutoControlData = new AutoControlModel();
+            //CenterControlData = new CenterControlModel();
+            //De_Shanking = 50;
 
             Console.Write("初始化基础驱动器");
             BaseDriver = new Pca9685(0x42);
