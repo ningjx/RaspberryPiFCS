@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using RaspberryPiFMS.Helper;
 using RaspberryPiFMS.Models;
 using System.Threading;
 using Newtonsoft.Json;
-using System.Text.RegularExpressions;
 
 namespace RaspberryPiFMS.Controller
 {
@@ -49,7 +46,7 @@ namespace RaspberryPiFMS.Controller
 
         public NetController()
         {
-            //ddnsSocket = new SocketHelper("106.14.115.249", "35418");
+            //ddnsSocket = new SocketHelper("", "");
             //Console.WriteLine($"连接遥控器...\r\n");
             //while (string.IsNullOrEmpty(remoteIp))
             //{
@@ -60,7 +57,7 @@ namespace RaspberryPiFMS.Controller
 
             //ddnsT = () => DDNS();
             //ddns = new Thread(ddnsT);
-            dataSocket = new SocketHelper("106.14.115.249", "35418");
+            dataSocket = new SocketHelper("", "");
             netT = () => Excute();
             net = new Thread(netT);
 

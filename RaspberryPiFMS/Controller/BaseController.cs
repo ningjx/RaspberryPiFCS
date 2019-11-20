@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using RaspberryPiFMS.Helper;
-using RaspberryPiFMS.Models;
+using RaspberryPiFMS.Enum;
 using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Controller
@@ -12,32 +8,43 @@ namespace RaspberryPiFMS.Controller
     {
         private Timer _timer = new Timer();
         private bool _excuteLock = false;
-        //控制数据缓冲
-        private CenterControlModel _centerData = new CenterControlModel();
-        public BaseController()
+
+        /// <summary>
+        /// 初始化基础控制器
+        /// </summary>
+        /// <param name="baseDriver"></param>
+        /// <param name="ms">控制器的轮询间隔时间</param>
+        public BaseController(int ms = 10)
         {
-            _timer.Interval = 20;
-            _timer.Enabled = true;
-            _timer.Elapsed += Excute;
+            ms = Math.Abs(ms);
+            _timer.Interval = ms;
+            _timer.Elapsed += Excute; 
+            _timer.AutoReset = true;
             _timer.Start();
         }
+
+      
 
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (_excuteLock)
                 return;
             _excuteLock = true;
-            switch (Cache.ContrlMode)
-            {
-                case Enum.ContrlMode.AutoPoliteShutDown:
-                    break;
-            }
+            SetControl();
             _excuteLock = false;
         }
 
-        private void ManualControl()
+        /// <summary>
+        /// 映射所有遥控器可以控制的
+        /// </summary>
+        private void SetControl()
         {
-
+            #region 最基本的四个通道
+            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Pitch, Cache.CenterControlData.Pitch);
+            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Roll, Cache.CenterControlData.Roll);
+            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Yaw, Cache.CenterControlData.Yaw);
+            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Throttel, Cache.CenterControlData.Throttel);
+            #endregion
         }
     }
 }

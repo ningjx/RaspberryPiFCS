@@ -2,9 +2,7 @@
 using RaspberryPiFMS.Helper;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
-using System.Timers;
 using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Controller
@@ -14,72 +12,135 @@ namespace RaspberryPiFMS.Controller
         /// <summary>
         /// 航行灯（翼尖闪烁）
         /// </summary>
-        private bool _logoLight = false;
+        private bool _flightLight = true;
         /// <summary>
         /// 红色信标灯（闪烁）
         /// </summary>
-        private bool _antiCollisionLight = false;
-        private bool _isTimerRunning = false;
+        private bool _antiCollisionLight = true;
         private Timer _timer = new Timer();
+        private Timer _ledTimer = new Timer();
+        private bool _isExcuting = false;
 
-        public LEDController()
+        public LEDController(int ms = 30)
         {
-            _timer.Enabled = true;
-            _timer.Interval = 1500;
-            _timer.Elapsed += Timer_Elapsed;
+            ms = Math.Abs(ms);
+            _timer.Interval = ms;
+            _timer.Elapsed += Excute;
+
+            _ledTimer.Interval = 2200;
+            _ledTimer.Elapsed += TwinkleLed;
+
+            _timer.Start();
+            _ledTimer.Start();
         }
 
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void Excute(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (_logoLight)
+            if (_isExcuting)
+                return;
+            _isExcuting = true;
+            switch (Cache.CenterControlData.AntiCollisionLight)
             {
-                Cache.LedAndPushbackDriver.SetLedOn(LedChannel.LogoLight.GetHashCode());
+                case true:
+                    _antiCollisionLight = true;
+                    break;
+                case false:
+                    _antiCollisionLight = false;
+                    break;
+            }
+            switch (Cache.CenterControlData.FlightLight)
+            {
+                case true:
+                    _flightLight = true;
+                    break;
+                case false:
+                    _flightLight = false;
+                    break;
+            }
+            switch (Cache.CenterControlData.TaxiLight)
+            {
+                case true:
+                    Cache.LedDriver.SetLedOn((int)LedChannel.TaxiLight);
+                    break;
+                case false:
+                    Cache.LedDriver.SetLedOff((int)LedChannel.TaxiLight);
+                    break;
+            }
+            switch (Cache.CenterControlData.RunwayLight)
+            {
+                case true:
+                    Cache.LedDriver.SetLedOn((int)LedChannel.RunwayLight);
+                    break;
+                case false:
+                    Cache.LedDriver.SetLedOff((int)LedChannel.RunwayLight);
+                    break;
+            }
+            switch (Cache.CenterControlData.TakeOffLight)
+            {
+                case true:
+                    Cache.LedDriver.SetLedOn((int)LedChannel.TakeoffLight);
+                    break;
+                case false:
+                    Cache.LedDriver.SetLedOff((int)LedChannel.TakeoffLight);
+                    break;
+            }
+            switch (Cache.CenterControlData.LandingLight)
+            {
+                case true:
+                    Cache.LedDriver.SetLedOn((int)LedChannel.LandingLight);
+                    break;
+                case false:
+                    Cache.LedDriver.SetLedOff((int)LedChannel.LandingLight);
+                    break;
+            }
+            switch (Cache.CenterControlData.WingInspectionLight)
+            {
+                case true:
+                    Cache.LedDriver.SetLedOn((int)LedChannel.WingInspectionLight);
+                    break;
+                case false:
+                    Cache.LedDriver.SetLedOff((int)LedChannel.WingInspectionLight);
+                    break;
+            }
+            switch (Cache.CenterControlData.PositionLight)
+            {
+                case true:
+                    Cache.LedDriver.SetLedOn((int)LedChannel.AntiCollisionLightWhite);
+                    break;
+                case false:
+                    Cache.LedDriver.SetLedOff((int)LedChannel.AntiCollisionLightWhite);
+                    break;
+            }
+            _isExcuting = false;
+        }
+
+        private void TwinkleLed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (_flightLight)
+            {
+                Cache.LedDriver.SetLedOn((int)LedChannel.FilghtLightL);
                 Thread.Sleep(200);
-                Cache.LedAndPushbackDriver.SetLedOff(LedChannel.LogoLight.GetHashCode());
+                Cache.LedDriver.SetLedOff((int)LedChannel.FilghtLightL);
                 Thread.Sleep(200);
-                Cache.LedAndPushbackDriver.SetLedOn(LedChannel.LogoLight.GetHashCode());
+                Cache.LedDriver.SetLedOn((int)LedChannel.FilghtLightL);
                 Thread.Sleep(200);
-                Cache.LedAndPushbackDriver.SetLedOff(LedChannel.LogoLight.GetHashCode());
+                Cache.LedDriver.SetLedOff((int)LedChannel.FilghtLightL);
+                Thread.Sleep(300);
+
+                Cache.LedDriver.SetLedOn((int)LedChannel.FilghtLightR);
+                Thread.Sleep(200);
+                Cache.LedDriver.SetLedOff((int)LedChannel.FilghtLightR);
+                Thread.Sleep(200);
+                Cache.LedDriver.SetLedOn((int)LedChannel.FilghtLightR);
+                Thread.Sleep(200);
+                Cache.LedDriver.SetLedOff((int)LedChannel.FilghtLightR);
             }
             if (_antiCollisionLight)
             {
-                Cache.LedAndPushbackDriver.SetLedOn(LedChannel.AntiCollisionLight.GetHashCode());
+                Cache.LedDriver.SetLedOn((int)LedChannel.AntiCollisionLight);
                 Thread.Sleep(200);
-                Cache.LedAndPushbackDriver.SetLedOff(LedChannel.AntiCollisionLight.GetHashCode());
+                Cache.LedDriver.SetLedOff((int)LedChannel.AntiCollisionLight);
             }
-        }
-
-        public void SetLedOnAndOff(LedChannel channel, Switch @switch)
-        {
-            if (channel == LedChannel.AntiCollisionLight && @switch == Switch.On)
-            {
-                _antiCollisionLight = true;
-                return;
-            }
-            if (channel == LedChannel.AntiCollisionLight && @switch == Switch.Off)
-            {
-                _antiCollisionLight = false;
-                return;
-            }
-            if (channel == LedChannel.LogoLight && @switch == Switch.On)
-            {
-                _logoLight = true;
-                return;
-            }
-            if (channel == LedChannel.LogoLight && @switch == Switch.Off)
-            {
-                _logoLight = false;
-                return;
-            }
-            if (@switch == Switch.Off)
-                Cache.LedAndPushbackDriver.SetLedOff(channel.GetHashCode());
-            if (@switch == Switch.On)
-                Cache.LedAndPushbackDriver.SetLedOn(channel.GetHashCode());
-
-            if(!_isTimerRunning &&(_antiCollisionLight || _logoLight))
-                _timer.Start();
-            if (!_antiCollisionLight && !_logoLight && _isTimerRunning)
-                _timer.Stop();
         }
     }
 }

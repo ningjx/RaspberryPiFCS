@@ -2,6 +2,9 @@
 using RaspberryPiFMS.Enum;
 using RaspberryPiFMS.Controller;
 using RaspberryPiFMS.Helper;
+using System;
+using RaspberryPiFMS.ComputeCenter;
+using Unosquare.WiringPi;
 
 namespace RaspberryPiFMS
 {
@@ -19,40 +22,39 @@ namespace RaspberryPiFMS
         /// 遥控数据
         /// </summary>
         public static RemoteControlModel RemoteSignal;
-        
+
         /// <summary>
         /// 自动数据
         /// </summary>
         public static AutoControlModel AutoControlData;
 
         /// <summary>
+        /// 中心控制数据
+        /// 在不同的控制模式下，自动控制数据和遥控数据会整合到中心数据上
+        /// </summary>
+        public static CenterControlModel CenterControlData;
+
+        public static MavlinkMessage1Hz MavlinkMessage1Hz = new MavlinkMessage1Hz();
+        public static MavlinkMessage50Hz MavlinkMessage50Hz = new MavlinkMessage50Hz();
+
+        /// <summary>
         /// 丢失信号延迟时间
         /// </summary>
         public static int LosingSignalDelay;
+        #region Controller
+        public static RemoteController RemoteControl;
 
-        /// <summary>
-        /// 灯光控制器
-        /// </summary>
         public static LEDController LedContorl;
 
-        /// <summary>
-        /// 基础动作控制器
-        /// </summary>
         public static BaseController BaseContorl;
 
-        /// <summary>
-        /// 基础动作驱动器
-        /// </summary>
-        public static Pca9685 BaseDriver;
+        public static PushBackController PushBackControl;
 
-        /// <summary>
-        /// 灯光/反推驱动器
-        /// </summary>
-        public static Pca9685 LedAndPushbackDriver;
+        public static QIFDController QIFDControl;
 
-        /// <summary>
-        /// 实时的遥控信号连接状态
-        /// </summary>
+        public static TempController TempControl;
+        #endregion
+
         public static bool IsRemoteConnected;
 
         /// <summary>
@@ -60,18 +62,82 @@ namespace RaspberryPiFMS
         /// </summary>
         public static bool DecodingLock;
 
+
+        public static I2CBus I2CBus = new I2CBus();
+
+        public static Pca9685 BaseDriver;
+
+        public static Pca9685 LedDriver;
+
+        public static Pca9685 PushbackDriver;
+
+        /// <summary>
+        /// 遥控器数据异常过滤-过滤阈值（角度）
+        /// </summary>
+        public static int De_Shanking;
+
+        public static double Distance;
+
         
+        private static ControlPolymerize _controlPolymerize;
+
         static Cache()
         {
+            ContrlMode = ContrlMode.Manual;
             IsRemoteConnected = true;
             DecodingLock = false;
-            //BaseDriver = new Pca9685();
-            //LedAndPushbackDriver = new Pca9685();
             LosingSignalDelay = 3;
             RemoteSignal = new RemoteControlModel();
             AutoControlData = new AutoControlModel();
+            CenterControlData = new CenterControlModel();
+            De_Shanking = 50;
+
+            Console.Write("初始化基础驱动器");
+            BaseDriver = new Pca9685(0x42);
+            Console.WriteLine("------Finish\r");
+
+            Console.Write("启动基础控制器");
+            BaseContorl = new BaseController();
+            Console.WriteLine("------Finish\r");
+
+            //Console.Write("初始化灯光驱动器");
+            //_LedDriver = new Pca9685(0x60);
+            //Console.WriteLine("------Finish\r");
+
+            //Console.Write("启动灯光控制器");
             //LedContorl = new LEDController();
-            //BaseContorl = new BaseController();
+            //Console.WriteLine("------Finish\r");
+
+            //Console.Write("初始化反推驱动器");
+            //_PushbackDriver = new Pca9685(0x42);
+            //Console.WriteLine("------Finish\r");
+
+            //Console.Write("启动反推控制器");
+            //PushBackControl = new PushBackController();
+            //Console.WriteLine("------Finish\r");
+
+            Console.Write("启动遥控接收器");
+            RemoteControl = new RemoteController();
+            Console.WriteLine("------Finish\r");
+
+            //Console.Write("初始化超声波测距");
+            //QIFDControl = new QIFDController(28, 29);
+            //Console.WriteLine("------Finish\r");
+
+            //Console.Write("初始化温度传感01");
+            //TempControl = new TempController();
+            //Console.WriteLine("------Finish\r");
+
+            Console.Write("启动控制数据聚合");
+            _controlPolymerize = new ControlPolymerize();
+            Console.WriteLine("------Finish\r");
+
+            Console.WriteLine("全局缓存初始化完成");
+        }
+
+        public static void SysStart()
+        {
+            Console.WriteLine("系统启动\r");
         }
     }
 }

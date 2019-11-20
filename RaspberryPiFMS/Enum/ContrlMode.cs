@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RaspberryPiFMS.Enum
+﻿namespace RaspberryPiFMS.Enum
 {
     /// <summary>
     /// 飞行控制模式
@@ -12,7 +8,7 @@ namespace RaspberryPiFMS.Enum
         /// <summary>
         /// 自动驾驶关闭
         /// </summary>
-        AutoPoliteShutDown = 0,
+        Manual = 0,
 
         /// <summary>
         /// 水平导航
@@ -22,6 +18,8 @@ namespace RaspberryPiFMS.Enum
         /// <summary>
         /// 垂直导航
         /// </summary>
-        VerticalNavigation = 2
+        VerticalNavigation = 2,
+
+        APOn = 3
     }
 }

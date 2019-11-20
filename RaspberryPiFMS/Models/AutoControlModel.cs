@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RaspberryPiFMS.Models
+﻿namespace RaspberryPiFMS.Models
 {
     public class AutoControlModel
     {
