@@ -11,7 +11,6 @@ namespace RaspberryPiFMS
 {
     public class Program
     {
-        SbusHelper sbus;
         static void Main(string[] args)
         {
             try
