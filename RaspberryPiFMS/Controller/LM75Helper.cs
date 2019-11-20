@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Timers;
 using Unosquare.RaspberryIO.Abstractions;
 
-namespace RaspberryPiFMS.Helper
+namespace RaspberryPiFMS.Controller
 {
-    public class LM75Helper
+    public class TempController
     {
         /*
         0x00  Temperature Register      
@@ -24,10 +25,19 @@ namespace RaspberryPiFMS.Helper
         1 0 0 1 0  0  1 0/1       =0x92
         */
         private II2CDevice _device;
-        public LM75Helper(int addr)
+        private Timer _timer = new Timer(200);
+
+        public TempController(int addr = 0x90)
         {
             _device = Cache.I2CBus.AddDevice(addr);
             _device.WriteAddressByte(0x01, 0x00);
+            _timer.AutoReset = true;
+            _timer.Elapsed += _timer_Elapsed;
+        }
+
+        private void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            var tem = GetTemp();
         }
 
         public double GetTemp()

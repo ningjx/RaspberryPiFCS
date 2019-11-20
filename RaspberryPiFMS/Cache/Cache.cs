@@ -13,7 +13,6 @@ namespace RaspberryPiFMS
     /// </summary>
     public static class Cache
     {
-        public static I2CBus I2CBus = new I2CBus();
         /// <summary>
         /// AP模式
         /// </summary>
@@ -35,26 +34,27 @@ namespace RaspberryPiFMS
         /// </summary>
         public static CenterControlModel CenterControlData;
 
+        public static MavlinkMessage1Hz MavlinkMessage1Hz = new MavlinkMessage1Hz();
+        public static MavlinkMessage50Hz MavlinkMessage50Hz = new MavlinkMessage50Hz();
+
         /// <summary>
         /// 丢失信号延迟时间
         /// </summary>
         public static int LosingSignalDelay;
+        #region Controller
+        public static RemoteController RemoteControl;
 
-        /// <summary>
-        /// 灯光控制器
-        /// </summary>
         public static LEDController LedContorl;
 
-        /// <summary>
-        /// 基础动作控制器
-        /// </summary>
         public static BaseController BaseContorl;
 
         public static PushBackController PushBackControl;
 
-        /// <summary>
-        /// 实时的遥控信号连接状态
-        /// </summary>
+        public static QIFDController QIFDControl;
+
+        public static TempController TempControl;
+        #endregion
+
         public static bool IsRemoteConnected;
 
         /// <summary>
@@ -62,21 +62,13 @@ namespace RaspberryPiFMS
         /// </summary>
         public static bool DecodingLock;
 
-        public static RemoteController RemoteController;
 
-        /// <summary>
-        /// 基础动作驱动器
-        /// </summary>
+        public static I2CBus I2CBus = new I2CBus();
+
         public static Pca9685 BaseDriver;
 
-        /// <summary>
-        /// 灯光驱动器
-        /// </summary>
         public static Pca9685 LedDriver;
 
-        /// <summary>
-        /// 反推驱动器
-        /// </summary>
         public static Pca9685 PushbackDriver;
 
         /// <summary>
@@ -86,9 +78,9 @@ namespace RaspberryPiFMS
 
         public static double Distance;
 
-        public static QIFDController QIFDControl;
-
+        
         private static ControlPolymerize _controlPolymerize;
+
         static Cache()
         {
             ContrlMode = ContrlMode.Manual;
@@ -125,11 +117,15 @@ namespace RaspberryPiFMS
             //Console.WriteLine("------Finish\r");
 
             Console.Write("启动遥控接收器");
-            RemoteController = new RemoteController();
+            RemoteControl = new RemoteController();
             Console.WriteLine("------Finish\r");
 
             //Console.Write("初始化超声波测距");
             //QIFDControl = new QIFDController(28, 29);
+            //Console.WriteLine("------Finish\r");
+
+            //Console.Write("初始化温度传感01");
+            //TempControl = new TempController();
             //Console.WriteLine("------Finish\r");
 
             Console.Write("启动控制数据聚合");
