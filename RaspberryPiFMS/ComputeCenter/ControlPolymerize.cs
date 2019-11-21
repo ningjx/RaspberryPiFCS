@@ -10,13 +10,20 @@ namespace RaspberryPiFMS.ComputeCenter
     public class ControlPolymerize
     {
         private Timer _timer = new Timer();
+        private PIDHelper _pid = new PIDHelper();
 
         public ControlPolymerize()
         {
+            _pid.PIDOutEvent += _pid_PIDOutEvent;
             _timer.Interval = 10;
             _timer.AutoReset = true;
             _timer.Elapsed += Excute;
             _timer.Start();
+        }
+
+        private void _pid_PIDOutEvent(double value)
+        {
+            Cache.CenterControlData.Throttel = value;
         }
 
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
@@ -39,7 +46,9 @@ namespace RaspberryPiFMS.ComputeCenter
         {
             Cache.CenterControlData.Pitch = Cache.RemoteSignal.Channel02;
             Cache.CenterControlData.Yaw = Cache.RemoteSignal.Channel01;
-            Cache.CenterControlData.Throttel = Cache.RemoteSignal.Channel03;
+            //对油门进行PID控制
+            _pid.SetWithPID((float)Cache.CenterControlData.Throttel, (float)Cache.RemoteSignal.Channel03);
+            //Cache.CenterControlData.Throttel = Cache.RemoteSignal.Channel03;
             Cache.CenterControlData.Roll = Cache.RemoteSignal.Channel04;
             Cache.CenterControlData.Pitch = Cache.RemoteSignal.Channel02;
 

@@ -1,5 +1,6 @@
 ﻿using flyfire.IO.Ports;
 using RaspberryPiFMS.Enum;
+using RaspberryPiFMS.Helper;
 using System;
 using System.Text;
 
@@ -71,5 +72,6 @@ namespace RaspberryPiFMS
             else
                 return Switch.Off;
         }
+
     }
 }
