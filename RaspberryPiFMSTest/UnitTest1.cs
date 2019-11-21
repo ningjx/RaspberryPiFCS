@@ -27,5 +27,18 @@ namespace RaspberryPiFMSTest
             attitude.Yaw = 0.03F;
             CrcExtraProvider.GetCrcExtra(MavMessageType.Attitude);
         }
+
+        [TestMethod]
+        public void StaticTest()
+        {
+            var a = TestStatic.test;
+            TestStatic.test = 8;
+            var b = TestStatic.test;
+        }
+    }
+
+    public static class TestStatic
+    {
+        public static int test = 9;
     }
 }
