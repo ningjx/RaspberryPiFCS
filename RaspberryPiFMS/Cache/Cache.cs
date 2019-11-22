@@ -6,6 +6,7 @@ using System;
 using RaspberryPiFMS.ComputeCenter;
 using Unosquare.WiringPi;
 using System.Diagnostics;
+using System.IO;
 
 namespace RaspberryPiFMS
 {
@@ -144,7 +145,7 @@ namespace RaspberryPiFMS
 
         private static void StartRemote()
         {
-            var psi = new ProcessStartInfo("python", @"PythonScripts/ss.py") { RedirectStandardOutput = true };
+            var psi = new ProcessStartInfo("python", Path.Combine("PythonScripts", "ss.py")) { RedirectStandardOutput = true };
             //启动
             var proc = Process.Start(psi);
             if (proc == null)
@@ -152,7 +153,7 @@ namespace RaspberryPiFMS
             //using (var sr = proc.StandardOutput)
             //{
             //    Console.WriteLine(sr.ReadToEnd());
-            //}
+            //} 
         }
     }
 }

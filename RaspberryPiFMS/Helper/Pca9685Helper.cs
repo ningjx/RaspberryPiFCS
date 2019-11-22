@@ -138,11 +138,11 @@ namespace RaspberryPiFMS.Helper
         }
 
         /// <summary>
-        /// 设置电机动作
+        /// 设置电机动作/适配奇果派的直流电机驱动，步进电机用不到，暂不支持
         /// </summary>
         /// <param name="channel">1-4</param>
         /// <param name="action">前进后退，刹车就是不通电，不能刹车，英文注释看不懂了不知道咋刹</param>
-        /// <param name="speed">我也不知道这速度多块</param>
+        /// <param name="speed">我也不知道这速度多快，100随便写的</param>
         public void SetMotor(int channel, MotorAction action, int speed = 100)
         {
             if (channel < 1 || channel > 4)
@@ -186,6 +186,7 @@ namespace RaspberryPiFMS.Helper
                     break;
             }
             //在这添加限位器/初始化一个限位器并绑定事件吧
+            //初始化一个限位器并订阅限位器的事件
             switch (action)
             {
                 case MotorAction.Forward:
@@ -202,16 +203,6 @@ namespace RaspberryPiFMS.Helper
             SetLedOff(in2);
             SetLedOff(in1);
         }
-
-        /// <summary>
-        /// 这个Led被点亮的事件
-        /// </summary>
-        public event LedEventHandle LedOnEvent;
-
-        /// <summary>
-        /// 这个Led被关掉的事件
-        /// </summary>
-        public event LedEventHandle LedOffEvent;
 
         private void SetPWMFreq(double freq)
         {
@@ -248,5 +239,15 @@ namespace RaspberryPiFMS.Helper
         }
 
         public delegate void LedEventHandle(int channel);
+
+        /// <summary>
+        /// 这个Led被点亮的事件
+        /// </summary>
+        public event LedEventHandle LedOnEvent;
+
+        /// <summary>
+        /// 这个Led被关掉的事件
+        /// </summary>
+        public event LedEventHandle LedOffEvent;
     }
 }
