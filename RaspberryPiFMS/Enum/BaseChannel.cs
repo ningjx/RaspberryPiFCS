@@ -9,26 +9,28 @@
         /// <summary>
         /// 滚转
         /// </summary>
-        Roll = 2,
+        RollL = 2,
+        RollR = 3,
         /// <summary>
         /// 俯仰
         /// </summary>
-        Pitch = 3,
+        Pitch = 4,
         /// <summary>
         /// 配平
         /// </summary>
-        Trim = 4,
+        Trim = 9,
         /// <summary>
         /// 节流阀
         /// </summary>
-        Throttel = 5,
+        ThrottelL = 5,
+        ThrottelR = 6,
         /// <summary>
         /// 襟翼
         /// </summary>
-        Flaps = 6,
+        Flaps = 7,
         /// <summary>
         /// 减速板
         /// </summary>
-        AirBreak = 7,
+        AirBreak = 8,
     }
 }

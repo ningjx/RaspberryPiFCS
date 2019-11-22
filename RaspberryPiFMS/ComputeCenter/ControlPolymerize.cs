@@ -23,7 +23,8 @@ namespace RaspberryPiFMS.ComputeCenter
 
         private void _pid_PIDOutEvent(double value)
         {
-            Cache.CenterControlData.Throttel = value;
+            Cache.CenterControlData.ThrottelL = value;
+            Cache.CenterControlData.ThrottelR = value;
         }
 
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
@@ -34,10 +35,16 @@ namespace RaspberryPiFMS.ComputeCenter
                     ManualPolymerize();
                     break;
                 case ContrlMode.LateralNavigation:
+                    LateralNavigation();
                     break;
                 case ContrlMode.VerticalNavigation:
+                    VerticalNavigation();
                     break;
                 case ContrlMode.APOn:
+                    APOn();
+                    break;
+                case ContrlMode.AutoSpeed:
+                    AutoSpeed();
                     break;
             }
         }
@@ -47,17 +54,57 @@ namespace RaspberryPiFMS.ComputeCenter
             Cache.CenterControlData.Pitch = Cache.RemoteSignal.Channel02;
             Cache.CenterControlData.Yaw = Cache.RemoteSignal.Channel01;
             //对油门进行PID控制
-            _pid.SetWithPID((float)Cache.CenterControlData.Throttel, (float)Cache.RemoteSignal.Channel03);
+            _pid.SetWithPID((float)Cache.CenterControlData.ThrottelL, (float)Cache.RemoteSignal.Channel03);
             //Cache.CenterControlData.Throttel = Cache.RemoteSignal.Channel03;
             Cache.CenterControlData.Roll = Cache.RemoteSignal.Channel04;
             Cache.CenterControlData.Pitch = Cache.RemoteSignal.Channel02;
-
             Cache.CenterControlData.Trim = Cache.RemoteSignal.Channel12;
+            //Cache.RemoteSignal.Channel06
+            CommonOperation();
+        }
+        private void LateralNavigation()
+        {
+            Cache.CenterControlData.Pitch = Cache.RemoteSignal.Channel02;
+            Cache.CenterControlData.Trim = Cache.RemoteSignal.Channel12;
+
+            Cache.CenterControlData.Roll = Cache.AutoControlData.Roll;
+
+            _pid.SetWithPID((float)Cache.CenterControlData.ThrottelL, Cache.AutoControlData.ThrottelL);
+
+        }
+        private void VerticalNavigation()
+        {
+            Cache.CenterControlData.Roll = Cache.RemoteSignal.Channel04;
+
+            Cache.CenterControlData.Pitch = Cache.AutoControlData.Pitch;
+            Cache.CenterControlData.Trim = Cache.AutoControlData.Trim;
+
+            _pid.SetWithPID((float)Cache.CenterControlData.ThrottelL, Cache.AutoControlData.ThrottelL);
+        }
+        private void APOn()
+        {
+            Cache.CenterControlData.Roll = Cache.AutoControlData.Roll;
+            Cache.CenterControlData.Pitch = Cache.AutoControlData.Pitch;
+            Cache.CenterControlData.Trim = Cache.AutoControlData.Trim;
+
+            _pid.SetWithPID((float)Cache.CenterControlData.ThrottelL, Cache.AutoControlData.ThrottelL);
+        }
+        private void AutoSpeed()
+        {
+            Cache.CenterControlData.Pitch = Cache.RemoteSignal.Channel02;
+            Cache.CenterControlData.Roll = Cache.RemoteSignal.Channel04;
+
+            Cache.CenterControlData.Trim = Cache.AutoControlData.Trim;
+
+            _pid.SetWithPID((float)Cache.CenterControlData.ThrottelL, Cache.AutoControlData.ThrottelL);
+        }
+
+        private void CommonOperation()
+        {
             Cache.CenterControlData.Gear = Cache.RemoteSignal.Channel05 == Switch.On ? true : false;
             Cache.CenterControlData.PushBack = Cache.RemoteSignal.Channel11 == Switch.On ? true : false;
             Cache.CenterControlData.Flap = Cache.RemoteSignal.Channel09 == Switch.On ? FlapMode.Landing : (Cache.RemoteSignal.Channel09 == Switch.MId ? FlapMode.TakeOff : FlapMode.FlapUp);
-            //Cache.RemoteSignal.Channel06
-
+            #region 灯光
             /*使用频道8(两档)/7(三挡)
             8-off
                   7-off:航行灯开 防撞灯开 LOGO灯开(根据起落架状态)
@@ -151,19 +198,7 @@ namespace RaspberryPiFMS.ComputeCenter
                     Cache.CenterControlData.WingInspectionLight = true;
                 }
             }
-        }
-
-        private void LateralNavigation()
-        {
-
-        }
-        private void VerticalNavigation()
-        {
-
-        }
-        private void APOn()
-        {
-
+            #endregion
         }
     }
 }

@@ -23,8 +23,6 @@ namespace RaspberryPiFMS.Controller
             _timer.Start();
         }
 
-      
-
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (_excuteLock)
@@ -34,16 +32,16 @@ namespace RaspberryPiFMS.Controller
             _excuteLock = false;
         }
 
-        /// <summary>
-        /// 映射所有遥控器可以控制的
-        /// </summary>
         private void SetControl()
         {
             #region 最基本的四个通道
             Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Pitch, Cache.CenterControlData.Pitch);
-            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Roll, Cache.CenterControlData.Roll);
+            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.RollL, Cache.CenterControlData.Roll);
+            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.RollR, Cache.CenterControlData.Roll);
             Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Yaw, Cache.CenterControlData.Yaw);
-            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Throttel, Cache.CenterControlData.Throttel);
+            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.ThrottelL, Cache.CenterControlData.ThrottelL);
+            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.ThrottelR, Cache.CenterControlData.ThrottelR);
+            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Trim, Cache.CenterControlData.Trim);
             #endregion
         }
     }

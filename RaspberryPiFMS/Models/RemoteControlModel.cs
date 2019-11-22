@@ -38,7 +38,7 @@ namespace RaspberryPiFMS.Models
                     break;
                 case 3:
                     Channel03 = Math.Abs((845 - data) / 7.0 - Channel03) < Cache.De_Shanking ? Math.Abs((845 - data) / 7.0) : Channel03;
-                    Channel03 += 50;//油门输出50-150，配合电调
+                    Channel03 += 25;//油门输出25-125，配合电调
                     break;
                 case 4:
                     Channel04 = Math.Abs(data / 20.0 - Channel04) < Cache.De_Shanking ? Math.Abs(data / 20.0) : Channel04;
