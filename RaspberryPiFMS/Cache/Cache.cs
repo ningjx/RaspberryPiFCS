@@ -5,6 +5,7 @@ using RaspberryPiFMS.Helper;
 using System;
 using RaspberryPiFMS.ComputeCenter;
 using Unosquare.WiringPi;
+using System.Diagnostics;
 
 namespace RaspberryPiFMS
 {
@@ -117,6 +118,7 @@ namespace RaspberryPiFMS
             //Console.WriteLine("------Finish\r");
 
             Console.Write("启动遥控接收器");
+            StartRemote();
             RemoteControl = new RemoteController();
             Console.WriteLine("------Finish\r");
 
@@ -137,7 +139,20 @@ namespace RaspberryPiFMS
 
         public static void SysStart()
         {
-            Console.WriteLine("系统启动\r");
+            Console.WriteLine("系统启动完毕\r");
+        }
+
+        private static void StartRemote()
+        {
+            var psi = new ProcessStartInfo("python", @"PythonScripts/ss.py") { RedirectStandardOutput = true };
+            //启动
+            var proc = Process.Start(psi);
+            if (proc == null)
+                throw new Exception("遥控器模块启动失败");
+            //using (var sr = proc.StandardOutput)
+            //{
+            //    Console.WriteLine(sr.ReadToEnd());
+            //}
         }
     }
 }

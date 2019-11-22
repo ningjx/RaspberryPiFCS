@@ -1,5 +1,4 @@
-﻿using RaspberryPiFMS.Helper;
-using System;
+﻿using System;
 using System.Threading;
 
 namespace RaspberryPiFMS
