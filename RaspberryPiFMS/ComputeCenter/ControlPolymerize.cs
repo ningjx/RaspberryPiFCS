@@ -54,8 +54,9 @@ namespace RaspberryPiFMS.ComputeCenter
             Cache.CenterControlData.Pitch = Cache.RemoteSignal.Channel02;
             Cache.CenterControlData.Yaw = Cache.RemoteSignal.Channel01;
             //对油门进行PID控制
-            _pid.SetWithPID((float)Cache.CenterControlData.ThrottelL, (float)Cache.RemoteSignal.Channel03);
-            //Cache.CenterControlData.Throttel = Cache.RemoteSignal.Channel03;
+            //_pid.SetWithPID((float)Cache.CenterControlData.ThrottelL, (float)Cache.RemoteSignal.Channel03);
+            Cache.CenterControlData.ThrottelL = Cache.RemoteSignal.Channel03;
+            Cache.CenterControlData.ThrottelR = Cache.RemoteSignal.Channel03;
             Cache.CenterControlData.Roll = Cache.RemoteSignal.Channel04;
             Cache.CenterControlData.Pitch = Cache.RemoteSignal.Channel02;
             Cache.CenterControlData.Trim = Cache.RemoteSignal.Channel12;

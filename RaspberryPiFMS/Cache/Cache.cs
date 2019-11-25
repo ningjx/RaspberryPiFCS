@@ -86,56 +86,64 @@ namespace RaspberryPiFMS
 
         static Cache()
         {
-            //ContrlMode = ContrlMode.Manual;
-            //IsRemoteConnected = true;
-            //DecodingLock = false;
-            //RemoteSignal = new RemoteControlModel();
-            //AutoControlData = new AutoControlModel();
-            //CenterControlData = new CenterControlModel();
-            //De_Shanking = 50;
+            try
+            {
+                //ContrlMode = ContrlMode.Manual;
+                //IsRemoteConnected = true;
+                //DecodingLock = false;
+                //RemoteSignal = new RemoteControlModel();
+                //AutoControlData = new AutoControlModel();
+                //CenterControlData = new CenterControlModel();
+                //De_Shanking = 50;
 
-            Console.Write("初始化基础驱动器");
-            BaseDriver = new Pca9685(0x42);
-            Console.WriteLine("------Finish\r");
+                Console.Write("初始化基础驱动器");
+                BaseDriver = new Pca9685(0x40);
+                Console.WriteLine("------Finish\r");
 
-            Console.Write("启动基础控制器");
-            BaseContorl = new BaseController();
-            Console.WriteLine("------Finish\r");
+                Console.Write("启动基础控制器");
+                BaseContorl = new BaseController();
+                Console.WriteLine("------Finish\r");
 
-            //Console.Write("初始化灯光驱动器");
-            //_LedDriver = new Pca9685(0x60);
-            //Console.WriteLine("------Finish\r");
+                //Console.Write("初始化灯光驱动器");
+                //_LedDriver = new Pca9685(0x60);
+                //Console.WriteLine("------Finish\r");
 
-            //Console.Write("启动灯光控制器");
-            //LedContorl = new LEDController();
-            //Console.WriteLine("------Finish\r");
+                //Console.Write("启动灯光控制器");
+                //LedContorl = new LEDController();
+                //Console.WriteLine("------Finish\r");
 
-            //Console.Write("初始化反推驱动器");
-            //_PushbackDriver = new Pca9685(0x42);
-            //Console.WriteLine("------Finish\r");
+                //Console.Write("初始化反推驱动器");
+                //_PushbackDriver = new Pca9685(0x42);
+                //Console.WriteLine("------Finish\r");
 
-            //Console.Write("启动反推控制器");
-            //PushBackControl = new PushBackController();
-            //Console.WriteLine("------Finish\r");
+                //Console.Write("启动反推控制器");
+                //PushBackControl = new PushBackController();
+                //Console.WriteLine("------Finish\r");
 
-            Console.Write("启动遥控接收器");
-            StartRemote();
-            RemoteControl = new RemoteController();
-            Console.WriteLine("------Finish\r");
+                Console.Write("启动遥控接收器");
+                //StartRemote();
+                RemoteControl = new RemoteController();
+                Console.WriteLine("------Finish\r");
 
-            //Console.Write("初始化超声波测距");
-            //QIFDControl = new QIFDController(28, 29);
-            //Console.WriteLine("------Finish\r");
+                //Console.Write("初始化超声波测距");
+                //QIFDControl = new QIFDController(28, 29);
+                //Console.WriteLine("------Finish\r");
 
-            //Console.Write("初始化温度传感01");
-            //TempControl = new TempController();
-            //Console.WriteLine("------Finish\r");
+                //Console.Write("初始化温度传感01");
+                //TempControl = new TempController();
+                //Console.WriteLine("------Finish\r");
 
-            Console.Write("启动控制数据聚合");
-            _controlPolymerize = new ControlPolymerize();
-            Console.WriteLine("------Finish\r");
+                Console.Write("启动控制数据聚合");
+                _controlPolymerize = new ControlPolymerize();
+                Console.WriteLine("------Finish\r");
 
-            Console.WriteLine("全局缓存初始化完成");
+                Console.WriteLine("全局缓存初始化完成");
+            }
+
+            catch(Exception e)
+            {
+                Console.WriteLine($"系统出现异常\r\n异常消息[{e.Message}]\r\n堆栈追踪\r\n--------------------------------------------------------------------------\r\n{e.StackTrace}\r\n--------------------------------------------------------------------------");
+            }
         }
 
         public static void SysStart()
