@@ -35,13 +35,13 @@ namespace RaspberryPiFMS.Controller
         private void SetControl()
         {
             #region 最基本的四个通道
-            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Pitch, Cache.CenterControlData.Pitch);
-            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.RollL, Cache.CenterControlData.Roll);
-            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.RollR, Cache.CenterControlData.Roll);
-            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Yaw, Cache.CenterControlData.Yaw);
-            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.ThrottelL, Cache.CenterControlData.ThrottelL);
-            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.ThrottelR, Cache.CenterControlData.ThrottelR);
-            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Trim, Cache.CenterControlData.Trim);
+            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.Pitch, Bus.CenterControlData.Pitch);
+            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.RollL, Bus.CenterControlData.Roll);
+            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.RollR, Bus.CenterControlData.Roll);
+            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.Yaw, Bus.CenterControlData.Yaw);
+            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.ThrottelL, Bus.CenterControlData.ThrottelL);
+            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.ThrottelR, Bus.CenterControlData.ThrottelR);
+            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.Trim, Bus.CenterControlData.Trim);
             #endregion
         }
     }

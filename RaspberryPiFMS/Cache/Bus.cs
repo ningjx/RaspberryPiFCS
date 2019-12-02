@@ -13,7 +13,7 @@ namespace RaspberryPiFMS
     /// <summary>
     /// 全局缓存
     /// </summary>
-    public static class Cache
+    public static class Bus
     {
         /// <summary>
         /// AP模式
@@ -84,7 +84,7 @@ namespace RaspberryPiFMS
 
         private static ControlPolymerize _controlPolymerize;
 
-        static Cache()
+        static Bus()
         {
             try
             {

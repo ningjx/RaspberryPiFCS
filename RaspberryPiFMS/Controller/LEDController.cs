@@ -39,7 +39,7 @@ namespace RaspberryPiFMS.Controller
             if (_isExcuting)
                 return;
             _isExcuting = true;
-            switch (Cache.CenterControlData.AntiCollisionLight)
+            switch (Bus.CenterControlData.AntiCollisionLight)
             {
                 case true:
                     _antiCollisionLight = true;
@@ -48,7 +48,7 @@ namespace RaspberryPiFMS.Controller
                     _antiCollisionLight = false;
                     break;
             }
-            switch (Cache.CenterControlData.FlightLight)
+            switch (Bus.CenterControlData.FlightLight)
             {
                 case true:
                     _flightLight = true;
@@ -57,58 +57,58 @@ namespace RaspberryPiFMS.Controller
                     _flightLight = false;
                     break;
             }
-            switch (Cache.CenterControlData.TaxiLight)
+            switch (Bus.CenterControlData.TaxiLight)
             {
                 case true:
-                    Cache.LedDriver.SetLedOn((int)LedChannel.TaxiLight);
+                    Bus.LedDriver.SetLedOn((int)LedChannel.TaxiLight);
                     break;
                 case false:
-                    Cache.LedDriver.SetLedOff((int)LedChannel.TaxiLight);
+                    Bus.LedDriver.SetLedOff((int)LedChannel.TaxiLight);
                     break;
             }
-            switch (Cache.CenterControlData.RunwayLight)
+            switch (Bus.CenterControlData.RunwayLight)
             {
                 case true:
-                    Cache.LedDriver.SetLedOn((int)LedChannel.RunwayLight);
+                    Bus.LedDriver.SetLedOn((int)LedChannel.RunwayLight);
                     break;
                 case false:
-                    Cache.LedDriver.SetLedOff((int)LedChannel.RunwayLight);
+                    Bus.LedDriver.SetLedOff((int)LedChannel.RunwayLight);
                     break;
             }
-            switch (Cache.CenterControlData.TakeOffLight)
+            switch (Bus.CenterControlData.TakeOffLight)
             {
                 case true:
-                    Cache.LedDriver.SetLedOn((int)LedChannel.TakeoffLight);
+                    Bus.LedDriver.SetLedOn((int)LedChannel.TakeoffLight);
                     break;
                 case false:
-                    Cache.LedDriver.SetLedOff((int)LedChannel.TakeoffLight);
+                    Bus.LedDriver.SetLedOff((int)LedChannel.TakeoffLight);
                     break;
             }
-            switch (Cache.CenterControlData.LandingLight)
+            switch (Bus.CenterControlData.LandingLight)
             {
                 case true:
-                    Cache.LedDriver.SetLedOn((int)LedChannel.LandingLight);
+                    Bus.LedDriver.SetLedOn((int)LedChannel.LandingLight);
                     break;
                 case false:
-                    Cache.LedDriver.SetLedOff((int)LedChannel.LandingLight);
+                    Bus.LedDriver.SetLedOff((int)LedChannel.LandingLight);
                     break;
             }
-            switch (Cache.CenterControlData.WingInspectionLight)
+            switch (Bus.CenterControlData.WingInspectionLight)
             {
                 case true:
-                    Cache.LedDriver.SetLedOn((int)LedChannel.WingInspectionLight);
+                    Bus.LedDriver.SetLedOn((int)LedChannel.WingInspectionLight);
                     break;
                 case false:
-                    Cache.LedDriver.SetLedOff((int)LedChannel.WingInspectionLight);
+                    Bus.LedDriver.SetLedOff((int)LedChannel.WingInspectionLight);
                     break;
             }
-            switch (Cache.CenterControlData.PositionLight)
+            switch (Bus.CenterControlData.PositionLight)
             {
                 case true:
-                    Cache.LedDriver.SetLedOn((int)LedChannel.AntiCollisionLightWhite);
+                    Bus.LedDriver.SetLedOn((int)LedChannel.AntiCollisionLightWhite);
                     break;
                 case false:
-                    Cache.LedDriver.SetLedOff((int)LedChannel.AntiCollisionLightWhite);
+                    Bus.LedDriver.SetLedOff((int)LedChannel.AntiCollisionLightWhite);
                     break;
             }
             _isExcuting = false;
@@ -118,28 +118,28 @@ namespace RaspberryPiFMS.Controller
         {
             if (_flightLight)
             {
-                Cache.LedDriver.SetLedOn((int)LedChannel.FilghtLightL);
+                Bus.LedDriver.SetLedOn((int)LedChannel.FilghtLightL);
                 Thread.Sleep(200);
-                Cache.LedDriver.SetLedOff((int)LedChannel.FilghtLightL);
+                Bus.LedDriver.SetLedOff((int)LedChannel.FilghtLightL);
                 Thread.Sleep(200);
-                Cache.LedDriver.SetLedOn((int)LedChannel.FilghtLightL);
+                Bus.LedDriver.SetLedOn((int)LedChannel.FilghtLightL);
                 Thread.Sleep(200);
-                Cache.LedDriver.SetLedOff((int)LedChannel.FilghtLightL);
+                Bus.LedDriver.SetLedOff((int)LedChannel.FilghtLightL);
                 Thread.Sleep(300);
 
-                Cache.LedDriver.SetLedOn((int)LedChannel.FilghtLightR);
+                Bus.LedDriver.SetLedOn((int)LedChannel.FilghtLightR);
                 Thread.Sleep(200);
-                Cache.LedDriver.SetLedOff((int)LedChannel.FilghtLightR);
+                Bus.LedDriver.SetLedOff((int)LedChannel.FilghtLightR);
                 Thread.Sleep(200);
-                Cache.LedDriver.SetLedOn((int)LedChannel.FilghtLightR);
+                Bus.LedDriver.SetLedOn((int)LedChannel.FilghtLightR);
                 Thread.Sleep(200);
-                Cache.LedDriver.SetLedOff((int)LedChannel.FilghtLightR);
+                Bus.LedDriver.SetLedOff((int)LedChannel.FilghtLightR);
             }
             if (_antiCollisionLight)
             {
-                Cache.LedDriver.SetLedOn((int)LedChannel.AntiCollisionLight);
+                Bus.LedDriver.SetLedOn((int)LedChannel.AntiCollisionLight);
                 Thread.Sleep(200);
-                Cache.LedDriver.SetLedOff((int)LedChannel.AntiCollisionLight);
+                Bus.LedDriver.SetLedOff((int)LedChannel.AntiCollisionLight);
             }
         }
     }
