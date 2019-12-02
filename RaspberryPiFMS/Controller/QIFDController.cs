@@ -59,7 +59,7 @@ namespace RaspberryPiFMS.Controller
                     break;
                 }
             }
-            Bus.Distance = _sw.Elapsed.Milliseconds * 343 / 20;
+            Bus.CenterData.MicroAltitude = _sw.Elapsed.Milliseconds * 343 / 20;
             _sw.Reset();
             _isOverTime = false;
         }
@@ -70,7 +70,7 @@ namespace RaspberryPiFMS.Controller
         public void Stop()
         {
             _timer.Stop();
-            Bus.Distance = 0;
+            Bus.CenterData.MicroAltitude = 0;
         }
         public void SetOvetTime()
         {

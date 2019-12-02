@@ -31,16 +31,13 @@ namespace RaspberryPiFMS
         /// </summary>
         public static AutoControlModel AutoControlData = new AutoControlModel();
 
-        /// <summary>
-        /// 中心控制数据
-        /// 在不同的控制模式下，自动控制数据和遥控数据会整合到中心数据上
-        /// </summary>
-        public static CenterControlModel CenterControlData = new CenterControlModel();
+        public static CenterControlModel CenterData = new CenterControlModel();
 
         public static MavlinkMessage1Hz MavlinkMessage1Hz = new MavlinkMessage1Hz();
 
         public static MavlinkMessage50Hz MavlinkMessage50Hz = new MavlinkMessage50Hz();
         #endregion
+
         #region Controller
         public static RemoteController RemoteControl;
 
@@ -55,65 +52,35 @@ namespace RaspberryPiFMS
         public static TempController TempControl;
         #endregion
 
-        public static bool IsRemoteConnected = true;
-
-        /// <summary>
-        /// 解码器锁，防止多线程修改遥控参数
-        /// </summary>
-        public static bool DecodingLock = false;
-
-        public static I2CBus I2CBus = new I2CBus();
-
-        public static Pca9685 BaseDriver;
-
-        public static Pca9685 LedDriver;
-
-        public static Pca9685 PushbackDriver;
-
-        /// <summary>
-        /// 丢失信号延迟时间
-        /// </summary>
+        #region 各种参数
+        // 丢失信号延迟时间
         public static int LosingSignalDelay = 3;
 
-        /// <summary>
-        /// 遥控器数据异常过滤-过滤阈值（角度）
-        /// </summary>
+        // 遥控器数据异常过滤-过滤阈值（角度）
         public static int De_Shanking = 20;
+        #endregion
 
-        public static double Distance;
-
+        #region 各种锁
+        // 解码器锁，防止多线程修改遥控参数
+        public static bool DecodingLock = false;
+        public static bool IsRemoteConnected = true;
+        #endregion
+        public static I2CBus I2CBus;
         private static ControlPolymerize _controlPolymerize;
-
         static Bus()
         {
             try
             {
-                //ContrlMode = ContrlMode.Manual;
-                //IsRemoteConnected = true;
-                //DecodingLock = false;
-                //RemoteSignal = new RemoteControlModel();
-                //AutoControlData = new AutoControlModel();
-                //CenterControlData = new CenterControlModel();
-                //De_Shanking = 50;
-
-                Console.Write("初始化基础驱动器");
-                BaseDriver = new Pca9685(0x40);
+                Console.Write("启动IIC总线");
+                I2CBus = new I2CBus();
                 Console.WriteLine("------Finish\r");
 
                 Console.Write("启动基础控制器");
                 BaseContorl = new BaseController();
                 Console.WriteLine("------Finish\r");
 
-                //Console.Write("初始化灯光驱动器");
-                //_LedDriver = new Pca9685(0x60);
-                //Console.WriteLine("------Finish\r");
-
                 //Console.Write("启动灯光控制器");
                 //LedContorl = new LEDController();
-                //Console.WriteLine("------Finish\r");
-
-                //Console.Write("初始化反推驱动器");
-                //_PushbackDriver = new Pca9685(0x42);
                 //Console.WriteLine("------Finish\r");
 
                 //Console.Write("启动反推控制器");
@@ -121,8 +88,12 @@ namespace RaspberryPiFMS
                 //Console.WriteLine("------Finish\r");
 
                 Console.Write("启动遥控接收器");
-                //StartRemote();
+                StartRemote();
                 RemoteControl = new RemoteController();
+                Console.WriteLine("------Finish\r");
+
+                Console.Write("启动控制数据聚合");
+                _controlPolymerize = new ControlPolymerize();
                 Console.WriteLine("------Finish\r");
 
                 //Console.Write("初始化超声波测距");
@@ -132,21 +103,14 @@ namespace RaspberryPiFMS
                 //Console.Write("初始化温度传感01");
                 //TempControl = new TempController();
                 //Console.WriteLine("------Finish\r");
-
-                Console.Write("启动控制数据聚合");
-                _controlPolymerize = new ControlPolymerize();
-                Console.WriteLine("------Finish\r");
-
-                Console.WriteLine("全局缓存初始化完成");
             }
-
             catch(Exception e)
             {
                 Console.WriteLine($"系统出现异常\r\n异常消息[{e.Message}]\r\n堆栈追踪\r\n--------------------------------------------------------------------------\r\n{e.StackTrace}\r\n--------------------------------------------------------------------------");
             }
         }
 
-        public static void SysStart()
+        public static void SysLaunch()
         {
             Console.WriteLine("系统启动完毕\r");
         }

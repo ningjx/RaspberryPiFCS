@@ -20,7 +20,7 @@ namespace RaspberryPiFMS.Controller
         private Timer _timer = new Timer();
         private Timer _ledTimer = new Timer();
         private bool _isExcuting = false;
-
+        private Pca9685 pca9685 = new Pca9685();
         public LEDController(int ms = 30)
         {
             ms = Math.Abs(ms);
@@ -39,7 +39,7 @@ namespace RaspberryPiFMS.Controller
             if (_isExcuting)
                 return;
             _isExcuting = true;
-            switch (Bus.CenterControlData.AntiCollisionLight)
+            switch (Bus.CenterData.AntiCollisionLight)
             {
                 case true:
                     _antiCollisionLight = true;
@@ -48,7 +48,7 @@ namespace RaspberryPiFMS.Controller
                     _antiCollisionLight = false;
                     break;
             }
-            switch (Bus.CenterControlData.FlightLight)
+            switch (Bus.CenterData.FlightLight)
             {
                 case true:
                     _flightLight = true;
@@ -57,58 +57,58 @@ namespace RaspberryPiFMS.Controller
                     _flightLight = false;
                     break;
             }
-            switch (Bus.CenterControlData.TaxiLight)
+            switch (Bus.CenterData.TaxiLight)
             {
                 case true:
-                    Bus.LedDriver.SetLedOn((int)LedChannel.TaxiLight);
+                    pca9685.SetLedOn((int)LedChannel.TaxiLight);
                     break;
                 case false:
-                    Bus.LedDriver.SetLedOff((int)LedChannel.TaxiLight);
+                    pca9685.SetLedOff((int)LedChannel.TaxiLight);
                     break;
             }
-            switch (Bus.CenterControlData.RunwayLight)
+            switch (Bus.CenterData.RunwayLight)
             {
                 case true:
-                    Bus.LedDriver.SetLedOn((int)LedChannel.RunwayLight);
+                    pca9685.SetLedOn((int)LedChannel.RunwayLight);
                     break;
                 case false:
-                    Bus.LedDriver.SetLedOff((int)LedChannel.RunwayLight);
+                    pca9685.SetLedOff((int)LedChannel.RunwayLight);
                     break;
             }
-            switch (Bus.CenterControlData.TakeOffLight)
+            switch (Bus.CenterData.TakeOffLight)
             {
                 case true:
-                    Bus.LedDriver.SetLedOn((int)LedChannel.TakeoffLight);
+                    pca9685.SetLedOn((int)LedChannel.TakeoffLight);
                     break;
                 case false:
-                    Bus.LedDriver.SetLedOff((int)LedChannel.TakeoffLight);
+                    pca9685.SetLedOff((int)LedChannel.TakeoffLight);
                     break;
             }
-            switch (Bus.CenterControlData.LandingLight)
+            switch (Bus.CenterData.LandingLight)
             {
                 case true:
-                    Bus.LedDriver.SetLedOn((int)LedChannel.LandingLight);
+                    pca9685.SetLedOn((int)LedChannel.LandingLight);
                     break;
                 case false:
-                    Bus.LedDriver.SetLedOff((int)LedChannel.LandingLight);
+                    pca9685.SetLedOff((int)LedChannel.LandingLight);
                     break;
             }
-            switch (Bus.CenterControlData.WingInspectionLight)
+            switch (Bus.CenterData.WingInspectionLight)
             {
                 case true:
-                    Bus.LedDriver.SetLedOn((int)LedChannel.WingInspectionLight);
+                    pca9685.SetLedOn((int)LedChannel.WingInspectionLight);
                     break;
                 case false:
-                    Bus.LedDriver.SetLedOff((int)LedChannel.WingInspectionLight);
+                    pca9685.SetLedOff((int)LedChannel.WingInspectionLight);
                     break;
             }
-            switch (Bus.CenterControlData.PositionLight)
+            switch (Bus.CenterData.PositionLight)
             {
                 case true:
-                    Bus.LedDriver.SetLedOn((int)LedChannel.AntiCollisionLightWhite);
+                    pca9685.SetLedOn((int)LedChannel.AntiCollisionLightWhite);
                     break;
                 case false:
-                    Bus.LedDriver.SetLedOff((int)LedChannel.AntiCollisionLightWhite);
+                    pca9685.SetLedOff((int)LedChannel.AntiCollisionLightWhite);
                     break;
             }
             _isExcuting = false;
@@ -118,28 +118,28 @@ namespace RaspberryPiFMS.Controller
         {
             if (_flightLight)
             {
-                Bus.LedDriver.SetLedOn((int)LedChannel.FilghtLightL);
+                pca9685.SetLedOn((int)LedChannel.FilghtLightL);
                 Thread.Sleep(200);
-                Bus.LedDriver.SetLedOff((int)LedChannel.FilghtLightL);
+                pca9685.SetLedOff((int)LedChannel.FilghtLightL);
                 Thread.Sleep(200);
-                Bus.LedDriver.SetLedOn((int)LedChannel.FilghtLightL);
+                pca9685.SetLedOn((int)LedChannel.FilghtLightL);
                 Thread.Sleep(200);
-                Bus.LedDriver.SetLedOff((int)LedChannel.FilghtLightL);
+                pca9685.SetLedOff((int)LedChannel.FilghtLightL);
                 Thread.Sleep(300);
 
-                Bus.LedDriver.SetLedOn((int)LedChannel.FilghtLightR);
+                pca9685.SetLedOn((int)LedChannel.FilghtLightR);
                 Thread.Sleep(200);
-                Bus.LedDriver.SetLedOff((int)LedChannel.FilghtLightR);
+                pca9685.SetLedOff((int)LedChannel.FilghtLightR);
                 Thread.Sleep(200);
-                Bus.LedDriver.SetLedOn((int)LedChannel.FilghtLightR);
+                pca9685.SetLedOn((int)LedChannel.FilghtLightR);
                 Thread.Sleep(200);
-                Bus.LedDriver.SetLedOff((int)LedChannel.FilghtLightR);
+                pca9685.SetLedOff((int)LedChannel.FilghtLightR);
             }
             if (_antiCollisionLight)
             {
-                Bus.LedDriver.SetLedOn((int)LedChannel.AntiCollisionLight);
+                pca9685.SetLedOn((int)LedChannel.AntiCollisionLight);
                 Thread.Sleep(200);
-                Bus.LedDriver.SetLedOff((int)LedChannel.AntiCollisionLight);
+                pca9685.SetLedOff((int)LedChannel.AntiCollisionLight);
             }
         }
     }

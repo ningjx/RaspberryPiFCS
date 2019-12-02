@@ -1,5 +1,6 @@
 ﻿using System;
 using RaspberryPiFMS.Enum;
+using RaspberryPiFMS.Helper;
 using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Controller
@@ -8,7 +9,7 @@ namespace RaspberryPiFMS.Controller
     {
         private Timer _timer = new Timer();
         private bool _excuteLock = false;
-
+        private Pca9685 pca9685 = new Pca9685();
         /// <summary>
         /// 初始化基础控制器
         /// </summary>
@@ -35,13 +36,13 @@ namespace RaspberryPiFMS.Controller
         private void SetControl()
         {
             #region 最基本的四个通道
-            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.Pitch, Bus.CenterControlData.Pitch);
-            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.RollL, Bus.CenterControlData.Roll);
-            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.RollR, Bus.CenterControlData.Roll);
-            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.Yaw, Bus.CenterControlData.Yaw);
-            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.ThrottelL, Bus.CenterControlData.ThrottelL);
-            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.ThrottelR, Bus.CenterControlData.ThrottelR);
-            Bus.BaseDriver.SetPWMAngle((int)BaseChannel.Trim, Bus.CenterControlData.Trim);
+            pca9685.SetPWMAngle((int)BaseChannel.Pitch, Bus.CenterData.Pitch);
+            pca9685.SetPWMAngle((int)BaseChannel.RollL, Bus.CenterData.Roll);
+            pca9685.SetPWMAngle((int)BaseChannel.RollR, Bus.CenterData.Roll);
+            pca9685.SetPWMAngle((int)BaseChannel.Yaw, Bus.CenterData.Yaw);
+            pca9685.SetPWMAngle((int)BaseChannel.ThrottelL, Bus.CenterData.ThrottelL);
+            pca9685.SetPWMAngle((int)BaseChannel.ThrottelR, Bus.CenterData.ThrottelR);
+            pca9685.SetPWMAngle((int)BaseChannel.Trim, Bus.CenterData.Trim);
             #endregion
         }
     }

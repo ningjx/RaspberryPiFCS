@@ -92,6 +92,9 @@ namespace RaspberryPiFMS.Models
         /// </summary>
         public bool PositionLight;
         #endregion
+
+        public double MicroAltitude;
+        public double Altitude;
         public CenterControlModel()
         {
 
