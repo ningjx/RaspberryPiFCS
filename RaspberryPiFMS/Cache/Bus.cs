@@ -10,11 +10,20 @@ using System.IO;
 
 namespace RaspberryPiFMS
 {
-    /// <summary>
-    /// 全局缓存
-    /// </summary>
     public static class Bus
     {
+        #region 各种参数
+        //丢失信号延迟时间/秒
+        public static int LosingSignalDelay = 3;
+
+        //遥控器数据异常过滤-过滤阈值/角度
+        public static int De_Shanking = 20;
+
+        public static double AngleLimit_Roll = 50;
+        public static double AngleLimit_Pitch = 50;
+        public static double AngleLimit_Yaw = 50;
+        #endregion
+
         /// <summary>
         /// AP模式
         /// </summary>
@@ -50,15 +59,7 @@ namespace RaspberryPiFMS
         public static QIFDController QIFDControl;
 
         public static TempController TempControl;
-        #endregion
-
-        #region 各种参数
-        // 丢失信号延迟时间
-        public static int LosingSignalDelay = 3;
-
-        // 遥控器数据异常过滤-过滤阈值（角度）
-        public static int De_Shanking = 20;
-        #endregion
+        #endregion 
 
         #region 各种锁
         // 解码器锁，防止多线程修改遥控参数
@@ -71,6 +72,10 @@ namespace RaspberryPiFMS
         {
             try
             {
+                AngleLimit_Roll = 30;
+                AngleLimit_Pitch = 50;
+                AngleLimit_Yaw = 50;
+
                 Console.Write("启动IIC总线");
                 I2CBus = new I2CBus();
                 Console.WriteLine("------Finish\r");

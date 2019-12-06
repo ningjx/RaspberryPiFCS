@@ -18,7 +18,7 @@ namespace RaspberryPiFMS
                     //    $"[9]{Cache.RemoteSignal.Channel09.ToString()}\n[10]{Cache.RemoteSignal.Channel10.ToString()}\n[11]{Cache.RemoteSignal.Channel11.ToString()}\n[12]{Cache.RemoteSignal.Channel12.ToString()}\n" +
                     //    $"[13]{Cache.RemoteSignal.Channel13.ToString()}\n[14]{Cache.RemoteSignal.Channel14.ToString()}\n[15]{Cache.RemoteSignal.Channel15.ToString()}\n[16]{Cache.RemoteSignal.Channel16.ToString()}");
                     Console.WriteLine($"[roll]{Bus.CenterData.Roll.ToString("f2")}\n[pitch]{Bus.CenterData.Pitch.ToString("f2")}\n[yaw]{Bus.CenterData.Yaw.ToString("f2")}\n" +
-                        $"[throttel]{Bus.CenterData.ThrottelL.ToString("f2")}  {Bus.CenterData.ThrottelR.ToString("f2")}\n");
+                        $"[throttel]{Bus.CenterData.Throttel.ToString("f2")}\n");
                     Thread.Sleep(50);
                 }
             }

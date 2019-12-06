@@ -15,7 +15,7 @@ namespace RaspberryPiFMS.ComputeCenter
         public ControlPolymerize()
         {
             _pid.PIDOutEvent += _pid_PIDOutEvent;
-            _timer.Interval = 10;
+            _timer.Interval = 20;
             _timer.AutoReset = true;
             _timer.Elapsed += Excute;
             _timer.Start();
@@ -23,8 +23,7 @@ namespace RaspberryPiFMS.ComputeCenter
 
         private void _pid_PIDOutEvent(double value)
         {
-            Bus.CenterData.ThrottelL = value;
-            Bus.CenterData.ThrottelR = value;
+            Bus.CenterData.Throttel = value;
         }
 
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
@@ -51,14 +50,14 @@ namespace RaspberryPiFMS.ComputeCenter
 
         private void ManualPolymerize()
         {
-            Bus.CenterData.Pitch = Bus.RemoteSignal.Channel02;
             Bus.CenterData.Yaw = Bus.RemoteSignal.Channel01;
+            Bus.CenterData.Throttel = Bus.RemoteSignal.Channel03;
             //对油门进行PID控制
             //_pid.SetWithPID((float)Cache.CenterControlData.ThrottelL, (float)Cache.RemoteSignal.Channel03);
-            Bus.CenterData.ThrottelL = Bus.RemoteSignal.Channel03;
-            Bus.CenterData.ThrottelR = Bus.RemoteSignal.Channel03;
-            Bus.CenterData.Roll = Bus.RemoteSignal.Channel04;
-            Bus.CenterData.Pitch = Bus.RemoteSignal.Channel02;
+            Bus.CenterData.RollL = Bus.RemoteSignal.Channel04;
+            Bus.CenterData.RollR = Bus.RemoteSignal.Channel04;
+            Bus.CenterData.PitchL = Bus.RemoteSignal.Channel02;
+            Bus.CenterData.PitchR = Bus.RemoteSignal.Channel02.Reverse(Bus.AngleLimit_Pitch);
             Bus.CenterData.Trim = Bus.RemoteSignal.Channel12;
             //Cache.RemoteSignal.Channel06
             CommonOperation();
@@ -70,7 +69,7 @@ namespace RaspberryPiFMS.ComputeCenter
 
             Bus.CenterData.Roll = Bus.AutoControlData.Roll;
 
-            _pid.SetWithPID((float)Bus.CenterData.ThrottelL, Bus.AutoControlData.ThrottelL);
+            _pid.SetWithPID((float)Bus.CenterData.Throttel, Bus.AutoControlData.Throttel);
 
         }
         private void VerticalNavigation()
@@ -80,7 +79,7 @@ namespace RaspberryPiFMS.ComputeCenter
             Bus.CenterData.Pitch = Bus.AutoControlData.Pitch;
             Bus.CenterData.Trim = Bus.AutoControlData.Trim;
 
-            _pid.SetWithPID((float)Bus.CenterData.ThrottelL, Bus.AutoControlData.ThrottelL);
+            _pid.SetWithPID((float)Bus.CenterData.Throttel, Bus.AutoControlData.Throttel);
         }
         private void APOn()
         {
@@ -88,7 +87,7 @@ namespace RaspberryPiFMS.ComputeCenter
             Bus.CenterData.Pitch = Bus.AutoControlData.Pitch;
             Bus.CenterData.Trim = Bus.AutoControlData.Trim;
 
-            _pid.SetWithPID((float)Bus.CenterData.ThrottelL, Bus.AutoControlData.ThrottelL);
+            _pid.SetWithPID((float)Bus.CenterData.Throttel, Bus.AutoControlData.Throttel);
         }
         private void AutoSpeed()
         {
@@ -97,7 +96,7 @@ namespace RaspberryPiFMS.ComputeCenter
 
             Bus.CenterData.Trim = Bus.AutoControlData.Trim;
 
-            _pid.SetWithPID((float)Bus.CenterData.ThrottelL, Bus.AutoControlData.ThrottelL);
+            _pid.SetWithPID((float)Bus.CenterData.Throttel, Bus.AutoControlData.Throttel);
         }
 
         private void CommonOperation()

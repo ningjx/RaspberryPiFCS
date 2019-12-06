@@ -15,7 +15,7 @@ namespace RaspberryPiFMS.Controller
         /// </summary>
         /// <param name="baseDriver"></param>
         /// <param name="ms">控制器的轮询间隔时间</param>
-        public BaseController(int ms = 10)
+        public BaseController(int ms = 20)
         {
             ms = Math.Abs(ms);
             _timer.Interval = ms;
@@ -36,13 +36,14 @@ namespace RaspberryPiFMS.Controller
         private void SetControl()
         {
             #region 最基本的四个通道
-            pca9685.SetPWMAngle((int)BaseChannel.Pitch, Bus.CenterData.Pitch);
-            pca9685.SetPWMAngle((int)BaseChannel.RollL, Bus.CenterData.Roll);
-            pca9685.SetPWMAngle((int)BaseChannel.RollR, Bus.CenterData.Roll);
+            pca9685.SetPWMAngle((int)BaseChannel.PitchL, Bus.CenterData.PitchL);
+            pca9685.SetPWMAngle((int)BaseChannel.PitchR, Bus.CenterData.PitchR);
+            pca9685.SetPWMAngle((int)BaseChannel.RollL, Bus.CenterData.RollL);
+            pca9685.SetPWMAngle((int)BaseChannel.RollR, Bus.CenterData.RollR);
             pca9685.SetPWMAngle((int)BaseChannel.Yaw, Bus.CenterData.Yaw);
-            pca9685.SetPWMAngle((int)BaseChannel.ThrottelL, Bus.CenterData.ThrottelL);
-            pca9685.SetPWMAngle((int)BaseChannel.ThrottelR, Bus.CenterData.ThrottelR);
-            pca9685.SetPWMAngle((int)BaseChannel.Trim, Bus.CenterData.Trim);
+            pca9685.SetPWMAngle((int)BaseChannel.Throttel, Bus.CenterData.Throttel);
+            //pca9685.SetPWMAngle((int)BaseChannel.ThrottelR, Bus.CenterData.ThrottelR);
+            //pca9685.SetPWMAngle((int)BaseChannel.Trim, Bus.CenterData.Trim);
             #endregion
         }
     }
