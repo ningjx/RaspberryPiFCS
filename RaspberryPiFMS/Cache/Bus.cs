@@ -22,6 +22,7 @@ namespace RaspberryPiFMS
         public static double AngleLimit_Roll = 50;
         public static double AngleLimit_Pitch = 50;
         public static double AngleLimit_Yaw = 50;
+        public static double AngleLimit_Trim = 50;
         #endregion
 
         /// <summary>
@@ -73,9 +74,9 @@ namespace RaspberryPiFMS
             try
             {
                 AngleLimit_Roll = 30;
-                AngleLimit_Pitch = 50;
-                AngleLimit_Yaw = 50;
-
+                AngleLimit_Pitch = 30;
+                AngleLimit_Yaw = 30;
+                AngleLimit_Trim = 10;
                 Console.Write("启动IIC总线");
                 I2CBus = new I2CBus();
                 Console.WriteLine("------Finish\r");

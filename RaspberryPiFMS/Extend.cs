@@ -79,9 +79,19 @@ namespace RaspberryPiFMS
         /// <param name="angle"></param>
         /// <param name="angleLimit"></param>
         /// <returns></returns>
-        public static double Reverse(this double angle, double angleLimit)
+        public static double Reverse(this double angle)
         {
-            //return angle * (angleLimit / 50)+ (50-angleLimit);
+            return 100 - angle;
+        }
+
+        /// <summary>
+        /// 限制舵机最大角度
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <param name="angleLimit"></param>
+        /// <returns></returns>
+        public static double AngleLimit(this double angle, double angleLimit)
+        {
             return (angle - 50) * angleLimit / 50 + 50;
         }
     }
