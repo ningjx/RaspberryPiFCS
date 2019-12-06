@@ -1,5 +1,6 @@
 ﻿using System;
 using RaspberryPiFMS.Enum;
+using RaspberryPiFMS.Helper;
 using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Controller
@@ -8,13 +9,13 @@ namespace RaspberryPiFMS.Controller
     {
         private Timer _timer = new Timer();
         private bool _excuteLock = false;
-
+        private Pca9685 pca9685 = new Pca9685();
         /// <summary>
         /// 初始化基础控制器
         /// </summary>
         /// <param name="baseDriver"></param>
         /// <param name="ms">控制器的轮询间隔时间</param>
-        public BaseController(int ms = 10)
+        public BaseController(int ms = 20)
         {
             ms = Math.Abs(ms);
             _timer.Interval = ms;
@@ -22,8 +23,6 @@ namespace RaspberryPiFMS.Controller
             _timer.AutoReset = true;
             _timer.Start();
         }
-
-      
 
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
         {
@@ -34,16 +33,17 @@ namespace RaspberryPiFMS.Controller
             _excuteLock = false;
         }
 
-        /// <summary>
-        /// 映射所有遥控器可以控制的
-        /// </summary>
         private void SetControl()
         {
             #region 最基本的四个通道
-            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Pitch, Cache.CenterControlData.Pitch);
-            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Roll, Cache.CenterControlData.Roll);
-            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Yaw, Cache.CenterControlData.Yaw);
-            Cache.BaseDriver.SetPWMAngle((int)BaseChannel.Throttel, Cache.CenterControlData.Throttel);
+            pca9685.SetPWMAngle((int)BaseChannel.PitchL, Bus.CenterData.PitchL);
+            pca9685.SetPWMAngle((int)BaseChannel.PitchR, Bus.CenterData.PitchR);
+            pca9685.SetPWMAngle((int)BaseChannel.RollL, Bus.CenterData.RollL);
+            pca9685.SetPWMAngle((int)BaseChannel.RollR, Bus.CenterData.RollR);
+            pca9685.SetPWMAngle((int)BaseChannel.Yaw, Bus.CenterData.Yaw);
+            pca9685.SetPWMAngle((int)BaseChannel.Throttel, Bus.CenterData.Throttel);
+            //pca9685.SetPWMAngle((int)BaseChannel.ThrottelR, Bus.CenterData.ThrottelR);
+            //pca9685.SetPWMAngle((int)BaseChannel.Trim, Bus.CenterData.Trim);
             #endregion
         }
     }

@@ -29,7 +29,7 @@ namespace RaspberryPiFMS.Controller
 
         public TempController(int addr = 0x90)
         {
-            _device = Cache.I2CBus.AddDevice(addr);
+            _device = Bus.I2CBus.AddDevice(addr);
             _device.WriteAddressByte(0x01, 0x00);
             _timer.AutoReset = true;
             _timer.Elapsed += _timer_Elapsed;

@@ -1,5 +1,6 @@
 ﻿using flyfire.IO.Ports;
 using RaspberryPiFMS.Enum;
+using RaspberryPiFMS.Helper;
 using System;
 using System.Text;
 
@@ -62,7 +63,7 @@ namespace RaspberryPiFMS
         /// <param name="data"></param>
         /// <param name="midValue">中间值</param>
         /// <returns></returns>
-        public static Switch GetSwitch(this long data,long midValue = 1000)
+        public static Switch GetSwitch(this long data, long midValue = 1000)
         {
             if (data == midValue)
                 return Switch.MId;
@@ -70,6 +71,28 @@ namespace RaspberryPiFMS
                 return Switch.On;
             else
                 return Switch.Off;
+        }
+
+        /// <summary>
+        /// 反转舵机角度
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <param name="angleLimit"></param>
+        /// <returns></returns>
+        public static double Reverse(this double angle)
+        {
+            return 100 - angle;
+        }
+
+        /// <summary>
+        /// 限制舵机最大角度
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <param name="angleLimit"></param>
+        /// <returns></returns>
+        public static double AngleLimit(this double angle, double angleLimit)
+        {
+            return (angle - 50) * angleLimit / 50 + 50;
         }
     }
 }

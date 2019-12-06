@@ -14,7 +14,7 @@ namespace RaspberryPiFMS.Controller
         private byte[] _buffer = new byte[1000];
         public MavlinkController()
         {
-            Console.Write("初始化解码器");
+            Console.Write("初始化Mavlink");
             Console.WriteLine("------Finish\r");
             byte[] _buffer = new byte[1000];
             _timer = new MicroTimer(20, true);

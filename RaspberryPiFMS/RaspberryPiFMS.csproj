@@ -27,6 +27,9 @@
     <None Update="libnserial.so.1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="PythonScripts\ss.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
