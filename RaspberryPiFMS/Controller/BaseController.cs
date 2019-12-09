@@ -38,12 +38,12 @@ namespace RaspberryPiFMS.Controller
         private void SetControl()
         {
             #region 最基本的四个通道
-            _pca9685.SetPWMAngle((int)BaseChannel.PitchL, Bus.CenterData.PitchL);
-            _pca9685.SetPWMAngle((int)BaseChannel.PitchR, Bus.CenterData.PitchR);
-            _pca9685.SetPWMAngle((int)BaseChannel.RollL, Bus.CenterData.RollL);
-            _pca9685.SetPWMAngle((int)BaseChannel.RollR, Bus.CenterData.RollR);
-            _pca9685.SetPWMAngle((int)BaseChannel.Yaw, Bus.CenterData.Yaw);
-            _pca9685.SetPWMAngle((int)BaseChannel.Throttel, Bus.CenterData.Throttel);
+            _pca9685.SetAngle((int)BaseChannel.PitchL, Bus.CenterData.PitchL);
+            _pca9685.SetAngle((int)BaseChannel.PitchR, Bus.CenterData.PitchR);
+            _pca9685.SetAngle((int)BaseChannel.RollL, Bus.CenterData.RollL);
+            _pca9685.SetAngle((int)BaseChannel.RollR, Bus.CenterData.RollR);
+            _pca9685.SetAngle((int)BaseChannel.Yaw, Bus.CenterData.Yaw);
+            _pca9685.SetAngle((int)BaseChannel.Throttel, Bus.CenterData.Throttel);
             //pca9685.SetPWMAngle((int)BaseChannel.ThrottelR, Bus.CenterData.ThrottelR);
             //pca9685.SetPWMAngle((int)BaseChannel.Trim, Bus.CenterData.Trim);
             #endregion

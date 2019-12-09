@@ -86,7 +86,7 @@ namespace RaspberryPiFMS.Helper
         /// </summary>
         /// <param name="channel">1-16通道</param>
         /// <param name="angle">角度</param>
-        public void SetPWMAngle(int channel, double angle)
+        public void SetAngle(int channel, double angle)
         {
             if (channel < 1 || channel > 16)
                 return;
@@ -105,7 +105,7 @@ namespace RaspberryPiFMS.Helper
             }
         }
 
-        public void SetLedOn(int channel)
+        public void SetOn(int channel)
         {
             if (channel < 1 || channel > 16)
                 return;
@@ -118,10 +118,10 @@ namespace RaspberryPiFMS.Helper
             Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
             Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
             _ledBuffer[channel+1] = 1;
-            LedOnEvent?.Invoke(channel+1);
+            OnEvent?.Invoke(channel+1);
         }
 
-        public void SetLedOff(int channel)
+        public void SetOff(int channel)
         {
             if (channel < 1 || channel > 16)
                 return;
@@ -134,7 +134,7 @@ namespace RaspberryPiFMS.Helper
             Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
             Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
             _ledBuffer[channel+1] = 0;
-            LedOffEvent?.Invoke(channel+1);
+            OffEvent?.Invoke(channel+1);
         }
 
         /// <summary>
@@ -167,22 +167,22 @@ namespace RaspberryPiFMS.Helper
             }
             if (speed != _speed)
             {
-                SetPWMAngle(pwm, Math.Abs(speed > 256 ? 4096 : speed * 16));
+                SetAngle(pwm, Math.Abs(speed > 256 ? 4096 : speed * 16));
                 _speed = Math.Abs(speed);
             }
             switch (action)
             {
                 case MotorAction.Forward:
-                    SetLedOff(in2);
-                    SetLedOn(in1);
+                    SetOff(in2);
+                    SetOn(in1);
                     break;
                 case MotorAction.Break:
-                    SetLedOff(in2);
-                    SetLedOff(in1);
+                    SetOff(in2);
+                    SetOff(in1);
                     break;
                 case MotorAction.Backward:
-                    SetLedOff(in1);
-                    SetLedOn(in2);
+                    SetOff(in1);
+                    SetOn(in2);
                     break;
             }
             //在这添加限位器/初始化一个限位器并绑定事件吧
@@ -200,8 +200,8 @@ namespace RaspberryPiFMS.Helper
 
         private void SetMotorStop(int in1, int in2)
         {
-            SetLedOff(in2);
-            SetLedOff(in1);
+            SetOff(in2);
+            SetOff(in1);
         }
 
         private void SetPWMFreq(double freq)
@@ -243,11 +243,11 @@ namespace RaspberryPiFMS.Helper
         /// <summary>
         /// 这个Led被点亮的事件
         /// </summary>
-        public event LedEventHandle LedOnEvent;
+        public event LedEventHandle OnEvent;
 
         /// <summary>
         /// 这个Led被关掉的事件
         /// </summary>
-        public event LedEventHandle LedOffEvent;
+        public event LedEventHandle OffEvent;
     }
 }
