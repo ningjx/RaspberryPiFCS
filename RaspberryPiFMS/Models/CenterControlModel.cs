@@ -7,41 +7,32 @@ namespace RaspberryPiFMS.Models
         /// <summary>
         /// 滚转角度
         /// </summary>
-        public double Roll;
         public double RollL;
         public double RollR;
         /// <summary>
         /// 偏航角度
         /// </summary>
         public double Yaw;
-        public double YawL;
-        public double YawR;
         /// <summary>
         /// 俯仰角度
         /// </summary>
-        public double Pitch;
         public double PitchL;
         public double PitchR;
         /// <summary>
         /// 减速板角度
         /// </summary>
-        public double AirBreak;
         public double AirBreakL;
         public double AirBreakR;
         /// <summary>
         /// 配平角度
         /// </summary>
         public double Trim;
-        public double Trim1;
-        public double Trim2;
         /// <summary>
         /// 节流阀
         /// </summary>
         public double Throttel;
-        public double ThrottelL1;
-        public double ThrottelL2;
-        public double ThrottelR1;
-        public double ThrottelR2;
+        public double ThrottelL;
+        public double ThrottelR;
         /// <summary>
         /// 起落架
         /// </summary>
@@ -110,13 +101,9 @@ namespace RaspberryPiFMS.Models
 
         public CenterControlModel()
         {
-            Roll = 50;
             RollL = 50;
             RollR = 50;
             Yaw = 50;
-            YawL = 50;
-            YawR = 50;
-            Pitch = 50;
             PitchL = 50;
             PitchR = 50;
         }

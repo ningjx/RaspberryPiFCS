@@ -108,6 +108,7 @@ namespace RaspberryPiFMS.Helper
         {
             Bus.RemoteSignal.IsConnected = false;
             Bus.RemoteSignal.Channel01 = Bus.RemoteSignal.Channel02 = Bus.RemoteSignal.Channel04 = 50;
+            Bus.RemoteSignal.Channel03 = 25;
         }
 
         /// <summary>

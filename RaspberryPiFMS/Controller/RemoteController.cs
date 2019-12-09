@@ -7,7 +7,7 @@ using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Controller
 {
-    public class RemoteController : IDisposable
+    public class RemoteController
     {
         private SbusHelper _sbusHelper;
         private Socket _socket;
@@ -19,20 +19,16 @@ namespace RaspberryPiFMS.Controller
             _sbusHelper = new SbusHelper();
             Console.WriteLine("------Finish\r");
             byte[] _buffer = new byte[1000];
-            _timer = new Timer(10) ;
+            _timer = new Timer() ;
+            _timer.Interval = 10;
             _timer.AutoReset = true;
             _timer.Elapsed += ReciveData;
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPAddress address = IPAddress.Parse("127.0.0.1");
             IPEndPoint endPoint = new IPEndPoint(address, 4664);
+            _socket.ReceiveTimeout = 10;
             _socket.Connect(endPoint);
             _timer.Start();
-        }
-
-        public void Dispose()
-        {
-            _socket.Dispose();
-            Dispose();
         }
 
         private void ReciveData(object sender, System.Timers.ElapsedEventArgs e)

@@ -95,13 +95,13 @@ namespace RaspberryPiFMS.Helper
 
             if (angle >= 0)
             {
-                channel -= 1;
+                channel = channel- 1;
                 var off = ConvertAngle(angle);
                 Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
                 Write(LED0_ON_H + 4 * channel, 0 >> 8);
                 Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
                 Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
-                _angleBuffer[channel] = angle;
+                _angleBuffer[channel +1] = angle;
             }
         }
 
@@ -112,13 +112,13 @@ namespace RaspberryPiFMS.Helper
             if (_ledBuffer[channel] == 1)
                 return;
             int off = 4096;
-            channel -= 1;
+            channel =channel- 1;
             Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
             Write(LED0_ON_H + 4 * channel, 0 >> 8);
             Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
             Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
-            _ledBuffer[channel] = 1;
-            LedOnEvent?.Invoke(channel);
+            _ledBuffer[channel+1] = 1;
+            LedOnEvent?.Invoke(channel+1);
         }
 
         public void SetLedOff(int channel)
@@ -133,8 +133,8 @@ namespace RaspberryPiFMS.Helper
             Write(LED0_ON_H + 4 * channel, 0 >> 8);
             Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
             Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
-            _ledBuffer[channel] = 0;
-            LedOffEvent?.Invoke(channel);
+            _ledBuffer[channel+1] = 0;
+            LedOffEvent?.Invoke(channel+1);
         }
 
         /// <summary>

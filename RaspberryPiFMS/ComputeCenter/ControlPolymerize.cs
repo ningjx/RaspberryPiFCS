@@ -58,41 +58,41 @@ namespace RaspberryPiFMS.ComputeCenter
             Bus.CenterData.RollR = Bus.RemoteSignal.Channel04.AngleLimit(Bus.AngleLimit_Roll);
             Bus.CenterData.PitchL = Bus.RemoteSignal.Channel02.AngleLimit(Bus.AngleLimit_Pitch);
             Bus.CenterData.PitchR = Bus.RemoteSignal.Channel02.AngleLimit(Bus.AngleLimit_Pitch).Reverse();
-            Bus.CenterData.Trim = Bus.RemoteSignal.Channel12.AngleLimit(Bus.AngleLimit_Trim);
+            //Bus.CenterData.Trim = Bus.RemoteSignal.Channel12.AngleLimit(Bus.AngleLimit_Trim);
             //Cache.RemoteSignal.Channel06
-            CommonOperation();
+            //CommonOperation();
         }
         private void LateralNavigation()
         {
-            Bus.CenterData.Pitch = Bus.RemoteSignal.Channel02;
+            Bus.CenterData.PitchL = Bus.RemoteSignal.Channel02;
             Bus.CenterData.Trim = Bus.RemoteSignal.Channel12;
 
-            Bus.CenterData.Roll = Bus.AutoControlData.Roll;
+            Bus.CenterData.RollL = Bus.AutoControlData.Roll;
 
             _pid.SetWithPID((float)Bus.CenterData.Throttel, Bus.AutoControlData.Throttel);
 
         }
         private void VerticalNavigation()
         {
-            Bus.CenterData.Roll = Bus.RemoteSignal.Channel04;
+            Bus.CenterData.RollL = Bus.RemoteSignal.Channel04;
 
-            Bus.CenterData.Pitch = Bus.AutoControlData.Pitch;
+            Bus.CenterData.PitchL = Bus.AutoControlData.Pitch;
             Bus.CenterData.Trim = Bus.AutoControlData.Trim;
 
             _pid.SetWithPID((float)Bus.CenterData.Throttel, Bus.AutoControlData.Throttel);
         }
         private void APOn()
         {
-            Bus.CenterData.Roll = Bus.AutoControlData.Roll;
-            Bus.CenterData.Pitch = Bus.AutoControlData.Pitch;
+            Bus.CenterData.RollL = Bus.AutoControlData.Roll;
+            Bus.CenterData.PitchL = Bus.AutoControlData.Pitch;
             Bus.CenterData.Trim = Bus.AutoControlData.Trim;
 
             _pid.SetWithPID((float)Bus.CenterData.Throttel, Bus.AutoControlData.Throttel);
         }
         private void AutoSpeed()
         {
-            Bus.CenterData.Pitch = Bus.RemoteSignal.Channel02;
-            Bus.CenterData.Roll = Bus.RemoteSignal.Channel04;
+            Bus.CenterData.PitchL = Bus.RemoteSignal.Channel02;
+            Bus.CenterData.RollL = Bus.RemoteSignal.Channel04;
 
             Bus.CenterData.Trim = Bus.AutoControlData.Trim;
 
