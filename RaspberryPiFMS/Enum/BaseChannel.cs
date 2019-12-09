@@ -3,47 +3,41 @@
     public enum BaseChannel
     {
         /// <summary>
-        /// 偏航
-        /// </summary>
-        Yaw = 14,
-        //YawL = 2,
-        //YawR = 3,
-        /// <summary>
         /// 滚转
         /// </summary>
-        //Roll = 5,
-        RollL = 12,
-        RollR = 13,
+        RollL = 1,
+        RollR = 2,
+        /// <summary>
+        /// 偏航
+        /// </summary>
+        Yaw = 3,
         /// <summary>
         /// 俯仰
         /// </summary>
-        //Pitch = 9,
-        PitchL = 16,
-        PitchR = 15,
-        /// <summary>
-        /// 配平
-        /// </summary>
-        //Trim = 9,
-        //TrimL = 9,
-        //TrimR = 9,
-        /// <summary>
-        /// 节流阀
-        /// </summary>
-        Throttel = 11,
-        //ThrottelL1 = 7,
-        //ThrottelL2 = 8,
-        //ThrottelR1 = 9,
-        //ThrottelR2 = 10,
-
-        /// <summary>
-        /// 襟翼
-        /// </summary>
-        //Flaps = 7,
+        Pitch = 4,
         /// <summary>
         /// 减速板
         /// </summary>
-        //AirBreak = 8,
-        //AirBreakL =9,
-        //AirBreakR = 10
+        AirBreakL = 5,
+        AirBreakR = 6,
+        /// <summary>
+        /// 配平
+        /// </summary>
+        Trim = 7,
+        /// <summary>
+        /// 节流阀
+        /// </summary>
+        ThrottelL = 8,
+        ThrottelR = 9,
+
+        GearF = 10,
+        GearBL = 11,
+        GearBR = 12,
+
+        FlapL = 13,
+        FlapR = 14,
+
+        EnginePowerL = 15,
+        EnginePowerR = 16
     }
 }

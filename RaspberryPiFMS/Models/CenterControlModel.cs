@@ -16,8 +16,7 @@ namespace RaspberryPiFMS.Models
         /// <summary>
         /// 俯仰角度
         /// </summary>
-        public double PitchL;
-        public double PitchR;
+        public double Pitch;
         /// <summary>
         /// 减速板角度
         /// </summary>
@@ -30,7 +29,6 @@ namespace RaspberryPiFMS.Models
         /// <summary>
         /// 节流阀
         /// </summary>
-        public double Throttel;
         public double ThrottelL;
         public double ThrottelR;
         /// <summary>
@@ -45,6 +43,14 @@ namespace RaspberryPiFMS.Models
         /// 反推
         /// </summary>
         public bool PushBack = false;
+        /// <summary>
+        /// 发动机电源左
+        /// </summary>
+        public bool EnginePowerL = false;
+        /// <summary>
+        /// 发动机电源右
+        /// </summary>
+        public bool EnginePowerR = false;
         #region 灯光组
         //1
         /// <summary>
