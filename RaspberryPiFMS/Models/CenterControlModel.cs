@@ -110,8 +110,7 @@ namespace RaspberryPiFMS.Models
             RollL = 50;
             RollR = 50;
             Yaw = 50;
-            PitchL = 50;
-            PitchR = 50;
+            Pitch = 50;
         }
     }
 }
