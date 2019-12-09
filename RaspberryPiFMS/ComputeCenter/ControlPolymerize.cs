@@ -23,7 +23,7 @@ namespace RaspberryPiFMS.ComputeCenter
 
         private void _pid_PIDOutEvent(double value)
         {
-            Bus.CenterData.Throttel = value;
+            Bus.CenterData.ThrottelL = value;
         }
 
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
@@ -51,52 +51,52 @@ namespace RaspberryPiFMS.ComputeCenter
         private void ManualPolymerize()
         {
             Bus.CenterData.Yaw = Bus.RemoteSignal.Channel01.AngleLimit(Bus.AngleLimit_Yaw);
-            Bus.CenterData.Throttel = Bus.RemoteSignal.Channel03;
+            Bus.CenterData.ThrottelL = Bus.RemoteSignal.Channel03;
+            Bus.CenterData.ThrottelR = Bus.RemoteSignal.Channel03;
             //对油门进行PID控制
             //_pid.SetWithPID((float)Cache.CenterControlData.ThrottelL, (float)Cache.RemoteSignal.Channel03);
             Bus.CenterData.RollL = Bus.RemoteSignal.Channel04.AngleLimit(Bus.AngleLimit_Roll);
             Bus.CenterData.RollR = Bus.RemoteSignal.Channel04.AngleLimit(Bus.AngleLimit_Roll);
-            Bus.CenterData.PitchL = Bus.RemoteSignal.Channel02.AngleLimit(Bus.AngleLimit_Pitch);
-            Bus.CenterData.PitchR = Bus.RemoteSignal.Channel02.AngleLimit(Bus.AngleLimit_Pitch).Reverse();
+            Bus.CenterData.Pitch = Bus.RemoteSignal.Channel02.AngleLimit(Bus.AngleLimit_Pitch);
             //Bus.CenterData.Trim = Bus.RemoteSignal.Channel12.AngleLimit(Bus.AngleLimit_Trim);
             //Cache.RemoteSignal.Channel06
             //CommonOperation();
         }
         private void LateralNavigation()
         {
-            Bus.CenterData.PitchL = Bus.RemoteSignal.Channel02;
+            Bus.CenterData.Pitch = Bus.RemoteSignal.Channel02;
             Bus.CenterData.Trim = Bus.RemoteSignal.Channel12;
 
             Bus.CenterData.RollL = Bus.AutoControlData.Roll;
 
-            _pid.SetWithPID((float)Bus.CenterData.Throttel, Bus.AutoControlData.Throttel);
+            _pid.SetWithPID((float)Bus.CenterData.ThrottelL, Bus.AutoControlData.Throttel);
 
         }
         private void VerticalNavigation()
         {
             Bus.CenterData.RollL = Bus.RemoteSignal.Channel04;
 
-            Bus.CenterData.PitchL = Bus.AutoControlData.Pitch;
+            Bus.CenterData.Pitch = Bus.AutoControlData.Pitch;
             Bus.CenterData.Trim = Bus.AutoControlData.Trim;
 
-            _pid.SetWithPID((float)Bus.CenterData.Throttel, Bus.AutoControlData.Throttel);
+            _pid.SetWithPID((float)Bus.CenterData.ThrottelL, Bus.AutoControlData.Throttel);
         }
         private void APOn()
         {
             Bus.CenterData.RollL = Bus.AutoControlData.Roll;
-            Bus.CenterData.PitchL = Bus.AutoControlData.Pitch;
+            Bus.CenterData.Pitch = Bus.AutoControlData.Pitch;
             Bus.CenterData.Trim = Bus.AutoControlData.Trim;
 
-            _pid.SetWithPID((float)Bus.CenterData.Throttel, Bus.AutoControlData.Throttel);
+            _pid.SetWithPID((float)Bus.CenterData.ThrottelL, Bus.AutoControlData.Throttel);
         }
         private void AutoSpeed()
         {
-            Bus.CenterData.PitchL = Bus.RemoteSignal.Channel02;
+            Bus.CenterData.Pitch = Bus.RemoteSignal.Channel02;
             Bus.CenterData.RollL = Bus.RemoteSignal.Channel04;
 
             Bus.CenterData.Trim = Bus.AutoControlData.Trim;
 
-            _pid.SetWithPID((float)Bus.CenterData.Throttel, Bus.AutoControlData.Throttel);
+            _pid.SetWithPID((float)Bus.CenterData.ThrottelL, Bus.AutoControlData.Throttel);
         }
 
         private void CommonOperation()

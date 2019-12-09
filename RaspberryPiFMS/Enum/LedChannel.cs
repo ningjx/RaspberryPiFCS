@@ -3,45 +3,42 @@
     public enum LedChannel
     {
         /// <summary>
-        /// 航行灯（翼尖闪烁）
+        /// 航行灯（闪烁）
         /// </summary>
         FilghtLightL = 1,
         FilghtLightR = 2,
+        FilghtLightB = 3,
         /// <summary>
         /// Logo灯
         /// </summary>
-        LogoLight = 3,
+        LogoLight = 4,
         /// <summary>
-        /// 红色信标灯（闪烁）
+        /// 红色防撞灯（闪烁）
         /// </summary>
-        AntiCollisionLight = 4,
+        AntiCollisionLight = 5,
         /// <summary>
         /// 滑行灯
         /// </summary>
-        TaxiLight = 5,
+        TaxiLight = 6,
         /// <summary>
         /// 起飞
         /// </summary>
-        TakeoffLight = 6,
+        TakeoffLight = 7,
         /// <summary>
         /// 跑道脱离灯
         /// </summary>
-        RunwayLight = 7,
+        RunwayLight = 8,
         /// <summary>
         /// 着陆灯
         /// </summary>
-        LandingLight = 8,
+        LandingLight = 9,
         /// <summary>
         /// 机翼检查灯
         /// </summary>
-        WingInspectionLight = 9,
+        WingInspectionLight = 10,
         /// <summary>
         /// 白色防撞灯
         /// </summary>
-        AntiCollisionLightWhite = 10,
-
-        PushBack_L = 11,
-
-        PushBack_R = 12
+        AntiCollisionLightWhite = 11
     }
 }
