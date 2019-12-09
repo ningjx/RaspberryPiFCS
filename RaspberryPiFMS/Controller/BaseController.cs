@@ -1,6 +1,7 @@
 ﻿using System;
 using RaspberryPiFMS.Enum;
 using RaspberryPiFMS.Helper;
+using RaspberryPiFMS.Models;
 using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Controller
@@ -9,7 +10,8 @@ namespace RaspberryPiFMS.Controller
     {
         private Timer _timer = new Timer();
         private bool _excuteLock = false;
-        private Pca9685 pca9685 = new Pca9685();
+        private Pca9685 _pca9685 = new Pca9685(0x42);
+        private bool _gearStatus = true;
         /// <summary>
         /// 初始化基础控制器
         /// </summary>
@@ -36,15 +38,44 @@ namespace RaspberryPiFMS.Controller
         private void SetControl()
         {
             #region 最基本的四个通道
-            pca9685.SetPWMAngle((int)BaseChannel.PitchL, Bus.CenterData.PitchL);
-            pca9685.SetPWMAngle((int)BaseChannel.PitchR, Bus.CenterData.PitchR);
-            pca9685.SetPWMAngle((int)BaseChannel.RollL, Bus.CenterData.RollL);
-            pca9685.SetPWMAngle((int)BaseChannel.RollR, Bus.CenterData.RollR);
-            pca9685.SetPWMAngle((int)BaseChannel.Yaw, Bus.CenterData.Yaw);
-            pca9685.SetPWMAngle((int)BaseChannel.Throttel, Bus.CenterData.Throttel);
+            _pca9685.SetAngle((int)BaseChannel.PitchL, Bus.CenterData.PitchL);
+            _pca9685.SetAngle((int)BaseChannel.PitchR, Bus.CenterData.PitchR);
+            _pca9685.SetAngle((int)BaseChannel.RollL, Bus.CenterData.RollL);
+            _pca9685.SetAngle((int)BaseChannel.RollR, Bus.CenterData.RollR);
+            _pca9685.SetAngle((int)BaseChannel.Yaw, Bus.CenterData.Yaw);
+            _pca9685.SetAngle((int)BaseChannel.Throttel, Bus.CenterData.Throttel);
             //pca9685.SetPWMAngle((int)BaseChannel.ThrottelR, Bus.CenterData.ThrottelR);
             //pca9685.SetPWMAngle((int)BaseChannel.Trim, Bus.CenterData.Trim);
             #endregion
         }
+
+        private void Gear(bool gear)
+        {
+            if (_gearStatus == gear)
+                return;
+            if (LandingGearEvent == null)
+            {
+
+            }
+            else
+            {
+                _gearStatus = gear;
+                LandingGearEvent.Invoke();
+            }
+        }
+
+
+
+
+
+
+        public delegate void BaseControlEventHandler();
+
+        public event BaseControlEventHandler LandingGearEvent;
+
+        public event BaseControlEventHandler PushBackEvent;
+
+        public event BaseControlEventHandler FlapEvent;
+
     }
 }

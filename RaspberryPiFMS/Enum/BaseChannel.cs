@@ -5,21 +5,21 @@
         /// <summary>
         /// 偏航
         /// </summary>
-        Yaw = 1,
+        Yaw = 14,
         //YawL = 2,
         //YawR = 3,
         /// <summary>
         /// 滚转
         /// </summary>
         //Roll = 5,
-        RollL = 2,
-        RollR = 3,
+        RollL = 12,
+        RollR = 13,
         /// <summary>
         /// 俯仰
         /// </summary>
         //Pitch = 9,
-        PitchL = 4,
-        PitchR = 5,
+        PitchL = 16,
+        PitchR = 15,
         /// <summary>
         /// 配平
         /// </summary>
@@ -29,7 +29,7 @@
         /// <summary>
         /// 节流阀
         /// </summary>
-        Throttel = 6,
+        Throttel = 11,
         //ThrottelL1 = 7,
         //ThrottelL2 = 8,
         //ThrottelR1 = 9,

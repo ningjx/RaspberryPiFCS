@@ -7,6 +7,7 @@ using RaspberryPiFMS.ComputeCenter;
 using Unosquare.WiringPi;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 
 namespace RaspberryPiFMS
 {
@@ -15,10 +16,6 @@ namespace RaspberryPiFMS
         #region 各种参数
         //丢失信号延迟时间/秒
         public static int LosingSignalDelay = 3;
-
-        //遥控器数据异常过滤-过滤阈值/角度
-        public static int De_Shanking = 20;
-
         public static double AngleLimit_Roll = 50;
         public static double AngleLimit_Pitch = 50;
         public static double AngleLimit_Yaw = 50;
@@ -71,49 +68,42 @@ namespace RaspberryPiFMS
         private static ControlPolymerize _controlPolymerize;
         static Bus()
         {
-            try
-            {
-                AngleLimit_Roll = 30;
-                AngleLimit_Pitch = 30;
-                AngleLimit_Yaw = 30;
-                AngleLimit_Trim = 10;
-                Console.Write("启动IIC总线");
-                I2CBus = new I2CBus();
-                Console.WriteLine("------Finish\r");
+            AngleLimit_Roll = 50;
+            AngleLimit_Pitch = 50;
+            AngleLimit_Yaw = 50;
+            AngleLimit_Trim = 20;
+            Console.Write("启动IIC总线");
+            I2CBus = new I2CBus();
+            Console.WriteLine("------Finish\r");
 
-                Console.Write("启动基础控制器");
-                BaseContorl = new BaseController();
-                Console.WriteLine("------Finish\r");
+            Console.Write("启动基础控制器");
+            BaseContorl = new BaseController();
+            Console.WriteLine("------Finish\r");
 
-                //Console.Write("启动灯光控制器");
-                //LedContorl = new LEDController();
-                //Console.WriteLine("------Finish\r");
+            //Console.Write("启动灯光控制器");
+            //LedContorl = new LEDController();
+            //Console.WriteLine("------Finish\r");
 
-                //Console.Write("启动反推控制器");
-                //PushBackControl = new PushBackController();
-                //Console.WriteLine("------Finish\r");
+            //Console.Write("启动反推控制器");
+            //PushBackControl = new PushBackController();
+            //Console.WriteLine("------Finish\r");
 
-                Console.Write("启动遥控接收器");
-                StartRemote();
-                RemoteControl = new RemoteController();
-                Console.WriteLine("------Finish\r");
+            Console.Write("启动遥控接收器");
+            StartRemote();
+            RemoteControl = new RemoteController();
+            Console.WriteLine("------Finish\r");
 
-                Console.Write("启动控制数据聚合");
-                _controlPolymerize = new ControlPolymerize();
-                Console.WriteLine("------Finish\r");
+            Console.Write("启动控制数据聚合");
+            _controlPolymerize = new ControlPolymerize();
+            Console.WriteLine("------Finish\r");
 
-                //Console.Write("初始化超声波测距");
-                //QIFDControl = new QIFDController(28, 29);
-                //Console.WriteLine("------Finish\r");
+            //Console.Write("初始化超声波测距");
+            //QIFDControl = new QIFDController(28, 29);
+            //Console.WriteLine("------Finish\r");
 
-                //Console.Write("初始化温度传感01");
-                //TempControl = new TempController();
-                //Console.WriteLine("------Finish\r");
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine($"系统出现异常\r\n异常消息[{e.Message}]\r\n堆栈追踪\r\n--------------------------------------------------------------------------\r\n{e.StackTrace}\r\n--------------------------------------------------------------------------");
-            }
+            //Console.Write("初始化温度传感01");
+            //TempControl = new TempController();
+            //Console.WriteLine("------Finish\r");
         }
 
         public static void SysLaunch()
@@ -126,6 +116,7 @@ namespace RaspberryPiFMS
             var psi = new ProcessStartInfo("python", Path.Combine("PythonScripts", "ss.py")) { RedirectStandardOutput = true };
             //启动
             var proc = Process.Start(psi);
+            Thread.Sleep(10);
             if (proc == null)
                 throw new Exception("遥控器模块启动失败");
             //using (var sr = proc.StandardOutput)

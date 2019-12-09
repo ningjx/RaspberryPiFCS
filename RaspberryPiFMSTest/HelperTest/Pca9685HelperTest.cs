@@ -13,7 +13,7 @@ namespace RaspberryPiFMSTest.HelperTest
         public void Pca9685Test()
         {
             Pca9685 pca9685 = new Pca9685();
-            pca9685.SetPWMAngle(0,10);
+            pca9685.SetAngle(0,10);
         }
     }
 }

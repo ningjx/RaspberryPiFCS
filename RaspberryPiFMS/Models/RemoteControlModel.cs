@@ -6,9 +6,21 @@ namespace RaspberryPiFMS.Models
     public class RemoteControlModel
     {
         private int _channelCount = 0;
+        /// <summary>
+        /// Yaw
+        /// </summary>
         public double Channel01;
+        /// <summary>
+        /// Pitch
+        /// </summary>
         public double Channel02;
+        /// <summary>
+        /// 油门
+        /// </summary>
         public double Channel03;
+        /// <summary>
+        ///Roll
+        /// </summary>
         public double Channel04;
         public Switch Channel05;
         public Switch Channel06;
@@ -31,17 +43,17 @@ namespace RaspberryPiFMS.Models
             switch (_channelCount)
             {
                 case 1:
-                    Channel01 = Math.Abs(data / 20.0 - Channel01) < Bus.De_Shanking ? Math.Abs(data / 20.0) : Channel01;
+                    Channel01 = Math.Abs(data / 20.0);
                     break;
                 case 2:
-                    Channel02 = Math.Abs(data / 20.0 - Channel02) < Bus.De_Shanking ? Math.Abs(data / 20.0) : Channel02;
+                    Channel02 = Math.Abs(data / 20.0);
                     break;
                 case 3:
-                    Channel03 = Math.Abs((845 - data) / 7.0 - Channel03) < Bus.De_Shanking ? Math.Abs((845 - data) / 7.0) + 25 : Channel03;
+                    Channel03 = Math.Abs((845 - data) / 7.0) + 25;
                     //油门输出25-125，配合电调
                     break;
                 case 4:
-                    Channel04 = Math.Abs(data / 20.0 - Channel04) < Bus.De_Shanking ? Math.Abs(data / 20.0) : Channel04;
+                    Channel04 = Math.Abs(data / 20.0);
                     break;
                 case 5:
                     Channel05 = data.GetSwitch();
@@ -65,7 +77,7 @@ namespace RaspberryPiFMS.Models
                     Channel11 = data.GetSwitch(500);
                     break;
                 case 12:
-                    Channel12 = Math.Abs((data - 306) / 14.0 - Channel12) < Bus.De_Shanking ? Math.Abs((data - 306) / 14.0) : Channel12;
+                    Channel12 = Math.Abs((data - 306) / 14.0);
                     break;
                 case 13:
                     Channel13 = data;
