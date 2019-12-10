@@ -94,5 +94,15 @@ namespace RaspberryPiFMS
         {
             return (angle - 50) * angleLimit / 50 + 50;
         }
+
+        public static string[] GetByCount(this string[] data, int count)
+        {
+            string[] result = new string[count];
+            for (int i = 0; i < count; i++)
+            {
+                result[i] = data[i];
+            }
+            return result;
+        }
     }
 }
