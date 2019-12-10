@@ -50,14 +50,14 @@ namespace RaspberryPiFMS.ComputeCenter
 
         private void ManualPolymerize()
         {
-            Bus.CenterData.Yaw = Bus.RemoteSignal.Channel01.AngleLimit(Bus.AngleLimit_Yaw);
+            Bus.CenterData.Yaw = Bus.RemoteSignal.Channel01.AngleLimit(Bus.Config.AngleLimit_Yaw);
             Bus.CenterData.ThrottelL = Bus.RemoteSignal.Channel03;
             Bus.CenterData.ThrottelR = Bus.RemoteSignal.Channel03;
             //对油门进行PID控制
             //_pid.SetWithPID((float)Cache.CenterControlData.ThrottelL, (float)Cache.RemoteSignal.Channel03);
-            Bus.CenterData.RollL = Bus.RemoteSignal.Channel04.AngleLimit(Bus.AngleLimit_Roll);
-            Bus.CenterData.RollR = Bus.RemoteSignal.Channel04.AngleLimit(Bus.AngleLimit_Roll);
-            Bus.CenterData.Pitch = Bus.RemoteSignal.Channel02.AngleLimit(Bus.AngleLimit_Pitch);
+            Bus.CenterData.RollL = Bus.RemoteSignal.Channel04.AngleLimit(Bus.Config.AngleLimit_Roll);
+            Bus.CenterData.RollR = Bus.RemoteSignal.Channel04.AngleLimit(Bus.Config.AngleLimit_Roll);
+            Bus.CenterData.Pitch = Bus.RemoteSignal.Channel02.AngleLimit(Bus.Config.AngleLimit_Pitch);
             //Bus.CenterData.Trim = Bus.RemoteSignal.Channel12.AngleLimit(Bus.AngleLimit_Trim);
             //Cache.RemoteSignal.Channel06
             //CommonOperation();
