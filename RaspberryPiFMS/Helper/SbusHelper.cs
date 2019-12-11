@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RaspberryPiFMS.Models;
+using System;
 using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Helper
@@ -98,7 +99,7 @@ namespace RaspberryPiFMS.Helper
                     nextIndex = index + 2;
                 }
                 string thisChannel = nextByte + thisbyte;
-                Bus.RemoteSignal.SetSignal(Convert.ToInt64(thisChannel, 2));
+                OriginSignal.SetSignal(Convert.ToInt64(thisChannel, 2));
 
                 thisRemainder = needNext <= 8 ? 8 - needNext : 8 - (needNext - 8);
                 needNext = 11 - thisRemainder;
@@ -108,9 +109,7 @@ namespace RaspberryPiFMS.Helper
 
         private void SetSignalLose(object sender, System.Timers.ElapsedEventArgs e)
         {
-            Bus.RemoteSignal.IsConnected = false;
-            Bus.RemoteSignal.Channel01 = Bus.RemoteSignal.Channel02 = Bus.RemoteSignal.Channel04 = 50;
-            Bus.RemoteSignal.Channel03 = 25;
+            OriginSignal.SetSignalLost();
         }
 
         /// <summary>
@@ -118,7 +117,7 @@ namespace RaspberryPiFMS.Helper
         /// </summary>
         private static void SetSignalConnected()
         {
-            Bus.RemoteSignal.IsConnected = true;
+            OriginSignal.IsConnected = true;
         }
     }
 }

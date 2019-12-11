@@ -14,30 +14,31 @@
         /// <summary>
         /// 俯仰
         /// </summary>
-        Pitch = 4,
+        PitchL = 4,
+        PitchR = 5,
         /// <summary>
         /// 减速板
         /// </summary>
-        AirBreakL = 5,
-        AirBreakR = 6,
+        AirBreakL = 6,
+        AirBreakR = 7,
         /// <summary>
         /// 配平
         /// </summary>
-        Trim = 7,
+        Trim = 8,
         /// <summary>
         /// 节流阀
         /// </summary>
-        ThrottelL = 8,
-        ThrottelR = 9,
+        ThrottelL = 9,
+        ThrottelR = 10,
 
-        GearF = 10,
-        GearBL = 11,
-        GearBR = 12,
+        GearF = 11,
+        GearBL = 12,
+        GearBR = 13,
 
-        FlapL = 13,
-        FlapR = 14,
+        FlapL = 14,
+        FlapR = 15,
 
-        EnginePowerL = 15,
-        EnginePowerR = 16
+        //EnginePowerL = 15,
+        //EnginePowerR = 16
     }
 }

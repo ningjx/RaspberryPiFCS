@@ -2,11 +2,11 @@
 
 namespace RaspberryPiFMS.Models
 {
-    public class MavlinkMessage1Hz
+    public static class MavlinkMessage1Hz
     {
-        public BatteryStatusMessage BatteryStatusMessage = new BatteryStatusMessage();
+        public static BatteryStatusMessage BatteryStatusMessage = new BatteryStatusMessage();
 
-        public void SetBatteryStatusMessage(short current,short temp,ushort[] vol)
+        public static void SetBatteryStatusMessage(short current,short temp,ushort[] vol)
         {
             BatteryStatusMessage.CurrentBattery = current;
             BatteryStatusMessage.Temperature = temp;

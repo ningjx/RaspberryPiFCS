@@ -20,24 +20,6 @@ namespace RaspberryPiFMS
         /// </summary>
         public static ContrlMode ContrlMode = ContrlMode.Manual;
 
-        #region 数据
-        /// <summary>
-        /// 遥控数据
-        /// </summary>
-        public static RemoteControlModel RemoteSignal = new RemoteControlModel();
-
-        /// <summary>
-        /// 自动数据
-        /// </summary>
-        public static AutoControlModel AutoControlData = new AutoControlModel();
-
-        public static CenterControlModel CenterData = new CenterControlModel();
-
-        public static MavlinkMessage1Hz MavlinkMessage1Hz = new MavlinkMessage1Hz();
-
-        public static MavlinkMessage50Hz MavlinkMessage50Hz = new MavlinkMessage50Hz();
-        #endregion
-
         #region Controller
         public static RemoteController RemoteControl;
 

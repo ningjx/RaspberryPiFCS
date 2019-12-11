@@ -12,12 +12,13 @@ namespace RaspberryPiFMS.Controller
         private bool _excuteLock = false;
         private Pca9685 _pca9685 = new Pca9685(0x42);
         private bool _gearStatus = true;
+
         /// <summary>
-        /// 初始化基础控制器
+        /// 
         /// </summary>
-        /// <param name="baseDriver"></param>
         /// <param name="ms">控制器的轮询间隔时间</param>
-        public BaseController(int ms = 20)
+        /// <param name="i2cAddr">Pca9685地址</param>
+        public BaseController(int ms = 20,int i2cAddr = 0x40)
         {
             ms = Math.Abs(ms);
             _timer.Interval = ms;
@@ -38,14 +39,13 @@ namespace RaspberryPiFMS.Controller
         private void SetControl()
         {
             #region 最基本的四个通道
-            _pca9685.SetAngle((int)BaseChannel.Pitch, Bus.CenterData.Pitch);
-            _pca9685.SetAngle((int)BaseChannel.RollL, Bus.CenterData.RollL);
-            _pca9685.SetAngle((int)BaseChannel.RollR, Bus.CenterData.RollR);
-            _pca9685.SetAngle((int)BaseChannel.Yaw, Bus.CenterData.Yaw);
-            _pca9685.SetAngle((int)BaseChannel.ThrottelL, Bus.CenterData.ThrottelL);
-            _pca9685.SetAngle((int)BaseChannel.ThrottelR, Bus.CenterData.ThrottelR);
-            //pca9685.SetPWMAngle((int)BaseChannel.ThrottelR, Bus.CenterData.ThrottelR);
-            //pca9685.SetPWMAngle((int)BaseChannel.Trim, Bus.CenterData.Trim);
+            _pca9685.SetAngle((int)BaseChannel.PitchL, CenterData.PitchL);
+            _pca9685.SetAngle((int)BaseChannel.PitchR, CenterData.PitchR);
+            _pca9685.SetAngle((int)BaseChannel.RollL, CenterData.RollL);
+            _pca9685.SetAngle((int)BaseChannel.RollR, CenterData.RollR);
+            _pca9685.SetAngle((int)BaseChannel.Yaw, CenterData.Yaw);
+            _pca9685.SetAngle((int)BaseChannel.ThrottelL, CenterData.ThrottelL);
+            _pca9685.SetAngle((int)BaseChannel.ThrottelR, CenterData.ThrottelR);
             #endregion
         }
 
@@ -63,11 +63,6 @@ namespace RaspberryPiFMS.Controller
                 LandingGearEvent.Invoke();
             }
         }
-
-
-
-
-
 
         public delegate void BaseControlEventHandler();
 

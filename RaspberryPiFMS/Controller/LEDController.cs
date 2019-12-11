@@ -1,5 +1,6 @@
 ﻿using RaspberryPiFMS.Enum;
 using RaspberryPiFMS.Helper;
+using RaspberryPiFMS.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -21,7 +22,13 @@ namespace RaspberryPiFMS.Controller
         private Timer _ledTimer = new Timer();
         private bool _isExcuting = false;
         private Pca9685 pca9685 = new Pca9685();
-        public LEDController(int ms = 30)
+
+        /// <summary>
+        /// LED控制器
+        /// </summary>
+        /// <param name="ms">轮询时间</param>
+        /// <param name="i2cAddr">IIC设备地址</param>
+        public LEDController(int ms = 30, int i2cAddr = 0x40)
         {
             ms = Math.Abs(ms);
             _timer.Interval = ms;
@@ -39,7 +46,7 @@ namespace RaspberryPiFMS.Controller
             if (_isExcuting)
                 return;
             _isExcuting = true;
-            switch (Bus.CenterData.AntiCollisionLight)
+            switch (CenterData.AntiCollisionLight)
             {
                 case true:
                     _antiCollisionLight = true;
@@ -48,7 +55,7 @@ namespace RaspberryPiFMS.Controller
                     _antiCollisionLight = false;
                     break;
             }
-            switch (Bus.CenterData.FlightLight)
+            switch (CenterData.FlightLight)
             {
                 case true:
                     _flightLight = true;
@@ -57,7 +64,7 @@ namespace RaspberryPiFMS.Controller
                     _flightLight = false;
                     break;
             }
-            switch (Bus.CenterData.TaxiLight)
+            switch (CenterData.TaxiLight)
             {
                 case true:
                     pca9685.SetOn((int)LedChannel.TaxiLight);
@@ -66,7 +73,7 @@ namespace RaspberryPiFMS.Controller
                     pca9685.SetOff((int)LedChannel.TaxiLight);
                     break;
             }
-            switch (Bus.CenterData.RunwayLight)
+            switch (CenterData.RunwayLight)
             {
                 case true:
                     pca9685.SetOn((int)LedChannel.RunwayLight);
@@ -75,7 +82,7 @@ namespace RaspberryPiFMS.Controller
                     pca9685.SetOff((int)LedChannel.RunwayLight);
                     break;
             }
-            switch (Bus.CenterData.TakeOffLight)
+            switch (CenterData.TakeOffLight)
             {
                 case true:
                     pca9685.SetOn((int)LedChannel.TakeoffLight);
@@ -84,7 +91,7 @@ namespace RaspberryPiFMS.Controller
                     pca9685.SetOff((int)LedChannel.TakeoffLight);
                     break;
             }
-            switch (Bus.CenterData.LandingLight)
+            switch (CenterData.LandingLight)
             {
                 case true:
                     pca9685.SetOn((int)LedChannel.LandingLight);
@@ -93,7 +100,7 @@ namespace RaspberryPiFMS.Controller
                     pca9685.SetOff((int)LedChannel.LandingLight);
                     break;
             }
-            switch (Bus.CenterData.WingInspectionLight)
+            switch (CenterData.WingInspectionLight)
             {
                 case true:
                     pca9685.SetOn((int)LedChannel.WingInspectionLight);
@@ -102,7 +109,7 @@ namespace RaspberryPiFMS.Controller
                     pca9685.SetOff((int)LedChannel.WingInspectionLight);
                     break;
             }
-            switch (Bus.CenterData.PositionLight)
+            switch (CenterData.PositionLight)
             {
                 case true:
                     pca9685.SetOn((int)LedChannel.AntiCollisionLightWhite);

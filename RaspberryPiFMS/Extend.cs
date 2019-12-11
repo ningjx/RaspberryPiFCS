@@ -1,11 +1,15 @@
 ﻿using flyfire.IO.Ports;
 using RaspberryPiFMS.Enum;
 using RaspberryPiFMS.Helper;
+using RaspberryPiFMS.Models;
 using System;
 using System.Text;
 
 namespace RaspberryPiFMS
 {
+    /// <summary>
+    /// 扩展方法
+    /// </summary>
     public static class Extends
     {
         /// <summary>
@@ -103,6 +107,30 @@ namespace RaspberryPiFMS
                 result[i] = data[i];
             }
             return result;
+        }
+
+        /// <summary>
+        /// 转换原始遥控数据
+        /// </summary>
+        /// <param name="originData"></param>
+        public static void ConvertSignal()
+        {
+            OriginConSingnal.Roll = OriginSignal.Channel04 / 10;
+            OriginConSingnal.Pitch = OriginSignal.Channel02 / 10;
+            OriginConSingnal.Yaw = OriginSignal.Channel01 / 10;
+            OriginConSingnal.Throttel = OriginSignal.Channel03 / 10;
+            OriginConSingnal.Channel05 = OriginSignal.Channel05.GetSwitch();
+            OriginConSingnal.Channel06 = OriginSignal.Channel06.GetSwitch(500);
+            OriginConSingnal.Channel07 = OriginSignal.Channel07.GetSwitch();
+            OriginConSingnal.Channel08 = OriginSignal.Channel08.GetSwitch();
+            OriginConSingnal.Channel09 = OriginSignal.Channel09.GetSwitch();
+            OriginConSingnal.Channel10 = OriginSignal.Channel10 / 10;
+            OriginConSingnal.Channel11 = OriginSignal.Channel11.GetSwitch(500);
+            OriginConSingnal.Channel12 = OriginSignal.Channel12 / 10;
+            //OriginConSingnal.Channel13 = OriginSignal.Channel13 / 10;
+            //OriginConSingnal.Channel14 = OriginSignal.Channel14 / 10;
+            //OriginConSingnal.Channel15 = OriginSignal.Channel15 / 10;
+            //OriginConSingnal.Channel16 = OriginSignal.Channel16 / 10;  
         }
     }
 }

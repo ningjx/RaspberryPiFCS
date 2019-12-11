@@ -1,4 +1,5 @@
 ﻿using RaspberryPiFMS.Helper;
+using RaspberryPiFMS.Models;
 using System;
 using System.Collections.Generic;
 using System.Device.Gpio;
@@ -59,7 +60,7 @@ namespace RaspberryPiFMS.Controller
                     break;
                 }
             }
-            Bus.CenterData.MicroAltitude = _sw.Elapsed.Milliseconds * 343 / 20;
+            CenterData.MicroAltitude = _sw.Elapsed.Milliseconds * 343 / 20;
             _sw.Reset();
             _isOverTime = false;
         }
@@ -70,7 +71,7 @@ namespace RaspberryPiFMS.Controller
         public void Stop()
         {
             _timer.Stop();
-            Bus.CenterData.MicroAltitude = 0;
+            CenterData.MicroAltitude = 0;
         }
         public void SetOvetTime()
         {

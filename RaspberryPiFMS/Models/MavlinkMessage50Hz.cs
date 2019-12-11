@@ -2,11 +2,11 @@
 
 namespace RaspberryPiFMS.Models
 {
-    public class MavlinkMessage50Hz
+    public static class MavlinkMessage50Hz
     {
-        public AttitudeMessage AttitudeMessage = new AttitudeMessage();
+        public static AttitudeMessage AttitudeMessage = new AttitudeMessage();
 
-        public void SetAttitudeMessage(float roll,float pitch,float yaw)
+        public static void SetAttitudeMessage(float roll,float pitch,float yaw)
         {
             AttitudeMessage.Roll = roll;
             AttitudeMessage.Pitch = pitch;
