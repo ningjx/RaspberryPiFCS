@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RaspberryPiFMS.Models;
+using System;
 using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Helper
@@ -9,10 +10,12 @@ namespace RaspberryPiFMS.Helper
         /// 丢失信号后启动定时器，到点儿了就执行丢失信号动作
         /// </summary>
         private Timer _timer = new Timer();
+        private bool _decodingLock = false;
+        private bool _isRemoteConnected = true;
         public SbusHelper()
         {
             _timer.AutoReset = false;
-            _timer.Interval = Bus.LosingSignalDelay * 1000;
+            _timer.Interval = Bus.Config.LosingSignalDelay * 1000;
             _timer.Elapsed += SetSignalLose;
         }
         /// <summary>
@@ -44,26 +47,26 @@ namespace RaspberryPiFMS.Helper
             if (bytes.Length != 25 || bytes[0] != 0x0f || bytes[24] != 0x00 || bytes[23] != 0x00)
             {
 
-                if (Bus.IsRemoteConnected)
+                if (_isRemoteConnected)
                 {
-                    Bus.IsRemoteConnected = false;
+                    _isRemoteConnected = false;
                     _timer.Start();
                 }
                 return;
             }
             else
             {
-                if (!Bus.IsRemoteConnected)
+                if (!_isRemoteConnected)
                 {
-                    Bus.IsRemoteConnected = true;
+                    _isRemoteConnected = true;
                     _timer.Stop();
                     SetSignalConnected();
                 }
             }
-            if (Bus.DecodingLock)
+            if (_decodingLock)
                 return;
             else
-                Bus.DecodingLock = true;
+                _decodingLock = true;
             int needNext = 3;//需要下一字节的位数
             int thisRemainder = 8;//当前字节剩余
             int nextIndex = 1;//下一字节index
@@ -96,19 +99,17 @@ namespace RaspberryPiFMS.Helper
                     nextIndex = index + 2;
                 }
                 string thisChannel = nextByte + thisbyte;
-                Bus.RemoteSignal.SetSignal(Convert.ToInt64(thisChannel, 2));
+                OriginSignal.SetSignal(Convert.ToInt64(thisChannel, 2));
 
                 thisRemainder = needNext <= 8 ? 8 - needNext : 8 - (needNext - 8);
                 needNext = 11 - thisRemainder;
             }
-            Bus.DecodingLock = false;
+            _decodingLock = false;
         }
 
         private void SetSignalLose(object sender, System.Timers.ElapsedEventArgs e)
         {
-            Bus.RemoteSignal.IsConnected = false;
-            Bus.RemoteSignal.Channel01 = Bus.RemoteSignal.Channel02 = Bus.RemoteSignal.Channel04 = 50;
-            Bus.RemoteSignal.Channel03 = 25;
+            OriginSignal.SetSignalLost();
         }
 
         /// <summary>
@@ -116,7 +117,7 @@ namespace RaspberryPiFMS.Helper
         /// </summary>
         private static void SetSignalConnected()
         {
-            Bus.RemoteSignal.IsConnected = true;
+            OriginSignal.IsConnected = true;
         }
     }
 }
