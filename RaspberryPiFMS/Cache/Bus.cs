@@ -13,8 +13,6 @@ namespace RaspberryPiFMS
 {
     public static class Bus
     {
-        public static ConfigModel Config;
-
         /// <summary>
         /// AP模式
         /// </summary>
@@ -37,7 +35,6 @@ namespace RaspberryPiFMS
         private static ControlPolymerize _controlPolymerize;
         static Bus()
         {
-            Config = Models.Config.InitConfig();
             Console.Write("启动IIC总线");
             I2CBus = new I2CBus();
             Console.WriteLine("------Finish\r");

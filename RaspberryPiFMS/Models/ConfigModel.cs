@@ -57,39 +57,35 @@ namespace RaspberryPiFMS.Models
     /// </summary>
     public static class Config
     {
-        /// <summary>
-        /// 初始化载入配置文件
-        /// </summary>
-        /// <returns></returns>
-        public static ConfigModel InitConfig()
+        public static ConfigModel SysConfig;
+        static Config()
         {
             string[] path = new string[] { "Configs", "SystemConfig.json" };
             string data = path.Read();
             if (string.IsNullOrEmpty(data))
             {
-                ConfigModel config = new ConfigModel();
-                path.Write(JsonConvert.SerializeObject(config));
-                return config;
+                SysConfig = new ConfigModel();
+                path.Write(JsonConvert.SerializeObject(SysConfig));
             }
-            return JsonConvert.DeserializeObject<ConfigModel>(data);
+            else
+                SysConfig = JsonConvert.DeserializeObject<ConfigModel>(data);
         }
 
         /// <summary>
         /// 修改配置文件
         /// </summary>
-        /// <param name="config"></param>
         /// <param name="configName">参数名</param>
         /// <param name="value">要修改的值</param>
-        public static void ChangeConfig(this ConfigModel config, string configName, object value)
+        public static void ChangeConfig(string configName, object value)
         {
-            var currentValue = typeof(ConfigModel).GetField(configName).GetValue(config);
+            var currentValue = typeof(ConfigModel).GetField(configName).GetValue(SysConfig);
             if (currentValue == null)
                 throw new Exception("没有这个参数");
             if (value == currentValue)
                 return;
-            typeof(ConfigModel).GetField(configName).SetValue(config, value);
+            typeof(ConfigModel).GetField(configName).SetValue(SysConfig, value);
             string[] path = new string[] { "Configs", "SystemConfig.json" };
-            path.Write(JsonConvert.SerializeObject(config));
+            path.Write(JsonConvert.SerializeObject(SysConfig));
         }
     }
 }

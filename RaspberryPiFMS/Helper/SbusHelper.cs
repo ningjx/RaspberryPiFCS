@@ -15,7 +15,7 @@ namespace RaspberryPiFMS.Helper
         public SbusHelper()
         {
             _timer.AutoReset = false;
-            _timer.Interval = Bus.Config.LosingSignalDelay * 1000;
+            _timer.Interval = Config.SysConfig.LosingSignalDelay * 1000;
             _timer.Elapsed += SetSignalLose;
         }
         /// <summary>
