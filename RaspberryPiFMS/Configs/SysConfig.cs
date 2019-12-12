@@ -4,7 +4,7 @@ using System;
 
 namespace RaspberryPiFMS.Models
 {
-    public class ConfigModel
+    public class SysConfig
     {
         private readonly string[] path = new string[] { "Configs", "SystemConfig.json" };
 
@@ -42,7 +42,7 @@ namespace RaspberryPiFMS.Models
         /// 不要使用这个，要初始化配置文件请调用<see cref="Config.InitConfig()"/>
         /// </summary>
         [Obsolete("不要使用这个直接初始化配置文件，要初始化请调用Config.InitConfig()")]
-        public ConfigModel()
+        public SysConfig()
         {
             LosingSignalDelay = 3;
             AngleLimit_Roll = 50;
@@ -57,21 +57,22 @@ namespace RaspberryPiFMS.Models
     /// </summary>
     public static class Config
     {
+        public
         /// <summary>
         /// 初始化载入配置文件
         /// </summary>
         /// <returns></returns>
-        public static ConfigModel InitConfig()
+        public static SysConfig InitConfig()
         {
             string[] path = new string[] { "Configs", "SystemConfig.json" };
             string data = path.Read();
             if (string.IsNullOrEmpty(data))
             {
-                ConfigModel config = new ConfigModel();
+                SysConfig config = new SysConfig();
                 path.Write(JsonConvert.SerializeObject(config));
                 return config;
             }
-            return JsonConvert.DeserializeObject<ConfigModel>(data);
+            return JsonConvert.DeserializeObject<SysConfig>(data);
         }
 
         /// <summary>
@@ -80,14 +81,14 @@ namespace RaspberryPiFMS.Models
         /// <param name="config"></param>
         /// <param name="configName">参数名</param>
         /// <param name="value">要修改的值</param>
-        public static void ChangeConfig(this ConfigModel config, string configName, object value)
+        public static void ChangeConfig(this SysConfig config, string configName, object value)
         {
-            var currentValue = typeof(ConfigModel).GetField(configName).GetValue(config);
+            var currentValue = typeof(SysConfig).GetField(configName).GetValue(config);
             if (currentValue == null)
                 throw new Exception("没有这个参数");
             if (value == currentValue)
                 return;
-            typeof(ConfigModel).GetField(configName).SetValue(config, value);
+            typeof(SysConfig).GetField(configName).SetValue(config, value);
             string[] path = new string[] { "Configs", "SystemConfig.json" };
             path.Write(JsonConvert.SerializeObject(config));
         }
