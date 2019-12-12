@@ -3,6 +3,7 @@ using RaspberryPiFMS.Enum;
 using RaspberryPiFMS.Helper;
 using RaspberryPiFMS.Models;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace RaspberryPiFMS
@@ -131,6 +132,16 @@ namespace RaspberryPiFMS
             //OriginConSingnal.Channel14 = OriginSignal.Channel14 / 10;
             //OriginConSingnal.Channel15 = OriginSignal.Channel15 / 10;
             //OriginConSingnal.Channel16 = OriginSignal.Channel16 / 10;  
+        }
+
+        public static void AddOrUpdate<K,V>(this Dictionary<K, V> dic,K key,V value)
+        {
+            if (dic.TryGetValue(key, out V data))
+            {
+                dic[key] = value;
+            }
+            else
+                dic.Add(key, value);
         }
     }
 }

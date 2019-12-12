@@ -1,4 +1,5 @@
-﻿using RaspberryPiFMS.Models;
+﻿using RaspberryPiFMS.Configs;
+using RaspberryPiFMS.Models;
 using System;
 using Timer = System.Timers.Timer;
 

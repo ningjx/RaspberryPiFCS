@@ -8,6 +8,7 @@ using Unosquare.WiringPi;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace RaspberryPiFMS
 {

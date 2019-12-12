@@ -1,12 +1,21 @@
 ﻿using Newtonsoft.Json;
 using RaspberryPiFMS.Helper;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace RaspberryPiFMS.Models
+namespace RaspberryPiFMS.Configs
 {
-    public class ConfigModel
+    [Obsolete("不要使用这个直接初始化配置文件，要初始化请调用Config.InitConfig()")]
+    public class SysConfig
     {
         private readonly string[] path = new string[] { "Configs", "SystemConfig.json" };
+
+        /// <summary>
+        /// 温度传感器列表
+        /// </summary>
+        [JsonProperty("TempEquipment")]
+        public Equipment TempEquipment;
 
         /// <summary>
         /// 遥控信号丢失后自动控制的延迟时间
@@ -42,7 +51,7 @@ namespace RaspberryPiFMS.Models
         /// 不要使用这个，要初始化配置文件请调用<see cref="Config.InitConfig()"/>
         /// </summary>
         [Obsolete("不要使用这个直接初始化配置文件，要初始化请调用Config.InitConfig()")]
-        public ConfigModel()
+        public SysConfig()
         {
             LosingSignalDelay = 3;
             AngleLimit_Roll = 50;
@@ -52,40 +61,5 @@ namespace RaspberryPiFMS.Models
         }
     }
 
-    /// <summary>
-    /// 配置文件
-    /// </summary>
-    public static class Config
-    {
-        public static ConfigModel SysConfig;
-        static Config()
-        {
-            string[] path = new string[] { "Configs", "SystemConfig.json" };
-            string data = path.Read();
-            if (string.IsNullOrEmpty(data))
-            {
-                SysConfig = new ConfigModel();
-                path.Write(JsonConvert.SerializeObject(SysConfig));
-            }
-            else
-                SysConfig = JsonConvert.DeserializeObject<ConfigModel>(data);
-        }
-
-        /// <summary>
-        /// 修改配置文件
-        /// </summary>
-        /// <param name="configName">参数名</param>
-        /// <param name="value">要修改的值</param>
-        public static void ChangeConfig(string configName, object value)
-        {
-            var currentValue = typeof(ConfigModel).GetField(configName).GetValue(SysConfig);
-            if (currentValue == null)
-                throw new Exception("没有这个参数");
-            if (value == currentValue)
-                return;
-            typeof(ConfigModel).GetField(configName).SetValue(SysConfig, value);
-            string[] path = new string[] { "Configs", "SystemConfig.json" };
-            path.Write(JsonConvert.SerializeObject(SysConfig));
-        }
-    }
+    
 }

@@ -2,6 +2,7 @@ using MavLink4Net.Messages;
 using MavLink4Net.Messages.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RaspberryPiFMS.Helper;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Ports;
 using System.Threading;
@@ -20,6 +21,10 @@ namespace RaspberryPiFMSTest
         [TestMethod]
         public void MavlinkTest()
         {
+            Dictionary<string, string> aaa = new Dictionary<string, string>() { { "111","222"},{ "333","444"} };
+            var est = aaa.Keys;
+            var ccc = est.GetEnumerator();
+
             IMessage aa = MessageFactory.CreateMessage(MavMessageType.Heartbeat);
             AttitudeMessage attitude = new AttitudeMessage();
             attitude.Pitch = 0.01F;
