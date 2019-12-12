@@ -1,5 +1,8 @@
-﻿using System;
+﻿using RaspberryPiFMS.Configs;
+using RaspberryPiFMS.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Timers;
 using Unosquare.RaspberryIO.Abstractions;
@@ -24,29 +27,40 @@ namespace RaspberryPiFMS.Controller
         1 0 0 1 A2 A1 A0
         1 0 0 1 0  0  1 0/1       =0x92
         */
-        private II2CDevice _device;
-        private Timer _timer = new Timer(200);
-
-        public TempController(int addr = 0x90)
+        private Dictionary<II2CDevice, string> equipments = new Dictionary<II2CDevice, string>();
+        private Timer _timer = new Timer(1000);
+        private bool _locker = false;
+        public TempController()
         {
-            _device = Bus.I2CBus.AddDevice(addr);
-            _device.WriteAddressByte(0x01, 0x00);
+            foreach(var item in Config.SysConfig.TempEquipment)
+            {
+                II2CDevice device = Bus.I2CBus.AddDevice(item.Value);
+                device.WriteAddressByte(0x01, 0x00);
+                equipments.Add(device,item.Key);
+            }
             _timer.AutoReset = true;
             _timer.Elapsed += _timer_Elapsed;
         }
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            var tem = GetTemp();
+            if (_locker)
+                return;
+            _locker = true;
+            foreach (var item in equipments)
+            {
+                CenterData.Temperature.AddOrUpdate(item.Value, GetTemp(item.Key));
+            }
+            _locker = false;
         }
 
-        public double GetTemp()
+        public float GetTemp(II2CDevice device)
         {
             float tempture;
             int temp;
-            temp = _device.ReadAddressByte(0x00);
+            temp = device.ReadAddressByte(0x00);
             tempture = temp >> 5;
-            return tempture * 0.125;
+            return tempture * 0.125F;
         }
     }
 }

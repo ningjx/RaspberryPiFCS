@@ -1,12 +1,20 @@
 ﻿using Newtonsoft.Json;
 using RaspberryPiFMS.Helper;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace RaspberryPiFMS.Models
+namespace RaspberryPiFMS.Configs
 {
     public class SysConfig
     {
         private readonly string[] path = new string[] { "Configs", "SystemConfig.json" };
+
+        /// <summary>
+        /// 温度传感器列表
+        /// </summary>
+        [JsonProperty("TempEquipment")]
+        public Equipment TempEquipment;
 
         /// <summary>
         /// 遥控信号丢失后自动控制的延迟时间
@@ -52,45 +60,5 @@ namespace RaspberryPiFMS.Models
         }
     }
 
-    /// <summary>
-    /// 配置文件
-    /// </summary>
-    public static class Config
-    {
-        public
-        /// <summary>
-        /// 初始化载入配置文件
-        /// </summary>
-        /// <returns></returns>
-        public static SysConfig InitConfig()
-        {
-            string[] path = new string[] { "Configs", "SystemConfig.json" };
-            string data = path.Read();
-            if (string.IsNullOrEmpty(data))
-            {
-                SysConfig config = new SysConfig();
-                path.Write(JsonConvert.SerializeObject(config));
-                return config;
-            }
-            return JsonConvert.DeserializeObject<SysConfig>(data);
-        }
-
-        /// <summary>
-        /// 修改配置文件
-        /// </summary>
-        /// <param name="config"></param>
-        /// <param name="configName">参数名</param>
-        /// <param name="value">要修改的值</param>
-        public static void ChangeConfig(this SysConfig config, string configName, object value)
-        {
-            var currentValue = typeof(SysConfig).GetField(configName).GetValue(config);
-            if (currentValue == null)
-                throw new Exception("没有这个参数");
-            if (value == currentValue)
-                return;
-            typeof(SysConfig).GetField(configName).SetValue(config, value);
-            string[] path = new string[] { "Configs", "SystemConfig.json" };
-            path.Write(JsonConvert.SerializeObject(config));
-        }
-    }
+    
 }

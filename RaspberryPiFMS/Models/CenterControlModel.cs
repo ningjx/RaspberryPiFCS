@@ -1,4 +1,5 @@
 ﻿using RaspberryPiFMS.Enum;
+using System.Collections.Generic;
 
 namespace RaspberryPiFMS.Models
 {
@@ -69,6 +70,7 @@ namespace RaspberryPiFMS.Models
         /// </summary>
         public static float GroundSpeed;
 
+        public static Dictionary<string, float> Temperature = new Dictionary<string, float>();
         #region 灯光组
         //1
         /// <summary>

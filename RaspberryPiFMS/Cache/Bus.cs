@@ -8,11 +8,13 @@ using Unosquare.WiringPi;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace RaspberryPiFMS
 {
     public static class Bus
     {
+        public static List<string> Error = new List<string>();
         /// <summary>
         /// AP模式
         /// </summary>
