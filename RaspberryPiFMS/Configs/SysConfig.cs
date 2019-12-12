@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace RaspberryPiFMS.Configs
 {
+    [Obsolete("不要使用这个直接初始化配置文件，要初始化请调用Config.InitConfig()")]
     public class SysConfig
     {
         private readonly string[] path = new string[] { "Configs", "SystemConfig.json" };
