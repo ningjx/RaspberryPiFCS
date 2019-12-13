@@ -23,11 +23,12 @@ namespace RaspberryPiFMS.Controller
             _timer.Interval = 10;
             _timer.AutoReset = true;
             _timer.Elapsed += ReciveData;
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             IPAddress address = IPAddress.Parse("127.0.0.1");
             IPEndPoint endPoint = new IPEndPoint(address, 4664);
             _socket.ReceiveTimeout = 10;
-            _socket.Connect(endPoint);
+            //_socket.Connect(endPoint);
+            _socket.Bind(endPoint);
             _timer.Start();
         }
 
