@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace RaspberryPiFMS.Configs
 {
-    [Obsolete("不要使用这个直接初始化配置文件，要初始化请调用Config.InitConfig()")]
+    //[Obsolete("不要使用这个直接初始化配置文件，要初始化请调用Config.InitConfig()")]
     public class SysConfig
     {
         private readonly string[] path = new string[] { "Configs", "SystemConfig.json" };
@@ -50,7 +50,7 @@ namespace RaspberryPiFMS.Configs
         /// <summary>
         /// 不要使用这个，要初始化配置文件请调用<see cref="Config.InitConfig()"/>
         /// </summary>
-        [Obsolete("不要使用这个直接初始化配置文件，要初始化请调用Config.InitConfig()")]
+        //[Obsolete("不要使用这个直接初始化配置文件，要初始化请调用Config.InitConfig()")]
         public SysConfig()
         {
             LosingSignalDelay = 3;
