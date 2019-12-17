@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace RaspberryPiFMS.Models
 {
@@ -83,7 +84,10 @@ namespace RaspberryPiFMS.Models
                     break;
             }
             if (_channelCount == 16)
+            {
                 _channelCount = 0;
+                Task.Run(() => ConvertSignal());
+            }
         }
 
         public static void SetDefaultSignal()
@@ -101,6 +105,30 @@ namespace RaspberryPiFMS.Models
             Channel03 = 200;
             Channel04 = 1000;
             IsConnected = false;
+        }
+
+        /// <summary>
+        /// 转换原始遥控数据
+        /// </summary>
+        /// <param name="originData"></param>
+        private static void ConvertSignal()
+        {
+            OriginConSingnal.Roll = Channel04 / 10;
+            OriginConSingnal.Pitch = Channel02 / 10;
+            OriginConSingnal.Yaw = Channel01 / 10;
+            OriginConSingnal.Throttel = Channel03 / 10 + 50;
+            OriginConSingnal.Channel05 = Channel05.GetSwitch();
+            OriginConSingnal.Channel06 = Channel06.GetSwitch(500);
+            OriginConSingnal.Channel07 = Channel07.GetSwitch();
+            OriginConSingnal.Channel08 = Channel08.GetSwitch();
+            OriginConSingnal.Channel09 = Channel09.GetSwitch();
+            OriginConSingnal.Channel10 = Channel10 / 10;
+            OriginConSingnal.Channel11 = Channel11.GetSwitch(500);
+            OriginConSingnal.Channel12 = Channel12 / 10;
+            OriginConSingnal.Channel13 = Channel13 / 10;
+            OriginConSingnal.Channel14 = Channel14 / 10;
+            OriginConSingnal.Channel15 = Channel15 / 10;
+            OriginConSingnal.Channel16 = Channel16 / 10;  
         }
     }
 }

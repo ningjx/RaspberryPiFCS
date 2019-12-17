@@ -30,7 +30,7 @@ namespace RaspberryPiFMS.ComputeCenter
 
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
         {
-            switch (Bus.ContrlMode)
+            switch (CtrllerBus.ContrlMode)
             {
                 case ContrlMode.Manual:
                     ManualPolymerize();

@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace RaspberryPiFMS
 {
-    public static class Bus
+    public static class CtrllerBus
     {
         public static List<string> Error = new List<string>();
         /// <summary>
@@ -35,7 +35,7 @@ namespace RaspberryPiFMS
         #endregion 
         public static I2CBus I2CBus;
         private static ControlPolymerize _controlPolymerize;
-        static Bus()
+        static CtrllerBus()
         {
             Console.Write("启动IIC总线");
             I2CBus = new I2CBus();

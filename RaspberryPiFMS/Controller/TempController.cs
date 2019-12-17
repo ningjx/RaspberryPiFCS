@@ -34,7 +34,7 @@ namespace RaspberryPiFMS.Controller
         {
             foreach(var item in Config.SysConfig.TempEquipment)
             {
-                II2CDevice device = Bus.I2CBus.AddDevice(item.Value);
+                II2CDevice device = CtrllerBus.I2CBus.AddDevice(item.Value);
                 device.WriteAddressByte(0x01, 0x00);
                 equipments.Add(device,item.Key);
             }

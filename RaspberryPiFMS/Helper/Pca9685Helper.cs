@@ -76,7 +76,7 @@ namespace RaspberryPiFMS.Helper
         public Pca9685(int addr = 0x40, double freq = 50)
         {
             //I2CBus bus = new I2CBus();
-            _device = Bus.I2CBus.AddDevice(addr);
+            _device = CtrllerBus.I2CBus.AddDevice(addr);
             _device.WriteAddressByte(MODE1, 0x00);
             SetPWMFreq(freq);
         }

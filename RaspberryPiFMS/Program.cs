@@ -10,7 +10,7 @@ namespace RaspberryPiFMS
         {
             try
             {
-                Bus.SysLaunch();
+                CtrllerBus.SysLaunch();
                 //Console.ReadLine();
                 while (true)
                 {
