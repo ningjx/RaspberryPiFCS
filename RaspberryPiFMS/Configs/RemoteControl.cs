@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using RaspberryPiFMS.Enum;
 
 namespace RaspberryPiFMS.Configs
 {
+    public class RemoteConfigs:Dictionary<string, RemoteControl>
+    {
+
+    }
+
     public class RemoteControl
     {
         /// <summary>
@@ -39,7 +45,7 @@ namespace RaspberryPiFMS.Configs
         /// <summary>
         /// 通道序号
         /// </summary>
-        [JsonProperty("通道序号")]
+        [JsonProperty("通道序号(禁止修改)")]
         public int ChannelNum;
 
         /// <summary>
@@ -47,6 +53,12 @@ namespace RaspberryPiFMS.Configs
         /// </summary>
         [JsonProperty("通道类型")]
         public ChannelType ChannelType;
+
+        /// <summary>
+        /// 通道映射
+        /// </summary>
+        [JsonProperty("通道映射")]
+        public RemoteMapping RemoteMapping;
 
         /// <summary>
         /// 通道中值
@@ -65,6 +77,12 @@ namespace RaspberryPiFMS.Configs
         /// </summary>
         [JsonProperty("通道最小值")]
         public float MinValue;
+
+        /// <summary>
+        /// 单边最大角度阈值
+        /// </summary>
+        [JsonProperty("单边最大角度阈值")]
+        public float AngleLimit;
     }
 
     /// <summary>

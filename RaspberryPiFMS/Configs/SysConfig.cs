@@ -15,7 +15,7 @@ namespace RaspberryPiFMS.Configs
         private readonly string[] path = new string[] { "Configs", "SystemConfig.json" };
 
         [JsonProperty("遥控器配置")]
-        public List<RemoteControl> RemoteControlConfigs = new List<RemoteControl>();
+        public RemoteConfigs RemoteConfigs = new RemoteConfigs();
 
         /// <summary>
         /// 温度传感器列表

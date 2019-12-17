@@ -100,7 +100,7 @@ namespace RaspberryPiFMS.Helper
                     nextIndex = index + 2;
                 }
                 string thisChannel = nextByte + thisbyte;
-                OriginSignal.SetSignal(Convert.ToInt64(thisChannel, 2));
+                StateBus.OriginSignal.SetSignal(Convert.ToInt64(thisChannel, 2));
 
                 thisRemainder = needNext <= 8 ? 8 - needNext : 8 - (needNext - 8);
                 needNext = 11 - thisRemainder;
@@ -110,7 +110,7 @@ namespace RaspberryPiFMS.Helper
 
         private void SetSignalLose(object sender, System.Timers.ElapsedEventArgs e)
         {
-            OriginSignal.SetSignalLost();
+            StateBus.OriginSignal.SetSignalLost();
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace RaspberryPiFMS.Helper
         /// </summary>
         private static void SetSignalConnected()
         {
-            OriginSignal.IsConnected = true;
+            StateBus.OriginSignal.IsConnected = true;
         }
     }
 }

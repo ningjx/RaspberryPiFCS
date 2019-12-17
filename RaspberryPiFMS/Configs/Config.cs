@@ -49,5 +49,11 @@ namespace RaspberryPiFMS.Configs
             string[] path = new string[] { "Configs", "SystemConfig.json" };
             path.Write(JsonConvert.SerializeObject(SysConfig));
         }
+
+        public static void SaveConfig()
+        {
+            string[] path = new string[] { "Configs", "SystemConfig.json" };
+            path.Write(JsonConvert.SerializeObject(SysConfig));
+        }
     }
 }
