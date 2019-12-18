@@ -83,6 +83,12 @@ namespace RaspberryPiFMS.Configs
         /// </summary>
         [JsonProperty("单边最大角度阈值")]
         public float AngleLimit;
+
+        /// <summary>
+        /// 是否翻转
+        /// </summary>
+        [JsonProperty("是否翻转")]
+        public bool Reverse;
     }
 
     /// <summary>

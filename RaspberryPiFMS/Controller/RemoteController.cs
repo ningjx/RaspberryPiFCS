@@ -1,41 +1,108 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
+﻿using RaspberryPiFMS.Configs;
+using RaspberryPiFMS.Enum;
 using RaspberryPiFMS.Helper;
-using Timer = System.Timers.Timer;
-
+using System.Timers;
 
 namespace RaspberryPiFMS.Controller
 {
+    /// <summary>
+    /// 遥控数据解码&转换
+    /// </summary>
     public class RemoteController
     {
-        private SbusHelper _sbusHelper;
-        private Socket _socket;
-        private Timer _timer;
-        private byte[] _buffer = new byte[1000];
+        private readonly Timer _timer = new Timer(10);
+        private bool _locker = false;
+
         public RemoteController()
         {
-            Console.Write("初始化解码器");
-            _sbusHelper = new SbusHelper();
-            Console.WriteLine("------Finish\r");
-            byte[] _buffer = new byte[1000];
-            _timer = new Timer() ;
-            _timer.Interval = 10;
             _timer.AutoReset = true;
             _timer.Elapsed += ReciveData;
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPAddress address = IPAddress.Parse("127.0.0.1");
-            IPEndPoint endPoint = new IPEndPoint(address, 4664);
-            _socket.ReceiveTimeout = 10;
-            _socket.Connect(endPoint);
             _timer.Start();
         }
 
         private void ReciveData(object sender, System.Timers.ElapsedEventArgs e)
         {
-            int length = _socket.Receive(_buffer);
-            if (length != 0)
-                _sbusHelper.DecodeSignal(_buffer);
+            if (_locker)
+                return;
+            _locker = true;
+            if (EquipmentBus.RemoteUart.Bytes.Length != 0)
+                SbusHelper.DecodeSignal(EquipmentBus.RemoteUart.Bytes);
+            //转换遥控数据为系统数据
+            foreach (var channel in StateDatasBus.ControlConfig?.Channels)
+            {
+                switch (channel.RemoteMapping)
+                {
+                    case RemoteMapping.偏航:
+                        StateDatasBus.RemoteSignal.Yaw = (float)ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.俯仰:
+                        StateDatasBus.RemoteSignal.Pitch = (float)ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.油门:
+                        StateDatasBus.RemoteSignal.Throttel = (float)ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.滚转:
+                        StateDatasBus.RemoteSignal.Roll = (float)ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.通道5:
+                        StateDatasBus.RemoteSignal.Channel05 = ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.通道6:
+                        StateDatasBus.RemoteSignal.Channel06 = ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.通道7:
+                        StateDatasBus.RemoteSignal.Channel07 = ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.通道8:
+                        StateDatasBus.RemoteSignal.Channel08 = ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.通道9:
+                        StateDatasBus.RemoteSignal.Channel09 = ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.通道10:
+                        StateDatasBus.RemoteSignal.Channel10 = ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.通道11:
+                        StateDatasBus.RemoteSignal.Channel11 = ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.通道12:
+                        StateDatasBus.RemoteSignal.Channel12 = ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.通道13:
+                        StateDatasBus.RemoteSignal.Channel13 = ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.通道14:
+                        StateDatasBus.RemoteSignal.Channel14 = ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.通道15:
+                        StateDatasBus.RemoteSignal.Channel15 = ConvertOriginData(channel);
+                        break;
+                    case RemoteMapping.通道16:
+                        StateDatasBus.RemoteSignal.Channel16 = ConvertOriginData(channel);
+                        break;
+                }
+            }
+            _locker = false;
+        }
+
+        private static object ConvertOriginData(Channel channel)
+        {
+            int num = channel.ChannelNum;
+            float data = StateDatasBus.OriginSignal[num];
+            switch (channel.ChannelType)
+            {
+                case ChannelType.Switch:
+                    if (data > channel.MidValue)
+                        return Switch.On;
+                    else if (data < channel.MidValue)
+                        return Switch.Off;
+                    else
+                        return Switch.MId;
+                case ChannelType.Rocker:
+                    return (100 + channel.AngleLimit) * data / (channel.MaxValue - channel.MinValue);
+                default:
+                    return null;
+            }
         }
     }
 }

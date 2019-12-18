@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using RaspberryPiFMS.Signals;
+using System.Threading.Tasks;
 
 namespace RaspberryPiFMS.Models
 {
@@ -82,7 +83,6 @@ namespace RaspberryPiFMS.Models
             if (_channelCount == 16)
             {
                 _channelCount = 0;
-                Task.Run(() => OriginConSingnal.ConvertSignal());
             }
         }
 
@@ -90,43 +90,26 @@ namespace RaspberryPiFMS.Models
         {
             get 
             {
-                switch (index)
+                return index switch
                 {
-                    case 1:
-                        return Channel01;
-                    case 2:
-                        return Channel02;
-                    case 3:
-                        return Channel03;
-                    case 4:
-                        return Channel04;
-                    case 5:
-                        return Channel05;
-                    case 6:
-                        return Channel06;
-                    case 7:
-                        return Channel07;
-                    case 8:
-                        return Channel08;
-                    case 9:
-                        return Channel09;
-                    case 10:
-                        return Channel10;
-                    case 11:
-                        return Channel11;
-                    case 12:
-                        return Channel12;
-                    case 13:
-                        return Channel13;
-                    case 14:
-                        return Channel14;
-                    case 15:
-                        return Channel15;
-                    case 16:
-                        return Channel16;
-                    default:
-                        return 0;
-                }
+                    1 => Channel01,
+                    2 => Channel02,
+                    3 => Channel03,
+                    4 => Channel04,
+                    5 => Channel05,
+                    6 => Channel06,
+                    7 => Channel07,
+                    8 => Channel08,
+                    9 => Channel09,
+                    10 => Channel10,
+                    11 => Channel11,
+                    12 => Channel12,
+                    13 => Channel13,
+                    14 => Channel14,
+                    15 => Channel15,
+                    16 => Channel16,
+                    _ => 0,
+                };
             }
         }
 

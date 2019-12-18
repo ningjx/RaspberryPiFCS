@@ -34,7 +34,7 @@ namespace RaspberryPiFMS.Controller
         {
             foreach(var item in Config.SysConfig.TempEquipment)
             {
-                II2CDevice device = CtrllerBus.I2CBus.AddDevice(item.Value);
+                II2CDevice device = EquipmentBus.I2CBus.AddDevice(item.Value);
                 device.WriteAddressByte(0x01, 0x00);
                 equipments.Add(device,item.Key);
             }
@@ -49,7 +49,7 @@ namespace RaspberryPiFMS.Controller
             _locker = true;
             foreach (var item in equipments)
             {
-                CenterData.Temperature.AddOrUpdate(item.Value, GetTemp(item.Key));
+                CenterSignal.Temperature.AddOrUpdate(item.Value, GetTemp(item.Key));
             }
             _locker = false;
         }

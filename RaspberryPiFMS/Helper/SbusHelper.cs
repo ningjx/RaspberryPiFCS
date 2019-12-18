@@ -5,15 +5,15 @@ using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Helper
 {
-    public class SbusHelper
+    public static class SbusHelper
     {
         /// <summary>
         /// 丢失信号后启动定时器，到点儿了就执行丢失信号动作
         /// </summary>
-        private Timer _timer = new Timer();
-        private bool _decodingLock = false;
-        private bool _isRemoteConnected = true;
-        public SbusHelper()
+        private static Timer _timer = new Timer();
+        private static bool _decodingLock = false;
+        private static bool _isRemoteConnected = true;
+        static SbusHelper()
         {
             _timer.AutoReset = false;
             _timer.Interval = Config.SysConfig.LosingSignalDelay * 1000;
@@ -23,7 +23,7 @@ namespace RaspberryPiFMS.Helper
         /// 解码遥控信号
         /// </summary>
         /// <param name="bytesDatas"></param>
-        public void DecodeSignal(byte[] bytesDatas)
+        public static void DecodeSignal(byte[] bytesDatas)
         {
             byte[] bytes = new byte[25];
             int allCount = 0;
@@ -100,7 +100,7 @@ namespace RaspberryPiFMS.Helper
                     nextIndex = index + 2;
                 }
                 string thisChannel = nextByte + thisbyte;
-                StateBus.OriginSignal.SetSignal(Convert.ToInt64(thisChannel, 2));
+                StateDatasBus.OriginSignal.SetSignal(Convert.ToInt64(thisChannel, 2));
 
                 thisRemainder = needNext <= 8 ? 8 - needNext : 8 - (needNext - 8);
                 needNext = 11 - thisRemainder;
@@ -108,9 +108,9 @@ namespace RaspberryPiFMS.Helper
             _decodingLock = false;
         }
 
-        private void SetSignalLose(object sender, System.Timers.ElapsedEventArgs e)
+        private static void SetSignalLose(object sender, System.Timers.ElapsedEventArgs e)
         {
-            StateBus.OriginSignal.SetSignalLost();
+            StateDatasBus.OriginSignal.SetSignalLost();
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace RaspberryPiFMS.Helper
         /// </summary>
         private static void SetSignalConnected()
         {
-            StateBus.OriginSignal.IsConnected = true;
+            StateDatasBus.OriginSignal.IsConnected = true;
         }
     }
 }

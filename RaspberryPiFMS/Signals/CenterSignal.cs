@@ -3,117 +3,104 @@ using System.Collections.Generic;
 
 namespace RaspberryPiFMS.Models
 {
-    public static class CenterData
+    /// <summary>
+    /// 中心控制信号
+    /// </summary>
+    public class CenterSignal
     {
         /// <summary>
         /// 滚转角度
         /// </summary>
-        public static double RollL;
-        public static double RollR;
+        public double RollL;
+        public double RollR;
         /// <summary>
         /// 偏航角度
         /// </summary>
-        public static double Yaw;
+        public double Yaw;
         /// <summary>
         /// 俯仰角度
         /// </summary>
-        public static double PitchL;
-        public static double PitchR;
+        public double PitchL;
+        public double PitchR;
         /// <summary>
         /// 减速板角度
         /// </summary>
-        public static double AirBreakL;
-        public static double AirBreakR;
+        public double AirBreakL;
+        public double AirBreakR;
         /// <summary>
         /// 配平角度
         /// </summary>
-        public static double Trim;
+        public double Trim;
         /// <summary>
         /// 节流阀
         /// </summary>
-        public static double ThrottelL;
-        public static double ThrottelR;
+        public double ThrottelL;
+        public double ThrottelR;
         /// <summary>
         /// 起落架
         /// </summary>
-        public static bool Gear = true;
+        public bool Gear = true;
         /// <summary>
         /// 襟翼
         /// </summary>
-        public static FlapMode Flap = FlapMode.FlapUp;
+        public FlapMode Flap = FlapMode.FlapUp;
         /// <summary>
         /// 反推
         /// </summary>
-        public static bool PushBack = false;
+        public bool PushBack = false;
         /// <summary>
         /// 发动机电源左
         /// </summary>
-        public static bool EnginePowerL = false;
+        public bool EnginePowerL = false;
         /// <summary>
         /// 发动机电源右
         /// </summary>
-        public static bool EnginePowerR = false;
-        /// <summary>
-        /// 近进高度
-        /// </summary>
-        public static float MicroAltitude;
-        /// <summary>
-        /// 气压高度
-        /// </summary>
-        public static float Altitude;
-        /// <summary>
-        /// 空速
-        /// </summary>
-        public static float AirSpeed;
-        /// <summary>
-        /// 地速
-        /// </summary>
-        public static float GroundSpeed;
+        public bool EnginePowerR = false;
 
-        public static Dictionary<string, float> Temperature = new Dictionary<string, float>();
-        #region 灯光组
+
+        #region 灯光信号
         //1
         /// <summary>
         /// 航行灯
         /// </summary>
-        public static bool FlightLight;
+        public bool FlightLight;
         /// <summary>
         /// 防撞灯
         /// </summary>
-        public static bool AntiCollisionLight;
+        public bool AntiCollisionLight;
         /// <summary>
         /// Logo灯
         /// </summary>
-        public static bool LogoLight;
+        public bool LogoLight;
         //2
         /// <summary>
         /// 滑行灯
         /// </summary>
-        public static bool TaxiLight;
+        public bool TaxiLight;
         //3
         /// <summary>
         /// 跑道脱离灯
         /// </summary>
-        public static bool RunwayLight;
+        public bool RunwayLight;
         //4
         /// <summary>
         /// 起飞灯
         /// </summary>
-        public static bool TakeOffLight;
+        public bool TakeOffLight;
         //5
         /// <summary>
         /// 着陆灯
         /// </summary>
-        public static bool LandingLight;
+        public bool LandingLight;
         //6
         /// <summary>
         /// 机翼检查灯
         /// </summary>
-        public static bool WingInspectionLight;
+        public bool WingInspectionLight;
         /// <summary>
         /// 位置灯
         /// </summary>
-        public static bool PositionLight;
+        public bool PositionLight;
         #endregion
     }
 }
