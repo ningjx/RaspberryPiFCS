@@ -11,8 +11,7 @@ namespace RaspberryPiFMS
 {
     public static class StateDatasBus
     {
-        public static IPInfo IPInfo = new IPInfo();
-
+        #region 挂载控制信号
         /// <summary>
         /// 遥控配置信息
         /// 配置信息中，日期最大的遥控器配置为当前生效配置
@@ -35,12 +34,6 @@ namespace RaspberryPiFMS
         }
 
         /// <summary>
-        /// AP模式
-        /// </summary>
-        public static ContrlMode ContrlMode = ContrlMode.Manual;
-        public static List<string> Error = new List<string>();
-        #region 挂载控制信号
-        /// <summary>
         /// 原始遥控信号
         /// </summary>
         public static OriginSignal OriginSignal = new OriginSignal();
@@ -61,6 +54,11 @@ namespace RaspberryPiFMS
         public static AutoSignal AutoSignal = new AutoSignal();
         #endregion
 
+        /// <summary>
+        /// 数据
+        /// </summary>
         public static FlightData FlightData = new FlightData();
+
+        public static FlightState FlightState = new FlightState();
     }
 }
