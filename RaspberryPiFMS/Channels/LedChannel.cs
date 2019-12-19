@@ -1,4 +1,4 @@
-﻿namespace RaspberryPiFMS.Enum
+﻿namespace RaspberryPiFMS.Channels
 {
     public enum LedChannel
     {

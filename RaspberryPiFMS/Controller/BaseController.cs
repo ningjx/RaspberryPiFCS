@@ -42,8 +42,8 @@ namespace RaspberryPiFMS.Controller
             EquipmentBus.BasePca.SetAngle((int)BaseChannel.RollL, StateDatasBus.CenterSignal.RollL);
             EquipmentBus.BasePca.SetAngle((int)BaseChannel.RollR, StateDatasBus.CenterSignal.RollR);
             EquipmentBus.BasePca.SetAngle((int)BaseChannel.Yaw, StateDatasBus.CenterSignal.Yaw);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelL, StateDatasBus.CenterSignal.ThrottelL);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelR, StateDatasBus.CenterSignal.ThrottelR);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelL, StateDatasBus.CenterSignal.ThrottelL1);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelR, StateDatasBus.CenterSignal.ThrottelR1);
             #endregion
         }
 

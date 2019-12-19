@@ -3,6 +3,7 @@ namespace RaspberryPiFMS.Interface
 {
     public interface IFunction
     {
-        void Excute(bool excute, params object[] datas);
+        void Excute( params object[] datas);
     }
+    
 }

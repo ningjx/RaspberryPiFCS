@@ -26,9 +26,9 @@ namespace RaspberryPiFMS
         /// </summary>
         public static Pca9685 LEDPca;
         /// <summary>
-        /// 直流有刷电机控制设备
+        /// 反推控制设备
         /// </summary>
-        public static Pca9685 MotorPca;
+        public static Pca9685 PushBackPca;
 
         public static UART RemoteUart;
 
@@ -36,7 +36,7 @@ namespace RaspberryPiFMS
         {
             BasePca = new Pca9685();
             LEDPca = new Pca9685();
-            MotorPca = new Pca9685();
+            PushBackPca = new Pca9685();
             RemoteUart = new UART(4664);
         }
     }

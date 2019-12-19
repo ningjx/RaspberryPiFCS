@@ -66,55 +66,55 @@ namespace RaspberryPiFMS.Controller
             switch (StateDatasBus.CenterSignal.TaxiLight)
             {
                 case true:
-                    EquipmentBus.LEDPca.SetOn((int)LedChannel.TaxiLight);
+                    EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.TaxiLight);
                     break;
                 case false:
-                    EquipmentBus.LEDPca.SetOff((int)LedChannel.TaxiLight);
+                    EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.TaxiLight);
                     break;
             }
             switch (StateDatasBus.CenterSignal.RunwayLight)
             {
                 case true:
-                    EquipmentBus.LEDPca.SetOn((int)LedChannel.RunwayLight);
+                    EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.RunwayLight);
                     break;
                 case false:
-                    EquipmentBus.LEDPca.SetOff((int)LedChannel.RunwayLight);
+                    EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.RunwayLight);
                     break;
             }
             switch (StateDatasBus.CenterSignal.TakeOffLight)
             {
                 case true:
-                    EquipmentBus.LEDPca.SetOn((int)LedChannel.TakeoffLight);
+                    EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.TakeoffLight);
                     break;
                 case false:
-                    EquipmentBus.LEDPca.SetOff((int)LedChannel.TakeoffLight);
+                    EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.TakeoffLight);
                     break;
             }
             switch (StateDatasBus.CenterSignal.LandingLight)
             {
                 case true:
-                    EquipmentBus.LEDPca.SetOn((int)LedChannel.LandingLight);
+                    EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.LandingLight);
                     break;
                 case false:
-                    EquipmentBus.LEDPca.SetOff((int)LedChannel.LandingLight);
+                    EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.LandingLight);
                     break;
             }
             switch (StateDatasBus.CenterSignal.WingInspectionLight)
             {
                 case true:
-                    EquipmentBus.LEDPca.SetOn((int)LedChannel.WingInspectionLight);
+                    EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.WingInspectionLight);
                     break;
                 case false:
-                    EquipmentBus.LEDPca.SetOff((int)LedChannel.WingInspectionLight);
+                    EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.WingInspectionLight);
                     break;
             }
             switch (StateDatasBus.CenterSignal.PositionLight)
             {
                 case true:
-                    EquipmentBus.LEDPca.SetOn((int)LedChannel.AntiCollisionLightWhite);
+                    EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.AntiCollisionLightWhite);
                     break;
                 case false:
-                    EquipmentBus.LEDPca.SetOff((int)LedChannel.AntiCollisionLightWhite);
+                    EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.AntiCollisionLightWhite);
                     break;
             }
             _isExcuting = false;
@@ -124,28 +124,28 @@ namespace RaspberryPiFMS.Controller
         {
             if (_flightLight)
             {
-                EquipmentBus.LEDPca.SetOn((int)LedChannel.FilghtLightL);
+                EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.FilghtLightL);
                 Thread.Sleep(200);
-                EquipmentBus.LEDPca.SetOff((int)LedChannel.FilghtLightL);
+                EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.FilghtLightL);
                 Thread.Sleep(200);
-                EquipmentBus.LEDPca.SetOn((int)LedChannel.FilghtLightL);
+                EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.FilghtLightL);
                 Thread.Sleep(200);
-                EquipmentBus.LEDPca.SetOff((int)LedChannel.FilghtLightL);
+                EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.FilghtLightL);
                 Thread.Sleep(300);
 
-                EquipmentBus.LEDPca.SetOn((int)LedChannel.FilghtLightR);
+                EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.FilghtLightR);
                 Thread.Sleep(200);
-                EquipmentBus.LEDPca.SetOff((int)LedChannel.FilghtLightR);
+                EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.FilghtLightR);
                 Thread.Sleep(200);
-                EquipmentBus.LEDPca.SetOn((int)LedChannel.FilghtLightR);
+                EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.FilghtLightR);
                 Thread.Sleep(200);
-                EquipmentBus.LEDPca.SetOff((int)LedChannel.FilghtLightR);
+                EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.FilghtLightR);
             }
             if (_antiCollisionLight)
             {
-                EquipmentBus.LEDPca.SetOn((int)LedChannel.AntiCollisionLight);
+                EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.AntiCollisionLight);
                 Thread.Sleep(200);
-                EquipmentBus.LEDPca.SetOff((int)LedChannel.AntiCollisionLight);
+                EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.AntiCollisionLight);
             }
         }
     }

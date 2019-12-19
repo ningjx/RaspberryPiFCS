@@ -25,7 +25,7 @@ namespace RaspberryPiFMS.ComputeCenter
 
         private void PIDOutEvent(double value)
         {
-            StateDatasBus.CenterSignal.ThrottelL = value;
+            StateDatasBus.CenterSignal.ThrottelL1 = (float)value;
         }
 
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
@@ -53,8 +53,8 @@ namespace RaspberryPiFMS.ComputeCenter
         private void ManualPolymerize()
         {
             StateDatasBus.CenterSignal.Yaw = StateDatasBus.RemoteSignal.Yaw;
-            StateDatasBus.CenterSignal.ThrottelL = StateDatasBus.RemoteSignal.Throttel;
-            StateDatasBus.CenterSignal.ThrottelR = StateDatasBus.RemoteSignal.Throttel;
+            StateDatasBus.CenterSignal.ThrottelL1 = StateDatasBus.RemoteSignal.Throttel;
+            StateDatasBus.CenterSignal.ThrottelR1 = StateDatasBus.RemoteSignal.Throttel;
             //对油门进行PID控制
             //_pid.SetWithPID((float)Cache.CenterControlData.ThrottelL, (float)Cache.RemoteSignal.Channel03);
             StateDatasBus.CenterSignal.RollL = StateDatasBus.RemoteSignal.Roll;
