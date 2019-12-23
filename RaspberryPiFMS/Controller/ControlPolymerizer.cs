@@ -15,7 +15,7 @@ namespace RaspberryPiFMS.ComputeCenter
 
         public ControlPolymerizer()
         {
-            _pid.PIDOutEvent += PIDOutEvent;
+            _pid.PIDOutEvent_Int += PIDOutEvent;
 
             _timer.Interval = 20;
             _timer.AutoReset = true;
@@ -23,14 +23,14 @@ namespace RaspberryPiFMS.ComputeCenter
             _timer.Start();
         }
 
-        private void PIDOutEvent(double value)
+        private void PIDOutEvent(float value)
         {
             StateDatasBus.CenterSignal.ThrottelL1 = (float)value;
         }
 
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
         {
-            switch (StateDatasBus.ContrlMode)
+            switch (StateDatasBus.FlightState.ContrlMode)
             {
                 case ContrlMode.Manual:
                     ManualPolymerize();

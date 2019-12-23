@@ -49,7 +49,7 @@ namespace RaspberryPiFMS.Controller
             _locker = true;
             foreach (var item in equipments)
             {
-                CenterSignal.Temperature.AddOrUpdate(item.Value, GetTemp(item.Key));
+                //StateDatasBus.FlightState. CenterSignal.Temperature.AddOrUpdate(item.Value, GetTemp(item.Key));
             }
             _locker = false;
         }

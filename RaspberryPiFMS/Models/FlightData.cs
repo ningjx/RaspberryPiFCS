@@ -102,6 +102,4 @@ namespace RaspberryPiFMS.Models
         [JsonProperty("垂直精度")]
         public float VertPrecision;
     }
-
-    public class
 }

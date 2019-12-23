@@ -88,7 +88,7 @@ namespace RaspberryPiFMS.Models
 
         public long this[int index]
         {
-            get 
+            get
             {
                 return index switch
                 {
@@ -110,10 +110,10 @@ namespace RaspberryPiFMS.Models
                     16 => Channel16,
                     _ => 0,
                 };
-            }
         }
+    }
 
-        public void SetDefaultSignal()
+    public void SetDefaultSignal()
         {
             Channel01 = 1000;
             Channel02 = 1000;
