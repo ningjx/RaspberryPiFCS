@@ -1,32 +1,30 @@
-﻿using RaspberryPiFMS.Enum;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RaspberryPiFMS.Signals;
+using System.Threading.Tasks;
 
 namespace RaspberryPiFMS.Models
 {
-    public static class OriginSignal
+    public class OriginSignal
     { 
-        public static long Channel01;
-        public static long Channel02;
-        public static long Channel03;
-        public static long Channel04;
-        public static long Channel05;
-        public static long Channel06;
-        public static long Channel07;
-        public static long Channel08;
-        public static long Channel09;
-        public static long Channel10;
-        public static long Channel11;
-        public static long Channel12;
-        public static long Channel13;
-        public static long Channel14;
-        public static long Channel15;
-        public static long Channel16;
-        public static bool IsConnected = true;
+        public long Channel01;
+        public long Channel02;
+        public long Channel03;
+        public long Channel04;
+        public long Channel05;
+        public long Channel06;
+        public long Channel07;
+        public long Channel08;
+        public long Channel09;
+        public long Channel10;
+        public long Channel11;
+        public long Channel12;
+        public long Channel13;
+        public long Channel14;
+        public long Channel15;
+        public long Channel16;
+        public bool IsConnected = true;
 
-        private static int _channelCount = 0;
-        public static void SetSignal(long data)
+        private  int _channelCount = 0;
+        public void SetSignal(long data)
         {
             _channelCount++;
             switch (_channelCount)
@@ -83,10 +81,39 @@ namespace RaspberryPiFMS.Models
                     break;
             }
             if (_channelCount == 16)
+            {
                 _channelCount = 0;
+            }
         }
 
-        public static void SetDefaultSignal()
+        public long this[int index]
+        {
+            get 
+            {
+                return index switch
+                {
+                    1 => Channel01,
+                    2 => Channel02,
+                    3 => Channel03,
+                    4 => Channel04,
+                    5 => Channel05,
+                    6 => Channel06,
+                    7 => Channel07,
+                    8 => Channel08,
+                    9 => Channel09,
+                    10 => Channel10,
+                    11 => Channel11,
+                    12 => Channel12,
+                    13 => Channel13,
+                    14 => Channel14,
+                    15 => Channel15,
+                    16 => Channel16,
+                    _ => 0,
+                };
+            }
+        }
+
+        public void SetDefaultSignal()
         {
             Channel01 = 1000;
             Channel02 = 1000;
@@ -94,7 +121,7 @@ namespace RaspberryPiFMS.Models
             Channel04 = 1000;
         }
 
-        public static void SetSignalLost()
+        public void SetSignalLost()
         {
             Channel01 = 1000;
             Channel02 = 1000;

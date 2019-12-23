@@ -1,4 +1,5 @@
 ﻿using System;
+using RaspberryPiFMS.Channels;
 using RaspberryPiFMS.Enum;
 using RaspberryPiFMS.Helper;
 using RaspberryPiFMS.Models;
@@ -8,17 +9,14 @@ namespace RaspberryPiFMS.Controller
 {
     public class BaseController
     {
-        private Timer _timer = new Timer();
+        private readonly Timer _timer = new Timer();
         private bool _excuteLock = false;
-        private Pca9685 _pca9685 = new Pca9685(0x42);
-        private bool _gearStatus = true;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="ms">控制器的轮询间隔时间</param>
-        /// <param name="i2cAddr">Pca9685地址</param>
-        public BaseController(int ms = 20,int i2cAddr = 0x40)
+        public BaseController(int ms = 20)
         {
             ms = Math.Abs(ms);
             _timer.Interval = ms;
@@ -39,30 +37,16 @@ namespace RaspberryPiFMS.Controller
         private void SetControl()
         {
             #region 最基本的四个通道
-            _pca9685.SetAngle((int)BaseChannel.PitchL, CenterData.PitchL);
-            _pca9685.SetAngle((int)BaseChannel.PitchR, CenterData.PitchR);
-            _pca9685.SetAngle((int)BaseChannel.RollL, CenterData.RollL);
-            _pca9685.SetAngle((int)BaseChannel.RollR, CenterData.RollR);
-            _pca9685.SetAngle((int)BaseChannel.Yaw, CenterData.Yaw);
-            _pca9685.SetAngle((int)BaseChannel.ThrottelL, CenterData.ThrottelL);
-            _pca9685.SetAngle((int)BaseChannel.ThrottelR, CenterData.ThrottelR);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.PitchL, StateDatasBus.CenterSignal.PitchL);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.PitchR, StateDatasBus.CenterSignal.PitchR);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.RollL, StateDatasBus.CenterSignal.RollL);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.RollR, StateDatasBus.CenterSignal.RollR);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.Yaw, StateDatasBus.CenterSignal.Yaw);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelL, StateDatasBus.CenterSignal.ThrottelL1);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelR, StateDatasBus.CenterSignal.ThrottelR1);
             #endregion
         }
 
-        private void Gear(bool gear)
-        {
-            if (_gearStatus == gear)
-                return;
-            if (LandingGearEvent == null)
-            {
-
-            }
-            else
-            {
-                _gearStatus = gear;
-                LandingGearEvent.Invoke();
-            }
-        }
 
         public delegate void BaseControlEventHandler();
 

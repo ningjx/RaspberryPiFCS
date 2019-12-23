@@ -1,42 +1,42 @@
-﻿namespace RaspberryPiFMS.Enum
+﻿namespace RaspberryPiFMS.Channels
 {
     public enum BaseChannel
     {
         /// <summary>
         /// 滚转
         /// </summary>
-        RollL = 1,
-        RollR = 2,
+        RollL = 0,
+        RollR = 1,
         /// <summary>
         /// 偏航
         /// </summary>
-        Yaw = 3,
+        Yaw = 2,
         /// <summary>
         /// 俯仰
         /// </summary>
-        PitchL = 4,
-        PitchR = 5,
+        PitchL = 3,
+        PitchR = 4,
         /// <summary>
         /// 减速板
         /// </summary>
-        AirBreakL = 6,
-        AirBreakR = 7,
+        AirBreakL = 5,
+        AirBreakR = 6,
         /// <summary>
         /// 配平
         /// </summary>
-        Trim = 8,
+        Trim = 7,
         /// <summary>
         /// 节流阀
         /// </summary>
-        ThrottelL = 9,
-        ThrottelR = 10,
+        ThrottelL = 8,
+        ThrottelR = 9,
 
-        GearF = 11,
-        GearBL = 12,
-        GearBR = 13,
+        GearF = 10,
+        GearBL = 11,
+        GearBR = 12,
 
-        FlapL = 14,
-        FlapR = 15,
+        FlapL = 13,
+        FlapR = 14,
 
         //EnginePowerL = 15,
         //EnginePowerR = 16

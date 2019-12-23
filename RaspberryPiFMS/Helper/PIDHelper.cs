@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace RaspberryPiFMS.Helper
 {
@@ -37,7 +38,12 @@ namespace RaspberryPiFMS.Helper
             Kd = kd;
         }
 
-        public void SetWithPID(float now, float target)
+        public void SetWithPID(float current, float target)
+        {
+            Task.Run(() => Excute(current, target));
+        }
+
+        private void Excute(float current, float target)
         {
             if (currentTar == target)
                 return;
@@ -45,19 +51,19 @@ namespace RaspberryPiFMS.Helper
             currentId++;
             int ownId = currentId;
             bool reverse = false;
-            if (target < now)
+            if (target < current)
             {
                 var buf = target;
-                target = now;
-                now = buf;
+                target = current;
+                current = buf;
                 reverse = true;
             }
             //重置
-            ActualSpeed = now;
+            ActualSpeed = current;
             err = 0;
             err_last = 0;
             err_next = 0;
-            float lastResult = now;
+            float lastResult = current;
             float currentResult;
             while (Math.Abs(target - (currentResult = PIDCaculate(target))) > 0.1 && ownId == currentId)
             {
@@ -84,8 +90,8 @@ namespace RaspberryPiFMS.Helper
 
             if (ownId == currentId && reverse)
             {
-                PIDOutEvent_Float?.Invoke(now);
-                PIDOutEvent_Int?.Invoke(now);
+                PIDOutEvent_Float?.Invoke(current);
+                PIDOutEvent_Int?.Invoke(current);
             }
         }
 

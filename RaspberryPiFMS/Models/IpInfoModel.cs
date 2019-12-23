@@ -1,16 +1,10 @@
 ﻿namespace RaspberryPiFMS.Models
 {
-    public class IpInfoModel
+    public class IPInfo
     {
-        public string ip;
-        public string port;
-        public double ping;
-
-        public IpInfoModel(string ip,string port,double ping)
-        {
-            this.ip = ip;
-            this.port = port;
-            this.ping = ping;
-        }
+        public string Ip;
+        public string Port;
+        public float Ping;
+        public float LossRate;
     }
 }

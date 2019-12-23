@@ -4,7 +4,6 @@ using RaspberryPiFMS.Controller;
 using RaspberryPiFMS.Helper;
 using System;
 using RaspberryPiFMS.ComputeCenter;
-using Unosquare.WiringPi;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -12,16 +11,9 @@ using System.Collections.Generic;
 
 namespace RaspberryPiFMS
 {
-    public static class Bus
+    public static class ControllerBus
     {
-        /// <summary>
-        /// AP模式
-        /// </summary>
-        public static ContrlMode ContrlMode = ContrlMode.Manual;
-
-        #region Controller
         public static RemoteController RemoteControl;
-
         public static LEDController LedContorl;
 
         public static BaseController BaseContorl;
@@ -31,15 +23,9 @@ namespace RaspberryPiFMS
         public static QIFDController QIFDControl;
 
         public static TempController TempControl;
-        #endregion 
-        public static I2CBus I2CBus;
-        private static ControlPolymerize _controlPolymerize;
-        static Bus()
+        private static ControlPolymerizer _controlPolymerize;
+        static ControllerBus()
         {
-            Console.Write("启动IIC总线");
-            I2CBus = new I2CBus();
-            Console.WriteLine("------Finish\r");
-
             Console.Write("启动基础控制器");
             BaseContorl = new BaseController();
             Console.WriteLine("------Finish\r");
@@ -58,7 +44,7 @@ namespace RaspberryPiFMS
             Console.WriteLine("------Finish\r");
 
             Console.Write("启动控制数据聚合");
-            _controlPolymerize = new ControlPolymerize();
+            _controlPolymerize = new ControlPolymerizer();
             Console.WriteLine("------Finish\r");
 
             //Console.Write("初始化超声波测距");

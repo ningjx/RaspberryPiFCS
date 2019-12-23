@@ -60,7 +60,7 @@ namespace RaspberryPiFMS.Controller
                     break;
                 }
             }
-            CenterData.MicroAltitude = _sw.Elapsed.Milliseconds * 343 / 20;
+            StateDatasBus.FlightData.MicroAltitude = _sw.Elapsed.Milliseconds * 343 / 20;
             _sw.Reset();
             _isOverTime = false;
         }
@@ -71,7 +71,7 @@ namespace RaspberryPiFMS.Controller
         public void Stop()
         {
             _timer.Stop();
-            CenterData.MicroAltitude = 0;
+            StateDatasBus.FlightData.MicroAltitude = 0;
         }
         public void SetOvetTime()
         {

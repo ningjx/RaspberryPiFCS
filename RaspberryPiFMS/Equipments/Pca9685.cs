@@ -30,6 +30,7 @@ namespace RaspberryPiFMS.Helper
 
         private Dictionary<int, double> _angleBuffer = new Dictionary<int, double>
         {
+            {0,-1 },
             {1,-1 },
             {2,-1 },
             {3,-1 },
@@ -44,11 +45,11 @@ namespace RaspberryPiFMS.Helper
             {12,-1 },
             {13,-1 },
             {14,-1 },
-            {15,-1 },
-            {16,-1 }
+            {15,-1 }
         };
-        private Dictionary<int, int> _ledBuffer = new Dictionary<int, int>
-        {
+        private readonly Dictionary<int, int> _ledBuffer = new Dictionary<int, int>
+        {            
+            {0,-1 },
             {1,-1 },
             {2,-1 },
             {3,-1 },
@@ -63,8 +64,7 @@ namespace RaspberryPiFMS.Helper
             {12,-1 },
             {13,-1 },
             {14,-1 },
-            {15,-1 },
-            {16,-1 }
+            {15,-1 }
         };
         #endregion
 
@@ -76,7 +76,7 @@ namespace RaspberryPiFMS.Helper
         public Pca9685(int addr = 0x40, double freq = 50)
         {
             //I2CBus bus = new I2CBus();
-            _device = Bus.I2CBus.AddDevice(addr);
+            _device = EquipmentBus.I2CBus.AddDevice(addr);
             _device.WriteAddressByte(MODE1, 0x00);
             SetPWMFreq(freq);
         }
@@ -88,53 +88,52 @@ namespace RaspberryPiFMS.Helper
         /// <param name="angle">角度</param>
         public void SetAngle(int channel, double angle)
         {
-            if (channel < 1 || channel > 16)
+            if (channel < 0 || channel > 15)
                 return;
             if (_angleBuffer[channel] == angle)
                 return;
 
             if (angle >= 0)
             {
-                channel = channel- 1;
                 var off = ConvertAngle(angle);
                 Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
                 Write(LED0_ON_H + 4 * channel, 0 >> 8);
                 Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
                 Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
-                _angleBuffer[channel +1] = angle;
+                _angleBuffer[channel] = angle;
             }
         }
 
         public void SetOn(int channel)
         {
-            if (channel < 1 || channel > 16)
+            if (channel < 0 || channel > 15)
                 return;
             if (_ledBuffer[channel] == 1)
                 return;
-            int off = 4096;
-            channel =channel- 1;
-            Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
-            Write(LED0_ON_H + 4 * channel, 0 >> 8);
-            Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
-            Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
-            _ledBuffer[channel+1] = 1;
-            OnEvent?.Invoke(channel+1);
+            //int off = 4096;
+            //Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
+            //Write(LED0_ON_H + 4 * channel, 0 >> 8);
+            //Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
+            //Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
+            SetAngle(channel, 360);
+            _ledBuffer[channel] = 1;
+            OnEvent?.Invoke(channel);
         }
 
         public void SetOff(int channel)
         {
-            if (channel < 1 || channel > 16)
+            if (channel < 0 || channel > 15)
                 return;
             if (_ledBuffer[channel] == 0)
                 return;
-            int off = 0;
-            channel -= 1;
-            Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
-            Write(LED0_ON_H + 4 * channel, 0 >> 8);
-            Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
-            Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
-            _ledBuffer[channel+1] = 0;
-            OffEvent?.Invoke(channel+1);
+            //int off = 0;
+            //Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
+            //Write(LED0_ON_H + 4 * channel, 0 >> 8);
+            //Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
+            //Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
+            SetAngle(channel, 0);
+            _ledBuffer[channel] = 0;
+            OffEvent?.Invoke(channel);
         }
 
         /// <summary>
