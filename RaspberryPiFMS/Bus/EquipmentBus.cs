@@ -32,12 +32,15 @@ namespace RaspberryPiFMS
 
         public static UART RemoteUart;
 
+        public static UART LoraUart;
+
         static EquipmentBus()
         {
             BasePca = new Pca9685();
             LEDPca = new Pca9685();
             PushBackPca = new Pca9685();
             RemoteUart = new UART(4664);
+            LoraUart = new UART(4665);
         }
     }
 }

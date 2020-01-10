@@ -4,6 +4,10 @@ using System.Text;
 using System.Net.Sockets;
 using System.Net;
 using System.Timers;
+using System.IO;
+using System.Diagnostics;
+using System.Threading;
+using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Helper
 {
@@ -25,6 +29,23 @@ namespace RaspberryPiFMS.Helper
             _timer.Elapsed += TimerElapsed;
             _timer.Start();
         }
+        public UART(int port,string scriptName)
+        {
+            var psi = new ProcessStartInfo("python", Path.Combine("PythonScripts", "scriptName")) { RedirectStandardOutput = true };
+            //启动
+            var proc = Process.Start(psi);
+            Thread.Sleep(100);
+            if (proc == null)
+                throw new Exception("遥控器模块启动失败");
+
+            IPEndPoint ip = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
+            _socket.Bind(ip);
+
+            _timer.AutoReset = true;
+            _timer.Elapsed += TimerElapsed;
+            _timer.Start();
+        }
+
 
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
