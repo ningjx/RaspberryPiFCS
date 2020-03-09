@@ -32,6 +32,8 @@ namespace RaspberryPiFMS
 
         public static UART RemoteUart;
 
+        public static UART SensorUart;
+
         public static UART LoraUart;
 
         static EquipmentBus()
@@ -41,6 +43,7 @@ namespace RaspberryPiFMS
             PushBackPca = new Pca9685();
             RemoteUart = new UART(4664);
             LoraUart = new UART(4665);
+            SensorUart = new UART(4667);
         }
     }
 }

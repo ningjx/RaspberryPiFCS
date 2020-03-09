@@ -13,6 +13,8 @@ namespace RaspberryPiFMS.Models
         public EngineData EngineData = new EngineData();
         [JsonProperty("电源数据")]
         public PowerData PowerData = new PowerData();
+        [JsonProperty("其他数据")]
+        public ExtraData ExtraData = new ExtraData();
     }
 
 
@@ -101,5 +103,10 @@ namespace RaspberryPiFMS.Models
         public float LevelPrecision;
         [JsonProperty("垂直精度")]
         public float VertPrecision;
+    }
+
+    public class ExtraData
+    {
+        public double Temperature;
     }
 }

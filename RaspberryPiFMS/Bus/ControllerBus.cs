@@ -14,6 +14,7 @@ namespace RaspberryPiFMS
     public static class ControllerBus
     {
         public static RemoteController RemoteControl;
+        public static SensorController SensorController;
         public static LoraController LoraControl;
         public static LEDController LedContorl;
         public static BaseController BaseContorl;
@@ -23,6 +24,7 @@ namespace RaspberryPiFMS
         private static ControlPolymerizer _controlPolymerize;
         static ControllerBus()
         {
+            SensorController = new SensorController();
             Console.Write("启动基础控制器");
             BaseContorl = new BaseController();
             Console.WriteLine("------Finish\r");
