@@ -6,10 +6,11 @@ using System.Device.Gpio;
 using System.Diagnostics;
 using System.Text;
 using Timer = System.Timers.Timer;
+using RaspberryPiFMS.Interface;
 
 namespace RaspberryPiFMS.Controller
 {
-    public class QIFDController
+    public class QIFDController : IController
     {
         private GpioController _controller;
         private MicroTimer _timer;//执行计时

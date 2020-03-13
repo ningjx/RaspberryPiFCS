@@ -3,24 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Timers;
+using RaspberryPiFMS.Interface;
 
 namespace RaspberryPiFMS.Controller
 {
-    public static class Controller
+    public class Controller : IController
     {
-        private static readonly Timer _timer = new Timer(20);
-        private static bool _isRunning = false;
+        private  readonly Timer _timer = new Timer(20);
+        private  bool _isRunning = false;
 
-        static Controller()
+        public Controller()
         {
             _timer.AutoReset = true;
             _timer.Elapsed += Elapsed;
         }
-        public static void Start()
+        public  void Start()
         {
             _timer.Start();
         }
-        private static void Elapsed(object sender, ElapsedEventArgs e)
+        private  void Elapsed(object sender, ElapsedEventArgs e)
         {
             if (_isRunning) return;
             _isRunning = true;

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Timers;
 using RaspberryPiFMS.Helper;
+using RaspberryPiFMS.Interface;
 
 namespace RaspberryPiFMS.Controller
 {
-    public class SensorController
+    public class SensorController : IController
     {
         private readonly Timer _timer = new Timer(10);
         private bool _locker = false;
@@ -23,8 +24,8 @@ namespace RaspberryPiFMS.Controller
             if (_locker)
                 return;
             _locker = true;
-            if (EquipmentBus.SensorUart.Bytes.Length != 0)
-                GPSHelper.DecodeData(EquipmentBus.RemoteUart.Bytes);
+            if (EquipmentBus.SensorUart.RecBytes.Length != 0)
+                GPSHelper.DecodeData(EquipmentBus.RemoteUart.RecBytes);
             _locker = false;
         }
     }

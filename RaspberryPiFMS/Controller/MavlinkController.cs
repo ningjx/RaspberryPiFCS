@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using RaspberryPiFMS.Interface;
 
 namespace RaspberryPiFMS.Controller
 {
-    public class MavlinkController
+    public class MavlinkController : IController
     {
         private Socket _socket;
         private MicroTimer _timer;

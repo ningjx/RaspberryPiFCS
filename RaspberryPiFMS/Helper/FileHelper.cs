@@ -41,5 +41,23 @@ namespace RaspberryPiFMS.Helper
                 return Encoding.UTF8.GetString(bytes);
             };
         }
+
+        /// <summary>
+        /// 续写
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="data"></param>
+        public static void Write_Append(this string[] path, string data)
+        {
+            string pathStr = Path.Combine(path);
+            string dicPath = Path.Combine(path.GetByCount(path.Length - 1));
+            if (!Directory.Exists(dicPath))
+                Directory.CreateDirectory(dicPath);
+            using (FileStream fileStream = new FileStream(pathStr, FileMode.Append))
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(data);
+                fileStream.Write(bytes);
+            };
+        }
     }
 }

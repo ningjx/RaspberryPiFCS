@@ -4,7 +4,9 @@ using System.Linq;
 
 namespace RaspberryPiFMS.Configs
 {
-    //[Obsolete("不要使用这个直接初始化配置文件，要初始化请调用Config.InitConfig()")]
+    /// <summary>
+    /// 设备列表
+    /// </summary>
     public class Equipment : Dictionary<string, int>
     {
         public new void Add(string name, int addr)

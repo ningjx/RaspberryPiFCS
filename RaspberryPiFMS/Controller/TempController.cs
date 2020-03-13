@@ -1,4 +1,5 @@
 ﻿using RaspberryPiFMS.Configs;
+using RaspberryPiFMS.Interface;
 using RaspberryPiFMS.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using Unosquare.RaspberryIO.Abstractions;
 
 namespace RaspberryPiFMS.Controller
 {
-    public class TempController
+    public class TempController : IController
     {
         /*
         0x00  Temperature Register      
@@ -32,7 +33,7 @@ namespace RaspberryPiFMS.Controller
         private bool _locker = false;
         public TempController()
         {
-            foreach(var item in Config.SysConfig.TempEquipment)
+            foreach(var item in Config.EquipmentConfigs)
             {
                 II2CDevice device = EquipmentBus.I2CBus.AddDevice(item.Value);
                 device.WriteAddressByte(0x01, 0x00);

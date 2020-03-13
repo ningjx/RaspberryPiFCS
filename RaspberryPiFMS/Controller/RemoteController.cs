@@ -2,13 +2,14 @@
 using RaspberryPiFMS.Enum;
 using RaspberryPiFMS.Helper;
 using System.Timers;
+using RaspberryPiFMS.Interface;
 
 namespace RaspberryPiFMS.Controller
 {
     /// <summary>
     /// 遥控数据解码&转换
     /// </summary>
-    public class RemoteController
+    public class RemoteController : IController
     {
         private readonly Timer _timer = new Timer(10);
         private bool _locker = false;
@@ -25,8 +26,8 @@ namespace RaspberryPiFMS.Controller
             if (_locker)
                 return;
             _locker = true;
-            if (EquipmentBus.RemoteUart.Bytes.Length != 0)
-                SbusHelper.DecodeSignal(EquipmentBus.RemoteUart.Bytes);
+            if (EquipmentBus.RemoteUart.RecBytes.Length != 0)
+                SbusHelper.DecodeSignal(EquipmentBus.RemoteUart.RecBytes);
             //转换遥控数据为系统数据
             foreach (var channel in StateDatasBus.ControlConfig?.Channels)
             {

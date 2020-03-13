@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Collections.Generic;
+using RaspberryPiFMS.SystemMessage;
 
 namespace RaspberryPiFMS
 {
@@ -24,11 +25,12 @@ namespace RaspberryPiFMS
         private static ControlPolymerizer _controlPolymerize;
         static ControllerBus()
         {
-            SensorController = new SensorController();
-            Console.Write("启动基础控制器");
-            BaseContorl = new BaseController();
-            Console.WriteLine("------Finish\r");
-            LoraControl = new LoraController();
+            LunchLora();
+            //SensorController = new SensorController();
+            //Console.Write("启动基础控制器");
+            //BaseContorl = new BaseController();
+            //Console.WriteLine("------Finish\r");
+            
             //Console.Write("启动灯光控制器");
             //LedContorl = new LEDController();
             //Console.WriteLine("------Finish\r");
@@ -38,9 +40,9 @@ namespace RaspberryPiFMS
             //Console.WriteLine("------Finish\r");
 
 
-            Console.Write("启动控制数据聚合");
-            _controlPolymerize = new ControlPolymerizer();
-            Console.WriteLine("------Finish\r");
+            //Console.Write("启动控制数据聚合");
+            //_controlPolymerize = new ControlPolymerizer();
+            //Console.WriteLine("------Finish\r");
 
             //Console.Write("初始化超声波测距");
             //QIFDControl = new QIFDController(28, 29);
@@ -53,8 +55,22 @@ namespace RaspberryPiFMS
 
         public static void SysLaunch()
         {
-            Console.WriteLine("系统启动完毕\r");
+            
         }
 
+        private static bool LunchLora()
+        {
+            try
+            {
+                LoraControl = new LoraController();
+                ErrorMessage.LoraEvent += LoraControl.SendErrorData;
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage.Add(Enum.ErrorType.Error, "启动远程数传时失败", ex);
+                return false;
+            }
+            return true;
+        }
     }
 }

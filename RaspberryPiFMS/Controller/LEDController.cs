@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Timer = System.Timers.Timer;
+using RaspberryPiFMS.Interface;
 
 namespace RaspberryPiFMS.Controller
 {
-    public class LEDController
+    public class LEDController : IController
     {
         /// <summary>
         /// 航行灯（翼尖闪烁）

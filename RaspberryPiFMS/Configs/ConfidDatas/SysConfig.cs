@@ -6,23 +6,11 @@ using System.Linq;
 
 namespace RaspberryPiFMS.Configs
 {
-    //[Obsolete("不要使用这个直接初始化配置文件，要初始化请调用Config.InitConfig()")]
+    /// <summary>
+    /// 系统配置
+    /// </summary>
     public class SysConfig
     {
-        /// <summary>
-        /// 配置文件存储路径
-        /// </summary>
-        private readonly string[] path = new string[] { "Configs", "SystemConfig.json" };
-
-        [JsonProperty("遥控器配置")]
-        public RemoteConfigs RemoteConfigs = new RemoteConfigs();
-
-        /// <summary>
-        /// 温度传感器列表
-        /// </summary>
-        [JsonProperty("温度传感器列表")]
-        public Equipment TempEquipment = new Equipment();
-
         /// <summary>
         /// 遥控信号丢失后自动控制的延迟时间
         /// </summary>
@@ -54,9 +42,11 @@ namespace RaspberryPiFMS.Configs
         public float AngleLimit_Trim;
 
         /// <summary>
-        /// 不要使用这个，要初始化配置文件请调用<see cref="Config.InitConfig()"/>
+        /// 系统刷新频率（毫秒）
         /// </summary>
-        //[Obsolete("不要使用这个直接初始化配置文件，要初始化请调用Config.InitConfig()")]
+        [JsonProperty("系统刷新频率（毫秒）")]
+        public int SysFrequency;
+
         public SysConfig()
         {
             LosingSignalDelay = 3;
@@ -64,6 +54,7 @@ namespace RaspberryPiFMS.Configs
             AngleLimit_Pitch = 50;
             AngleLimit_Yaw = 50;
             AngleLimit_Trim = 50;
+            SysFrequency = 20;
         }
     }
 }

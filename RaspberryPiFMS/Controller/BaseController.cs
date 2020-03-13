@@ -2,12 +2,13 @@
 using RaspberryPiFMS.Channels;
 using RaspberryPiFMS.Enum;
 using RaspberryPiFMS.Helper;
+using RaspberryPiFMS.Interface;
 using RaspberryPiFMS.Models;
 using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFMS.Controller
 {
-    public class BaseController
+    public class BaseController: IController
     {
         private readonly Timer _timer = new Timer();
         private bool _excuteLock = false;

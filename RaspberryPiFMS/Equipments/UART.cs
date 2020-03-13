@@ -16,12 +16,15 @@ namespace RaspberryPiFMS.Helper
     /// </summary>
     public class UART
     {
-        private readonly Socket _socket = new Socket(AddressFamily.InterNetwork,SocketType.Dgram,ProtocolType.Udp);
+        private readonly Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         private readonly Timer _timer = new Timer(10);
-        private EndPoint _endPoint = new IPEndPoint(IPAddress.Any, 0);
+        private EndPoint _endPoint;
 
-        public UART(int port)
-        {      
+        public UART(int port,int sendPort = 0)
+        {
+            if(sendPort != 0)
+                _endPoint = new IPEndPoint(IPAddress.Any, sendPort);
+            SenBytes = new byte[1000];
             IPEndPoint ip = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
             _socket.Bind(ip);
 
@@ -29,7 +32,8 @@ namespace RaspberryPiFMS.Helper
             _timer.Elapsed += TimerElapsed;
             _timer.Start();
         }
-        public UART(int port,string scriptName)
+
+        public UART(int port, string scriptName)
         {
             var psi = new ProcessStartInfo("python", Path.Combine("PythonScripts", "scriptName")) { RedirectStandardOutput = true };
             //启动
@@ -46,12 +50,16 @@ namespace RaspberryPiFMS.Helper
             _timer.Start();
         }
 
-
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            _socket.ReceiveFrom(Bytes,ref _endPoint);
+            _socket.ReceiveFrom(RecBytes, ref _endPoint);
         }
 
-        public byte[] Bytes { get; } = new byte[1000];
+        public byte[] RecBytes { get; } = new byte[1000];
+
+        /// <summary>
+        /// 赋值即发送
+        /// </summary>
+        public byte[] SenBytes { set { if (value.Length != 0 && _endPoint != null) _socket.SendTo(value, _endPoint); } }
     }
 }

@@ -5,6 +5,9 @@ using RaspberryPiFMS.Enum;
 
 namespace RaspberryPiFMS.Configs
 {
+    /// <summary>
+    /// 遥控器列表
+    /// </summary>
     public class RemoteConfigs:Dictionary<string, RemoteControl>
     {
 

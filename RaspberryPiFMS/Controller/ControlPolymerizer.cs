@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Timer = System.Timers.Timer;
+using RaspberryPiFMS.Interface;
 
 namespace RaspberryPiFMS.ComputeCenter
 {
-    public class ControlPolymerizer
+    public class ControlPolymerizer : IController
     {
         private readonly Timer _timer = new Timer();
         private readonly PIDHelper _pid = new PIDHelper();

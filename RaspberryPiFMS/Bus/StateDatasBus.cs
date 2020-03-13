@@ -20,16 +20,16 @@ namespace RaspberryPiFMS
         {
             get
             {
-                if (Config.SysConfig.RemoteConfigs.Count == 0)
+                if (Config.RemoteConfigs.Count == 0)
                     return null;
-                var time = Config.SysConfig.RemoteConfigs.Values.Max(t => t.EffctiveTime);
-                return Config.SysConfig.RemoteConfigs.Values.Where(t => t.EffctiveTime == time).FirstOrDefault();
+                var time = Config.RemoteConfigs.Values.Max(t => t.EffctiveTime);
+                return Config.RemoteConfigs.Values.Where(t => t.EffctiveTime == time).FirstOrDefault();
             }
             set
             {
                 string controlName = value.ControlName;
                 value.EffctiveTime = DateTime.Now;
-                Config.SysConfig.RemoteConfigs.AddOrUpdate(controlName, value); Config.SaveConfig();
+                Config.RemoteConfigs.AddOrUpdate(controlName, value); Config.SaveConfig();
             }
         }
 

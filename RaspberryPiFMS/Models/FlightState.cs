@@ -8,5 +8,6 @@ namespace RaspberryPiFMS.Models
     public class FlightState
     {
         public ContrlMode ContrlMode = ContrlMode.Manual;
+        public LoraDataMode LoraDataMode = LoraDataMode.SysData;
     }
 }
