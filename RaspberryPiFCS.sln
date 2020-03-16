@@ -12,11 +12,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsole", "TestConsole\
 		{7CF6142E-849A-45D1-A54D-BC1C1FD48551} = {7CF6142E-849A-45D1-A54D-BC1C1FD48551}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{E8173F08-17B4-4B8C-B4DB-4945DED971A6}"
-	ProjectSection(SolutionItems) = preProject
-		C:\Users\vipni\Desktop\fcs.png = C:\Users\vipni\Desktop\fcs.png
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

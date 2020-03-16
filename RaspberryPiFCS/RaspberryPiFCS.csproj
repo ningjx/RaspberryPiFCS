@@ -6,8 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Others\**" />
     <Compile Remove="Providers\**" />
+    <EmbeddedResource Remove="Others\**" />
     <EmbeddedResource Remove="Providers\**" />
+    <None Remove="Others\**" />
     <None Remove="Providers\**" />
   </ItemGroup>
 
@@ -39,10 +42,6 @@
     <None Update="PythonScripts\ss.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Others\" />
   </ItemGroup>
 
 </Project>
