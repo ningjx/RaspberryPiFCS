@@ -27,6 +27,83 @@ namespace RaspberryPiFMS
         }
 
         /// <summary>
+        /// 在字节流中，从指定的字节值后面提取数据，默认长度10000
+        /// </summary>
+        /// <param name="bytesData"></param>
+        /// <param name="aByte"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static byte[] GetBytesFromByte(this byte[] bytesData, byte aByte, int length = 0)
+        {
+            bool isMatch = false;
+            if (length == 0)
+                length = bytesData.Length;
+            int currLength = 0;
+            byte[] bytes = new byte[length];
+
+            for (int i = 0; i < bytesData.Length; i++)
+            {
+                if (currLength == length)
+                    break;
+                if (bytesData[i] == aByte)
+                {
+                    //bytes[0] = byteData[i];
+                    //currLength ++;
+                    isMatch = true;
+                }
+                if (isMatch)
+                {
+                    bytes[currLength] = bytesData[i];
+                    currLength++;
+                }
+            }
+            return bytes;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bytesData"></param>
+        /// <param name="bytes">2个字节哦</param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static List<byte[]> GetBytesFromByte(this byte[] bytesData, byte[] bytes, int length = 0)
+        {
+            bool isMatch = false;
+            if (length == 0)
+                length = bytesData.Length;
+            int currLength = 1;
+            List<byte[]> buffer = new List<byte[]>();
+            int row = 0;
+            for (int i = 0; i < bytesData.Length; i++)
+            {
+                if (isMatch == true && bytesData[i] == bytes[1] && bytesData[i - 1] == bytes[0])
+                    break;
+                if (currLength == length)
+                {
+                    row++;
+                    buffer.Add(new byte[length]);
+                    currLength = 0;
+                }
+                if (bytesData[i] == bytes[1] && bytesData[i - 1] == bytes[0])
+                {
+                    buffer.Add(new byte[length]);
+                    buffer[row][0] = bytesData[i - 1];
+                    isMatch = true;
+                }
+                if (isMatch)
+                {
+                    buffer[row][currLength] = bytesData[i];
+                    currLength++;
+                }
+            }
+            if (buffer.Count !=0 && buffer[buffer.Count - 1].Length != length)
+                buffer.RemoveAt(buffer.Count - 1);
+            return buffer;
+        }
+
+
+        /// <summary>
         /// 字节转为二进制字符串,8位补全
         /// </summary>
         /// <param name="byteData"></param>
@@ -112,7 +189,7 @@ namespace RaspberryPiFMS
 
 
 
-        public static void AddOrUpdate<K,V>(this Dictionary<K, V> dic,K key,V value)
+        public static void AddOrUpdate<K, V>(this Dictionary<K, V> dic, K key, V value)
         {
             if (dic.TryGetValue(key, out V data))
             {
@@ -121,5 +198,35 @@ namespace RaspberryPiFMS
             else
                 dic.Add(key, value);
         }
+
+        public static void ReadToEnd(this byte[] bytes, Action<int, byte> func)
+        {
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                func.Invoke(i, bytes[i]);
+            }
+        }
+
+        public static byte[] GetValue(this byte[] bytes, int start, int end)
+        {
+            int length = end - start + 1;
+            byte[] newBytes = new byte[length];
+            for (int i = 0; i < length; i++)
+            {
+                newBytes[i] = bytes[start + i];
+            }
+            return newBytes;
+        }
+
+        public static byte[] GetValueWithLength(this byte[] bytes, int length)
+        {
+            byte[] newBytes = new byte[length];
+            for (int i = 0; i < length; i++)
+            {
+                newBytes[i] = bytes[i];
+            }
+            return newBytes;
+        }
+
     }
 }
