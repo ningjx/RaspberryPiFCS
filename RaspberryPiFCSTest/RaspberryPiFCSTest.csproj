@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RaspberryPiFMS\RaspberryPiFCS.csproj" />
+    <ProjectReference Include="..\RaspberryPiFCS\RaspberryPiFCS.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28822.285
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaspberryPiFCS", "RaspberryPiFMS\RaspberryPiFCS.csproj", "{7CF6142E-849A-45D1-A54D-BC1C1FD48551}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaspberryPiFCS", "RaspberryPiFCS\RaspberryPiFCS.csproj", "{7CF6142E-849A-45D1-A54D-BC1C1FD48551}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaspberryPiFCSTest", "RaspberryPiFMSTest\RaspberryPiFCSTest.csproj", "{C6E025EE-DD6F-48FD-9408-4ADE3B6DC1FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaspberryPiFCSTest", "RaspberryPiFCSTest\RaspberryPiFCSTest.csproj", "{C6E025EE-DD6F-48FD-9408-4ADE3B6DC1FA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsole", "TestConsole\TestConsole.csproj", "{DD0FDA32-339C-47ED-AAD2-6765DB30BAC5}"
 	ProjectSection(ProjectDependencies) = postProject
