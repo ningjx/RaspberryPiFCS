@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using RaspberryPiFMS.Configs;
-using RaspberryPiFMS.Controller;
-using RaspberryPiFMS.Helper;
-using RaspberryPiFMS.SystemMessage;
+using RaspberryPiFCS.Configs;
+using RaspberryPiFCS.Controller;
+using RaspberryPiFCS.Helper;
+using RaspberryPiFCS.SystemMessage;
 
-namespace RaspberryPiFMS
+namespace RaspberryPiFCS
 {
     public static class Lunch
     {

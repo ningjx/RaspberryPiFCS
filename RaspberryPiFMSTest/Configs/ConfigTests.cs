@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RaspberryPiFMS.Configs;
+using RaspberryPiFCS.Configs;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaspberryPiFMS.Configs.Tests
+namespace RaspberryPiFCS.Configs.Tests
 {
     [TestClass()]
     public class ConfigTests

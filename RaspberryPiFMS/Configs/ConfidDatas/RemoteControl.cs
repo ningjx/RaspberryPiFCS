@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using RaspberryPiFMS.Enum;
+using RaspberryPiFCS.Enum;
 
-namespace RaspberryPiFMS.Configs
+namespace RaspberryPiFCS.Configs
 {
     /// <summary>
     /// 遥控器列表

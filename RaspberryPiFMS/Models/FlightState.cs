@@ -1,9 +1,9 @@
-﻿using RaspberryPiFMS.Enum;
+﻿using RaspberryPiFCS.Enum;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaspberryPiFMS.Models
+namespace RaspberryPiFCS.Models
 {
     public class FlightState
     {

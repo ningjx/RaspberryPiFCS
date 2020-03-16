@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using RaspberryPiFMS.Enum;
+using RaspberryPiFCS.Enum;
 
-namespace RaspberryPiFMS.SystemMessage
+namespace RaspberryPiFCS.SystemMessage
 {
     public static class ErrorMessage
     {

@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using RaspberryPiFMS.Helper;
-using RaspberryPiFMS.SystemMessage;
+using RaspberryPiFCS.Helper;
+using RaspberryPiFCS.SystemMessage;
 using System;
 
-namespace RaspberryPiFMS.Configs
+namespace RaspberryPiFCS.Configs
 {
     /// <summary>
     /// 配置文件

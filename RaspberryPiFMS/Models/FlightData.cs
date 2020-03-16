@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace RaspberryPiFMS.Models
+namespace RaspberryPiFCS.Models
 {
     public class FlightData
     {

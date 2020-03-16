@@ -1,4 +1,4 @@
-﻿namespace RaspberryPiFMS.Models
+﻿namespace RaspberryPiFCS.Models
 {
     public class IPInfo
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace RaspberryPiFMS.Interface
+namespace RaspberryPiFCS.Interface
 {
     public interface IFunction
     {

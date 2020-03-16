@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RaspberryPiFMS.Helper;
+using RaspberryPiFCS.Helper;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaspberryPiFMS.Helper.Tests
+namespace RaspberryPiFCS.Helper.Tests
 {
     [TestClass()]
     public class PIDHelperTests

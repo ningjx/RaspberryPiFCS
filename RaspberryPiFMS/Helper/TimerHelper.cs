@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace RaspberryPiFMS.Helper
+namespace RaspberryPiFCS.Helper
 {
     /// <summary>
     /// 高精度定时器

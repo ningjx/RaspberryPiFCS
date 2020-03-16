@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaspberryPiFMS.Channels
+namespace RaspberryPiFCS.Channels
 {
     public enum MotorChannel
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaspberryPiFMS.Helper
+namespace RaspberryPiFCS.Helper
 {
     public class LoraHelper
     {

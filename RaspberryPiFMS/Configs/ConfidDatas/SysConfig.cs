@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using RaspberryPiFMS.Helper;
+using RaspberryPiFCS.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RaspberryPiFMS.Configs
+namespace RaspberryPiFCS.Configs
 {
     /// <summary>
     /// 系统配置

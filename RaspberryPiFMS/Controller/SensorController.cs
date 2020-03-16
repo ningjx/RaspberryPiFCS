@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Timers;
-using RaspberryPiFMS.Helper;
-using RaspberryPiFMS.Interface;
+using RaspberryPiFCS.Helper;
+using RaspberryPiFCS.Interface;
 
-namespace RaspberryPiFMS.Controller
+namespace RaspberryPiFCS.Controller
 {
     public class SensorController : IController
     {

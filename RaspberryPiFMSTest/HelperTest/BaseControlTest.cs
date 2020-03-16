@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RaspberryPiFMS.Controller;
-using RaspberryPiFMS.Helper;
+using RaspberryPiFCS.Controller;
+using RaspberryPiFCS.Helper;
 using Swan.DependencyInjection;
 using Xunit;
 
-namespace RaspberryPiFMSTest.HelperTest
+namespace RaspberryPiFCSTest.HelperTest
 {
     [TestClass]
     class BaseControlTest

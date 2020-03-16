@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaspberryPiFMS.Helper
+namespace RaspberryPiFCS.Helper
 {
     /// <summary>
     /// 维特智能-WT901B+NEO6M GPS

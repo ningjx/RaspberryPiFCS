@@ -1,4 +1,4 @@
-﻿namespace RaspberryPiFMS.Enum
+﻿namespace RaspberryPiFCS.Enum
 {
     public enum Switch
     {

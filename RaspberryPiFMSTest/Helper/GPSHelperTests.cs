@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RaspberryPiFMS.Helper;
+using RaspberryPiFCS.Helper;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace RaspberryPiFMS.Helper.Tests
+namespace RaspberryPiFCS.Helper.Tests
 {
     [TestClass()]
     public class GPSHelperTests

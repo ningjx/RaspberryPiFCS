@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Timers;
 
-namespace RaspberryPiFMS.Interface
+namespace RaspberryPiFCS.Interface
 {
     public interface IController
     {

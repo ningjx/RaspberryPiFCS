@@ -1,4 +1,4 @@
-﻿using RaspberryPiFMS.Interface;
+﻿using RaspberryPiFCS.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Threading;
 using System.Timers;
 using Timer = System.Timers.Timer;
 
-namespace RaspberryPiFMS.Fuctions
+namespace RaspberryPiFCS.Fuctions
 {
     public static class LEDFunction// : IFunction
     {

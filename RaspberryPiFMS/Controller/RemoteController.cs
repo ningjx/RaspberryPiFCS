@@ -1,10 +1,10 @@
-﻿using RaspberryPiFMS.Configs;
-using RaspberryPiFMS.Enum;
-using RaspberryPiFMS.Helper;
+﻿using RaspberryPiFCS.Configs;
+using RaspberryPiFCS.Enum;
+using RaspberryPiFCS.Helper;
 using System.Timers;
-using RaspberryPiFMS.Interface;
+using RaspberryPiFCS.Interface;
 
-namespace RaspberryPiFMS.Controller
+namespace RaspberryPiFCS.Controller
 {
     /// <summary>
     /// 遥控数据解码&转换

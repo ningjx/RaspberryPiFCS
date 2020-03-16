@@ -1,9 +1,9 @@
-﻿using RaspberryPiFMS.Interface;
+﻿using RaspberryPiFCS.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaspberryPiFMS.Fuctions
+namespace RaspberryPiFCS.Fuctions
 {
     public static class BaseFuncion// : IFunction
     {

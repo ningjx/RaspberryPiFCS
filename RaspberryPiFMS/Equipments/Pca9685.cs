@@ -1,10 +1,10 @@
-﻿using RaspberryPiFMS.Enum;
+﻿using RaspberryPiFCS.Enum;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using Unosquare.RaspberryIO.Abstractions;
 
-namespace RaspberryPiFMS.Helper
+namespace RaspberryPiFCS.Helper
 {
     /// <summary>
     /// 可用于普通的Pca9685，或者奇果派那个可以驱动电机的9685Plus

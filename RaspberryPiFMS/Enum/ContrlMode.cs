@@ -1,4 +1,4 @@
-﻿namespace RaspberryPiFMS.Enum
+﻿namespace RaspberryPiFCS.Enum
 {
     /// <summary>
     /// 飞行控制模式

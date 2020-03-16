@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaspberryPiFMS.Enum
+namespace RaspberryPiFCS.Enum
 {
     public enum LoraDataMode
     {

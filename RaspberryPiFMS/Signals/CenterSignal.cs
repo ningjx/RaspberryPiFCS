@@ -1,7 +1,7 @@
-﻿using RaspberryPiFMS.Enum;
+﻿using RaspberryPiFCS.Enum;
 using System.Collections.Generic;
 
-namespace RaspberryPiFMS.Models
+namespace RaspberryPiFCS.Models
 {
     /// <summary>
     /// 中心控制信号

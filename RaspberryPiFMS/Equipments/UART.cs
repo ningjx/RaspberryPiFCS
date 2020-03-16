@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Threading;
 using Timer = System.Timers.Timer;
 
-namespace RaspberryPiFMS.Helper
+namespace RaspberryPiFCS.Helper
 {
     /// <summary>
     /// 由于没有找到合适的SerialPort库，这里使用环回地址udp接受Python脚本的数据

@@ -1,6 +1,6 @@
-﻿using RaspberryPiFMS.Configs;
-using RaspberryPiFMS.Interface;
-using RaspberryPiFMS.Models;
+﻿using RaspberryPiFCS.Configs;
+using RaspberryPiFCS.Interface;
+using RaspberryPiFCS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Timers;
 using Unosquare.RaspberryIO.Abstractions;
 
-namespace RaspberryPiFMS.Controller
+namespace RaspberryPiFCS.Controller
 {
     public class TempController : IController
     {

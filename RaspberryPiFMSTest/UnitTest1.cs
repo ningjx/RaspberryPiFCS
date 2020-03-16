@@ -1,13 +1,13 @@
 using MavLink4Net.Messages;
 using MavLink4Net.Messages.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RaspberryPiFMS.Helper;
+using RaspberryPiFCS.Helper;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Ports;
 using System.Threading;
 
-namespace RaspberryPiFMSTest
+namespace RaspberryPiFCSTest
 {
     [TestClass]
     public class UnitTest1

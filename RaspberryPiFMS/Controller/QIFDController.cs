@@ -1,14 +1,14 @@
-﻿using RaspberryPiFMS.Helper;
-using RaspberryPiFMS.Models;
+﻿using RaspberryPiFCS.Helper;
+using RaspberryPiFCS.Models;
 using System;
 using System.Collections.Generic;
 using System.Device.Gpio;
 using System.Diagnostics;
 using System.Text;
 using Timer = System.Timers.Timer;
-using RaspberryPiFMS.Interface;
+using RaspberryPiFCS.Interface;
 
-namespace RaspberryPiFMS.Controller
+namespace RaspberryPiFCS.Controller
 {
     public class QIFDController : IController
     {

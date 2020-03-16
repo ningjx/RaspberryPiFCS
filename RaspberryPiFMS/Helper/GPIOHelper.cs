@@ -15,7 +15,7 @@ using System.Linq;
 using System.Collections;
 using Unosquare.WiringPi;
 
-namespace RaspberryPiFMS.Helper
+namespace RaspberryPiFCS.Helper
 {
     public class GPIOHelper
     {

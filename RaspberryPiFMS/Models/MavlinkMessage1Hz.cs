@@ -1,6 +1,6 @@
 ﻿using MavLink4Net.Messages.Common;
 
-namespace RaspberryPiFMS.Models
+namespace RaspberryPiFCS.Models
 {
     public static class MavlinkMessage1Hz
     {

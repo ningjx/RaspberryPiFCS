@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RJCP.IO.Ports;
 using System;
 
-namespace RaspberryPiFMSTest.HelperTest
+namespace RaspberryPiFCSTest.HelperTest
 {
     [TestClass]
     public class SbusHelperTest

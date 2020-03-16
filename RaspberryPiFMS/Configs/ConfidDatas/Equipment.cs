@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RaspberryPiFMS.Configs
+namespace RaspberryPiFCS.Configs
 {
     /// <summary>
     /// 设备列表

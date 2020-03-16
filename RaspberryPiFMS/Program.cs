@@ -1,8 +1,8 @@
-﻿using RaspberryPiFMS.Models;
+﻿using RaspberryPiFCS.Models;
 using System;
 using System.Threading;
 
-namespace RaspberryPiFMS
+namespace RaspberryPiFCS
 {
     public class Program
     {

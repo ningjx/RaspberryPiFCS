@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RaspberryPiFMS.Helper;
+using RaspberryPiFCS.Helper;
 
-namespace RaspberryPiFMSTest.HelperTest
+namespace RaspberryPiFCSTest.HelperTest
 {
     [TestClass]
     public class Pca9685HelperTest

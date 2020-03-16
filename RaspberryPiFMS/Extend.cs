@@ -1,12 +1,12 @@
 ﻿using flyfire.IO.Ports;
-using RaspberryPiFMS.Enum;
-using RaspberryPiFMS.Helper;
-using RaspberryPiFMS.Models;
+using RaspberryPiFCS.Enum;
+using RaspberryPiFCS.Helper;
+using RaspberryPiFCS.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaspberryPiFMS
+namespace RaspberryPiFCS
 {
     /// <summary>
     /// 扩展方法

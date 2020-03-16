@@ -1,11 +1,11 @@
-﻿using RaspberryPiFMS.Controller;
-using RaspberryPiFMS.Helper;
+﻿using RaspberryPiFCS.Controller;
+using RaspberryPiFCS.Helper;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Unosquare.PiGpio;
 
-namespace RaspberryPiFMS
+namespace RaspberryPiFCS
 {
     /// <summary>
     /// 设备总线，该总线集成所有连接到飞控的设备，包括iic等

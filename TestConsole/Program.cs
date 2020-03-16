@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
-using RaspberryPiFMS;
-using RaspberryPiFMS.Helper;
+using RaspberryPiFCS;
+using RaspberryPiFCS.Helper;
 
 namespace TestConsole
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaspberryPiFMS.Signals
+namespace RaspberryPiFCS.Signals
 {
     public class LoraSignal
     {

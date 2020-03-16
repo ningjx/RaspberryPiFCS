@@ -6,7 +6,7 @@ using Unosquare.WiringPi;
 using flyfire.IO.Ports;
 using RJCP.IO.Ports;
 
-namespace RaspberryPiFMS.Helper
+namespace RaspberryPiFCS.Helper
 {
     public class UARTHelper : CustomSerialPort
     {

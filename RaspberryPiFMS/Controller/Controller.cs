@@ -1,11 +1,11 @@
-﻿using RaspberryPiFMS.Fuctions;
+﻿using RaspberryPiFCS.Fuctions;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Timers;
-using RaspberryPiFMS.Interface;
+using RaspberryPiFCS.Interface;
 
-namespace RaspberryPiFMS.Controller
+namespace RaspberryPiFCS.Controller
 {
     public class Controller : IController
     {

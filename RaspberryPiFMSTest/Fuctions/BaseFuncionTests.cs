@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RaspberryPiFMS.Fuctions;
+using RaspberryPiFCS.Fuctions;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaspberryPiFMS.Fuctions.Tests
+namespace RaspberryPiFCS.Fuctions.Tests
 {
     [TestClass()]
     public class BaseFuncionTests

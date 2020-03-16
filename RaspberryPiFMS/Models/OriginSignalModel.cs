@@ -1,7 +1,7 @@
-﻿using RaspberryPiFMS.Signals;
+﻿using RaspberryPiFCS.Signals;
 using System.Threading.Tasks;
 
-namespace RaspberryPiFMS.Models
+namespace RaspberryPiFCS.Models
 {
     public class OriginSignal
     { 
