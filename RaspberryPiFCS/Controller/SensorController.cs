@@ -25,7 +25,7 @@ namespace RaspberryPiFCS.Controller
                 return;
             _locker = true;
             if (EquipmentBus.SensorUart.RecBytes.Length != 0)
-                GPSHelper.DecodeData(EquipmentBus.RemoteUart.RecBytes);
+                GPSHelper.DecodeData(EquipmentBus.RemoteUart.Buffer);
             _locker = false;
         }
     }

@@ -8,7 +8,7 @@ namespace RaspberryPiFCS.Helper
 {
     public class SocketHelper
     {
-        private Socket socket;
+        private System.Net.Sockets.Socket socket;
         private string ipAddress;
         private int port;
         private IPEndPoint ipe;
@@ -16,7 +16,7 @@ namespace RaspberryPiFCS.Helper
 
         public SocketHelper()
         {
-            socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            socket = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             //socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
             //IPEndPoint iep1 = new IPEndPoint(IPAddress.Broadcast, 4567);
             ipAddress = "";
@@ -27,7 +27,7 @@ namespace RaspberryPiFCS.Helper
 
         public SocketHelper(string ip, string point)
         {
-            socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            socket = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             //socket.ReceiveTimeout = 500;
             ipAddress = ip;
             port = Convert.ToInt32(point);

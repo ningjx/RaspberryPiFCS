@@ -13,7 +13,8 @@ namespace RaspberryPiFCS.Helper
 
         public UARTHelper(string portName, int baudRate = 115200, Parity parity = Parity.None, int databits = 8, StopBits stopBits = StopBits.One) : base(portName, baudRate, parity, databits, stopBits)
         {
-
+            this.BufSize = 10000;
+            this.ReceiveTimeoutEnable = false;
         }
 
         public void EventStart()

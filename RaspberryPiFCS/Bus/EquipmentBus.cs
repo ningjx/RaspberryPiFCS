@@ -30,9 +30,9 @@ namespace RaspberryPiFCS
         /// </summary>
         public static Pca9685 PushBackPca;
 
-        public static UART RemoteUart;
+        public static Socket RemoteUart;
 
-        public static UART SensorUart;
+        public static Socket SensorUart;
 
         
 
@@ -41,9 +41,9 @@ namespace RaspberryPiFCS
             BasePca = new Pca9685();
             LEDPca = new Pca9685();
             PushBackPca = new Pca9685();
-            RemoteUart = new UART(4664);
+            RemoteUart = new Socket(4664);
             
-            SensorUart = new UART(4667);
+            SensorUart = new Socket(4667);
         }
     }
 }

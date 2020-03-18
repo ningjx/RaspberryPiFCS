@@ -10,13 +10,13 @@ namespace RaspberryPiFCS.Controller
 {
     public class LoraController : IController
     {
-        private UART _LoraUart;
+        private Socket _LoraUart;
         private Timer _timer = new Timer(10);
         private bool _lock = false;
 
         public LoraController()
         {
-            _LoraUart = new UART(4665,4670);
+            _LoraUart = new Socket(4665,4670);
             _timer.Elapsed += SendData;
             _timer.AutoReset = true;
             _timer.Start();

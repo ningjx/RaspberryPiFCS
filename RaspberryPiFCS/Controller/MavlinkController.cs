@@ -10,7 +10,7 @@ namespace RaspberryPiFCS.Controller
 {
     public class MavlinkController : IController
     {
-        private Socket _socket;
+        private System.Net.Sockets.Socket _socket;
         private MicroTimer _timer;
         private byte[] _buffer = new byte[1000];
         public MavlinkController()
@@ -21,7 +21,7 @@ namespace RaspberryPiFCS.Controller
             _timer = new MicroTimer(20, true);
             _timer.AutoReset = true;
             _timer.Elapsed += SendData;
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            _socket = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPAddress address = IPAddress.Parse("127.0.0.1");
             IPEndPoint endPoint = new IPEndPoint(address, 4665);
             _socket.Connect(endPoint);

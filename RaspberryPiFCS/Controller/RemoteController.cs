@@ -27,7 +27,7 @@ namespace RaspberryPiFCS.Controller
                 return;
             _locker = true;
             if (EquipmentBus.RemoteUart.RecBytes.Length != 0)
-                SbusHelper.DecodeSignal(EquipmentBus.RemoteUart.RecBytes);
+                SbusHelper.DecodeSignal(EquipmentBus.RemoteUart.Buffer);
             //转换遥控数据为系统数据
             foreach (var channel in StateDatasBus.ControlConfig?.Channels)
             {

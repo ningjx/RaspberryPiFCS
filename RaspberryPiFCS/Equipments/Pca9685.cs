@@ -1,4 +1,7 @@
 ﻿using RaspberryPiFCS.Enum;
+using RaspberryPiFCS.Interface;
+using RaspberryPiFCS.Models;
+using RaspberryPiFCS.SystemMessage;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -9,7 +12,7 @@ namespace RaspberryPiFCS.Helper
     /// <summary>
     /// 可用于普通的Pca9685，或者奇果派那个可以驱动电机的9685Plus
     /// </summary>
-    public class Pca9685
+    public class Pca9685 : IEquipment_IIC
     {
         #region 变量
         private const int SUBADR1 = 0x02;
@@ -27,7 +30,6 @@ namespace RaspberryPiFCS.Helper
         private const int ALLLED_OFF_H = 0xFD;
         private int _speed = 0;
         private II2CDevice _device;
-
         private Dictionary<int, double> _angleBuffer = new Dictionary<int, double>
         {
             {0,-1 },
@@ -47,8 +49,8 @@ namespace RaspberryPiFCS.Helper
             {14,-1 },
             {15,-1 }
         };
-        private readonly Dictionary<int, int> _ledBuffer = new Dictionary<int, int>
-        {            
+        private Dictionary<int, int> _ledBuffer = new Dictionary<int, int>
+        {
             {0,-1 },
             {1,-1 },
             {2,-1 },
@@ -66,19 +68,42 @@ namespace RaspberryPiFCS.Helper
             {14,-1 },
             {15,-1 }
         };
+
+        public int Addr { get; } = 0;
+
+        public double Freq { get; } = 0;
+
+        public EquipmentData EquipmentData { get; } = new EquipmentData();
         #endregion
 
+
         /// <summary>
-        /// Pca9685默认总线地址0x40，焊上A0则0x41，以此类推
+        /// Pca9685默认设备地址0x40
         /// </summary>
-        /// <param name="addr">IIC总线地址</param>
+        /// <param name="addr">设备地址</param>
         /// <param name="freq">PWM频率</param>
         public Pca9685(int addr = 0x40, double freq = 50)
         {
-            //I2CBus bus = new I2CBus();
-            _device = EquipmentBus.I2CBus.AddDevice(addr);
-            _device.WriteAddressByte(MODE1, 0x00);
-            SetPWMFreq(freq);
+            Addr = addr;
+            Freq = freq;
+        }
+
+        public bool Lunch()
+        {
+            try
+            {
+                _device = EquipmentBus.I2CBus.AddDevice(Addr);
+                _device.WriteAddressByte(MODE1, 0x00);
+                SetPWMFreq(Freq);
+                EquipmentData.IsEnable = true;
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage.Add(ErrorType.Error, $"启动地址为{Addr},频率为{Freq}的PCA9685失败！", ex);
+                EquipmentData.IsEnable = false;
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
