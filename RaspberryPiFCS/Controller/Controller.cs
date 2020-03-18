@@ -26,7 +26,7 @@ namespace RaspberryPiFCS.Controller
             if (_isRunning) return;
             _isRunning = true;
 
-            BaseFuncion.Excute(StateDatasBus.CenterSignal.Yaw, StateDatasBus.CenterSignal.PitchL, StateDatasBus.CenterSignal.PitchR, StateDatasBus.CenterSignal.ThrottelL1, StateDatasBus.CenterSignal.ThrottelR1, StateDatasBus.CenterSignal.RollL, StateDatasBus.CenterSignal.RollR, StateDatasBus.CenterSignal.Trim);
+            ControlFuncion.Excute(StateDatasBus.CenterSignal.Yaw, StateDatasBus.CenterSignal.PitchL, StateDatasBus.CenterSignal.PitchR, StateDatasBus.CenterSignal.ThrottelL1, StateDatasBus.CenterSignal.ThrottelR1, StateDatasBus.CenterSignal.RollL, StateDatasBus.CenterSignal.RollR, StateDatasBus.CenterSignal.Trim);
             LEDFunction.Excute(StateDatasBus.CenterSignal.FlightLight, StateDatasBus.CenterSignal.AntiCollisionLight, StateDatasBus.CenterSignal.LogoLight, StateDatasBus.CenterSignal.TaxiLight, StateDatasBus.CenterSignal.RunwayLight, StateDatasBus.CenterSignal.TakeOffLight, StateDatasBus.CenterSignal.LandingLight, StateDatasBus.CenterSignal.WingInspectionLight, StateDatasBus.CenterSignal.PositionLight);
             PushBackFunction.Excute(StateDatasBus.CenterSignal.PushBackL1, StateDatasBus.CenterSignal.PushBackL2, StateDatasBus.CenterSignal.PushBackR1, StateDatasBus.CenterSignal.PushBackR2, StateDatasBus.CenterSignal.PushBack);
 

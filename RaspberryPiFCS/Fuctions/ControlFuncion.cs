@@ -1,11 +1,12 @@
-﻿using RaspberryPiFCS.Interface;
+﻿using Iot.Device.Pwm;
+using RaspberryPiFCS.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace RaspberryPiFCS.Fuctions
 {
-    public static class BaseFuncion// : IFunction
+    public static class ControlFuncion
     {
         /// <summary>
         /// 
