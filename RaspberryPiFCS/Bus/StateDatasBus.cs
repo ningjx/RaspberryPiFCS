@@ -59,6 +59,6 @@ namespace RaspberryPiFCS
         /// </summary>
         public static FlightData FlightData = new FlightData();
 
-        public static FlightState FlightState = new FlightState();
+        public static FlightStatus FlightState = new FlightStatus();
     }
 }

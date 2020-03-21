@@ -56,9 +56,9 @@ namespace RaspberryPiFCS.Helper
                         Data[1] = Data[1] / 32768.0 * 16;
                         Data[2] = Data[2] / 32768.0 * 16;
 
-                        StateDatasBus.FlightData.PositionData.Attitude.Aacceleration_X = (float)Data[0];
-                        StateDatasBus.FlightData.PositionData.Attitude.Aacceleration_Y = (float)Data[1];
-                        StateDatasBus.FlightData.PositionData.Attitude.Aacceleration_Z = (float)Data[2];
+                        StateDatasBus.FlightData.NavData.Attitude.Aacceleration_X = (float)Data[0];
+                        StateDatasBus.FlightData.NavData.Attitude.Aacceleration_Y = (float)Data[1];
+                        StateDatasBus.FlightData.NavData.Attitude.Aacceleration_Z = (float)Data[2];
                         break;
                     case 0x52:
                         //Data[3] = Data[3] / 32768 * double.Parse(textBox9.Text) + double.Parse(textBox8.Text);
@@ -66,9 +66,9 @@ namespace RaspberryPiFCS.Helper
                         Data[0] = Data[0] / 32768.0 * 2000;
                         Data[1] = Data[1] / 32768.0 * 2000;
                         Data[2] = Data[2] / 32768.0 * 2000;
-                        StateDatasBus.FlightData.PositionData.Attitude.Palstance_X = (float)Data[0];
-                        StateDatasBus.FlightData.PositionData.Attitude.Palstance_Y = (float)Data[1];
-                        StateDatasBus.FlightData.PositionData.Attitude.Palstance_Z = (float)Data[2];
+                        StateDatasBus.FlightData.NavData.Attitude.Palstance_X = (float)Data[0];
+                        StateDatasBus.FlightData.NavData.Attitude.Palstance_Y = (float)Data[1];
+                        StateDatasBus.FlightData.NavData.Attitude.Palstance_Z = (float)Data[2];
                         break;
                     case 0x53:
                         //Data[3] = Data[3] / 32768 * double.Parse(textBox9.Text) + double.Parse(textBox8.Text);
@@ -76,16 +76,16 @@ namespace RaspberryPiFCS.Helper
                         Data[0] = Data[0] / 32768.0 * 180;
                         Data[1] = Data[1] / 32768.0 * 180;
                         Data[2] = Data[2] / 32768.0 * 180;
-                        StateDatasBus.FlightData.PositionData.Attitude.Angle_X = (float)Data[0] + 180;
-                        StateDatasBus.FlightData.PositionData.Attitude.Angle_Y = (float)Data[1] + 180;
-                        StateDatasBus.FlightData.PositionData.Attitude.Angle_Z = (float)Data[2] + 180;
+                        StateDatasBus.FlightData.NavData.Attitude.Angle_X = (float)Data[0] + 180;
+                        StateDatasBus.FlightData.NavData.Attitude.Angle_Y = (float)Data[1] + 180;
+                        StateDatasBus.FlightData.NavData.Attitude.Angle_Z = (float)Data[2] + 180;
                         break;
                     case 0x54:
                         //Data[3] = Data[3] / 32768 * double.Parse(textBox9.Text) + double.Parse(textBox8.Text);
                         StateDatasBus.FlightData.ExtraData.Temperature = Data[3] / 100.0;
-                        StateDatasBus.FlightData.PositionData.Attitude.Magnetic_X = (float)Data[0];
-                        StateDatasBus.FlightData.PositionData.Attitude.Magnetic_Y = (float)Data[1];
-                        StateDatasBus.FlightData.PositionData.Attitude.Magnetic_Z = (float)Data[2];
+                        StateDatasBus.FlightData.NavData.Attitude.Magnetic_X = (float)Data[0];
+                        StateDatasBus.FlightData.NavData.Attitude.Magnetic_Y = (float)Data[1];
+                        StateDatasBus.FlightData.NavData.Attitude.Magnetic_Z = (float)Data[2];
                         break;
                     case 0x55:
                         //Port[0] = Data[0];
@@ -95,18 +95,18 @@ namespace RaspberryPiFCS.Helper
                         break;
 
                     case 0x56:
-                        StateDatasBus.FlightData.PositionData.Attitude.BarometricAltitude = BitConverter.ToInt32(t, 6) / 100.0F;
+                        StateDatasBus.FlightData.NavData.Attitude.BarometricAltitude = BitConverter.ToInt32(t, 6) / 100.0F;
                         break;
 
                     case 0x57:
-                        StateDatasBus.FlightData.PositionData.GPSData.Longitude = BitConverter.ToInt32(t, 2);
-                        StateDatasBus.FlightData.PositionData.GPSData.Latitude = BitConverter.ToInt32(t, 6);
+                        StateDatasBus.FlightData.NavData.GPSData.Longitude = BitConverter.ToInt32(t, 2);
+                        StateDatasBus.FlightData.NavData.GPSData.Latitude = BitConverter.ToInt32(t, 6);
                         break;
 
                     case 0x58:
-                        StateDatasBus.FlightData.PositionData.GPSData.GPSAltitude = BitConverter.ToInt16(t, 2) / 10.0F;
-                        StateDatasBus.FlightData.PositionData.GPSData.GPSYaw = BitConverter.ToInt16(t, 4) / 10.0F;
-                        StateDatasBus.FlightData.PositionData.GPSData.GroundSpeed = BitConverter.ToInt16(t, 6) / 1e3F;
+                        StateDatasBus.FlightData.NavData.GPSData.GPSAltitude = BitConverter.ToInt16(t, 2) / 10.0F;
+                        StateDatasBus.FlightData.NavData.GPSData.GPSYaw = BitConverter.ToInt16(t, 4) / 10.0F;
+                        StateDatasBus.FlightData.NavData.GPSData.GroundSpeed = BitConverter.ToInt16(t, 6) / 1e3F;
                         break;
 
                     case 0x59:
@@ -116,10 +116,10 @@ namespace RaspberryPiFCS.Helper
                         break;
 
                     case 0x5A:
-                        StateDatasBus.FlightData.PositionData.GPSData.SatellitesCount =(int)Data[0];
-                        StateDatasBus.FlightData.PositionData.GPSData.PositionalAccuracy = (float)Data[1];
-                        StateDatasBus.FlightData.PositionData.GPSData.HorizontalAccuracy = (float)Data[2];
-                        StateDatasBus.FlightData.PositionData.GPSData.VerticalAccuracy = (float)Data[3];
+                        StateDatasBus.FlightData.NavData.GPSData.SatellitesCount =(int)Data[0];
+                        StateDatasBus.FlightData.NavData.GPSData.PositionalAccuracy = (float)Data[1];
+                        StateDatasBus.FlightData.NavData.GPSData.HorizontalAccuracy = (float)Data[2];
+                        StateDatasBus.FlightData.NavData.GPSData.VerticalAccuracy = (float)Data[3];
                         break;
 
                     default:

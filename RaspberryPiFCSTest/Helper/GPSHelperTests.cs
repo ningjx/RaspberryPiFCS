@@ -26,9 +26,9 @@ namespace RaspberryPiFCS.Helper.Tests
 
                 //while (true)
                 //{
-                    var a = StateDatasBus.FlightData.PositionData.Attitude.Magnetic_X;
-                    var b = StateDatasBus.FlightData.PositionData.Attitude.Magnetic_Y;
-                    var c = StateDatasBus.FlightData.PositionData.Attitude.Magnetic_Z;
+                    var a = StateDatasBus.FlightData.NavData.Attitude.Magnetic_X;
+                    var b = StateDatasBus.FlightData.NavData.Attitude.Magnetic_Y;
+                    var c = StateDatasBus.FlightData.NavData.Attitude.Magnetic_Z;
                 //}
                 Console.WriteLine(a);
                 Console.WriteLine(b);

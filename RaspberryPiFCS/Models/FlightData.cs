@@ -11,7 +11,7 @@ namespace RaspberryPiFCS.Models
         /// 导航数据
         /// </summary>
         [JsonProperty("导航数据")]
-        public NavData PositionData = new NavData();
+        public NavData NavData = new NavData();
 
         /// <summary>
         /// 引擎数据
