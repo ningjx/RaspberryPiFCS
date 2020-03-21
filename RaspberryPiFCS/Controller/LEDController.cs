@@ -41,12 +41,17 @@ namespace RaspberryPiFCS.Controller
             _ledTimer.Start();
         }
 
+        public bool Lunch()
+        {
+            throw new NotImplementedException();
+        }
+
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (_isExcuting)
                 return;
             _isExcuting = true;
-            switch (StateDatasBus.CenterSignal.AntiCollisionLight)
+            switch (StatusDatasBus.CenterSignal.AntiCollisionLight)
             {
                 case true:
                     _antiCollisionLight = true;
@@ -55,7 +60,7 @@ namespace RaspberryPiFCS.Controller
                     _antiCollisionLight = false;
                     break;
             }
-            switch (StateDatasBus.CenterSignal.FlightLight)
+            switch (StatusDatasBus.CenterSignal.FlightLight)
             {
                 case true:
                     _flightLight = true;
@@ -64,7 +69,7 @@ namespace RaspberryPiFCS.Controller
                     _flightLight = false;
                     break;
             }
-            switch (StateDatasBus.CenterSignal.TaxiLight)
+            switch (StatusDatasBus.CenterSignal.TaxiLight)
             {
                 case true:
                     EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.TaxiLight);
@@ -73,7 +78,7 @@ namespace RaspberryPiFCS.Controller
                     EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.TaxiLight);
                     break;
             }
-            switch (StateDatasBus.CenterSignal.RunwayLight)
+            switch (StatusDatasBus.CenterSignal.RunwayLight)
             {
                 case true:
                     EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.RunwayLight);
@@ -82,7 +87,7 @@ namespace RaspberryPiFCS.Controller
                     EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.RunwayLight);
                     break;
             }
-            switch (StateDatasBus.CenterSignal.TakeOffLight)
+            switch (StatusDatasBus.CenterSignal.TakeOffLight)
             {
                 case true:
                     EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.TakeoffLight);
@@ -91,7 +96,7 @@ namespace RaspberryPiFCS.Controller
                     EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.TakeoffLight);
                     break;
             }
-            switch (StateDatasBus.CenterSignal.LandingLight)
+            switch (StatusDatasBus.CenterSignal.LandingLight)
             {
                 case true:
                     EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.LandingLight);
@@ -100,7 +105,7 @@ namespace RaspberryPiFCS.Controller
                     EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.LandingLight);
                     break;
             }
-            switch (StateDatasBus.CenterSignal.WingInspectionLight)
+            switch (StatusDatasBus.CenterSignal.WingInspectionLight)
             {
                 case true:
                     EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.WingInspectionLight);
@@ -109,7 +114,7 @@ namespace RaspberryPiFCS.Controller
                     EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.WingInspectionLight);
                     break;
             }
-            switch (StateDatasBus.CenterSignal.PositionLight)
+            switch (StatusDatasBus.CenterSignal.PositionLight)
             {
                 case true:
                     EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.AntiCollisionLightWhite);

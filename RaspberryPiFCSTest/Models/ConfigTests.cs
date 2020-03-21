@@ -12,6 +12,8 @@ namespace RaspberryPiFCS.Models.Tests
         [TestMethod()]
         public void ChangeConfigTest()
         {
+            int SequenceNumber = 100;
+            var test = (byte)((SequenceNumber >> 24) & 0xFF);
             //Config.ChangeConfig("LosingSignalDelay", 879494);
         }
     }

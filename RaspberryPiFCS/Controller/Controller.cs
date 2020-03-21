@@ -17,6 +17,12 @@ namespace RaspberryPiFCS.Controller
             _timer.AutoReset = true;
             _timer.Elapsed += Elapsed;
         }
+
+        public bool Lunch()
+        {
+            throw new NotImplementedException();
+        }
+
         public  void Start()
         {
             _timer.Start();
@@ -26,9 +32,9 @@ namespace RaspberryPiFCS.Controller
             if (_isRunning) return;
             _isRunning = true;
 
-            ControlFuncion.Excute(StateDatasBus.CenterSignal.Yaw, StateDatasBus.CenterSignal.PitchL, StateDatasBus.CenterSignal.PitchR, StateDatasBus.CenterSignal.ThrottelL1, StateDatasBus.CenterSignal.ThrottelR1, StateDatasBus.CenterSignal.RollL, StateDatasBus.CenterSignal.RollR, StateDatasBus.CenterSignal.Trim);
-            LEDFunction.Excute(StateDatasBus.CenterSignal.FlightLight, StateDatasBus.CenterSignal.AntiCollisionLight, StateDatasBus.CenterSignal.LogoLight, StateDatasBus.CenterSignal.TaxiLight, StateDatasBus.CenterSignal.RunwayLight, StateDatasBus.CenterSignal.TakeOffLight, StateDatasBus.CenterSignal.LandingLight, StateDatasBus.CenterSignal.WingInspectionLight, StateDatasBus.CenterSignal.PositionLight);
-            PushBackFunction.Excute(StateDatasBus.CenterSignal.PushBackL1, StateDatasBus.CenterSignal.PushBackL2, StateDatasBus.CenterSignal.PushBackR1, StateDatasBus.CenterSignal.PushBackR2, StateDatasBus.CenterSignal.PushBack);
+            ControlFuncion.Excute(StatusDatasBus.CenterSignal.Yaw, StatusDatasBus.CenterSignal.PitchL, StatusDatasBus.CenterSignal.PitchR, StatusDatasBus.CenterSignal.ThrottelL1, StatusDatasBus.CenterSignal.ThrottelR1, StatusDatasBus.CenterSignal.RollL, StatusDatasBus.CenterSignal.RollR, StatusDatasBus.CenterSignal.Trim);
+            LEDFunction.Excute(StatusDatasBus.CenterSignal.FlightLight, StatusDatasBus.CenterSignal.AntiCollisionLight, StatusDatasBus.CenterSignal.LogoLight, StatusDatasBus.CenterSignal.TaxiLight, StatusDatasBus.CenterSignal.RunwayLight, StatusDatasBus.CenterSignal.TakeOffLight, StatusDatasBus.CenterSignal.LandingLight, StatusDatasBus.CenterSignal.WingInspectionLight, StatusDatasBus.CenterSignal.PositionLight);
+            PushBackFunction.Excute(StatusDatasBus.CenterSignal.PushBackL1, StatusDatasBus.CenterSignal.PushBackL2, StatusDatasBus.CenterSignal.PushBackR1, StatusDatasBus.CenterSignal.PushBackR2, StatusDatasBus.CenterSignal.PushBack);
 
             _isRunning = false;
         }

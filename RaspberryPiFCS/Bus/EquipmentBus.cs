@@ -1,4 +1,5 @@
 ﻿using RaspberryPiFCS.Controller;
+using RaspberryPiFCS.Equipments;
 using RaspberryPiFCS.Helper;
 using System;
 using System.Collections.Generic;
@@ -34,16 +35,17 @@ namespace RaspberryPiFCS
 
         public static Socket SensorUart;
 
-        
+        public static E34_2G4D20D E34_2G4D20D;
 
         static EquipmentBus()
         {
-            BasePca = new Pca9685();
-            LEDPca = new Pca9685();
-            PushBackPca = new Pca9685();
-            RemoteUart = new Socket(4664);
-            
-            SensorUart = new Socket(4667);
+            E34_2G4D20D = new E34_2G4D20D("");
+            //BasePca = new Pca9685();
+            //LEDPca = new Pca9685();
+            //PushBackPca = new Pca9685();
+            //RemoteUart = new Socket(4664);
+            //
+            //SensorUart = new Socket(4667);
         }
     }
 }

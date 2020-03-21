@@ -38,16 +38,20 @@ namespace RaspberryPiFCS.Controller
         private void SetControl()
         {
             #region 最基本的四个通道
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.PitchL, StateDatasBus.CenterSignal.PitchL);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.PitchR, StateDatasBus.CenterSignal.PitchR);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.RollL, StateDatasBus.CenterSignal.RollL);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.RollR, StateDatasBus.CenterSignal.RollR);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.Yaw, StateDatasBus.CenterSignal.Yaw);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelL, StateDatasBus.CenterSignal.ThrottelL1);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelR, StateDatasBus.CenterSignal.ThrottelR1);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.PitchL, StatusDatasBus.CenterSignal.PitchL);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.PitchR, StatusDatasBus.CenterSignal.PitchR);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.RollL, StatusDatasBus.CenterSignal.RollL);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.RollR, StatusDatasBus.CenterSignal.RollR);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.Yaw, StatusDatasBus.CenterSignal.Yaw);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelL, StatusDatasBus.CenterSignal.ThrottelL1);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelR, StatusDatasBus.CenterSignal.ThrottelR1);
             #endregion
         }
 
+        public bool Lunch()
+        {
+            throw new NotImplementedException();
+        }
 
         public delegate void BaseControlEventHandler();
 

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace RaspberryPiFCS
 {
-    public static class StateDatasBus
+    public static class StatusDatasBus
     {
         #region 挂载控制信号
         /// <summary>
@@ -59,6 +59,6 @@ namespace RaspberryPiFCS
         /// </summary>
         public static FlightData FlightData = new FlightData();
 
-        public static FlightStatus FlightState = new FlightStatus();
+        public static FlightStatus FlightStatus = new FlightStatus();
     }
 }

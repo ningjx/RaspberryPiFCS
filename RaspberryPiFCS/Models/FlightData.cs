@@ -8,11 +8,22 @@ namespace RaspberryPiFCS.Models
     public class FlightData
     {
         /// <summary>
-        /// 导航数据
+        /// 雷达高度
         /// </summary>
-        [JsonProperty("导航数据")]
-        public NavData NavData = new NavData();
+        [JsonProperty("雷达高度")]
+        public float MicroAltitude;
 
+        /// <summary>
+        /// GPS数据
+        /// </summary>
+        [JsonProperty("GPS数据")]
+        public GPSData GPSData = new GPSData();
+
+        /// <summary>
+        /// 姿态仪数据
+        /// </summary>
+        [JsonProperty("姿态仪数据")]
+        public Attitude Attitude = new Attitude();
         /// <summary>
         /// 引擎数据
         /// </summary>
@@ -92,21 +103,21 @@ namespace RaspberryPiFCS.Models
         public float Magnetic_Z;
 
         /// <summary>
-        /// 磁场X
+        /// 角度X
         /// </summary>
-        [JsonProperty("磁场X")]
+        [JsonProperty("角度X")]
         public float Angle_X;
 
         /// <summary>
-        /// 磁场Y
+        /// 角度Y
         /// </summary>
-        [JsonProperty("磁场Y")]
+        [JsonProperty("角度Y")]
         public float Angle_Y;
 
         /// <summary>
-        /// 磁场Z
+        /// 角度Z
         /// </summary>
-        [JsonProperty("磁场Z")]
+        [JsonProperty("角度Z")]
         public float Angle_Z;
 
         /// <summary>
@@ -114,27 +125,17 @@ namespace RaspberryPiFCS.Models
         /// </summary>
         [JsonProperty("气压高度")]
         public float BarometricAltitude;
+
+        /// <summary>
+        /// 气压
+        /// </summary>
+        [JsonProperty("气压")]
+        public float Pressure;
     }
 
     public class NavData
     {
-        /// <summary>
-        /// 雷达高度
-        /// </summary>
-        [JsonProperty("雷达高度")]
-        public float MicroAltitude;
-
-        /// <summary>
-        /// GPS数据
-        /// </summary>
-        [JsonProperty("GPS数据")]
-        public GPSData GPSData = new GPSData();
-
-        /// <summary>
-        /// 姿态仪数据
-        /// </summary>
-        [JsonProperty("姿态仪数据")]
-        public Attitude Attitude = new Attitude();
+        
     }
 
     public class EngineData
@@ -143,6 +144,11 @@ namespace RaspberryPiFCS.Models
         public int Engine02_RPM;
         public int Engine03_RPM;
         public int Engine04_RPM;
+
+        public float Engine01_Power;
+        public float Engine02_Power;
+        public float Engine03_Power;
+        public float Engine04_Power;
     }
 
     public class PowerData
@@ -192,37 +198,13 @@ namespace RaspberryPiFCS.Models
         /// 地速
         /// </summary>
         [JsonProperty("地速")]
-        public float GroundSpeed;
+        public float GPSSpeed;
 
         /// <summary>
         /// GPS偏航
         /// </summary>
         [JsonProperty("GPS偏航")]
         public float GPSYaw;
-
-        /// <summary>
-        /// 卫星数量
-        /// </summary>
-        [JsonProperty("卫星数量")]
-        public float SatellitesNum;
-
-        /// <summary>
-        /// GPS精度
-        /// </summary>
-        [JsonProperty("GPS精度")]
-        public float PositonPrecision;
-
-        /// <summary>
-        /// 水平精度
-        /// </summary>
-        [JsonProperty("水平精度")]
-        public float LevelPrecision;
-
-        /// <summary>
-        /// 垂直精度
-        /// </summary>
-        [JsonProperty("垂直精度")]
-        public float VertPrecision;
 
         /// <summary>
         /// 卫星数

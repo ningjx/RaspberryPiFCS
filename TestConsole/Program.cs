@@ -18,15 +18,15 @@ namespace TestConsole
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"航向  {StateDatasBus.FlightData.NavData.Attitude.Angle_Z.ToString("f2")}°");
-                Console.WriteLine($"Roll  {StateDatasBus.FlightData.NavData.Attitude.Angle_X.ToString("f2")}°");
-                Console.WriteLine($"Pitch  {StateDatasBus.FlightData.NavData.Attitude.Angle_Y.ToString("f2")}°");
-                Console.WriteLine($"经度  {(StateDatasBus.FlightData.NavData.GPSData.Longitude / 10000000).ToString("f0")}°{((StateDatasBus.FlightData.NavData.GPSData.Longitude % 10000000)/1e5).ToString("f5")}\'");
-                Console.WriteLine($"纬度  {(StateDatasBus.FlightData.NavData.GPSData.Latitude / 10000000).ToString("f0")}°{((StateDatasBus.FlightData.NavData.GPSData.Latitude % 10000000)/1e5).ToString("f5")}\'\n");
-                Console.WriteLine($"气压高度  {StateDatasBus.FlightData.NavData.Attitude.BarometricAltitude.ToString("f2")}M");
-                Console.WriteLine($"GPS高度  {StateDatasBus.FlightData.NavData.GPSData.GPSAltitude.ToString("f2")}M");
-                Console.WriteLine($"GPSYaw  {StateDatasBus.FlightData.NavData.GPSData.GPSYaw.ToString("f2")}M");
-                Console.WriteLine($"地速  {StateDatasBus.FlightData.NavData.GPSData.GroundSpeed.ToString("f2")}M/S");
+                Console.WriteLine($"航向  {StatusDatasBus.FlightData.Attitude.Angle_Z.ToString("f2")}°");
+                Console.WriteLine($"Roll  {StatusDatasBus.FlightData.Attitude.Angle_X.ToString("f2")}°");
+                Console.WriteLine($"Pitch  {StatusDatasBus.FlightData.Attitude.Angle_Y.ToString("f2")}°");
+                Console.WriteLine($"经度  {(StatusDatasBus.FlightData.GPSData.Longitude / 10000000).ToString("f0")}°{((StatusDatasBus.FlightData.GPSData.Longitude % 10000000)/1e5).ToString("f5")}\'");
+                Console.WriteLine($"纬度  {(StatusDatasBus.FlightData.GPSData.Latitude / 10000000).ToString("f0")}°{((StatusDatasBus.FlightData.GPSData.Latitude % 10000000)/1e5).ToString("f5")}\'\n");
+                Console.WriteLine($"气压高度  {StatusDatasBus.FlightData.Attitude.BarometricAltitude.ToString("f2")}M");
+                Console.WriteLine($"GPS高度  {StatusDatasBus.FlightData.GPSData.GPSAltitude.ToString("f2")}M");
+                Console.WriteLine($"GPSYaw  {StatusDatasBus.FlightData.GPSData.GPSYaw.ToString("f2")}M");
+                Console.WriteLine($"地速  {StatusDatasBus.FlightData.GPSData.GPSSpeed.ToString("f2")}M/S");
                 Thread.Sleep(50);
             }
             Console.ReadKey();

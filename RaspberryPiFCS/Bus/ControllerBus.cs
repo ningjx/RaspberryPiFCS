@@ -14,12 +14,8 @@ namespace RaspberryPiFCS
 {
     public static class ControllerBus
     {
-        public static RemoteController RemoteControl;
-        public static SensorController SensorController;
-        public static LoraController LoraControl;
         public static LEDController LedContorl;
         public static BaseController BaseContorl;
-        public static PushBackController PushBackControl;
         public static QIFDController QIFDControl;
         public static TempController TempControl;
         private static ControlPolymerizer _controlPolymerize;
@@ -62,8 +58,7 @@ namespace RaspberryPiFCS
         {
             try
             {
-                LoraControl = new LoraController();
-                ErrorMessage.LoraEvent += LoraControl.SendErrorData;
+
             }
             catch (Exception ex)
             {

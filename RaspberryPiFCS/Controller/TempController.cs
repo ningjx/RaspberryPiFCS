@@ -63,5 +63,10 @@ namespace RaspberryPiFCS.Controller
             tempture = temp >> 5;
             return tempture * 0.125F;
         }
+
+        public bool Lunch()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

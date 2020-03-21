@@ -7,6 +7,6 @@ namespace RaspberryPiFCS.Interface
 {
     public interface IController
     {
-        
+        public bool Lunch();
     }
 }

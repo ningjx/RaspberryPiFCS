@@ -19,6 +19,8 @@ namespace RaspberryPiFCS.Equipments
 
         private UARTHelper uart;
 
+        public byte[] SendBytes { set { uart.Write(value); } }
+
         public E34_2G4D20D(string comName)
         {
             ComName = comName;

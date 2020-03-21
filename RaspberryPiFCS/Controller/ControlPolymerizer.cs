@@ -26,12 +26,12 @@ namespace RaspberryPiFCS.ComputeCenter
 
         private void PIDOutEvent(float value)
         {
-            StateDatasBus.CenterSignal.ThrottelL1 = (float)value;
+            StatusDatasBus.CenterSignal.ThrottelL1 = (float)value;
         }
 
         private void Excute(object sender, System.Timers.ElapsedEventArgs e)
         {
-            switch (StateDatasBus.FlightState.ContrlMode)
+            switch (StatusDatasBus.FlightStatus.ContrlMode)
             {
                 case ContrlMode.Manual:
                     ManualPolymerize();
@@ -53,15 +53,15 @@ namespace RaspberryPiFCS.ComputeCenter
 
         private void ManualPolymerize()
         {
-            StateDatasBus.CenterSignal.Yaw = StateDatasBus.RemoteSignal.Yaw;
-            StateDatasBus.CenterSignal.ThrottelL1 = StateDatasBus.RemoteSignal.Throttel;
-            StateDatasBus.CenterSignal.ThrottelR1 = StateDatasBus.RemoteSignal.Throttel;
+            StatusDatasBus.CenterSignal.Yaw = StatusDatasBus.RemoteSignal.Yaw;
+            StatusDatasBus.CenterSignal.ThrottelL1 = StatusDatasBus.RemoteSignal.Throttel;
+            StatusDatasBus.CenterSignal.ThrottelR1 = StatusDatasBus.RemoteSignal.Throttel;
             //对油门进行PID控制
             //_pid.SetWithPID((float)Cache.CenterControlData.ThrottelL, (float)Cache.RemoteSignal.Channel03);
-            StateDatasBus.CenterSignal.RollL = StateDatasBus.RemoteSignal.Roll;
-            StateDatasBus.CenterSignal.RollR = StateDatasBus.RemoteSignal.Roll;
-            StateDatasBus.CenterSignal.PitchL =StateDatasBus.RemoteSignal.Pitch;
-            StateDatasBus.CenterSignal.PitchR = StateDatasBus.RemoteSignal.Pitch;
+            StatusDatasBus.CenterSignal.RollL = StatusDatasBus.RemoteSignal.Roll;
+            StatusDatasBus.CenterSignal.RollR = StatusDatasBus.RemoteSignal.Roll;
+            StatusDatasBus.CenterSignal.PitchL =StatusDatasBus.RemoteSignal.Pitch;
+            StatusDatasBus.CenterSignal.PitchR = StatusDatasBus.RemoteSignal.Pitch;
 
             CommonOperation();
         }
@@ -87,18 +87,18 @@ namespace RaspberryPiFCS.ComputeCenter
         /// </summary>
         private void CommonOperation()
         {
-            StateDatasBus.CenterSignal.Gear = (Switch)StateDatasBus.RemoteSignal.Channel05 == Switch.On ? true : false;
-            StateDatasBus.CenterSignal.PushBack = (Switch)StateDatasBus.RemoteSignal.Channel11 == Switch.On ? true : false;
-            switch (StateDatasBus.RemoteSignal.Channel09)
+            StatusDatasBus.CenterSignal.Gear = (Switch)StatusDatasBus.RemoteSignal.Channel05 == Switch.On ? true : false;
+            StatusDatasBus.CenterSignal.PushBack = (Switch)StatusDatasBus.RemoteSignal.Channel11 == Switch.On ? true : false;
+            switch (StatusDatasBus.RemoteSignal.Channel09)
             {
                 case Switch.Off:
-                    StateDatasBus.CenterSignal.Flap = FlapMode.FlapUp;
+                    StatusDatasBus.CenterSignal.Flap = FlapMode.FlapUp;
                     break;
                 case Switch.MId:
-                    StateDatasBus.CenterSignal.Flap = FlapMode.TakeOff;
+                    StatusDatasBus.CenterSignal.Flap = FlapMode.TakeOff;
                     break;
                 case Switch.On:
-                    StateDatasBus.CenterSignal.Flap = FlapMode.Landing;
+                    StatusDatasBus.CenterSignal.Flap = FlapMode.Landing;
                     break;
                 default:
                     break;
@@ -114,90 +114,95 @@ namespace RaspberryPiFCS.ComputeCenter
                   7-mid:着陆灯(根据起落架状态)
                   7-off:高亮度白色防撞灯 机翼检查灯开
             7个灯光控制*/
-            if ((Switch)StateDatasBus.RemoteSignal.Channel08 == Switch.Off)
+            if ((Switch)StatusDatasBus.RemoteSignal.Channel08 == Switch.Off)
             {
-                if ((Switch)StateDatasBus.RemoteSignal.Channel07 == Switch.Off)//航行灯开 防撞灯开 LOGO灯开(根据起落架状态)
+                if ((Switch)StatusDatasBus.RemoteSignal.Channel07 == Switch.Off)//航行灯开 防撞灯开 LOGO灯开(根据起落架状态)
                 {
-                    StateDatasBus.CenterSignal.TaxiLight = false;
-                    StateDatasBus.CenterSignal.RunwayLight = false;
-                    StateDatasBus.CenterSignal.TakeOffLight = false;
-                    StateDatasBus.CenterSignal.LandingLight = false;
-                    StateDatasBus.CenterSignal.WingInspectionLight = false;
-                    StateDatasBus.CenterSignal.PositionLight = false;
+                    StatusDatasBus.CenterSignal.TaxiLight = false;
+                    StatusDatasBus.CenterSignal.RunwayLight = false;
+                    StatusDatasBus.CenterSignal.TakeOffLight = false;
+                    StatusDatasBus.CenterSignal.LandingLight = false;
+                    StatusDatasBus.CenterSignal.WingInspectionLight = false;
+                    StatusDatasBus.CenterSignal.PositionLight = false;
 
-                    StateDatasBus.CenterSignal.FlightLight = true;
-                    StateDatasBus.CenterSignal.AntiCollisionLight = true;
-                    StateDatasBus.CenterSignal.LogoLight = StateDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.FlightLight = true;
+                    StatusDatasBus.CenterSignal.AntiCollisionLight = true;
+                    StatusDatasBus.CenterSignal.LogoLight = StatusDatasBus.CenterSignal.Gear ? true : false;
                 }
-                else if ((Switch)StateDatasBus.RemoteSignal.Channel07 == Switch.MId)// 滑行灯开(根据起落架状态)
+                else if ((Switch)StatusDatasBus.RemoteSignal.Channel07 == Switch.MId)// 滑行灯开(根据起落架状态)
                 {
-                    StateDatasBus.CenterSignal.RunwayLight = false;
-                    StateDatasBus.CenterSignal.TakeOffLight = false;
-                    StateDatasBus.CenterSignal.LandingLight = false;
-                    StateDatasBus.CenterSignal.WingInspectionLight = false;
-                    StateDatasBus.CenterSignal.PositionLight = false;
+                    StatusDatasBus.CenterSignal.RunwayLight = false;
+                    StatusDatasBus.CenterSignal.TakeOffLight = false;
+                    StatusDatasBus.CenterSignal.LandingLight = false;
+                    StatusDatasBus.CenterSignal.WingInspectionLight = false;
+                    StatusDatasBus.CenterSignal.PositionLight = false;
 
-                    StateDatasBus.CenterSignal.FlightLight = true;
-                    StateDatasBus.CenterSignal.AntiCollisionLight = true;
-                    StateDatasBus.CenterSignal.LogoLight = StateDatasBus.CenterSignal.Gear ? true : false;
-                    StateDatasBus.CenterSignal.TaxiLight = StateDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.FlightLight = true;
+                    StatusDatasBus.CenterSignal.AntiCollisionLight = true;
+                    StatusDatasBus.CenterSignal.LogoLight = StatusDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.TaxiLight = StatusDatasBus.CenterSignal.Gear ? true : false;
                 }
                 else//跑道脱离灯
                 {
-                    StateDatasBus.CenterSignal.TakeOffLight = false;
-                    StateDatasBus.CenterSignal.LandingLight = false;
-                    StateDatasBus.CenterSignal.WingInspectionLight = false;
-                    StateDatasBus.CenterSignal.PositionLight = false;
+                    StatusDatasBus.CenterSignal.TakeOffLight = false;
+                    StatusDatasBus.CenterSignal.LandingLight = false;
+                    StatusDatasBus.CenterSignal.WingInspectionLight = false;
+                    StatusDatasBus.CenterSignal.PositionLight = false;
 
-                    StateDatasBus.CenterSignal.FlightLight = true;
-                    StateDatasBus.CenterSignal.AntiCollisionLight = true;
-                    StateDatasBus.CenterSignal.LogoLight = StateDatasBus.CenterSignal.Gear ? true : false;
-                    StateDatasBus.CenterSignal.TaxiLight = StateDatasBus.CenterSignal.Gear ? true : false;
-                    StateDatasBus.CenterSignal.RunwayLight = true;
+                    StatusDatasBus.CenterSignal.FlightLight = true;
+                    StatusDatasBus.CenterSignal.AntiCollisionLight = true;
+                    StatusDatasBus.CenterSignal.LogoLight = StatusDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.TaxiLight = StatusDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.RunwayLight = true;
                 }
             }
             else
             {
-                if ((Switch)StateDatasBus.RemoteSignal.Channel07 == Switch.On)//起飞灯(根据起落架状态)
+                if ((Switch)StatusDatasBus.RemoteSignal.Channel07 == Switch.On)//起飞灯(根据起落架状态)
                 {
-                    StateDatasBus.CenterSignal.LandingLight = false;
-                    StateDatasBus.CenterSignal.WingInspectionLight = false;
-                    StateDatasBus.CenterSignal.PositionLight = false;
+                    StatusDatasBus.CenterSignal.LandingLight = false;
+                    StatusDatasBus.CenterSignal.WingInspectionLight = false;
+                    StatusDatasBus.CenterSignal.PositionLight = false;
 
-                    StateDatasBus.CenterSignal.FlightLight = true;
-                    StateDatasBus.CenterSignal.AntiCollisionLight = true;
-                    StateDatasBus.CenterSignal.LogoLight = StateDatasBus.CenterSignal.Gear ? true : false;
-                    StateDatasBus.CenterSignal.TaxiLight = StateDatasBus.CenterSignal.Gear ? true : false;
-                    StateDatasBus.CenterSignal.RunwayLight = true;
-                    StateDatasBus.CenterSignal.TakeOffLight = StateDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.FlightLight = true;
+                    StatusDatasBus.CenterSignal.AntiCollisionLight = true;
+                    StatusDatasBus.CenterSignal.LogoLight = StatusDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.TaxiLight = StatusDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.RunwayLight = true;
+                    StatusDatasBus.CenterSignal.TakeOffLight = StatusDatasBus.CenterSignal.Gear ? true : false;
                 }
-                else if ((Switch)StateDatasBus.RemoteSignal.Channel07 == Switch.MId)//着陆灯(根据起落架状态)
+                else if ((Switch)StatusDatasBus.RemoteSignal.Channel07 == Switch.MId)//着陆灯(根据起落架状态)
                 {
-                    StateDatasBus.CenterSignal.WingInspectionLight = false;
-                    StateDatasBus.CenterSignal.PositionLight = false;
+                    StatusDatasBus.CenterSignal.WingInspectionLight = false;
+                    StatusDatasBus.CenterSignal.PositionLight = false;
 
-                    StateDatasBus.CenterSignal.FlightLight = true;
-                    StateDatasBus.CenterSignal.AntiCollisionLight = true;
-                    StateDatasBus.CenterSignal.LogoLight = StateDatasBus.CenterSignal.Gear ? true : false;
-                    StateDatasBus.CenterSignal.TaxiLight = StateDatasBus.CenterSignal.Gear ? true : false;
-                    StateDatasBus.CenterSignal.RunwayLight = true;
-                    StateDatasBus.CenterSignal.TakeOffLight = StateDatasBus.CenterSignal.Gear ? true : false;
-                    StateDatasBus.CenterSignal.LandingLight = StateDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.FlightLight = true;
+                    StatusDatasBus.CenterSignal.AntiCollisionLight = true;
+                    StatusDatasBus.CenterSignal.LogoLight = StatusDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.TaxiLight = StatusDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.RunwayLight = true;
+                    StatusDatasBus.CenterSignal.TakeOffLight = StatusDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.LandingLight = StatusDatasBus.CenterSignal.Gear ? true : false;
                 }
                 else//高亮度白色防撞灯 机翼检查灯开
                 {
-                    StateDatasBus.CenterSignal.FlightLight = true;
-                    StateDatasBus.CenterSignal.AntiCollisionLight = true;
-                    StateDatasBus.CenterSignal.LogoLight = StateDatasBus.CenterSignal.Gear ? true : false;
-                    StateDatasBus.CenterSignal.TaxiLight = StateDatasBus.CenterSignal.Gear ? true : false;
-                    StateDatasBus.CenterSignal.RunwayLight = true;
-                    StateDatasBus.CenterSignal.TakeOffLight = StateDatasBus.CenterSignal.Gear ? true : false;
-                    StateDatasBus.CenterSignal.LandingLight = StateDatasBus.CenterSignal.Gear ? true : false;
-                    StateDatasBus.CenterSignal.PositionLight = true;
-                    StateDatasBus.CenterSignal.WingInspectionLight = true;
+                    StatusDatasBus.CenterSignal.FlightLight = true;
+                    StatusDatasBus.CenterSignal.AntiCollisionLight = true;
+                    StatusDatasBus.CenterSignal.LogoLight = StatusDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.TaxiLight = StatusDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.RunwayLight = true;
+                    StatusDatasBus.CenterSignal.TakeOffLight = StatusDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.LandingLight = StatusDatasBus.CenterSignal.Gear ? true : false;
+                    StatusDatasBus.CenterSignal.PositionLight = true;
+                    StatusDatasBus.CenterSignal.WingInspectionLight = true;
                 }
             }
             #endregion
+        }
+
+        public bool Lunch()
+        {
+            throw new NotImplementedException();
         }
     }
 }

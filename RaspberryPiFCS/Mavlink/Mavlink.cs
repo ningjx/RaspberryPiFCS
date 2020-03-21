@@ -1,4 +1,5 @@
 ﻿using System;
+using MavLink.Message;
 
 namespace MavLink
 {
@@ -397,6 +398,15 @@ namespace MavLink
     ///</summary>
     public class MavlinkPacket
     {
+        public MavlinkPacket(MavlinkMessage message)
+        {
+            Message = message;
+        }
+
+        public MavlinkPacket()
+        {
+        }
+
         /// <summary>
         /// The sender's system ID
         /// </summary>

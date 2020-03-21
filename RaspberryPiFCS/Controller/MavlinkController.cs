@@ -5,31 +5,117 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using RaspberryPiFCS.Interface;
+using MavLink;
+using System.Timers;
+using System.Reflection;
+using MavLink.Message;
+using System.Threading;
+using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFCS.Controller
 {
     public class MavlinkController : IController
     {
-        private System.Net.Sockets.Socket _socket;
-        private MicroTimer _timer;
-        private byte[] _buffer = new byte[1000];
+        Mavlink mavlink;
+        static int SequenceNumber = 0;
+
+        Timer timer = new Timer(10);
+        Type[] messageTypes;
+
         public MavlinkController()
         {
-            Console.Write("初始化Mavlink");
-            Console.WriteLine("------Finish\r");
-            byte[] _buffer = new byte[1000];
-            _timer = new MicroTimer(20, true);
-            _timer.AutoReset = true;
-            _timer.Elapsed += SendData;
-            _socket = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPAddress address = IPAddress.Parse("127.0.0.1");
-            IPEndPoint endPoint = new IPEndPoint(address, 4665);
-            _socket.Connect(endPoint);
-            _timer.Start();
+            timer.Elapsed += Excute;
+            timer.AutoReset = true;
         }
-        public void SendData()
-        {
 
+        public void Text()
+        {
+            foreach (var type in messageTypes)
+            {
+                if (type.Name != "Msg_attitude")
+                    continue;
+                var intance = Activator.CreateInstance(type);
+                SetMessage(intance, type);
+                EquipmentBus.E34_2G4D20D.SendBytes = mavlink.Send(GetPacket((MavlinkMessage)intance));
+                Thread.Sleep(10);
+            }
         }
+
+        private void Excute(object sender, ElapsedEventArgs e)
+        {
+            foreach (var type in messageTypes)
+            {
+                if (type.BaseType.Name != "MavlinkMessage")
+                    continue;
+                var intance = Activator.CreateInstance(type);
+                SetMessage(intance, type);
+                EquipmentBus.E34_2G4D20D.SendBytes = mavlink.Send(GetPacket((MavlinkMessage)intance));
+                Thread.Sleep(10);
+            }
+        }
+
+        public bool Lunch()
+        {
+            try
+            {
+                mavlink = new Mavlink();
+                messageTypes = Assembly.GetExecutingAssembly().GetTypes();
+                //timer.Start();
+            }
+            catch (Exception ex)
+            {
+                SystemMessage.ErrorMessage.Add(Enum.ErrorType.Error, "启动MavLink控制器时失败", ex);
+                return false;
+            }
+            return true;
+        }
+
+        private static MavlinkPacket GetPacket(MavlinkMessage message)
+        {
+            MavlinkPacket packet = new MavlinkPacket(message);
+            packet.SystemId = 1;
+            packet.ComponentId = 1;
+            packet.SequenceNumber = (byte)((SequenceNumber >> 24) & 0xFF);
+            if (SequenceNumber == 255)
+                SequenceNumber = 0;
+            else
+                SequenceNumber++;
+            return packet;
+        }
+
+        #region 填充不同类型的消息
+        private void SetMessage(object message,Type type)
+        {
+            switch (type.Name)
+            {
+                case "Msg_attitude":
+                    type.GetField("roll").SetValue(message, StatusDatasBus.FlightData.Attitude.Angle_X);
+                    type.GetField("pitch").SetValue(message, StatusDatasBus.FlightData.Attitude.Angle_Y);
+                    type.GetField("yaw").SetValue(message, StatusDatasBus.FlightData.Attitude.Angle_Z);
+                    type.GetField("rollspeed").SetValue(message, StatusDatasBus.FlightData.Attitude.Palstance_X);
+                    type.GetField("pitchspeed").SetValue(message, StatusDatasBus.FlightData.Attitude.Palstance_Y);
+                    type.GetField("yawspeed").SetValue(message, StatusDatasBus.FlightData.Attitude.Palstance_Z);
+                    type.GetField("Aacceleration_X").SetValue(message, StatusDatasBus.FlightData.Attitude.Aacceleration_X);
+                    type.GetField("Aacceleration_Y").SetValue(message, StatusDatasBus.FlightData.Attitude.Aacceleration_Y);
+                    type.GetField("Aacceleration_Z").SetValue(message, StatusDatasBus.FlightData.Attitude.Aacceleration_Z);
+                    type.GetField("BarometricAltitude").SetValue(message, StatusDatasBus.FlightData.Attitude.BarometricAltitude);
+                    type.GetField("Pressure").SetValue(message, StatusDatasBus.FlightData.Attitude.Pressure);
+                    type.GetField("MicroAltitude").SetValue(message, StatusDatasBus.FlightData.MicroAltitude);
+                    break;
+                case "Msg_gpsdata":
+                    type.GetField("Latitude").SetValue(message, StatusDatasBus.FlightData.GPSData.Latitude);
+                    type.GetField("Longitude").SetValue(message, StatusDatasBus.FlightData.GPSData.Longitude);
+                    type.GetField("GPSAltitude").SetValue(message, StatusDatasBus.FlightData.GPSData.GPSAltitude);
+                    type.GetField("GPSSpeed").SetValue(message, StatusDatasBus.FlightData.GPSData.GPSSpeed);
+                    type.GetField("GPSHeading").SetValue(message, StatusDatasBus.FlightData.GPSData.GPSHeading);
+                    type.GetField("GPSYaw").SetValue(message, StatusDatasBus.FlightData.GPSData.GPSYaw);
+                    type.GetField("SatellitesCount").SetValue(message, StatusDatasBus.FlightData.GPSData.SatellitesCount);
+                    type.GetField("PositionalAccuracy").SetValue(message, StatusDatasBus.FlightData.GPSData.PositionalAccuracy);
+                    type.GetField("HorizontalAccuracy").SetValue(message, StatusDatasBus.FlightData.GPSData.HorizontalAccuracy);
+                    type.GetField("VerticalAccuracy").SetValue(message, StatusDatasBus.FlightData.GPSData.VerticalAccuracy);
+                    break;
+            }
+        }
+        #endregion
     }
 }
