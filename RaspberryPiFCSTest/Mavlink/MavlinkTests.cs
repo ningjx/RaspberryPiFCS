@@ -1,12 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MavLink;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
 using MavLink.Message;
-using MavLink;
-using RaspberryPiFCS.Controller;
 
 namespace MavLink.Tests
 {
@@ -24,7 +17,7 @@ namespace MavLink.Tests
             var res = mavlink.Send(packet);
             mavlink.PacketReceived += Mavlink_PacketReceived;
             mavlink.ParseBytes(res);
-
+            Assert.AreNotEqual(mavlink.PacketsReceived,0);
         }
 
         private void Mavlink_PacketReceived(object sender, MavlinkPacket e)

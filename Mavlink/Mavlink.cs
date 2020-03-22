@@ -28,7 +28,7 @@ namespace MavLink
         public event PacketReceivedEventHandler PacketReceived;
 
         public event SetMessageEventHandler SetMessage;
-        public event GetMessageEventHandler GetMessage;
+        //public event GetMessageEventHandler GetMessage;
 
         /// <summary>
         /// 成功接收的数据包数量
@@ -389,8 +389,8 @@ namespace MavLink
             };
             if (PacketReceived != null)
                 PacketReceived.Invoke(this, packet);
-            else //GetMessage(packet);
-                GetMessage?.Invoke(packet);
+            //else //GetMessage(packet);
+                //GetMessage?.Invoke(packet);
             // else do what?
         }
         #endregion
