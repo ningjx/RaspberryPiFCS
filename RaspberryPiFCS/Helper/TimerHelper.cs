@@ -1,10 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace RaspberryPiFCS.Helper
 {
     /// <summary>
     /// 高精度定时器
     /// </summary>
+    [Obsolete]
     public class MicroTimer
     {
         

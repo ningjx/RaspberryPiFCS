@@ -92,10 +92,20 @@ namespace RaspberryPiFCS.Helper
         {
             try
             {
+                //检查依赖
+                RelyConyroller relyConyroller = new RelyConyroller();
+                relyConyroller.Add(RegisterType.Sys);
+                relyConyroller.Add(RegisterType.IIC);
+                if (!StatusDatasBus.ControllerRegister.CheckRely(relyConyroller))
+                {
+                    throw new Exception("依赖设备尚未启动");
+                }
+
                 _device = EquipmentBus.I2CBus.AddDevice(Addr);
                 _device.WriteAddressByte(MODE1, 0x00);
                 SetPWMFreq(Freq);
                 EquipmentData.IsEnable = true;
+                StatusDatasBus.ControllerRegister.Register(RegisterType.Pca9685, false);
             }
             catch (Exception ex)
             {

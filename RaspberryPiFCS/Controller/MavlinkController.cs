@@ -47,7 +47,7 @@ namespace RaspberryPiFCS.Controller
                 mavlink = new Mavlink();
                 messageTypes = Assembly.GetExecutingAssembly().GetTypes();
                 timer.Start();
-                ControllerBus.ControllerRegister.Register(Enum.RegisterType.MavlinkController, false);
+                StatusDatasBus.ControllerRegister.Register(Enum.RegisterType.MavlinkController, false);
             }
             catch (Exception ex)
             {

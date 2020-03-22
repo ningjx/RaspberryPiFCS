@@ -35,7 +35,7 @@ namespace TestConsole
         private static void Uart_ReceivedEvent(object sender, byte[] bytes)
         {
             //Console.WriteLine(bytes[1].ByteArrToHexStr());
-            GPSHelper.DecodeData(bytes);
+            //GPSHelper.DecodeData(bytes);
         }
     }
 }

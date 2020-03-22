@@ -1,9 +1,11 @@
 ﻿using System;
+using RaspberryPiFCS.Models;
+
 namespace RaspberryPiFCS.Interface
 {
     public interface IFunction
     {
-        void Excute(IEquipment equipment);
+        void Excute<T>(CenterSignal signal, T equipment);
     }
     
 }

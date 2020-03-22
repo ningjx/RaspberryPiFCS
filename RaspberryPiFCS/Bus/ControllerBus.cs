@@ -17,7 +17,6 @@ namespace RaspberryPiFCS
     /// </summary>
     public static class ControllerBus
     {
-        public static SysRegister ControllerRegister = new SysRegister();//注册
 
         static ControllerBus()
         {

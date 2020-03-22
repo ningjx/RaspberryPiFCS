@@ -42,7 +42,7 @@ namespace RaspberryPiFCS.Helper.Tests
 
         private void Uart_ReceivedEvent(object sender, byte[] bytes)
         {
-            GPSHelper.DecodeData(bytes);
+            //GPSHelper.DecodeData(bytes);
         }
     }
 }

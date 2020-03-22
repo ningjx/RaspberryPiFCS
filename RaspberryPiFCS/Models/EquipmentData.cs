@@ -16,7 +16,7 @@ namespace RaspberryPiFCS.Models
         /// <summary>
         /// 设备异常信息
         /// </summary>
-        public List<Tuple<DateTime, ErrorType, string, Exception>> ErrorData { get; set; }
+        public List<Tuple<DateTime, ErrorType, string, Exception>> ErrorData { get; set; } = new List<Tuple<DateTime, ErrorType, string, Exception>>();
 
         /// <summary>
         /// 构造函数

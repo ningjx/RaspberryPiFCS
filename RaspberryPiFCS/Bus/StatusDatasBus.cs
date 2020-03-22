@@ -11,6 +11,8 @@ namespace RaspberryPiFCS
 {
     public static class StatusDatasBus
     {
+        public static SysRegister ControllerRegister = new SysRegister();//注册
+
         #region 挂载控制信号
         /// <summary>
         /// 遥控配置信息

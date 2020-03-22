@@ -11,6 +11,7 @@ using Timer = System.Timers.Timer;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
 using RaspberryPiFCS.SystemMessage;
+using RaspberryPiFCS.Enum;
 
 namespace RaspberryPiFCS.Helper
 {
@@ -50,10 +51,19 @@ namespace RaspberryPiFCS.Helper
         {
             try
             {
+                //检查依赖
+                RelyConyroller relyConyroller = new RelyConyroller();
+                relyConyroller.Add(RegisterType.Sys);
+                if (!StatusDatasBus.ControllerRegister.CheckRely(relyConyroller))
+                {
+                    throw new Exception("依赖设备尚未启动");
+                }
+
                 _socket.Bind(BindIP);
                 _timer.AutoReset = true;
                 _timer.Elapsed += TimerElapsed;
                 _timer.Start();
+                StatusDatasBus.ControllerRegister.Register(RegisterType.Socket, false);
             }
             catch (Exception ex)
             {
