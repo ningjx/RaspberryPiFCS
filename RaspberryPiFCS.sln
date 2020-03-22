@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsole", "TestConsole\
 		{7CF6142E-849A-45D1-A54D-BC1C1FD48551} = {7CF6142E-849A-45D1-A54D-BC1C1FD48551}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mavlink", "Mavlink\Mavlink.csproj", "{661047A6-6BF3-442C-9DC6-672745C39BE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{DD0FDA32-339C-47ED-AAD2-6765DB30BAC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD0FDA32-339C-47ED-AAD2-6765DB30BAC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD0FDA32-339C-47ED-AAD2-6765DB30BAC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{661047A6-6BF3-442C-9DC6-672745C39BE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{661047A6-6BF3-442C-9DC6-672745C39BE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{661047A6-6BF3-442C-9DC6-672745C39BE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{661047A6-6BF3-442C-9DC6-672745C39BE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,5 @@
 ﻿using System;
 using MavLink.Message;
-using RaspberryPiFCS;
 
 namespace MavLink
 {
@@ -27,6 +26,9 @@ namespace MavLink
         /// 消息解析成功事件
         /// </summary>
         public event PacketReceivedEventHandler PacketReceived;
+
+        public event SetMessageEventHandler SetMessage;
+        public event GetMessageEventHandler GetMessage;
 
         /// <summary>
         /// 成功接收的数据包数量
@@ -229,7 +231,7 @@ namespace MavLink
         }
 
         /// <summary>
-        /// 发送数据包
+        /// 发送数据包，使用此方法时，请先对事件SetMessage赋值
         /// </summary>
         /// <param name="obj">message的<see cref="Type"></param>
         /// <returns></returns>
@@ -244,7 +246,8 @@ namespace MavLink
                 SequenceNumber = 0;
             else
                 SequenceNumber++;
-            SetMessage(message, type);
+            //SetMessage(message, type);
+            SetMessage?.Invoke(message, type);
             return Send(packet);
         }
 
@@ -254,51 +257,51 @@ namespace MavLink
         /// </summary>
         /// <param name="message"></param>
         /// <param name="type"></param>
-        private void SetMessage(object message, Type type)
-        {
-            switch (type.Name)
-            {
-                case "Msg_attitude":
-                    type.GetField("roll").SetValue(message, StatusDatasBus.FlightData.Attitude.Angle_X);
-                    type.GetField("pitch").SetValue(message, StatusDatasBus.FlightData.Attitude.Angle_Y);
-                    type.GetField("yaw").SetValue(message, StatusDatasBus.FlightData.Attitude.Angle_Z);
-                    type.GetField("rollspeed").SetValue(message, StatusDatasBus.FlightData.Attitude.Palstance_X);
-                    type.GetField("pitchspeed").SetValue(message, StatusDatasBus.FlightData.Attitude.Palstance_Y);
-                    type.GetField("yawspeed").SetValue(message, StatusDatasBus.FlightData.Attitude.Palstance_Z);
-                    type.GetField("Aacceleration_X").SetValue(message, StatusDatasBus.FlightData.Attitude.Aacceleration_X);
-                    type.GetField("Aacceleration_Y").SetValue(message, StatusDatasBus.FlightData.Attitude.Aacceleration_Y);
-                    type.GetField("Aacceleration_Z").SetValue(message, StatusDatasBus.FlightData.Attitude.Aacceleration_Z);
-                    type.GetField("BarometricAltitude").SetValue(message, StatusDatasBus.FlightData.Attitude.BarometricAltitude);
-                    type.GetField("Pressure").SetValue(message, StatusDatasBus.FlightData.Attitude.Pressure);
-                    type.GetField("MicroAltitude").SetValue(message, StatusDatasBus.FlightData.MicroAltitude);
-                    break;
-                case "Msg_gpsdata":
-                    type.GetField("Latitude").SetValue(message, StatusDatasBus.FlightData.GPSData.Latitude);
-                    type.GetField("Longitude").SetValue(message, StatusDatasBus.FlightData.GPSData.Longitude);
-                    type.GetField("GPSAltitude").SetValue(message, StatusDatasBus.FlightData.GPSData.GPSAltitude);
-                    type.GetField("GPSSpeed").SetValue(message, StatusDatasBus.FlightData.GPSData.GPSSpeed);
-                    type.GetField("GPSHeading").SetValue(message, StatusDatasBus.FlightData.GPSData.GPSHeading);
-                    type.GetField("GPSYaw").SetValue(message, StatusDatasBus.FlightData.GPSData.GPSYaw);
-                    type.GetField("SatellitesCount").SetValue(message, StatusDatasBus.FlightData.GPSData.SatellitesCount);
-                    type.GetField("PositionalAccuracy").SetValue(message, StatusDatasBus.FlightData.GPSData.PositionalAccuracy);
-                    type.GetField("HorizontalAccuracy").SetValue(message, StatusDatasBus.FlightData.GPSData.HorizontalAccuracy);
-                    type.GetField("VerticalAccuracy").SetValue(message, StatusDatasBus.FlightData.GPSData.VerticalAccuracy);
-                    break;
-            }
-        }
+        //private void SetMessage(object message, Type type)
+        //{
+        //    switch (type.Name)
+        //    {
+        //        case "Msg_attitude":
+        //            type.GetField("roll").SetValue(message, StatusDatasBus.FlightData.Attitude.Angle_X);
+        //            type.GetField("pitch").SetValue(message, StatusDatasBus.FlightData.Attitude.Angle_Y);
+        //            type.GetField("yaw").SetValue(message, StatusDatasBus.FlightData.Attitude.Angle_Z);
+        //            type.GetField("rollspeed").SetValue(message, StatusDatasBus.FlightData.Attitude.Palstance_X);
+        //            type.GetField("pitchspeed").SetValue(message, StatusDatasBus.FlightData.Attitude.Palstance_Y);
+        //            type.GetField("yawspeed").SetValue(message, StatusDatasBus.FlightData.Attitude.Palstance_Z);
+        //            type.GetField("Aacceleration_X").SetValue(message, StatusDatasBus.FlightData.Attitude.Aacceleration_X);
+        //            type.GetField("Aacceleration_Y").SetValue(message, StatusDatasBus.FlightData.Attitude.Aacceleration_Y);
+        //            type.GetField("Aacceleration_Z").SetValue(message, StatusDatasBus.FlightData.Attitude.Aacceleration_Z);
+        //            type.GetField("BarometricAltitude").SetValue(message, StatusDatasBus.FlightData.Attitude.BarometricAltitude);
+        //            type.GetField("Pressure").SetValue(message, StatusDatasBus.FlightData.Attitude.Pressure);
+        //            type.GetField("MicroAltitude").SetValue(message, StatusDatasBus.FlightData.MicroAltitude);
+        //            break;
+        //        case "Msg_gpsdata":
+        //            type.GetField("Latitude").SetValue(message, StatusDatasBus.FlightData.GPSData.Latitude);
+        //            type.GetField("Longitude").SetValue(message, StatusDatasBus.FlightData.GPSData.Longitude);
+        //            type.GetField("GPSAltitude").SetValue(message, StatusDatasBus.FlightData.GPSData.GPSAltitude);
+        //            type.GetField("GPSSpeed").SetValue(message, StatusDatasBus.FlightData.GPSData.GPSSpeed);
+        //            type.GetField("GPSHeading").SetValue(message, StatusDatasBus.FlightData.GPSData.GPSHeading);
+        //            type.GetField("GPSYaw").SetValue(message, StatusDatasBus.FlightData.GPSData.GPSYaw);
+        //            type.GetField("SatellitesCount").SetValue(message, StatusDatasBus.FlightData.GPSData.SatellitesCount);
+        //            type.GetField("PositionalAccuracy").SetValue(message, StatusDatasBus.FlightData.GPSData.PositionalAccuracy);
+        //            type.GetField("HorizontalAccuracy").SetValue(message, StatusDatasBus.FlightData.GPSData.HorizontalAccuracy);
+        //            type.GetField("VerticalAccuracy").SetValue(message, StatusDatasBus.FlightData.GPSData.VerticalAccuracy);
+        //            break;
+        //    }
+        //}
 
         /// <summary>
         /// 在这里将收到的Packet直接解析到系统对应的参数，如需调用此方法，那就不要对PacketReceived事件赋值
         /// </summary>
-        private void GetMessage(MavlinkPacket packet)
-        {
-            var type = packet.Message.GetType();
-            switch (type.Name)
-            {
-                case "Msg_attitude":
-                    break;
-            }
-        }
+        //private void GetMessage(MavlinkPacket packet)
+        //{
+        //    var type = packet.Message.GetType();
+        //    switch (type.Name)
+        //    {
+        //        case "Msg_attitude":
+        //            break;
+        //    }
+        //}
         #endregion
 
         /// <summary>
@@ -386,7 +389,8 @@ namespace MavLink
             };
             if (PacketReceived != null)
                 PacketReceived.Invoke(this, packet);
-            else GetMessage(packet);
+            else //GetMessage(packet);
+                GetMessage?.Invoke(packet);
             // else do what?
         }
         #endregion
@@ -467,6 +471,10 @@ namespace MavLink
 
     public delegate void PacketReceivedEventHandler(object sender, MavlinkPacket e);
 
+
+    public delegate void SetMessageEventHandler(MavlinkMessage message, Type type);
+
+    public delegate void GetMessageEventHandler(MavlinkPacket packet);
 
     ///<summary>
     /// Represents a Mavlink message - both the message object itself
