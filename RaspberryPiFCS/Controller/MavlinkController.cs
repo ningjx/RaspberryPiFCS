@@ -27,28 +27,13 @@ namespace RaspberryPiFCS.Controller
             
         }
 
-        public void Text()
-        {
-            foreach (var type in messageTypes)
-            {
-                if (type.Name != "Msg_attitude")
-                    continue;
-                var intance = Activator.CreateInstance(type);
-                SetMessage(intance, type);
-                EquipmentBus.E34_2G4D20D.SendBytes = mavlink.Send(GetPacket((MavlinkMessage)intance));
-                Thread.Sleep(10);
-            }
-        }
-
         private void Excute(object sender, ElapsedEventArgs e)
         {
             foreach (var type in messageTypes)
             {
                 if (type.BaseType.Name != "MavlinkMessage")
                     continue;
-                var intance = Activator.CreateInstance(type);
-                SetMessage(intance, type);
-                EquipmentBus.E34_2G4D20D.SendBytes = mavlink.Send(GetPacket((MavlinkMessage)intance));
+                EquipmentBus.E34_2G4D20D.SendBytes = mavlink.Send(type);
                 Thread.Sleep(10);
             }
         }
@@ -72,6 +57,7 @@ namespace RaspberryPiFCS.Controller
             return true;
         }
 
+        #region 填充不同类型的消息:废弃
         private static MavlinkPacket GetPacket(MavlinkMessage message)
         {
             MavlinkPacket packet = new MavlinkPacket(message);
@@ -85,7 +71,7 @@ namespace RaspberryPiFCS.Controller
             return packet;
         }
 
-        #region 填充不同类型的消息
+        
         private void SetMessage(object message,Type type)
         {
             switch (type.Name)
