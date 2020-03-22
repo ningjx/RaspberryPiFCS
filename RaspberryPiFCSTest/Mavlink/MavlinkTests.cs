@@ -16,17 +16,24 @@ namespace MavLink.Tests
         [TestMethod()]
         public void SendTest()
         {
-            MavlinkController aa = new MavlinkController();
-            aa.Lunch();
-            aa.Text();
-               //var asm = Assembly.Load("MavLink")
-               var messageTypes = Assembly.GetExecutingAssembly().GetTypes();//asm.GetTypes();
-            foreach (var type in messageTypes)
+            Mavlink mavlink = new Mavlink();
+            Msg_attitude msg_Attitude = new Msg_attitude();
+            msg_Attitude.Aacceleration_X = 1;
+            msg_Attitude.roll = 1;
+            MavlinkPacket packet = new MavlinkPacket(msg_Attitude);
+            var res = mavlink.Send(packet);
+            mavlink.PacketReceived += Mavlink_PacketReceived;
+            mavlink.ParseBytes(res);
+
+        }
+
+        private void Mavlink_PacketReceived(object sender, MavlinkPacket e)
+        {
+            var type = e.Message.GetType();
+            switch (type.Name)
             {
-                if (type.Name == "MavlinkMessage")
-                    continue;
-                //var intance = asm.CreateInstance(type.FullName);
-                
+                case "Msg_attitude":
+                    break;
             }
         }
     }

@@ -34,6 +34,7 @@ namespace RaspberryPiFCS.Equipments
                 uart.ReceivedEvent += ReceivedEvent;
                 uart.Open();
                 EquipmentData.IsEnable = true;
+                ControllerBus.ControllerRegister.Register(Enum.RegisterType.E34_2G4D20D, false);
             }
             catch (Exception ex)
             {

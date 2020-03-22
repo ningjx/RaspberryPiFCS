@@ -24,8 +24,7 @@ namespace RaspberryPiFCS.Controller
 
         public MavlinkController()
         {
-            timer.Elapsed += Excute;
-            timer.AutoReset = true;
+            
         }
 
         public void Text()
@@ -58,9 +57,12 @@ namespace RaspberryPiFCS.Controller
         {
             try
             {
+                timer.Elapsed += Excute;
+                timer.AutoReset = true;
                 mavlink = new Mavlink();
                 messageTypes = Assembly.GetExecutingAssembly().GetTypes();
-                //timer.Start();
+                timer.Start();
+                ControllerBus.ControllerRegister.Register(Enum.RegisterType.MavlinkController, false);
             }
             catch (Exception ex)
             {

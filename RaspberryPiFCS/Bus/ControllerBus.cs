@@ -12,41 +12,16 @@ using RaspberryPiFCS.SystemMessage;
 
 namespace RaspberryPiFCS
 {
+    /// <summary>
+    /// 逻辑控制器
+    /// </summary>
     public static class ControllerBus
     {
-        public static LEDController LedContorl;
-        public static BaseController BaseContorl;
-        public static QIFDController QIFDControl;
-        public static TempController TempControl;
-        private static ControlPolymerizer _controlPolymerize;
+        public static SysRegister ControllerRegister = new SysRegister();//注册
+
         static ControllerBus()
         {
-            LunchLora();
-            //SensorController = new SensorController();
-            //Console.Write("启动基础控制器");
-            //BaseContorl = new BaseController();
-            //Console.WriteLine("------Finish\r");
-            
-            //Console.Write("启动灯光控制器");
-            //LedContorl = new LEDController();
-            //Console.WriteLine("------Finish\r");
 
-            //Console.Write("启动反推控制器");
-            //PushBackControl = new PushBackController();
-            //Console.WriteLine("------Finish\r");
-
-
-            //Console.Write("启动控制数据聚合");
-            //_controlPolymerize = new ControlPolymerizer();
-            //Console.WriteLine("------Finish\r");
-
-            //Console.Write("初始化超声波测距");
-            //QIFDControl = new QIFDController(28, 29);
-            //Console.WriteLine("------Finish\r");
-
-            //Console.Write("初始化温度传感01");
-            //TempControl = new TempController();
-            //Console.WriteLine("------Finish\r");
         }
 
         public static void SysLaunch()
