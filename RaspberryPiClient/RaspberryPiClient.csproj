@@ -164,7 +164,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MavlinkStandard\Mavlink.csproj">
+    <ProjectReference Include="..\Mavlink\Mavlink.csproj">
       <Project>{9f867dd2-7b8b-4352-be3a-2ad8f9dd80af}</Project>
       <Name>Mavlink</Name>
     </ProjectReference>

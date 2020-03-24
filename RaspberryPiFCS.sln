@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaspberryPiClientTest", "Un
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{68816C49-09C2-43C4-931D-7060245F6AA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mavlink", "MavlinkStandard\Mavlink.csproj", "{9F867DD2-7B8B-4352-BE3A-2AD8F9DD80AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mavlink", "Mavlink\Mavlink.csproj", "{9F867DD2-7B8B-4352-BE3A-2AD8F9DD80AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

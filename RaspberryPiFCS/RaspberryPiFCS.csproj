@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MavlinkStandard\Mavlink.csproj" />
+    <ProjectReference Include="..\Mavlink\Mavlink.csproj" />
   </ItemGroup>
 
   <ItemGroup>
