@@ -244,6 +244,23 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Map.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Map.Designer.cs">
+      <DependentUpon>Map.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyPannel\B737PFD\B737PFD.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyPannel\B737PFD\B737PFD.Designer.cs">
+      <DependentUpon>B737PFD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyPannel\B737PFD\B737PFDRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B737PFDRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CustomControls\AvionicsInstrumentsControlsRessources.resx">
@@ -252,6 +269,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map.resx">
+      <DependentUpon>Map.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyPannel\B737PFD\B737PFDRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>B737PFDRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -290,6 +314,15 @@
     <Content Include="Resources\AirSpeedIndicator_Background.bmp" />
     <Content Include="Resources\AirSpeedNeedle.bmp" />
     <Content Include="Resources\Altimeter_Background.bmp" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\alt_ias-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\heading_bug-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\heading_rose-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\horizon-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\newBack.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\newPoint.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\newSpeed.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\newSpeedCover.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\wings-1.png" />
     <Content Include="Resources\Bandeau_Douleur.bmp" />
     <Content Include="Resources\HeadingIndicator_Aircraft.bmp" />
     <Content Include="Resources\HeadingIndicator_Background.bmp" />
