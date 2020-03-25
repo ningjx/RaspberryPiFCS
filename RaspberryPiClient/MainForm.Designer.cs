@@ -101,7 +101,7 @@
             // pitchBar
             // 
             this.pitchBar.Location = new System.Drawing.Point(744, 155);
-            this.pitchBar.Maximum = 180;
+            this.pitchBar.Maximum = 90;
             this.pitchBar.Minimum = -180;
             this.pitchBar.Name = "pitchBar";
             this.pitchBar.Size = new System.Drawing.Size(495, 45);
@@ -171,7 +171,8 @@
             // altBar
             // 
             this.altBar.Location = new System.Drawing.Point(755, 493);
-            this.altBar.Maximum = 10000;
+            this.altBar.Maximum = 4000;
+            this.altBar.Minimum = -200;
             this.altBar.Name = "altBar";
             this.altBar.Size = new System.Drawing.Size(495, 45);
             this.altBar.TabIndex = 13;
@@ -258,9 +259,9 @@
             // 
             // b737PFD1
             // 
-            this.b737PFD1.Location = new System.Drawing.Point(104, 93);
+            this.b737PFD1.Location = new System.Drawing.Point(1, 3);
             this.b737PFD1.Name = "b737PFD1";
-            this.b737PFD1.Size = new System.Drawing.Size(442, 407);
+            this.b737PFD1.Size = new System.Drawing.Size(646, 607);
             this.b737PFD1.TabIndex = 24;
             this.b737PFD1.Text = "b737PFD1";
             // 

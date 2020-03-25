@@ -233,6 +233,16 @@ namespace RaspberryPiClient.MyPannel.B737PFD {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap MGString {
+            get {
+                object obj = ResourceManager.GetObject("MGString", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap newBack {
             get {
                 object obj = ResourceManager.GetObject("newBack", resourceCulture);

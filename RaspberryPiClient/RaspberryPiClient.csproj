@@ -324,6 +324,7 @@
     <Content Include="MyPannel\B737PFD\B737PFDResource\horizontal_dots-1.png" />
     <Content Include="MyPannel\B737PFD\B737PFDResource\horizontal_triangle-1.png" />
     <Content Include="MyPannel\B737PFD\B737PFDResource\IAS_bug-1.png" />
+    <None Include="MyPannel\B737PFD\B737PFDResource\MGString.png" />
     <Content Include="MyPannel\B737PFD\B737PFDResource\overlay2-1.png" />
     <Content Include="MyPannel\B737PFD\B737PFDResource\Pull_Up-1.png" />
     <Content Include="MyPannel\B737PFD\B737PFDResource\Pull_Up.png" />
