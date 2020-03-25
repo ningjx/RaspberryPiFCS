@@ -12,9 +12,9 @@ namespace RaspberryPiFCSTest.HelperTest
         [TestMethod]
         public void SendDataTest()
         {
-            SocketHelper socket = new SocketHelper();
+            //SocketHelper socket = new SocketHelper();
             string data = "test";
-            socket.SendData(data);
+            //socket.SendData(data);
         }
     }
 }
