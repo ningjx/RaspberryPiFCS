@@ -1,12 +1,9 @@
 ﻿using flyfire.IO.Ports;
-using RaspberryPiFCS.Enum;
-using RaspberryPiFCS.Helper;
-using RaspberryPiFCS.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaspberryPiFCS
+namespace RaspberryPiClient
 {
     /// <summary>
     /// 扩展方法
@@ -69,6 +66,8 @@ namespace RaspberryPiFCS
         /// <returns></returns>
         public static List<byte[]> GetBytesFromByte(this byte[] bytesData, byte[] bytes, int length = 0)
         {
+            if (bytesData.Length < 2)
+                return new List<byte[]>();
             bool isMatch = false;
             if (length == 0)
                 length = bytesData.Length;
@@ -85,7 +84,7 @@ namespace RaspberryPiFCS
                     buffer.Add(new byte[length]);
                     currLength = 0;
                 }
-                if (i > 0 && bytesData[i] == bytes[1] && bytesData[i - 1] == bytes[0])
+                if (i>0&&bytesData[i] == bytes[1] && bytesData[i - 1] == bytes[0])
                 {
                     buffer.Add(new byte[length]);
                     buffer[row][0] = bytesData[i - 1];
@@ -137,22 +136,6 @@ namespace RaspberryPiFCS
         public static string[] GetPorts()
         {
             return CustomSerialPort.GetPortNames();
-        }
-
-        /// <summary>
-        /// 获取开关状态
-        /// </summary>
-        /// <param name="data"></param>
-        /// <param name="midValue">中间值</param>
-        /// <returns></returns>
-        public static Switch GetSwitch(this long data, long midValue = 1000)
-        {
-            if (data == midValue)
-                return Switch.MId;
-            else if (data > midValue)
-                return Switch.On;
-            else
-                return Switch.Off;
         }
 
         /// <summary>

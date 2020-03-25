@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using flyfire.IO.Ports;
-using RJCP.IO.Ports;
 namespace RaspberryPiClient.Helper
 {
     //public class UARTHelper : CustomSerialPort

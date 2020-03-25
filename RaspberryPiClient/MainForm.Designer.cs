@@ -28,10 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.GMapControl = new GMap.NET.WindowsForms.GMapControl();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.attitudeIndicatorInstrumentControl1 = new RaspberryPiClient.CustomControls.AttitudeIndicatorInstrumentControl();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.altimeterInstrumentControl1 = new RaspberryPiClient.CustomControls.AltimeterInstrumentControl();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.verticalSpeedIndicatorInstrumentControl1 = new RaspberryPiClient.CustomControls.VerticalSpeedIndicatorInstrumentControl();
+            this.headingIndicatorInstrumentControl1 = new RaspberryPiClient.CustomControls.HeadingIndicatorInstrumentControl();
             this.SuspendLayout();
             // 
             // GMapControl
@@ -92,23 +101,92 @@
             // 
             // attitudeIndicatorInstrumentControl1
             // 
-            this.attitudeIndicatorInstrumentControl1.Location = new System.Drawing.Point(464, 64);
+            this.attitudeIndicatorInstrumentControl1.Location = new System.Drawing.Point(402, 31);
             this.attitudeIndicatorInstrumentControl1.Name = "attitudeIndicatorInstrumentControl1";
-            this.attitudeIndicatorInstrumentControl1.Size = new System.Drawing.Size(581, 584);
+            this.attitudeIndicatorInstrumentControl1.Size = new System.Drawing.Size(535, 530);
             this.attitudeIndicatorInstrumentControl1.TabIndex = 1;
             this.attitudeIndicatorInstrumentControl1.Text = "attitudeIndicatorInstrumentControl1";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 10;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // altimeterInstrumentControl1
+            // 
+            this.altimeterInstrumentControl1.Location = new System.Drawing.Point(1011, 331);
+            this.altimeterInstrumentControl1.Name = "altimeterInstrumentControl1";
+            this.altimeterInstrumentControl1.Size = new System.Drawing.Size(292, 307);
+            this.altimeterInstrumentControl1.TabIndex = 2;
+            this.altimeterInstrumentControl1.Text = "altimeterInstrumentControl1";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(0, 0);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(78, 16);
+            this.checkBox1.TabIndex = 3;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(412, 644);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 21);
+            this.textBox1.TabIndex = 4;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(644, 644);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 21);
+            this.textBox2.TabIndex = 5;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(1011, 644);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(100, 21);
+            this.textBox3.TabIndex = 6;
+            // 
+            // verticalSpeedIndicatorInstrumentControl1
+            // 
+            this.verticalSpeedIndicatorInstrumentControl1.Location = new System.Drawing.Point(146, 390);
+            this.verticalSpeedIndicatorInstrumentControl1.Name = "verticalSpeedIndicatorInstrumentControl1";
+            this.verticalSpeedIndicatorInstrumentControl1.Size = new System.Drawing.Size(198, 207);
+            this.verticalSpeedIndicatorInstrumentControl1.TabIndex = 7;
+            this.verticalSpeedIndicatorInstrumentControl1.Text = "verticalSpeedIndicatorInstrumentControl1";
+            this.verticalSpeedIndicatorInstrumentControl1.Click += new System.EventHandler(this.verticalSpeedIndicatorInstrumentControl1_Click);
+            // 
+            // headingIndicatorInstrumentControl1
+            // 
+            this.headingIndicatorInstrumentControl1.Location = new System.Drawing.Point(999, 31);
+            this.headingIndicatorInstrumentControl1.Name = "headingIndicatorInstrumentControl1";
+            this.headingIndicatorInstrumentControl1.Size = new System.Drawing.Size(249, 256);
+            this.headingIndicatorInstrumentControl1.TabIndex = 8;
+            this.headingIndicatorInstrumentControl1.Text = "headingIndicatorInstrumentControl1";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1388, 715);
+            this.Controls.Add(this.headingIndicatorInstrumentControl1);
+            this.Controls.Add(this.verticalSpeedIndicatorInstrumentControl1);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.altimeterInstrumentControl1);
             this.Controls.Add(this.attitudeIndicatorInstrumentControl1);
             this.Controls.Add(this.gMapControl1);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -117,6 +195,14 @@
         private GMap.NET.WindowsForms.GMapControl gMapControl1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private CustomControls.AttitudeIndicatorInstrumentControl attitudeIndicatorInstrumentControl1;
+        private System.Windows.Forms.Timer timer1;
+        private CustomControls.AltimeterInstrumentControl altimeterInstrumentControl1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private CustomControls.VerticalSpeedIndicatorInstrumentControl verticalSpeedIndicatorInstrumentControl1;
+        private CustomControls.HeadingIndicatorInstrumentControl headingIndicatorInstrumentControl1;
     }
 
 

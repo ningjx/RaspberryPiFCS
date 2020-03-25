@@ -84,7 +84,13 @@ namespace RaspberryPiClient.CustomControls
 
 
         }
+        public void SetAttitudeIndicatorParameters(double aircraftPitchAngle, double aircraftRollAngle)
+        {
+            PitchAngle = aircraftPitchAngle;
+            RollAngle = aircraftRollAngle * Math.PI / 180;
 
+            this.Refresh();
+        }
         #endregion
     }
 }
