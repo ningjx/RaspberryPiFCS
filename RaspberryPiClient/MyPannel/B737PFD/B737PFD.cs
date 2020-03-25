@@ -23,6 +23,9 @@ namespace RaspberryPiClient.MyPannel.B737PFD
         Bitmap headingBug1 = new Bitmap(B737PFDRes.heading_bug_1);
         Bitmap speedCover = new Bitmap(B737PFDRes.newSpeedCover);
         Bitmap headingP = new Bitmap(B737PFDRes.newPoint);
+        Bitmap overlay2_1 = new Bitmap(B737PFDRes.overlay2_1);
+        Bitmap buttomColor = new Bitmap(B737PFDRes.buttomColor);
+        Bitmap stick = new Bitmap(B737PFDRes.stic);
 
         Font drawFont = new Font("Arial", 16);
 
@@ -48,6 +51,8 @@ namespace RaspberryPiClient.MyPannel.B737PFD
         Point customPoint;
         protected override void OnPaint(PaintEventArgs pe)
         {
+            
+
             Point ptBoule = new Point(76, -411);
             Point ptRotation = new Point(275, 241);
             scale = (float)this.Width / back.Width;
@@ -56,10 +61,18 @@ namespace RaspberryPiClient.MyPannel.B737PFD
             Pen maskPen = new Pen(this.BackColor, 30 * scale);
             pe.Graphics.DrawRectangle(maskPen, 0, 0, back.Width * scale, back.Height * scale);
 
+            //绘制底色
+            pe.Graphics.DrawImage(buttomColor, (float)((0.5 * back.Width - 0.5 * buttomColor.Width) * scale * 2.5), (float)((0.5 * back.Height - 0.5 * buttomColor.Height) * scale), buttomColor.Width * scale, buttomColor.Height * scale);
+            //绘制垂直速度指示
+            Point stickPoint = new Point(573, 104);
+            Point stickRotation = new Point(573 + stick.Width / 2, 104 + stick.Height / 2);
+            RotateImage(pe, stick, InterpolPhyToAngle((float)vs,-6, 6, 23, 157), stickPoint, stickRotation, scale);
             //绘制背景
             pe.Graphics.DrawImage(back, 0, 0, back.Width * scale, back.Height * scale);
+            //绘制垂直速度指示
+            //pe.Graphics.DrawImage(overlay2_1, (float)((0.5 * back.Width - 0.5 * overlay2_1.Width) * scale*1.93), (float)((0.5 * back.Height - 0.5 * overlay2_1.Height) * scale * 1.55), overlay2_1.Width * scale, overlay2_1.Height * scale);
             //绘制wings
-            pe.Graphics.DrawImage(wings, (float)((0.5 * back.Width - 0.5 * wings.Width) * scale), (float)((0.5 * back.Height - 0.5 * wings.Height) * scale * 0.927), (float)(wings.Width * scale), (float)(wings.Height * scale));
+            //pe.Graphics.DrawImage(wings, (float)((0.5 * back.Width - 0.5 * wings.Width) * scale), (float)((0.5 * back.Height - 0.5 * wings.Height) * scale * 0.927), (float)(wings.Width * scale), (float)(wings.Height * scale));
             //绘制速度显示，高度显示
             Point speedTapePoint = new Point(56, (int)(speed * 31.2) - 1075);
             TranslateImage(pe, speedTape, 0, 0, speedTapePoint, scale);

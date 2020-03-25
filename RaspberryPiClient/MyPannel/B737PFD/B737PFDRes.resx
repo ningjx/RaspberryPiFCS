@@ -118,8 +118,26 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="alt_bug_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\alt_bug-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="alt_ias_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>B737PFDResource\alt_ias-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttomColor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\buttomColor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="flight_director_horizontal_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\flight_director_horizontal-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="flight_director_vertical_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\flight_director_vertical-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FPV_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\FPV-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ground_level" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\ground_level.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="heading_bug_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>B737PFDResource\heading_bug-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -127,8 +145,23 @@
   <data name="heading_rose_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>B737PFDResource\heading_rose-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="horizontal_diamond_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\horizontal_diamond-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="horizontal_diam_e_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\horizontal_diam_e-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="horizontal_dots_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\horizontal_dots-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="horizontal_triangle_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\horizontal_triangle-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="horizon_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>B737PFDResource\horizon-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IAS_bug_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\IAS_bug-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="newBack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>B737PFDResource\newBack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -141,6 +174,36 @@
   </data>
   <data name="newSpeedCover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>B737PFDResource\newSpeedCover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="overlay2_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\overlay2-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pull_Up_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\Pull_Up-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="spd_80_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\spd_80-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\stic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Trend_Vector_neg_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\Trend_Vector_neg-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Trend_Vector_pos_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\Trend_Vector_pos-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vertical_diamond_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\vertical_diamond-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vertical_diam_e_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\vertical_diam_e-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vertical_dots_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\vertical_dots-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VVI_bug_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>B737PFDResource\VVI_bug-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="wings_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>B737PFDResource\wings-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
