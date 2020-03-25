@@ -311,6 +311,31 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="MyPannel\B737PFD\B737PFDResource\altCover.png" />
+    <None Include="MyPannel\B737PFD\B737PFDResource\altTape.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\alt_bug-1.png" />
+    <None Include="MyPannel\B737PFD\B737PFDResource\buttomColor.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\flight_director_horizontal-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\flight_director_vertical-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\FPV-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\ground_level.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\horizontal_diamond-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\horizontal_diam_e-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\horizontal_dots-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\horizontal_triangle-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\IAS_bug-1.png" />
+    <None Include="MyPannel\B737PFD\B737PFDResource\MGString.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\overlay2-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\Pull_Up-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\Pull_Up.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\spd_80-1.png" />
+    <None Include="MyPannel\B737PFD\B737PFDResource\stic.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\Trend_Vector_neg-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\Trend_Vector_pos-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\vertical_diamond-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\vertical_diam_e-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\vertical_dots-1.png" />
+    <Content Include="MyPannel\B737PFD\B737PFDResource\VVI_bug-1.png" />
     <Content Include="Resources\AirSpeedIndicator_Background.bmp" />
     <Content Include="Resources\AirSpeedNeedle.bmp" />
     <Content Include="Resources\Altimeter_Background.bmp" />
