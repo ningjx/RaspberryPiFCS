@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FlightData\FlightData.csproj" />
     <ProjectReference Include="..\Mavlink\Mavlink.csproj" />
   </ItemGroup>
 
