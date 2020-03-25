@@ -16,18 +16,18 @@ namespace RaspberryPiClient.MyPannel.B737PFD
         public double roll, pitch, alt, speed, vs, heading;
         Bitmap back = new Bitmap(B737PFDRes.newBack);
         Bitmap horizon = new Bitmap(B737PFDRes.horizon_1);
-        Bitmap wings = new Bitmap(B737PFDRes.wings_1);
         Bitmap speedTape = new Bitmap(B737PFDRes.newSpeed);
         Bitmap headingRose = new Bitmap(B737PFDRes.heading_rose_1);
         Bitmap altNum = new Bitmap(B737PFDRes.alt_ias_1);
         Bitmap headingBug1 = new Bitmap(B737PFDRes.heading_bug_1);
         Bitmap speedCover = new Bitmap(B737PFDRes.newSpeedCover);
         Bitmap headingP = new Bitmap(B737PFDRes.newPoint);
-        Bitmap overlay2_1 = new Bitmap(B737PFDRes.overlay2_1);
         Bitmap buttomColor = new Bitmap(B737PFDRes.buttomColor);
         Bitmap stick = new Bitmap(B737PFDRes.stic);
+        Bitmap altCover = new Bitmap(B737PFDRes.altCover);
+        Bitmap altTape = new Bitmap(B737PFDRes.altTape);
 
-        Font drawFont = new Font("Arial", 16);
+        
 
         SolidBrush drawBrush = new SolidBrush(Color.White);
 
@@ -39,7 +39,6 @@ namespace RaspberryPiClient.MyPannel.B737PFD
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
                 ControlStyles.AllPaintingInWmPaint, true);
             customPoint = new Point(230, 250);
-            scale = (float)this.Width / back.Width;
         }
 
         //public ResTest(IContainer container)
@@ -56,6 +55,7 @@ namespace RaspberryPiClient.MyPannel.B737PFD
             Point ptBoule = new Point(76, -411);
             Point ptRotation = new Point(275, 241);
             scale = (float)this.Width / back.Width;
+            Font drawFont = new Font("Arial", 16 * scale);
             RotateAndTranslate(pe, horizon, roll, 0, ptBoule, (int)(5.2 * pitch), ptRotation, scale);
 
             Pen maskPen = new Pen(this.BackColor, 30 * scale);
@@ -77,6 +77,10 @@ namespace RaspberryPiClient.MyPannel.B737PFD
             Point speedTapePoint = new Point(56, (int)(speed * 31.2) - 1075);
             TranslateImage(pe, speedTape, 0, 0, speedTapePoint, scale);
             pe.Graphics.DrawImage(speedCover, 0, 0, speedCover.Width * scale, speedCover.Height * scale);
+
+            Point altTapePoint = new Point(524, (int)(alt*4.155)-1577);
+            TranslateImage(pe, altTape, 0, 0, altTapePoint, scale*0.8F);
+            pe.Graphics.DrawImage(altCover, 0, 0, altCover.Width * scale, altCover.Height * scale);
             pe.Graphics.DrawImage(altNum, (float)((0.5 * back.Width - 0.5 * altNum.Width) * scale * 1.3), (float)((0.5 * back.Height - 0.5 * altNum.Height) * scale * 0.9), (float)(altNum.Width * scale), (float)(altNum.Height * scale));
             //绘制航向盘
             Point headingPoint = new Point(114, 439);
@@ -89,6 +93,7 @@ namespace RaspberryPiClient.MyPannel.B737PFD
             pe.Graphics.DrawImage(headingP, (float)((0.5 * back.Width - 0.5 * headingP.Width) * scale * 1.637), (float)((0.5 * back.Height - 0.5 * headingP.Height) * scale * (-1.95)), headingP.Width * scale * 0.15F, headingP.Height * scale * 0.15F);
 
             pe.Graphics.DrawString(speed.ToString("f1"), drawFont, drawBrush, (float)((0.5 * back.Width - 0.5 * altNum.Width) * scale * 1.3), (float)((0.5 * back.Height - 0.5 * altNum.Height) * scale * 0.98));
+            pe.Graphics.DrawString(alt.ToString("f1"), drawFont, drawBrush, (float)((0.5 * back.Width - 0.5 * altNum.Width) * scale * 10.3), (float)((0.5 * back.Height - 0.5 * altNum.Height) * scale * 0.98));
         }
 
         public void SetAttitudeIndicatorParameters(double roll, double pitch, double alt, double speed, double vs, double heading)

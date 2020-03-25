@@ -311,6 +311,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="MyPannel\B737PFD\B737PFDResource\altCover.png" />
+    <None Include="MyPannel\B737PFD\B737PFDResource\altTape.png" />
     <Content Include="MyPannel\B737PFD\B737PFDResource\alt_bug-1.png" />
     <None Include="MyPannel\B737PFD\B737PFDResource\buttomColor.png" />
     <Content Include="MyPannel\B737PFD\B737PFDResource\flight_director_horizontal-1.png" />

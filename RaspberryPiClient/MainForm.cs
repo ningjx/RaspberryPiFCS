@@ -18,7 +18,7 @@ namespace RaspberryPiClient
         public MainForm()
         {
             InitializeComponent();
-            data = TestEq.FlightData;
+            //data = TestEq.FlightData;
         }
 
         private void MainForm_Load(object sender, EventArgs e)

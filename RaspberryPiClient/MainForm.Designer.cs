@@ -65,7 +65,6 @@
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
             this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.MainForm_Load);
             // 
@@ -259,9 +258,9 @@
             // 
             // b737PFD1
             // 
-            this.b737PFD1.Location = new System.Drawing.Point(90, 88);
+            this.b737PFD1.Location = new System.Drawing.Point(104, 93);
             this.b737PFD1.Name = "b737PFD1";
-            this.b737PFD1.Size = new System.Drawing.Size(441, 438);
+            this.b737PFD1.Size = new System.Drawing.Size(442, 407);
             this.b737PFD1.TabIndex = 24;
             this.b737PFD1.Text = "b737PFD1";
             // 

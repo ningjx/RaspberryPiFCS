@@ -83,6 +83,26 @@ namespace RaspberryPiClient.MyPannel.B737PFD {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap altCover {
+            get {
+                object obj = ResourceManager.GetObject("altCover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap altTape {
+            get {
+                object obj = ResourceManager.GetObject("altTape", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap buttomColor {
             get {
                 object obj = ResourceManager.GetObject("buttomColor", resourceCulture);
