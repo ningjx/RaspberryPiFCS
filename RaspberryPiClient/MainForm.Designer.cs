@@ -52,7 +52,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.b737PFD1 = new RaspberryPiClient.MyPannel.B737PFD.B737PFD();
+            this.b737PFD1 = new PlaneInstrumentControlLibrary.B737PFD.B737PFD();
             ((System.ComponentModel.ISupportInitialize)(this.xBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.yBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rollBar)).BeginInit();
@@ -259,9 +259,9 @@
             // 
             // b737PFD1
             // 
-            this.b737PFD1.Location = new System.Drawing.Point(130, 120);
+            this.b737PFD1.Location = new System.Drawing.Point(154, 130);
             this.b737PFD1.Name = "b737PFD1";
-            this.b737PFD1.Size = new System.Drawing.Size(477, 446);
+            this.b737PFD1.Size = new System.Drawing.Size(484, 457);
             this.b737PFD1.TabIndex = 24;
             this.b737PFD1.Text = "b737PFD1";
             // 
@@ -333,6 +333,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
-        private MyPannel.B737PFD.B737PFD b737PFD1;
+        private PlaneInstrumentControlLibrary.B737PFD.B737PFD b737PFD1;
     }
 }

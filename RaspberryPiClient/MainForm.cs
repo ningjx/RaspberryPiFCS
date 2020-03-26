@@ -23,7 +23,7 @@ namespace RaspberryPiClient
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //b737PFD1.SetAttitudeIndicatorParameters(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, data.Attitude.BarometricAltitude, data.Attitude.Aacceleration_X, data.Attitude.Aacceleration_Y*10, data.Attitude.Angle_Z);
+            b737PFD1.SetAttitudeIndicatorParameters(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, data.Attitude.BarometricAltitude, data.Attitude.Aacceleration_X, data.Attitude.Aacceleration_Y*10, data.Attitude.Angle_Z);
         }
 
         private void rollBar_Scroll(object sender, EventArgs e)
