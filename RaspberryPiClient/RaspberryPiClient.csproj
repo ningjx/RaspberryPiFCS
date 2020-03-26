@@ -186,10 +186,7 @@
     <Compile Include="Forms\TestND.Designer.cs">
       <DependentUpon>TestND.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper\AMapSateliteProvider.cs" />
-    <Compile Include="Helper\BaiduAPIHelper.cs" />
     <Compile Include="Helper\HttpHelper.cs" />
-    <Compile Include="Helper\MapHelper.cs" />
     <Compile Include="Helper\UARTHelper.cs" />
     <Compile Include="Helper\XBOXHelper.cs" />
     <Compile Include="Forms\MainForm.cs">

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GMap.NET;
+using GMap.NET.MapProviders;
 using RaspberryPiClient.Helper;
 
 namespace RaspberryPiClient.Forms
@@ -24,7 +25,6 @@ namespace RaspberryPiClient.Forms
             gMapControl1.MinZoom = 1;
             gMapControl1.MaxZoom = 24;//指定最大最小zoom才可以缩放
             gMapControl1.DragButton = MouseButtons.Left;
-            AMapProvider.Instance.MapSet += Instance_MapSet;
         }
 
         private void Instance_MapSet(Bitmap map)

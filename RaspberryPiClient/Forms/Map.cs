@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FlightDataModel;
 using GMap.NET;
+using GMap.NET.MapProviders;
 using RaspberryPiClient.Controllers;
 using RaspberryPiClient.Helper;
 
