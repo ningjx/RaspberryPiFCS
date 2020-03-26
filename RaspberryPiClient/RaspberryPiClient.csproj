@@ -188,7 +188,7 @@
   <ItemGroup>
     <Compile Include="Controllers\MavlinkController.cs" />
     <Compile Include="Controllers\TestEq.cs" />
-    <Compile Include="Extend.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Helper\BaiduAPIHelper.cs" />
     <Compile Include="Helper\HttpHelper.cs" />
     <Compile Include="Helper\MapHelper.cs" />
@@ -252,6 +252,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Forms\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
