@@ -51,15 +51,6 @@
     <Reference Include="flyfire.CustomSerialPort, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\flyfire.CustomSerialPort.1.0.1\lib\netstandard2.0\flyfire.CustomSerialPort.dll</HintPath>
     </Reference>
-    <Reference Include="GMap.NET.Core, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
-      <HintPath>..\packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="GMap.NET.WindowsForms, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
-      <HintPath>..\packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.WindowsForms.dll</HintPath>
-    </Reference>
-    <Reference Include="GMap.NET.WindowsPresentation, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
-      <HintPath>..\packages\GMap.NET.WinPresentation.2.0.0\lib\net40\GMap.NET.WindowsPresentation.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Win32.Registry, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.4.3.0\lib\net46\Microsoft.Win32.Registry.dll</HintPath>
     </Reference>
@@ -188,31 +179,38 @@
   <ItemGroup>
     <Compile Include="Controllers\MavlinkController.cs" />
     <Compile Include="Controllers\TestEq.cs" />
-    <Compile Include="Extend.cs" />
-    <Compile Include="Helper\BaiduAPIHelper.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Forms\TestND.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestND.Designer.cs">
+      <DependentUpon>TestND.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper\HttpHelper.cs" />
-    <Compile Include="Helper\MapHelper.cs" />
     <Compile Include="Helper\UARTHelper.cs" />
     <Compile Include="Helper\XBOXHelper.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Map.cs">
+    <Compile Include="Forms\Map.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Map.Designer.cs">
+    <Compile Include="Forms\Map.Designer.cs">
       <DependentUpon>Map.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Map.resx">
+    <EmbeddedResource Include="Forms\Map.resx">
       <DependentUpon>Map.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TestND.resx">
+      <DependentUpon>TestND.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -241,6 +239,18 @@
     <ProjectReference Include="..\FlightData\FlightData.csproj">
       <Project>{e2ded000-5111-4d2a-910c-dd1416fc6c6a}</Project>
       <Name>FlightData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMap.NET.Core\GMap.NET.Core.csproj">
+      <Project>{d0c39d9d-bed0-418b-9a5e-713176caf40c}</Project>
+      <Name>GMap.NET.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMap.NET.WindowsForms\GMap.NET.WindowsForms.csproj">
+      <Project>{e06def77-f933-42fb-afd7-db2d0d8d6a98}</Project>
+      <Name>GMap.NET.WindowsForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMap.NET.WindowsPresentation\GMap.NET.WindowsPresentation.csproj">
+      <Project>{644fe7d4-0184-400f-b2d7-99cb41360658}</Project>
+      <Name>GMap.NET.WindowsPresentation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mavlink\Mavlink.csproj">
       <Project>{9f867dd2-7b8b-4352-be3a-2ad8f9dd80af}</Project>

@@ -53,6 +53,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>B737PFDResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="A350ND\A350ND.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="A350ND\A350ND.Designer.cs">
+      <DependentUpon>A350ND.cs</DependentUpon>
+    </Compile>
+    <Compile Include="A350ND\A350NDResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>A350NDResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="InstrumentControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -107,6 +118,10 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="A350ND\Images\ARCRose.png" />
+    <None Include="A350ND\Images\backGround.png" />
+    <Content Include="A350ND\Images\mapCover.png" />
+    <Content Include="A350ND\Images\top.png" />
     <Content Include="B737PFD\Images\altCover.png" />
     <Content Include="B737PFD\Images\altTape.png" />
     <Content Include="B737PFD\Images\alt_bug-1.png" />
@@ -165,6 +180,10 @@
     <EmbeddedResource Include="B737PFD\B737PFDResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>B737PFDResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="A350ND\A350NDResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>A350NDResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="OtherInstruments\OtherResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
