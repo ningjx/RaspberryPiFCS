@@ -87,7 +87,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             pe.Graphics.DrawImage(backGroung, 0, 0, backGroung.Width * scale, backGroung.Height * scale);
 
             //绘制ILS指示器
-            pe.Graphics.DrawImage(horizontalDots, 0, 0, horizontalDots.Width * scale, horizontalDots.Height * scale);
+            //pe.Graphics.DrawImage(horizontalDots, 0, 0, horizontalDots.Width * scale, horizontalDots.Height * scale);
 
             //绘制速度显示，高度显示
             TranslateImage(pe, speedTape, 0, 0, speedTapePosition, scale);
