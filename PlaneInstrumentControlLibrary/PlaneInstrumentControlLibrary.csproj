@@ -53,6 +53,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>B737PFDResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="A350ND\A350ND.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="A350ND\A350ND.Designer.cs">
+      <DependentUpon>A350ND.cs</DependentUpon>
+    </Compile>
+    <Compile Include="A350ND\A350NDResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>A350NDResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="InstrumentControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -141,6 +152,11 @@
     <Content Include="B737PFD\Images\vertical_dots-1.png" />
     <Content Include="B737PFD\Images\VVI_bug-1.png" />
     <Content Include="B737PFD\Images\wings-1.png" />
+    <Content Include="A350ND\Images\ARCMask-1.png" />
+    <Content Include="A350ND\Images\ARCRose-1.png" />
+    <Content Include="A350ND\Images\FullRose-1.png" />
+    <Content Include="A350ND\Images\TCASRange-1.png" />
+    <Content Include="A350ND\Images\WX_Mask_Rose-1.png" />
     <Content Include="OtherInstruments\Images\AirSpeedIndicator_Background.bmp" />
     <Content Include="OtherInstruments\Images\AirSpeedNeedle.bmp" />
     <Content Include="OtherInstruments\Images\Altimeter_Background.bmp" />
@@ -165,6 +181,10 @@
     <EmbeddedResource Include="B737PFD\B737PFDResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>B737PFDResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="A350ND\A350NDResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>A350NDResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="OtherInstruments\OtherResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>

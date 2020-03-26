@@ -28,7 +28,7 @@ namespace RaspberryPiClient
 
         private void rollBar_Scroll(object sender, EventArgs e)
         {
-            b737PFD1.SetAttitudeIndicatorParameters(rollBar.Value,pitchBar.Value,altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            b737PFD1.SetValues(rollBar.Value,pitchBar.Value,altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
             textBox3.Text = rollBar.Value.ToString();
         }
 
@@ -39,31 +39,31 @@ namespace RaspberryPiClient
 
         private void pitchBar_Scroll(object sender, EventArgs e)
         {
-            b737PFD1.SetAttitudeIndicatorParameters(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
             textBox4.Text = pitchBar.Value.ToString();
         }
 
         private void headingBar_Scroll(object sender, EventArgs e)
         {
-            b737PFD1.SetAttitudeIndicatorParameters(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
             textBox5.Text = headingBar.Value.ToString();
         }
 
         private void speedBar_Scroll(object sender, EventArgs e)
         {
-            b737PFD1.SetAttitudeIndicatorParameters(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
             textBox6.Text = (speedBar.Value/10F).ToString();
         }
 
         private void altBar_Scroll(object sender, EventArgs e)
         {
-            b737PFD1.SetAttitudeIndicatorParameters(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
             textBox7.Text = altBar.Value.ToString();
         }
 
         private void vsBar_Scroll(object sender, EventArgs e)
         {
-            b737PFD1.SetAttitudeIndicatorParameters(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
             textBox8.Text = vsBar.Value.ToString();
         }
 
@@ -71,14 +71,14 @@ namespace RaspberryPiClient
         {
             textBox1.Text = xBar.Value.ToString();
             b737PFD1.SetXY(xBar.Value, yBar.Value);
-            b737PFD1.SetAttitudeIndicatorParameters(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
         }
 
         private void yBar_Scroll(object sender, EventArgs e)
         {
             textBox2.Text = yBar.Value.ToString();
             b737PFD1.SetXY(xBar.Value, yBar.Value);
-            b737PFD1.SetAttitudeIndicatorParameters(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
         }
     }
 }

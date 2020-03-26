@@ -118,7 +118,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             
         }
 
-        public void SetAttitudeIndicatorParameters(double roll, double pitch, double alt, double speed, double vs, double heading)
+        public void SetValues(double roll, double pitch, double alt, double speed, double vs, double heading)
         {
             this.roll = roll * Math.PI / 180;
             this.pitch = pitch;
