@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -67,11 +68,14 @@ namespace RaspberryPiClient.Helper
         {
             string url = MakeTileImageUrl(pos, zoom, LanguageStr);
 
-            var test = GetTileImageUsingHttp(url);
+            var image = GetTileImageUsingHttp(url);
+            image.Data.CopyTo(stream);
+            CurrentBitmap = new Bitmap(stream);
+            MapSet?.Invoke(CurrentBitmap);
             //FileStream stream = new FileStream("D:/aaa.png", mode: FileMode.Create);
             //test.Data.CopyTo(stream);
             //stream.Close();
-            return test;
+            return image;
         }
 
         string MakeTileImageUrl(GPoint pos, int zoom, string language)
@@ -84,5 +88,13 @@ namespace RaspberryPiClient.Helper
         }
 
         static readonly string UrlFormat = "http://webrd04.is.autonavi.com/appmaptile?x={0}&y={1}&z={2}&lang=zh_cn&size=1&scale=1&style=7";
+
+
+        private MemoryStream stream = new MemoryStream();
+
+        public Bitmap CurrentBitmap { get; private set; }
+
+        public delegate void GetMapEventHandler(Bitmap map);
+        public event GetMapEventHandler MapSet;
     }
 }

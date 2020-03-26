@@ -206,6 +206,12 @@
     <Compile Include="Forms\Map.Designer.cs">
       <DependentUpon>Map.cs</DependentUpon>
     </Compile>
+    <Compile Include="NDwithMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NDwithMap.Designer.cs">
+      <DependentUpon>NDwithMap.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\MainForm.resx">
@@ -213,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Map.resx">
       <DependentUpon>Map.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NDwithMap.resx">
+      <DependentUpon>NDwithMap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

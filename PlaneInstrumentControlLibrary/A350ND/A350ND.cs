@@ -18,7 +18,9 @@ namespace PlaneInstrumentControlLibrary.A350ND
                 ControlStyles.AllPaintingInWmPaint, true);
         }
 
-        Bitmap mapImage = new Bitmap(A350NDResource.WX_Mask_Rose_1);
+        Bitmap backGroung = new Bitmap(A350NDResource.WX_Mask_Rose_1);
+
+        float scale;
         //public HeadingInstrument(IContainer container)
         //{
         //    container.Add(this);
@@ -28,8 +30,15 @@ namespace PlaneInstrumentControlLibrary.A350ND
 
         protected override void OnPaint(PaintEventArgs pe)
         {
-            SetMap?.Invoke(mapImage);
+            //获取控件缩放比
+            scale = (float)Width / backGroung.Width;
 
+            pe.Graphics.DrawImage(backGroung, 0, 0, backGroung.Width * scale, backGroung.Height * scale);
+
+            if (MapImage != null)
+                pe.Graphics.DrawImage(MapImage, 0, 0, backGroung.Width * scale, backGroung.Height * scale);
+
+            
         }
 
         public void SetValues()
@@ -37,11 +46,6 @@ namespace PlaneInstrumentControlLibrary.A350ND
 
             Refresh();
         }
-
-        public delegate void SetMapImageEventHandler(Bitmap mapImage);
-        /// <summary>
-        /// 设置地图图像
-        /// </summary>
-        public event SetMapImageEventHandler SetMap;
+        public Bitmap MapImage { get; set; }
     }
 }

@@ -178,6 +178,9 @@
     <Content Include="OtherInstruments\Images\VerticalSpeedNeedle.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="A350ND\A350ND.resx">
+      <DependentUpon>A350ND.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="B737PFD\B737PFDResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>B737PFDResource.Designer.cs</LastGenOutput>
