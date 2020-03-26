@@ -70,14 +70,14 @@ namespace RaspberryPiClient
         private void xBar_Scroll(object sender, EventArgs e)
         {
             textBox1.Text = xBar.Value.ToString();
-            b737PFD1.SetRoPoint(xBar.Value, yBar.Value);
+            b737PFD1.SetXY(xBar.Value, yBar.Value);
             b737PFD1.SetAttitudeIndicatorParameters(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
         }
 
         private void yBar_Scroll(object sender, EventArgs e)
         {
             textBox2.Text = yBar.Value.ToString();
-            b737PFD1.SetRoPoint(xBar.Value, yBar.Value);
+            b737PFD1.SetXY(xBar.Value, yBar.Value);
             b737PFD1.SetAttitudeIndicatorParameters(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
         }
     }

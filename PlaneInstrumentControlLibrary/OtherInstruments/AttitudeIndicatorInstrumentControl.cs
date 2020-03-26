@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RaspberryPiClient.CustomControls
+namespace PlaneInstrumentControlLibrary.OtherInstruments
 {
     public class AttitudeIndicatorInstrumentControl : InstrumentControl
     {
@@ -17,9 +13,9 @@ namespace RaspberryPiClient.CustomControls
         double RollAngle = 0; // Theta
 
         // Images
-        Bitmap bmpCadran = new Bitmap(AvionicsInstrumentsControlsRessources.Horizon_Background);
-        Bitmap bmpBoule = new Bitmap(AvionicsInstrumentsControlsRessources.Horizon_GroundSky);
-        Bitmap bmpAvion = new Bitmap(AvionicsInstrumentsControlsRessources.Maquette_Avion);
+        Bitmap bmpCadran = new Bitmap(OtherResource.Horizon_Background);
+        Bitmap bmpBoule = new Bitmap(OtherResource.Horizon_GroundSky);
+        Bitmap bmpAvion = new Bitmap(OtherResource.Maquette_Avion);
 
         #endregion
 

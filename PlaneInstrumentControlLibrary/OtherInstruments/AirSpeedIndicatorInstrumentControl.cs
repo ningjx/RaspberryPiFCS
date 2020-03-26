@@ -1,37 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace RaspberryPiClient.CustomControls
+namespace PlaneInstrumentControlLibrary.OtherInstruments
 {
-    public partial class HeadingIndicatorInstrumentControl : InstrumentControl
+    public partial class AirSpeedIndicatorInstrumentControl : InstrumentControl
     {
         #region Fields
 
         // Parameters
-        int Heading;
+        int airSpeed;
 
         // Images
-        Bitmap bmpCadran = new Bitmap(AvionicsInstrumentsControlsRessources.HeadingIndicator_Background);
-        Bitmap bmpHedingWeel = new Bitmap(AvionicsInstrumentsControlsRessources.HeadingWeel);
-        Bitmap bmpAircaft = new Bitmap(AvionicsInstrumentsControlsRessources.HeadingIndicator_Aircraft);
+        Bitmap bmpCadran = new Bitmap(OtherResource.AirSpeedIndicator_Background);
+        Bitmap bmpNeedle = new Bitmap(OtherResource.AirSpeedNeedle);
 
         #endregion
 
         #region Contructor
 
         /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        //private System.ComponentModel.Container components = null;
+		/// Required designer variable.
+		/// </summary>
+		//private System.ComponentModel.Container components = null;
 
-        public HeadingIndicatorInstrumentControl()
+        public AirSpeedIndicatorInstrumentControl()
         {
             // Double bufferisation
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
@@ -60,14 +52,12 @@ namespace RaspberryPiClient.CustomControls
 
             // Pre Display computings
             Point ptRotation = new Point(150, 150);
-            Point ptImgAircraft = new Point(73, 41);
-            Point ptImgHeadingWeel = new Point(13, 13);
+            Point ptimgNeedle = new Point(136, 39);
 
             bmpCadran.MakeTransparent(Color.Yellow);
-            bmpHedingWeel.MakeTransparent(Color.Yellow);
-            bmpAircaft.MakeTransparent(Color.Yellow);
+            bmpNeedle.MakeTransparent(Color.Yellow);
 
-            double alphaHeadingWeel = InterpolPhyToAngle(Heading, 0, 360, 360, 0);
+            double alphaNeedle = InterpolPhyToAngle(airSpeed, 0, 800, 180, 468);
 
             float scale = (float)this.Width / bmpCadran.Width;
 
@@ -78,11 +68,8 @@ namespace RaspberryPiClient.CustomControls
             // display cadran
             pe.Graphics.DrawImage(bmpCadran, 0, 0, (float)(bmpCadran.Width * scale), (float)(bmpCadran.Height * scale));
 
-            // display HeadingWeel
-            RotateImage(pe, bmpHedingWeel, alphaHeadingWeel, ptImgHeadingWeel, ptRotation, scale);
-
-            // display aircraft
-            pe.Graphics.DrawImage(bmpAircaft, (int)(ptImgAircraft.X * scale), (int)(ptImgAircraft.Y * scale), (float)(bmpAircaft.Width * scale), (float)(bmpAircaft.Height * scale));
+            // display small needle
+            RotateImage(pe, bmpNeedle, alphaNeedle, ptimgNeedle, ptRotation, scale);
 
         }
 
@@ -90,17 +77,25 @@ namespace RaspberryPiClient.CustomControls
 
         #region Methods
 
+
         /// <summary>
         /// Define the physical value to be displayed on the indicator
         /// </summary>
-        /// <param name="aircraftHeading">The aircraft heading in 癲eg</param>
-        public void SetHeadingIndicatorParameters(int aircraftHeading)
+        /// <param name="aircraftAirSpeed">The aircraft air speed in kts</param>
+        public void SetAirSpeedIndicatorParameters(int aircraftAirSpeed)
         {
-            Heading = aircraftHeading;
+            airSpeed = aircraftAirSpeed;
 
             this.Refresh();
         }
 
         #endregion
+
+        # region IDE
+
+
+
+
+        # endregion
     }
 }

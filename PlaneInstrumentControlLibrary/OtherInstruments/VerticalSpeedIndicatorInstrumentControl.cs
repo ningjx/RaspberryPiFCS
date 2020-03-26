@@ -1,25 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RaspberryPiClient.CustomControls
+namespace PlaneInstrumentControlLibrary.OtherInstruments
 {
-    public partial class AirSpeedIndicatorInstrumentControl : InstrumentControl
+    public partial class VerticalSpeedIndicatorInstrumentControl : InstrumentControl
     {
         #region Fields
 
         // Parameters
-        int airSpeed;
+        int verticalSpeed;
 
         // Images
-        Bitmap bmpCadran = new Bitmap(AvionicsInstrumentsControlsRessources.AirSpeedIndicator_Background);
-        Bitmap bmpNeedle = new Bitmap(AvionicsInstrumentsControlsRessources.AirSpeedNeedle);
+        Bitmap bmpCadran = new Bitmap(OtherResource.VerticalSpeedIndicator_Background);
+        Bitmap bmpNeedle = new Bitmap(OtherResource.VerticalSpeedNeedle);
 
         #endregion
 
@@ -30,7 +24,7 @@ namespace RaspberryPiClient.CustomControls
 		/// </summary>
 		//private System.ComponentModel.Container components = null;
 
-        public AirSpeedIndicatorInstrumentControl()
+        public VerticalSpeedIndicatorInstrumentControl()
         {
             // Double bufferisation
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
@@ -64,7 +58,7 @@ namespace RaspberryPiClient.CustomControls
             bmpCadran.MakeTransparent(Color.Yellow);
             bmpNeedle.MakeTransparent(Color.Yellow);
 
-            double alphaNeedle = InterpolPhyToAngle(airSpeed, 0, 800, 180, 468);
+            double alphaNeedle = InterpolPhyToAngle(verticalSpeed, -6000, 6000, 120, 420);
 
             float scale = (float)this.Width / bmpCadran.Width;
 
@@ -88,21 +82,14 @@ namespace RaspberryPiClient.CustomControls
         /// <summary>
         /// Define the physical value to be displayed on the indicator
         /// </summary>
-        /// <param name="aircraftAirSpeed">The aircraft air speed in kts</param>
-        public void SetAirSpeedIndicatorParameters(int aircraftAirSpeed)
+        /// <param name="aircraftVerticalSpeed">The aircraft vertical speed in ft per minutes</param>
+        public void SetVerticalSpeedIndicatorParameters(int aircraftVerticalSpeed)
         {
-            airSpeed = aircraftAirSpeed;
+            verticalSpeed = aircraftVerticalSpeed;
 
             this.Refresh();
         }
 
         #endregion
-
-        # region IDE
-
-
-
-
-        # endregion
     }
 }

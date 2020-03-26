@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RaspberryPiClient.CustomControls
+namespace PlaneInstrumentControlLibrary
 {
     public partial class InstrumentControl : Control
     {

@@ -1,6 +1,6 @@
-﻿namespace RaspberryPiClient.CustomControls
+﻿namespace PlaneInstrumentControlLibrary.B737PFD
 {
-    partial class TurnCoordinatorInstrumentControl
+    partial class B737PFD
     {
         /// <summary>
         /// 必需的设计器变量。

@@ -1,6 +1,6 @@
-﻿namespace RaspberryPiClient.CustomControls
+﻿namespace PlaneInstrumentControlLibrary.OtherInstruments
 {
-    partial class HeadingIndicatorInstrumentControl
+    partial class AltimeterInstrumentControl
     {
         /// <summary>
         /// 必需的设计器变量。

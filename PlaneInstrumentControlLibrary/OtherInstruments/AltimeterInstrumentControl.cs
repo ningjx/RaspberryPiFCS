@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RaspberryPiClient.CustomControls
+namespace PlaneInstrumentControlLibrary.OtherInstruments
 {
     public partial class AltimeterInstrumentControl : InstrumentControl
     {
@@ -18,10 +12,10 @@ namespace RaspberryPiClient.CustomControls
         int altitude;
 
         // Images
-        Bitmap bmpCadran = new Bitmap(AvionicsInstrumentsControlsRessources.Altimeter_Background);
-        Bitmap bmpSmallNeedle = new Bitmap(AvionicsInstrumentsControlsRessources.SmallNeedleAltimeter);
-        Bitmap bmpLongNeedle = new Bitmap(AvionicsInstrumentsControlsRessources.LongNeedleAltimeter);
-        Bitmap bmpScroll = new Bitmap(AvionicsInstrumentsControlsRessources.Bandeau_Douleur);
+        Bitmap bmpCadran = new Bitmap(OtherResource.Altimeter_Background);
+        Bitmap bmpSmallNeedle = new Bitmap(OtherResource.SmallNeedleAltimeter);
+        Bitmap bmpLongNeedle = new Bitmap(OtherResource.LongNeedleAltimeter);
+        Bitmap bmpScroll = new Bitmap(OtherResource.Bandeau_Douleur);
 
         #endregion
 

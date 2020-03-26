@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RaspberryPiClient.CustomControls {
+namespace PlaneInstrumentControlLibrary.OtherInstruments {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace RaspberryPiClient.CustomControls {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AvionicsInstrumentsControlsRessources {
+    internal class OtherResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AvionicsInstrumentsControlsRessources() {
+        internal OtherResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace RaspberryPiClient.CustomControls {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RaspberryPiClient.CustomControls.AvionicsInstrumentsControlsRessources", typeof(AvionicsInstrumentsControlsRessources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PlaneInstrumentControlLibrary.OtherInstruments.OtherResource", typeof(OtherResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

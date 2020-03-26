@@ -1,6 +1,6 @@
-﻿namespace RaspberryPiClient.MyPannel.B737PFD
+﻿namespace PlaneInstrumentControlLibrary.OtherInstruments
 {
-    partial class B737PFD
+    partial class AirSpeedIndicatorInstrumentControl
     {
         /// <summary>
         /// 必需的设计器变量。

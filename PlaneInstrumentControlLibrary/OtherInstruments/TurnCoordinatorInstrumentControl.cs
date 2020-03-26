@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RaspberryPiClient.CustomControls
+namespace PlaneInstrumentControlLibrary.OtherInstruments
 {
     public partial class TurnCoordinatorInstrumentControl : InstrumentControl
     {
@@ -19,10 +13,10 @@ namespace RaspberryPiClient.CustomControls
         float TurnQuality;
 
         // Images
-        Bitmap bmpCadran = new Bitmap(AvionicsInstrumentsControlsRessources.TurnCoordinator_Background);
-        Bitmap bmpBall = new Bitmap(AvionicsInstrumentsControlsRessources.TurnCoordinatorBall);
-        Bitmap bmpAircraft = new Bitmap(AvionicsInstrumentsControlsRessources.TurnCoordinatorAircraft);
-        Bitmap bmpMarks = new Bitmap(AvionicsInstrumentsControlsRessources.TurnCoordinatorMarks);
+        Bitmap bmpCadran = new Bitmap(OtherResource.TurnCoordinator_Background);
+        Bitmap bmpBall = new Bitmap(OtherResource.TurnCoordinatorBall);
+        Bitmap bmpAircraft = new Bitmap(OtherResource.TurnCoordinatorAircraft);
+        Bitmap bmpMarks = new Bitmap(OtherResource.TurnCoordinatorMarks);
 
         #endregion
 

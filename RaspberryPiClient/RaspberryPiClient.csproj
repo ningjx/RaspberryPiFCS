@@ -188,50 +188,6 @@
   <ItemGroup>
     <Compile Include="Controllers\MavlinkController.cs" />
     <Compile Include="Controllers\TestEq.cs" />
-    <Compile Include="CustomControls\AirSpeedIndicatorInstrumentControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomControls\AirSpeedIndicatorInstrumentControl.Designer.cs">
-      <DependentUpon>AirSpeedIndicatorInstrumentControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CustomControls\AltimeterInstrumentControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomControls\AltimeterInstrumentControl.Designer.cs">
-      <DependentUpon>AltimeterInstrumentControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CustomControls\AttitudeIndicatorInstrumentControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomControls\AvionicsInstrumentsControlsRessources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AvionicsInstrumentsControlsRessources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="CustomControls\HeadingIndicatorInstrumentControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomControls\HeadingIndicatorInstrumentControl.Designer.cs">
-      <DependentUpon>HeadingIndicatorInstrumentControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CustomControls\InstrumentControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomControls\InstrumentControl.Designer.cs">
-      <DependentUpon>InstrumentControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CustomControls\TurnCoordinatorInstrumentControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomControls\TurnCoordinatorInstrumentControl.Designer.cs">
-      <DependentUpon>TurnCoordinatorInstrumentControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CustomControls\VerticalSpeedIndicatorInstrumentControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomControls\VerticalSpeedIndicatorInstrumentControl.Designer.cs">
-      <DependentUpon>VerticalSpeedIndicatorInstrumentControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Extend.cs" />
     <Compile Include="Helper\BaiduAPIHelper.cs" />
     <Compile Include="Helper\HttpHelper.cs" />
@@ -250,32 +206,13 @@
     <Compile Include="Map.Designer.cs">
       <DependentUpon>Map.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyPannel\B737PFD\B737PFD.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MyPannel\B737PFD\B737PFD.Designer.cs">
-      <DependentUpon>B737PFD.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MyPannel\B737PFD\B737PFDRes.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>B737PFDRes.resx</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CustomControls\AvionicsInstrumentsControlsRessources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AvionicsInstrumentsControlsRessources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Map.resx">
       <DependentUpon>Map.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MyPannel\B737PFD\B737PFDRes.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>B737PFDRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -309,61 +246,13 @@
       <Project>{9f867dd2-7b8b-4352-be3a-2ad8f9dd80af}</Project>
       <Name>Mavlink</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PlaneInstrumentControlLibrary\PlaneInstrumentControlLibrary.csproj">
+      <Project>{706f6a84-d85d-410a-806d-1ebfdc3a3c91}</Project>
+      <Name>PlaneInstrumentControlLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MyPannel\B737PFD\B737PFDResource\altCover.png" />
-    <None Include="MyPannel\B737PFD\B737PFDResource\altTape.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\alt_bug-1.png" />
-    <None Include="MyPannel\B737PFD\B737PFDResource\buttomColor.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\flight_director_horizontal-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\flight_director_vertical-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\FPV-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\ground_level.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\horizontal_diamond-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\horizontal_diam_e-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\horizontal_dots-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\horizontal_triangle-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\IAS_bug-1.png" />
-    <None Include="MyPannel\B737PFD\B737PFDResource\MGString.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\overlay2-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\Pull_Up-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\Pull_Up.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\spd_80-1.png" />
-    <None Include="MyPannel\B737PFD\B737PFDResource\stic.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\Trend_Vector_neg-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\Trend_Vector_pos-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\vertical_diamond-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\vertical_diam_e-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\vertical_dots-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\VVI_bug-1.png" />
-    <Content Include="Resources\AirSpeedIndicator_Background.bmp" />
-    <Content Include="Resources\AirSpeedNeedle.bmp" />
-    <Content Include="Resources\Altimeter_Background.bmp" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\alt_ias-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\heading_bug-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\heading_rose-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\horizon-1.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\newBack.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\newPoint.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\newSpeed.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\newSpeedCover.png" />
-    <Content Include="MyPannel\B737PFD\B737PFDResource\wings-1.png" />
-    <Content Include="Resources\Bandeau_Douleur.bmp" />
-    <Content Include="Resources\HeadingIndicator_Aircraft.bmp" />
-    <Content Include="Resources\HeadingIndicator_Background.bmp" />
-    <Content Include="Resources\HeadingWeel.bmp" />
-    <Content Include="Resources\Horizon_Background.bmp" />
-    <Content Include="Resources\Horizon_GroundSky.bmp" />
-    <Content Include="Resources\Indicator_Background.bmp" />
-    <Content Include="Resources\LongNeedleAltimeter.bmp" />
-    <Content Include="Resources\Maquette_Avion.bmp" />
-    <Content Include="Resources\SmallNeedleAltimeter.bmp" />
-    <Content Include="Resources\TurnCoordinatorAircraft.bmp" />
-    <Content Include="Resources\TurnCoordinatorBall.bmp" />
-    <Content Include="Resources\TurnCoordinatorMarks.bmp" />
-    <Content Include="Resources\TurnCoordinator_Background.bmp" />
-    <Content Include="Resources\VerticalSpeedIndicator_Background.bmp" />
-    <Content Include="Resources\VerticalSpeedNeedle.bmp" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('..\packages\SharpDX.2.6.3\build\SharpDX.targets')" />

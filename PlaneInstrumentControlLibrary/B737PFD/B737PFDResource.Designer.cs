@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RaspberryPiClient.MyPannel.B737PFD {
+namespace PlaneInstrumentControlLibrary.B737PFD {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace RaspberryPiClient.MyPannel.B737PFD {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class B737PFDRes {
+    internal class B737PFDResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal B737PFDRes() {
+        internal B737PFDResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace RaspberryPiClient.MyPannel.B737PFD {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RaspberryPiClient.MyPannel.B737PFD.B737PFDRes", typeof(B737PFDRes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PlaneInstrumentControlLibrary.B737PFD.B737PFDResource", typeof(B737PFDResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -286,6 +286,16 @@ namespace RaspberryPiClient.MyPannel.B737PFD {
         internal static System.Drawing.Bitmap overlay2_1 {
             get {
                 object obj = ResourceManager.GetObject("overlay2_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Pull_Up {
+            get {
+                object obj = ResourceManager.GetObject("Pull_Up", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

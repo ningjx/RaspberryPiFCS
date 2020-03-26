@@ -1,6 +1,6 @@
-﻿namespace RaspberryPiClient.CustomControls
+﻿namespace PlaneInstrumentControlLibrary.OtherInstruments
 {
-    partial class VerticalSpeedIndicatorInstrumentControl
+    partial class TurnCoordinatorInstrumentControl
     {
         /// <summary>
         /// 必需的设计器变量。
