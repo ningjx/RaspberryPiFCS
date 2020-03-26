@@ -29,7 +29,7 @@ namespace RaspberryPiClient
             gMapControl1.DragButton = MouseButtons.Left;
             //gMapControl1.Position = new PointLatLng(100, 100);
             //gMapControl1.SetPositionByKeywords("北京");
-            data = TestEq.FlightData;
+            //data = TestEq.FlightData;
         }
 
         private void Map_Load(object sender, EventArgs e)
@@ -39,7 +39,12 @@ namespace RaspberryPiClient
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            gMapControl1.Position = new PointLatLng(data.GPSData.Latitude, data.GPSData.Longitude);
+            //gMapControl1.Position = new PointLatLng(data.GPSData.Latitude, data.GPSData.Longitude);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            gMapControl1.Position = new PointLatLng(100, 100);
         }
     }
 }

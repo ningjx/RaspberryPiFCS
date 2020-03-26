@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.Projections;
+using PlaneInstrumentControlLibrary.A350ND;
 
 namespace RaspberryPiClient.Helper
 {
@@ -69,8 +70,7 @@ namespace RaspberryPiClient.Helper
             string url = MakeTileImageUrl(pos, zoom, LanguageStr);
 
             var image = GetTileImageUsingHttp(url);
-            image.Data.CopyTo(stream);
-            CurrentBitmap = new Bitmap(stream);
+            CurrentBitmap = new Bitmap(image.Data);
             MapSet?.Invoke(CurrentBitmap);
             //FileStream stream = new FileStream("D:/aaa.png", mode: FileMode.Create);
             //test.Data.CopyTo(stream);
@@ -89,8 +89,6 @@ namespace RaspberryPiClient.Helper
 
         static readonly string UrlFormat = "http://webrd04.is.autonavi.com/appmaptile?x={0}&y={1}&z={2}&lang=zh_cn&size=1&scale=1&style=7";
 
-
-        private MemoryStream stream = new MemoryStream();
 
         public Bitmap CurrentBitmap { get; private set; }
 

@@ -206,10 +206,10 @@
     <Compile Include="Forms\Map.Designer.cs">
       <DependentUpon>Map.cs</DependentUpon>
     </Compile>
-    <Compile Include="NDwithMap.cs">
+    <Compile Include="Forms\NDwithMap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NDwithMap.Designer.cs">
+    <Compile Include="Forms\NDwithMap.Designer.cs">
       <DependentUpon>NDwithMap.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -220,7 +220,7 @@
     <EmbeddedResource Include="Forms\Map.resx">
       <DependentUpon>Map.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NDwithMap.resx">
+    <EmbeddedResource Include="Forms\NDwithMap.resx">
       <DependentUpon>NDwithMap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

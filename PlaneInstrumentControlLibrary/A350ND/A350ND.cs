@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,6 +17,8 @@ namespace PlaneInstrumentControlLibrary.A350ND
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
                 ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            this.BackColor = Color.FromArgb(0, 0, 0, 0);
         }
 
         Bitmap backGroung = new Bitmap(A350NDResource.WX_Mask_Rose_1);
@@ -31,19 +34,22 @@ namespace PlaneInstrumentControlLibrary.A350ND
         protected override void OnPaint(PaintEventArgs pe)
         {
             //获取控件缩放比
-            scale = (float)Width / backGroung.Width;
+            
 
-            pe.Graphics.DrawImage(backGroung, 0, 0, backGroung.Width * scale, backGroung.Height * scale);
+            //pe.Graphics.DrawImage(backGroung, 0, 0, backGroung.Width * scale, backGroung.Height * scale);
 
             if (MapImage != null)
-                pe.Graphics.DrawImage(MapImage, 0, 0, backGroung.Width * scale, backGroung.Height * scale);
+            {
+                scale = (float)Width / MapImage.Width;
+                pe.Graphics.DrawImage(MapImage, 0, 0, MapImage.Width * scale, MapImage.Height * scale);
+            }
 
-            
+
         }
 
-        public void SetValues()
+        public void SetValues(Bitmap MapImage)
         {
-
+            this.MapImage = MapImage;
             Refresh();
         }
         public Bitmap MapImage { get; set; }
