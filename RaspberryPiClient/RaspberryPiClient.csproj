@@ -194,24 +194,24 @@
     <Compile Include="Helper\MapHelper.cs" />
     <Compile Include="Helper\UARTHelper.cs" />
     <Compile Include="Helper\XBOXHelper.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Map.cs">
+    <Compile Include="Forms\Map.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Map.Designer.cs">
+    <Compile Include="Forms\Map.Designer.cs">
       <DependentUpon>Map.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Map.resx">
+    <EmbeddedResource Include="Forms\Map.resx">
       <DependentUpon>Map.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -252,7 +252,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
