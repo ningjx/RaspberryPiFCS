@@ -309,6 +309,10 @@
       <Project>{9f867dd2-7b8b-4352-be3a-2ad8f9dd80af}</Project>
       <Name>Mavlink</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PlaneInstrumentControlLibrary\PlaneInstrumentControlLibrary.csproj">
+      <Project>{706f6a84-d85d-410a-806d-1ebfdc3a3c91}</Project>
+      <Name>PlaneInstrumentControlLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="MyPannel\B737PFD\B737PFDResource\altCover.png" />
