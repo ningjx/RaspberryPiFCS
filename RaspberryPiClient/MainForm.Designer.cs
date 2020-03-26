@@ -259,9 +259,9 @@
             // 
             // b737PFD1
             // 
-            this.b737PFD1.Location = new System.Drawing.Point(1, 3);
+            this.b737PFD1.Location = new System.Drawing.Point(130, 120);
             this.b737PFD1.Name = "b737PFD1";
-            this.b737PFD1.Size = new System.Drawing.Size(646, 607);
+            this.b737PFD1.Size = new System.Drawing.Size(477, 446);
             this.b737PFD1.TabIndex = 24;
             this.b737PFD1.Text = "b737PFD1";
             // 

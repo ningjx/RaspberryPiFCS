@@ -1,32 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using RaspberryPiClient.CustomControls;
 
-namespace RaspberryPiClient.MyPannel.B737PFD
+namespace PlaneInstrumentControlLibrary.B737PFD
 {
     public partial class B737PFD : InstrumentControl
     {
         public double roll, pitch, alt, speed, vs, heading;
-        Bitmap backgroung = new Bitmap(B737PFDRes.newBack);
-        Bitmap horizon = new Bitmap(B737PFDRes.horizon_1);
-        Bitmap speedTape = new Bitmap(B737PFDRes.newSpeed);
-        Bitmap headingRose = new Bitmap(B737PFDRes.heading_rose_1);
-        Bitmap altNum = new Bitmap(B737PFDRes.alt_ias_1);
-        Bitmap headingBug1 = new Bitmap(B737PFDRes.heading_bug_1);
-        Bitmap speedCover = new Bitmap(B737PFDRes.newSpeedCover);
-        Bitmap headingPoint = new Bitmap(B737PFDRes.newPoint);
-        Bitmap vsBottom = new Bitmap(B737PFDRes.buttomColor);
-        Bitmap stick = new Bitmap(B737PFDRes.stic);
-        Bitmap altCover = new Bitmap(B737PFDRes.altCover);
-        Bitmap altTape = new Bitmap(B737PFDRes.altTape);
-        Bitmap mag = new Bitmap(B737PFDRes.MGString);
+        Bitmap backgroung = new Bitmap(B737PFDResource.newBack);
+        Bitmap horizon = new Bitmap(B737PFDResource.horizon_1);
+        Bitmap speedTape = new Bitmap(B737PFDResource.newSpeed);
+        Bitmap headingRose = new Bitmap(B737PFDResource.heading_rose_1);
+        Bitmap altNum = new Bitmap(B737PFDResource.alt_ias_1);
+        Bitmap headingBug1 = new Bitmap(B737PFDResource.heading_bug_1);
+        Bitmap speedCover = new Bitmap(B737PFDResource.newSpeedCover);
+        Bitmap headingPoint = new Bitmap(B737PFDResource.newPoint);
+        Bitmap vsBottom = new Bitmap(B737PFDResource.buttomColor);
+        Bitmap stick = new Bitmap(B737PFDResource.stic);
+        Bitmap altCover = new Bitmap(B737PFDResource.altCover);
+        Bitmap altTape = new Bitmap(B737PFDResource.altTape);
+        Bitmap mag = new Bitmap(B737PFDResource.MGString);
 
         SolidBrush drawBrush = new SolidBrush(Color.White);
         SolidBrush altBrush = new SolidBrush(Color.FromArgb(202, 89, 198));

@@ -365,6 +365,9 @@
     <Content Include="Resources\VerticalSpeedIndicator_Background.bmp" />
     <Content Include="Resources\VerticalSpeedNeedle.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MyPannel\NewFolder1\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('..\packages\SharpDX.2.6.3\build\SharpDX.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
