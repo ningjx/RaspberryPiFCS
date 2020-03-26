@@ -67,5 +67,11 @@ namespace RaspberryPiClient.Forms
             gMapControl1.Bearing = trackBar4.Value;// - 180;
             //a350ND1.SetMap(map);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            map = gMapControl1.backBuffer;
+            a350ND1.SetMap(map);
+        }
     }
 }
