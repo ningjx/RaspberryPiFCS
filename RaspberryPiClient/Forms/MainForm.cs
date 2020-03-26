@@ -46,6 +46,7 @@ namespace RaspberryPiClient
         private void headingBar_Scroll(object sender, EventArgs e)
         {
             b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            a350ND1.SetValues(headingBar.Value);
             textBox5.Text = headingBar.Value.ToString();
         }
 
@@ -70,15 +71,20 @@ namespace RaspberryPiClient
         private void xBar_Scroll(object sender, EventArgs e)
         {
             textBox1.Text = xBar.Value.ToString();
+            a350ND1.SetXY(xBar.Value, yBar.Value);
             b737PFD1.SetXY(xBar.Value, yBar.Value);
             b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            a350ND1.SetValues(headingBar.Value);
         }
 
         private void yBar_Scroll(object sender, EventArgs e)
         {
             textBox2.Text = yBar.Value.ToString();
+            a350ND1.SetXY(xBar.Value, yBar.Value);
             b737PFD1.SetXY(xBar.Value, yBar.Value);
             b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            a350ND1.SetValues(headingBar.Value);
+
         }
     }
 }

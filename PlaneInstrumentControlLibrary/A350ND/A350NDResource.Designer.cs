@@ -63,9 +63,9 @@ namespace PlaneInstrumentControlLibrary.A350ND {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap ARCMask_1 {
+        internal static System.Drawing.Bitmap ARCRose {
             get {
-                object obj = ResourceManager.GetObject("ARCMask_1", resourceCulture);
+                object obj = ResourceManager.GetObject("ARCRose", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace PlaneInstrumentControlLibrary.A350ND {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap ARCRose_1 {
+        internal static System.Drawing.Bitmap backGround {
             get {
-                object obj = ResourceManager.GetObject("ARCRose_1", resourceCulture);
+                object obj = ResourceManager.GetObject("backGround", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace PlaneInstrumentControlLibrary.A350ND {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap FullRose_1 {
+        internal static System.Drawing.Bitmap mapCover {
             get {
-                object obj = ResourceManager.GetObject("FullRose_1", resourceCulture);
+                object obj = ResourceManager.GetObject("mapCover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,19 +93,9 @@ namespace PlaneInstrumentControlLibrary.A350ND {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap TCASRange_1 {
+        internal static System.Drawing.Bitmap top {
             get {
-                object obj = ResourceManager.GetObject("TCASRange_1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap WX_Mask_Rose_1 {
-            get {
-                object obj = ResourceManager.GetObject("WX_Mask_Rose_1", resourceCulture);
+                object obj = ResourceManager.GetObject("top", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

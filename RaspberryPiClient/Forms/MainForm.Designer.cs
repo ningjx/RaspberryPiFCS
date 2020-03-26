@@ -52,6 +52,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.a350ND1 = new PlaneInstrumentControlLibrary.A350ND.A350ND();
             this.b737PFD1 = new PlaneInstrumentControlLibrary.B737PFD.B737PFD();
             ((System.ComponentModel.ISupportInitialize)(this.xBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.yBar)).BeginInit();
@@ -257,11 +258,20 @@
             this.label7.TabIndex = 23;
             this.label7.Text = "vs";
             // 
+            // a350ND1
+            // 
+            this.a350ND1.Location = new System.Drawing.Point(244, 93);
+            this.a350ND1.MapImage = null;
+            this.a350ND1.Name = "a350ND1";
+            this.a350ND1.Size = new System.Drawing.Size(434, 434);
+            this.a350ND1.TabIndex = 25;
+            this.a350ND1.Text = "a350ND1";
+            // 
             // b737PFD1
             // 
-            this.b737PFD1.Location = new System.Drawing.Point(156, 130);
+            this.b737PFD1.Location = new System.Drawing.Point(12, 12);
             this.b737PFD1.Name = "b737PFD1";
-            this.b737PFD1.Size = new System.Drawing.Size(380, 359);
+            this.b737PFD1.Size = new System.Drawing.Size(194, 188);
             this.b737PFD1.TabIndex = 24;
             this.b737PFD1.Text = "b737PFD1";
             // 
@@ -270,6 +280,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1411, 833);
+            this.Controls.Add(this.a350ND1);
             this.Controls.Add(this.b737PFD1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
@@ -334,5 +345,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private PlaneInstrumentControlLibrary.B737PFD.B737PFD b737PFD1;
+        private PlaneInstrumentControlLibrary.A350ND.A350ND a350ND1;
     }
 }

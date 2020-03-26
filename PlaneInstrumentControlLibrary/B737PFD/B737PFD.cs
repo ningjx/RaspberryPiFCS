@@ -58,8 +58,8 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             //绘制安定面
             RotateAndTranslate(pe, horizon, roll, 0, horPosition, (int)(5.2 * pitch), horRotation, scale);
 
-            if (drawFont == null || altFont == null)
-            {
+            //if (drawFont == null || altFont == null)
+            //{
                 maskPen = new Pen(Color.Black, 10 * scale);
                 drawFont = new Font("Arial", 16 * scale);
                 altFont = new Font("Arial", 12 * scale);
@@ -72,7 +72,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
                 headingPosition = new Point(114, 439);
                 headingRotation = new Point(114 + headingRose.Width / 2, 439 + headingRose.Height / 2);
                 headingBudPosition = new Point(263, 429);
-            }
+            //}
             //绘制飞行指示器
 
 
