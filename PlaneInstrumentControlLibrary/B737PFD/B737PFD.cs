@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Media;
 using System.Windows.Forms;
 
 namespace PlaneInstrumentControlLibrary.B737PFD
@@ -49,6 +50,8 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
                 ControlStyles.AllPaintingInWmPaint, true);
         }
+
+        private SoundPlayer soundPlayer = new SoundPlayer();
 
         protected override void OnPaint(PaintEventArgs pe)
         {

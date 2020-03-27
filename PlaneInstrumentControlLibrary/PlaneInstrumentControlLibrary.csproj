@@ -42,6 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="B737EFIS\B737EFISResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B737EFISResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="B737EICAS\B737EICASResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B737EICASResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="B737PFD\B737PFD.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -177,6 +187,14 @@
     <Content Include="OtherInstruments\Images\VerticalSpeedNeedle.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="B737EFIS\B737EFISResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>B737EFISResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="B737EICAS\B737EICASResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>B737EICASResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="B737PFD\B737PFDResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>B737PFDResource.Designer.cs</LastGenOutput>
@@ -193,6 +211,9 @@
       <DependentUpon>TemForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="B737EFIS\Images\" />
+    <Folder Include="B737EICAS\Images\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
