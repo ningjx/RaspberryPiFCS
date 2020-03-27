@@ -109,11 +109,11 @@ namespace RaspberryPiClient
                 //double lon, lat;
                 //LocationTransform.ConvertWGS2Mars(data.GPSData.Longitude / 1E7, data.GPSData.Latitude / 1E7, out lon,out lat);
                 //var gd = projectionConvertUtil.wgs2gcj( data.GPSData.Longitude / 1E7, data.GPSData.Latitude / 1E7);
-                //gMapControl1.Position = Extends.GPSToGCJ(data.GPSData.Longitude / 1E7, data.GPSData.Latitude / 1E7);
+                gMapControl1.Position = Extends.GPSToGCJ(data.GPSData.Longitude / 1E7D, data.GPSData.Latitude / 1E7D);
                 //label6.Text = lat.ToString();
                 //label8.Text = lon.ToString();
-                label9.Text = (data.GPSData.Latitude / 1E7).ToString();
-                label10.Text = (data.GPSData.Longitude / 1E7).ToString();
+                label9.Text = (data.GPSData.Latitude / 1E7D).ToString();
+                label10.Text = (data.GPSData.Longitude / 1E7D).ToString();
                 textBox1.Text = data.Attitude.Angle_X.ToString("f2");
 
             }
