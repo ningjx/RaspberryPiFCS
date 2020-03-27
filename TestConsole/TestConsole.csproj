@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GMap.NET.Core\GMap.NET.Core.csproj" />
+    <ProjectReference Include="..\GMap.NET.WindowsForms\GMap.NET.WindowsForms.csproj" />
+    <ProjectReference Include="..\GMap.NET.WindowsPresentation\GMap.NET.WindowsPresentation.csproj" />
+    <ProjectReference Include="..\RaspberryPiClient\RaspberryPiClient.csproj" />
     <ProjectReference Include="..\RaspberryPiFCS\RaspberryPiFCS.csproj" />
   </ItemGroup>
 
