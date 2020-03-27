@@ -811,7 +811,7 @@ namespace GMap.NET
             ret = null;
             Debug.WriteLine("GetImageFrom: " + ex.ToString());
          }
-
+         provider.Img = ret;
          return ret;
       }
 

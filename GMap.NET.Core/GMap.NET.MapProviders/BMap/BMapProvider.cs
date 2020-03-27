@@ -4,7 +4,7 @@ using System.Text;
 using GMap.NET.MapProviders;
 using GMap.NET.Projections;
 
-namespace GMap.NET.MapProviders.BMap
+namespace GMap.NET.MapProviders
 {
     public abstract class BaiduMapProviderBase : GMapProvider
     {

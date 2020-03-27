@@ -7,7 +7,7 @@
     using System.Net;    
     using System.Text;
     using System.Security.Cryptography;
-    using GMap.NET.MapProviders.BMap;
+    using GMap.NET.MapProviders;
     using GMap.NET.Internals;
     using GMap.NET.Projections;
     /// <summary>
@@ -32,13 +32,27 @@
             Hash = new Dictionary<Guid, GMapProvider>();
             foreach (var p in list)
             {
-                Hash.Add(p.Id, p);
+                try
+                {
+                    Hash.Add(p.Id, p);
+                }
+                catch(Exception e)
+                {
+
+                }
             }
 
             DbHash = new Dictionary<int, GMapProvider>();
             foreach (var p in list)
             {
-                DbHash.Add(p.DbId, p);
+                try
+                {
+                    DbHash.Add(p.DbId, p);
+                }
+                catch (Exception e)
+                {
+
+                }
             }
         }
 
@@ -98,6 +112,9 @@
         public static readonly GoogleKoreaSatelliteMapProvider GoogleKoreaSatelliteMap = GoogleKoreaSatelliteMapProvider.Instance;
         public static readonly GoogleKoreaHybridMapProvider GoogleKoreaHybridMap = GoogleKoreaHybridMapProvider.Instance;
 
+        public static readonly AMapProvider AMapProvider = AMapProvider.Instance;
+        public static readonly AMapSateliteProvider AMapSateliteProvider = AMapSateliteProvider.Instance;
+
         public static readonly NearMapProvider NearMap = NearMapProvider.Instance;
         public static readonly NearSatelliteMapProvider NearSatelliteMap = NearSatelliteMapProvider.Instance;
         public static readonly NearHybridMapProvider NearHybridMap = NearHybridMapProvider.Instance;
@@ -107,7 +124,7 @@
         public static readonly OviHybridMapProvider OviHybridMap = OviHybridMapProvider.Instance;
         public static readonly OviTerrainMapProvider OviTerrainMap = OviTerrainMapProvider.Instance;
 
-        private static readonly AMapSateliteProvider AMapSatelite = AMapSateliteProvider.Instance;
+        public static readonly AMapSateliteProvider AMapSatelite = AMapSateliteProvider.Instance;
         public static readonly YandexMapProvider YandexMap = YandexMapProvider.Instance;
         public static readonly YandexSatelliteMapProvider YandexSatelliteMap = YandexSatelliteMapProvider.Instance;
         public static readonly YandexHybridMapProvider YandexHybridMap = YandexHybridMapProvider.Instance;
@@ -207,7 +224,7 @@
         /// Time to live of cache, in hours. Default: 240 (10 days).
         /// </summary>
         public static int TTLCache = 240;
-
+        public PureImage Img { get; set; }
         /// <summary>
         /// unique provider id
         /// </summary>

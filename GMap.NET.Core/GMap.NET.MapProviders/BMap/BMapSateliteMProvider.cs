@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GMap.NET.MapProviders.BMap
+namespace GMap.NET.MapProviders
 {
     public class BMapSateliteMProvider : BaiduMapProviderBase
     {

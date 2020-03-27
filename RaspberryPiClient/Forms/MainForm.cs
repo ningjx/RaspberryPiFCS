@@ -20,13 +20,13 @@ namespace RaspberryPiClient
         public MainForm()
         {
             InitializeComponent();
-            gMapControl1.MapProvider = AMapSateliteProvider.Instance;
+            gMapControl1.MapProvider = AMapProvider.Instance;
             GMaps.Instance.Mode = AccessMode.ServerAndCache;
             
             gMapControl1.MinZoom = 1;
             gMapControl1.MaxZoom = 24;//指定最大最小zoom才可以缩放
             gMapControl1.DragButton = MouseButtons.Left;
-            data = TestEq.FlightData;
+            //data = TestEq.FlightData;
             gMapControl1.Zoom = 13;
             //timer1.Start();
         }
@@ -109,18 +109,24 @@ namespace RaspberryPiClient
                 //double lon, lat;
                 //LocationTransform.ConvertWGS2Mars(data.GPSData.Longitude / 1E7, data.GPSData.Latitude / 1E7, out lon,out lat);
                 //var gd = projectionConvertUtil.wgs2gcj( data.GPSData.Longitude / 1E7, data.GPSData.Latitude / 1E7);
-                gMapControl1.Position = Extends.GPSToGCJ(data.GPSData.Longitude / 1E7, data.GPSData.Latitude / 1E7);
+                //gMapControl1.Position = Extends.GPSToGCJ(data.GPSData.Longitude / 1E7, data.GPSData.Latitude / 1E7);
                 //label6.Text = lat.ToString();
                 //label8.Text = lon.ToString();
                 label9.Text = (data.GPSData.Latitude / 1E7).ToString();
                 label10.Text = (data.GPSData.Longitude / 1E7).ToString();
                 textBox1.Text = data.Attitude.Angle_X.ToString("f2");
+
             }
             catch(Exception ex)
             {
 
             }
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            a350ND1.SetMap(new Bitmap(AMapProvider.Instance.Img.Data));
         }
     }
 }
