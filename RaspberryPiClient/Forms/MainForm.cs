@@ -17,7 +17,6 @@ namespace RaspberryPiClient
     public partial class MainForm : Form
     {
         FlightData data = new FlightData();
-        ProjectionConvertUtil projectionConvertUtil = new ProjectionConvertUtil();
         public MainForm()
         {
             InitializeComponent();
@@ -107,12 +106,12 @@ namespace RaspberryPiClient
                 b737PFD1.SetValues(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, data.Attitude.BarometricAltitude, data.Attitude.Aacceleration_X, data.Attitude.Aacceleration_Y * 10, data.Attitude.Angle_Z);
                 a350ND1.SetValues(data.Attitude.Angle_Z);
                 gMapControl1.Bearing = data.Attitude.Angle_Z;
-                double lon, lat;
-                MarsWGSTransform.ConvertWGS2Mars(data.GPSData.Longitude / 1E7, data.GPSData.Latitude / 1E7, out lon,out lat);
-                var gd = projectionConvertUtil.wgs2gcj( data.GPSData.Longitude / 1E7, data.GPSData.Latitude / 1E7);
-                gMapControl1.Position = new PointLatLng(lat, lon);
-                label6.Text = lat.ToString();
-                label8.Text = lon.ToString();
+                //double lon, lat;
+                //LocationTransform.ConvertWGS2Mars(data.GPSData.Longitude / 1E7, data.GPSData.Latitude / 1E7, out lon,out lat);
+                //var gd = projectionConvertUtil.wgs2gcj( data.GPSData.Longitude / 1E7, data.GPSData.Latitude / 1E7);
+                gMapControl1.Position = Extends.GPSToGCJ(data.GPSData.Longitude / 1E7, data.GPSData.Latitude / 1E7);
+                //label6.Text = lat.ToString();
+                //label8.Text = lon.ToString();
                 label9.Text = (data.GPSData.Latitude / 1E7).ToString();
                 label10.Text = (data.GPSData.Longitude / 1E7).ToString();
                 textBox1.Text = data.Attitude.Angle_X.ToString("f2");

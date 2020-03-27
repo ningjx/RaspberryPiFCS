@@ -1,16 +1,15 @@
-﻿
-namespace GMap.NET.MapProviders
+﻿namespace GMap.NET.MapProviders
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Net;    
-    using GMap.NET.Internals;
-    using GMap.NET.Projections;
     using System.Text;
     using System.Security.Cryptography;
-
+    using GMap.NET.MapProviders.BMap;
+    using GMap.NET.Internals;
+    using GMap.NET.Projections;
     /// <summary>
     /// providers that are already build in
     /// </summary>
@@ -46,6 +45,9 @@ namespace GMap.NET.MapProviders
         GMapProviders()
         {
         }
+
+        public static readonly BMapProvider BMapProvider = BMapProvider.Instance;
+        public static readonly BMapSateliteMProvider BMapSateliteMProvider = BMapSateliteMProvider.Instance;
 
         public static readonly EmptyProvider EmptyProvider = EmptyProvider.Instance;
 

@@ -1,4 +1,5 @@
 ﻿using flyfire.IO.Ports;
+using GMap.NET;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -211,22 +212,46 @@ namespace RaspberryPiClient
             return newBytes;
         }
 
-    }
-    public class ProjectionConvertUtil
-    {
-        /*
-        * BD-09：百度坐标系(百度地图)
-        * GCJ-02：火星坐标系（谷歌中国地图、高德地图）
-        * WGS84：地球坐标系（国际通用坐标系，谷歌地图）
-        */
+        /// <summary>
+        /// GPS转火星坐标
+        /// </summary>
+        /// <param name="lon"></param>
+        /// <param name="lat"></param>
+        /// <returns></returns>
+        public static PointLatLng GPSToGCJ(double lon,double lat)
+        {
+            double lo, la;
+            LocationTransform.ConvertWGS2Mars(lon, lat, out lo, out la);
+            return new PointLatLng(lo, la);
+        }
 
-        public double x_PI = 3.14159265358979324 * 3000.0 / 180.0;
-        public double PI = 3.1415926535897932384626;
-        public double a = 6378245.0;
-        public double ee = 0.00669342162296594323;
+        /// <summary>
+        /// GPS转百度坐标
+        /// </summary>
+        /// <param name="lon"></param>
+        /// <param name="lat"></param>
+        /// <returns></returns>
+        public static PointLatLng GPSToBD(double lon, double lat)
+        {
+            double lo, la;
+            LocationTransform.ConvertWGS2Mars(lon, lat, out lo, out la);
+            double[] data = LocationTransform.GCJ02ToBD09(lo, la);
+            return new PointLatLng(data[0], data[1]);
+        }
+    }
+    public static class LocationTransform
+    {
+        //BD-09：百度坐标系(百度地图)
+        //GCJ-02：火星坐标系（谷歌中国地图、高德地图）
+        //WGS84：地球坐标系（国际通用坐标系，谷歌地图）
+
+        static double x_PI = 3.14159265358979324 * 3000.0 / 180.0;
+        static double PI = 3.1415926535897932384626;
+        static double a = 6378245.0;
+        static double ee = 0.00669342162296594323;
 
         //百度坐标系转火星坐标系
-        public double[] bd09togcj02(double bd_lon, double bd_lat)
+        public static double[] BD09ToGCJ02(double bd_lon, double bd_lat)
         {
             double x = bd_lon - 0.0065;
             double y = bd_lat - 0.006;
@@ -238,12 +263,12 @@ namespace RaspberryPiClient
             double[] gcj = { gcj_lon, gcj_lat };//火星坐标系值
 
             //火星坐标系转wgs84
-            double[] wgs = gcj02towgs84(gcj[0], gcj[1]);
+            double[] wgs = GCJ02ToWGS84(gcj[0], gcj[1]);
             return wgs;
         }
 
         //火星坐标系转wgs84
-        public double[] gcj02towgs84(double gcj_lon, double gcj_lat)
+        public static double[] GCJ02ToWGS84(double gcj_lon, double gcj_lat)
         {
             if (out_of_china(gcj_lon, gcj_lat))
             {
@@ -271,7 +296,7 @@ namespace RaspberryPiClient
         }
 
         //火星坐标系转百度坐标系
-        public double[] gcj02tobd09(double gcj_lon, double gcj_lat)
+        public static double[] GCJ02ToBD09(double gcj_lon, double gcj_lat)
         {
             double z = Math.Sqrt(gcj_lon * gcj_lon + gcj_lat * gcj_lat) + 0.00002 * Math.Sin(gcj_lat * x_PI);
             double theta = Math.Atan2(gcj_lat, gcj_lon) + 0.000003 * Math.Cos(gcj_lon * x_PI);
@@ -282,7 +307,7 @@ namespace RaspberryPiClient
         }
 
         //wgs84转火星坐标系
-        public double[] wgs84togcj02(double wgs_lon, double wgs_lat)
+        public static double[] WGS84ToGCJ02(double wgs_lon, double wgs_lat)
         {
             //if (out_of_china(wgs_lon, wgs_lat))
             //{
@@ -307,7 +332,7 @@ namespace RaspberryPiClient
             //}
         }
 
-        public double[] wgs2gcj(double wgs_lon, double wgs_lat)
+        public static double[] WGSToGCJ(double wgs_lon, double wgs_lat)
         {
         
                 double dLat = transformLat(wgs_lon - 105.0D, wgs_lat - 35.0D);
@@ -324,51 +349,6 @@ namespace RaspberryPiClient
                 return gcj;
         }
 
-        private double transformLat(double x, double y)
-        {
-            double ret = -100.0D + 2.0D * x + 3.0D * y + 0.2D * y * y + 0.1D * x * y + 0.2D * Math.Sqrt(Math.Abs(x));
-            ret += (20.0D * Math.Sin(6.0D * x * 3.141592653589793D) + 20.0D * Math.Sin(2.0D * x * 3.141592653589793D)) * 2.0D / 3.0D;
-            ret += (20.0D * Math.Sin(y * 3.141592653589793D) + 40.0D * Math.Sin(y / 3.0D * 3.141592653589793D)) * 2.0D / 3.0D;
-            ret += (160.0D * Math.Sin(y / 12.0D * 3.141592653589793D) + 320.0D * Math.Sin(y * 3.141592653589793D / 30.0D)) * 2.0D / 3.0D;
-            return ret;
-        }
-
-        private double transformLon(double x, double y)
-        {
-            double ret = 300.0D + x + 2.0D * y + 0.1D * x * x + 0.1D * x * y + 0.1D * Math.Sqrt(Math.Abs(x));
-            ret += (20.0D * Math.Sin(6.0D * x * 3.141592653589793D) + 20.0D * Math.Sin(2.0D * x * 3.141592653589793D)) * 2.0D / 3.0D;
-            ret += (20.0D * Math.Sin(x * 3.141592653589793D) + 40.0D * Math.Sin(x / 3.0D * 3.141592653589793D)) * 2.0D / 3.0D;
-            ret += (150.0D * Math.Sin(x / 12.0D * 3.141592653589793D) + 300.0D * Math.Sin(x / 30.0D * 3.141592653589793D)) * 2.0D / 3.0D;
-            return ret;
-        }
-
-        private double transformlon(double lon, double lat)
-        {
-            var ret = 300.0 + lon + 2.0 * lat + 0.1 * lon * lon + 0.1 * lon * lat + 0.1 * Math.Sqrt(Math.Abs(lon));
-            ret += (20.0 * Math.Sin(6.0 * lon * PI) + 20.0 * Math.Sin(2.0 * lon * PI)) * 2.0 / 3.0;
-            ret += (20.0 * Math.Sin(lon * PI) + 40.0 * Math.Sin(lon / 3.0 * PI)) * 2.0 / 3.0;
-            ret += (150.0 * Math.Sin(lon / 12.0 * PI) + 300.0 * Math.Sin(lon / 30.0 * PI)) * 2.0 / 3.0;
-            return ret;
-        }
-
-        private double transformlat(double lon, double lat)
-        {
-            var ret = -100.0 + 2.0 * lon + 3.0 * lat + 0.2 * lat * lat + 0.1 * lon * lat + 0.2 * Math.Sqrt(Math.Abs(lon));
-            ret += (20.0 * Math.Sin(6.0 * lon * PI) + 20.0 * Math.Sin(2.0 * lon * PI)) * 2.0 / 3.0;
-            ret += (20.0 * Math.Sin(lat * PI) + 40.0 * Math.Sin(lat / 3.0 * PI)) * 2.0 / 3.0;
-            ret += (160.0 * Math.Sin(lat / 12.0 * PI) + 320 * Math.Sin(lat * PI / 30.0)) * 2.0 / 3.0;
-            return ret;
-        }
-
-        //判断是否在国内，不在国内则不做偏移
-        private Boolean out_of_china(double lon, double lat)
-        {
-            return (lon < 72.004 || lon > 137.8347) || ((lat < 0.8293 || lat > 55.8271) || false);
-        }
-    }
-
-    public static class MarsWGSTransform
-    {
         /// <summary>
         /// 火星坐标转换为WGS坐标
         /// </summary>
@@ -442,5 +422,53 @@ namespace RaspberryPiClient
             xMars = xWgs + dLon;
             yMars = yWgs + dLat;
         }
+
+        private static double transformLat(double x, double y)
+        {
+            double ret = -100.0D + 2.0D * x + 3.0D * y + 0.2D * y * y + 0.1D * x * y + 0.2D * Math.Sqrt(Math.Abs(x));
+            ret += (20.0D * Math.Sin(6.0D * x * 3.141592653589793D) + 20.0D * Math.Sin(2.0D * x * 3.141592653589793D)) * 2.0D / 3.0D;
+            ret += (20.0D * Math.Sin(y * 3.141592653589793D) + 40.0D * Math.Sin(y / 3.0D * 3.141592653589793D)) * 2.0D / 3.0D;
+            ret += (160.0D * Math.Sin(y / 12.0D * 3.141592653589793D) + 320.0D * Math.Sin(y * 3.141592653589793D / 30.0D)) * 2.0D / 3.0D;
+            return ret;
+        }
+
+        private static double transformLon(double x, double y)
+        {
+            double ret = 300.0D + x + 2.0D * y + 0.1D * x * x + 0.1D * x * y + 0.1D * Math.Sqrt(Math.Abs(x));
+            ret += (20.0D * Math.Sin(6.0D * x * 3.141592653589793D) + 20.0D * Math.Sin(2.0D * x * 3.141592653589793D)) * 2.0D / 3.0D;
+            ret += (20.0D * Math.Sin(x * 3.141592653589793D) + 40.0D * Math.Sin(x / 3.0D * 3.141592653589793D)) * 2.0D / 3.0D;
+            ret += (150.0D * Math.Sin(x / 12.0D * 3.141592653589793D) + 300.0D * Math.Sin(x / 30.0D * 3.141592653589793D)) * 2.0D / 3.0D;
+            return ret;
+        }
+
+        private static double transformlon(double lon, double lat)
+        {
+            var ret = 300.0 + lon + 2.0 * lat + 0.1 * lon * lon + 0.1 * lon * lat + 0.1 * Math.Sqrt(Math.Abs(lon));
+            ret += (20.0 * Math.Sin(6.0 * lon * PI) + 20.0 * Math.Sin(2.0 * lon * PI)) * 2.0 / 3.0;
+            ret += (20.0 * Math.Sin(lon * PI) + 40.0 * Math.Sin(lon / 3.0 * PI)) * 2.0 / 3.0;
+            ret += (150.0 * Math.Sin(lon / 12.0 * PI) + 300.0 * Math.Sin(lon / 30.0 * PI)) * 2.0 / 3.0;
+            return ret;
+        }
+
+        private static double transformlat(double lon, double lat)
+        {
+            var ret = -100.0 + 2.0 * lon + 3.0 * lat + 0.2 * lat * lat + 0.1 * lon * lat + 0.2 * Math.Sqrt(Math.Abs(lon));
+            ret += (20.0 * Math.Sin(6.0 * lon * PI) + 20.0 * Math.Sin(2.0 * lon * PI)) * 2.0 / 3.0;
+            ret += (20.0 * Math.Sin(lat * PI) + 40.0 * Math.Sin(lat / 3.0 * PI)) * 2.0 / 3.0;
+            ret += (160.0 * Math.Sin(lat / 12.0 * PI) + 320 * Math.Sin(lat * PI / 30.0)) * 2.0 / 3.0;
+            return ret;
+        }
+
+        /// <summary>
+        /// 判断是否在国内，不在国内则不做偏移
+        /// </summary>
+        /// <param name="lon"></param>
+        /// <param name="lat"></param>
+        /// <returns></returns>
+        private static Boolean out_of_china(double lon, double lat)
+        {
+            return (lon < 72.004 || lon > 137.8347) || ((lat < 0.8293 || lat > 55.8271) || false);
+        }
     }
+
 }

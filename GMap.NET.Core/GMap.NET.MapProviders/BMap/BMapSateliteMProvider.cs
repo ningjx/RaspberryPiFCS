@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GMap.NET.GMap.NET.MapProviders.BMap
+namespace GMap.NET.MapProviders.BMap
 {
-    public class BaiduSateliteMapProvider : BaiduMapProviderBase
+    public class BMapSateliteMProvider : BaiduMapProviderBase
     {
-        public static readonly BaiduSateliteMapProvider Instance;
+        public static readonly BMapSateliteMProvider Instance;
 
         readonly Guid id = new Guid("89A10DFA-2557-431a-9656-20064E8D1342");
         public override Guid Id
@@ -21,9 +21,9 @@ namespace GMap.NET.GMap.NET.MapProviders.BMap
         }
 
 
-        static BaiduSateliteMapProvider()
+        static BMapSateliteMProvider()
         {
-            Instance = new BaiduSateliteMapProvider();
+            Instance = new BMapSateliteMProvider();
         }
 
         public override PureImage GetTileImage(GPoint pos, int zoom)

@@ -4,7 +4,7 @@ using System.Text;
 using GMap.NET.MapProviders;
 using GMap.NET.Projections;
 
-namespace GMap.NET.GMap.NET.MapProviders.BMap
+namespace GMap.NET.MapProviders.BMap
 {
     public abstract class BaiduMapProviderBase : GMapProvider
     {
@@ -35,9 +35,9 @@ namespace GMap.NET.GMap.NET.MapProviders.BMap
         }
     }
 
-    public class BaiduMapProvider : BaiduMapProviderBase
+    public class BMapProvider : BaiduMapProviderBase
     {
-        public static readonly BaiduMapProvider Instance;
+        public static readonly BMapProvider Instance;
 
         readonly Guid id = new Guid("608748FC-5FDD-4d3a-9027-356F24A755E5");
         public override Guid Id
@@ -54,9 +54,9 @@ namespace GMap.NET.GMap.NET.MapProviders.BMap
             }
         }
 
-        static BaiduMapProvider()
+        static BMapProvider()
         {
-            Instance = new BaiduMapProvider();
+            Instance = new BMapProvider();
         }
 
         public override PureImage GetTileImage(GPoint pos, int zoom)
