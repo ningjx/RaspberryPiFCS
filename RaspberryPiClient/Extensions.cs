@@ -218,7 +218,7 @@ namespace RaspberryPiClient
         /// <param name="lon"></param>
         /// <param name="lat"></param>
         /// <returns></returns>
-        public static PointLatLng GPSToGCJ(double lon,double lat)
+        public static PointLatLng GPSToGCJ(double lon, double lat)
         {
             double lo, la;
             LocationTransform.ConvertWGS2Mars(lon, lat, out lo, out la);
@@ -317,36 +317,36 @@ namespace RaspberryPiClient
             //}
             //else
             //{
-                double dwgs_lon = transformlon(wgs_lon - 105.0, wgs_lat - 35.0);
-                double dwgs_lat = transformlat(wgs_lon - 105.0, wgs_lat - 35.0);
-                double radwgs_lat = wgs_lat / 180.0 * PI;
-                double magic = Math.Sin(radwgs_lat);
-                magic = 1 - ee * magic * magic;
-                double sqrtmagic = Math.Sqrt(magic);
-                dwgs_lon = (dwgs_lon * 180.0) / (a / sqrtmagic * Math.Cos(radwgs_lat) * PI);
-                dwgs_lat = (dwgs_lat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
-                double gcj_lon = wgs_lon + dwgs_lon;
-                double gcj_lat = wgs_lat + dwgs_lat;
-                double[] gcj = { gcj_lon, gcj_lat };
-                return gcj;
+            double dwgs_lon = transformlon(wgs_lon - 105.0, wgs_lat - 35.0);
+            double dwgs_lat = transformlat(wgs_lon - 105.0, wgs_lat - 35.0);
+            double radwgs_lat = wgs_lat / 180.0 * PI;
+            double magic = Math.Sin(radwgs_lat);
+            magic = 1 - ee * magic * magic;
+            double sqrtmagic = Math.Sqrt(magic);
+            dwgs_lon = (dwgs_lon * 180.0) / (a / sqrtmagic * Math.Cos(radwgs_lat) * PI);
+            dwgs_lat = (dwgs_lat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
+            double gcj_lon = wgs_lon + dwgs_lon;
+            double gcj_lat = wgs_lat + dwgs_lat;
+            double[] gcj = { gcj_lon, gcj_lat };
+            return gcj;
             //}
         }
 
         public static double[] WGSToGCJ(double wgs_lon, double wgs_lat)
         {
-        
-                double dLat = transformLat(wgs_lon - 105.0D, wgs_lat - 35.0D);
-                double dLon = transformLon(wgs_lon - 105.0D, wgs_lat - 35.0D);
-                double radLat = wgs_lat / 180.0D * 3.141592653589793D;
-                double magic = Math.Sin(radLat);
-                magic = 1.0D - 0.006693421622965943D * magic * magic;
-                double sqrtMagic = Math.Sqrt(magic);
-                dLat = dLat * 180.0D / (6335552.717000426D / (magic * sqrtMagic) * 3.141592653589793D);
-                dLon = dLon * 180.0D / (6378245.0D / sqrtMagic * Math.Cos(radLat) * 3.141592653589793D);
-                double lat = wgs_lat + dLat;
-                double lng = wgs_lon + dLon;
-                double[] gcj = { lng, lat };
-                return gcj;
+
+            double dLat = transformLat(wgs_lon - 105.0D, wgs_lat - 35.0D);
+            double dLon = transformLon(wgs_lon - 105.0D, wgs_lat - 35.0D);
+            double radLat = wgs_lat / 180.0D * 3.141592653589793D;
+            double magic = Math.Sin(radLat);
+            magic = 1.0D - 0.006693421622965943D * magic * magic;
+            double sqrtMagic = Math.Sqrt(magic);
+            dLat = dLat * 180.0D / (6335552.717000426D / (magic * sqrtMagic) * 3.141592653589793D);
+            dLon = dLon * 180.0D / (6378245.0D / sqrtMagic * Math.Cos(radLat) * 3.141592653589793D);
+            double lat = wgs_lat + dLat;
+            double lng = wgs_lon + dLon;
+            double[] gcj = { lng, lat };
+            return gcj;
         }
 
         /// <summary>
