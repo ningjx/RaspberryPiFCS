@@ -14,10 +14,12 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 {
     public partial class B737EICAS : InstrumentControl
     {
+        B737EICASSound sound;
         public B737EICAS()
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
                ControlStyles.AllPaintingInWmPaint, true);
+            sound = new B737EICASSound();
         }
         Bitmap backGroung = new Bitmap(B737EICASResource.background);
         Bitmap cover1 = new Bitmap(B737EICASResource.cover1);
@@ -140,12 +142,12 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
                     {
                         cscWarning = true;
                         Task.Run(() => {
-                            Sound.Play(SoundType.cscSound,true);
+                            sound.PlayLoop(SoundType.cscSound);
                             while (true) 
                             {
                                 if (!cscWarning)
                                 {
-                                    Sound.Stop(SoundType.cscSound); 
+                                    sound.Stop(); 
                                     break;
                                 }   
                             }
@@ -157,7 +159,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
                     if (!scWarning)
                     {
                         scWarning = true;
-                        Sound.Play(SoundType.scSound);
+                        sound.Play(SoundType.scSound);
                     }
                     break;
                 case EngineStatus.Nor:
@@ -173,12 +175,12 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
                     {
                         cscWarning = true;
                         Task.Run(() => {
-                            Sound.Play(SoundType.cscSound, true);
+                            sound.PlayLoop(SoundType.cscSound);
                             while (true)
                             {
                                 if (!cscWarning)
                                 {
-                                    Sound.Stop(SoundType.cscSound);
+                                    sound.Stop();
                                     break;
                                 }
                             }
@@ -190,7 +192,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
                     if (!scWarning)
                     {
                         scWarning = true;
-                        Sound.Play(SoundType.scSound);
+                        sound.Play(SoundType.scSound);
                     }
                     break;
                 case EngineStatus.Nor:
@@ -205,93 +207,20 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
     {
         Fail,LowVol,Nor
     }
-
-    static class Sound
+    class B737EICASSound : Sound
     {
-        static SoundPlayer cscSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC_fix.wav");
-        static SoundPlayer scSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\SC.wav");
-
-        static Dictionary<int, bool> Buffer = new Dictionary<int, bool>();
-
-        static Sound()
+        SoundPlayer cscSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC_fix.wav");
+        SoundPlayer scSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\SC.wav");
+        protected override SoundPlayer GetSoundPlayer(int hashCode)
         {
-            Task.Run(() =>
+            switch (hashCode)
             {
-                List<int> needDelete = new List<int>();
-                while (true)
-                {
-                    try
-                    {
-                        lock (Buffer)
-                        {
-                            needDelete.ForEach(t => Buffer.Remove(t));
-                            needDelete.Clear();
-                            foreach (var item in Buffer)
-                            {
-                                Paly(needDelete, item.Key, item.Value);
-                                Thread.Sleep(1000);
-                            }
-                        }
-                        Thread.Sleep(500);
-                    }
-                    catch
-                    {
-
-                    }
-                }
-            });
-        }
-
-        public static void Play(SoundType sound, bool isLoop = false)
-        {
-            Task.Run(() => {
-                lock (Buffer)
-                {
-                    if (!Buffer.TryGetValue(sound.GetHashCode(), out bool value))
-                    {
-                        Buffer.Add(sound.GetHashCode(), isLoop);
-                    }
-                }
-            });
-            
-        }
-
-        public static void Stop(SoundType sound)
-        {
-            Task.Run(() => {
-                lock (Buffer)
-                {
-                    if (Buffer.TryGetValue(sound.GetHashCode(), out bool value))
-                    {
-                        Buffer.Remove(sound.GetHashCode());
-                    }
-                }
-            });
-        }
-
-        public static void Start()
-        {
-            
-        }
-
-        static void Paly(List<int> needDelete, int type, bool isLoop)
-        {
-            if (!isLoop)
-                needDelete.Add(type);
-            switch (type)
-            {
-                case 0:
-                    cscSound.Play();
-                    break;
-                case 1:
-                    scSound.Play();
-                    break;
-                default: break;
+                case 0:return cscSound;
+                case 1:return scSound;
+                default:return new SoundPlayer();
             }
         }
-
     }
-
     enum SoundType
     {
         cscSound,

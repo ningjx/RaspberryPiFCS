@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Media;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 //using Microsoft.DirectX;
 //using Microsoft.DirectX.DirectSound;
@@ -9,6 +12,156 @@ using System.Windows.Forms;
 
 namespace PlaneInstrumentControlLibrary
 {
+    /// <summary>
+    /// 封装SoundPlayer，同一时间只支持一个音频播放
+    /// </summary>
+    public class Sound
+    {
+        private List<int> SoundBuffer = new List<int>();
+        private int SoundBufferLoop;
+        private int currentPlay;
+        private bool isPriority = false;
+        private bool loopingEnable = false;
+
+        public Sound()
+        {
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    if (isPriority)
+                        continue;
+                    try
+                    {
+                        lock (SoundBuffer)
+                        {
+                            foreach (var item in SoundBuffer)
+                            {
+                                currentPlay = item;
+                                GetSoundPlayer(item).Play();
+                                Thread.Sleep(1000);
+                            }
+                            SoundBuffer.Clear();
+                        }
+                        Thread.Sleep(50);
+                    }
+                    catch
+                    {
+                    }
+                }
+            });
+        }
+
+        /// <summary>
+        /// 播放
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sound"></param>
+        public void Play<T>(T sound)
+        {
+            Task.Run(() =>
+            {
+                lock (SoundBuffer)
+                {
+                    if (!SoundBuffer.Contains(sound.GetHashCode()))
+                    {
+                        SoundBuffer.Add(sound.GetHashCode());
+                    }
+                }
+            });
+        }
+
+        /// <summary>
+        /// 高优先级播放
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sound"></param>
+        public void PlayNow<T>(T sound)
+        {
+            isPriority = true;
+            GetSoundPlayer(currentPlay.GetHashCode()).Stop();
+            GetSoundPlayer(sound.GetHashCode()).Play();
+            isPriority = false;
+        }
+
+        /// <summary>
+        /// 高优先级循环播放
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sound"></param>
+        /// <param name="func">匿名函数返回True时，保持播放，返回false则停止播放</param>
+        public void PlayLoopNow<T>(T sound,Func<bool> func)
+        {
+            isPriority = true;
+            GetSoundPlayer(currentPlay.GetHashCode()).Stop();
+            GetSoundPlayer(sound.GetHashCode()).PlayLooping();
+            while (func.Invoke())
+            {
+                Thread.Sleep(100);
+            }
+            GetSoundPlayer(sound.GetHashCode()).Stop();
+            isPriority = false;
+        }
+
+        /// <summary>
+        /// 循环播放
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sound"></param>
+        public void PlayLoop<T>(T sound)
+        {
+            Task.Run(() =>
+            {
+                while (isPriority)
+                {
+                    Thread.Sleep(500);
+                }
+                currentPlay = SoundBufferLoop = sound.GetHashCode();
+                GetSoundPlayer(sound.GetHashCode()).PlayLooping();
+            });
+        }
+
+        public void PlayLoop<T>(List<T> sounds)
+        {
+            Task.Run(() =>
+            {
+                while (isPriority)
+                {
+                    Thread.Sleep(500);
+                }
+                //currentPlay = SoundBufferLoop = sound.GetHashCode();
+                List<SoundPlayer> instances = new List<SoundPlayer>();
+                sounds.ForEach(t => instances.Add(GetSoundPlayer(t.GetHashCode())));
+                loopingEnable = true;
+                while (loopingEnable)
+                {
+                    instances.ForEach(t => { t.Play();Thread.Sleep(1000); });
+                }
+            });
+        }
+
+        /// <summary>
+        /// 停止当前循环播放
+        /// </summary>
+        public void Stop()
+        {
+            loopingEnable = false;
+            GetSoundPlayer(SoundBufferLoop.GetHashCode()).Stop();
+        }
+
+        /// <summary>
+        /// 返回<see cref="SoundPlayer">实例.需重写
+        /// </summary>
+        /// <param name="hashCode"></param>
+        /// <returns></returns>
+        protected virtual SoundPlayer GetSoundPlayer(int hashCode)
+        {
+            return new SoundPlayer();
+        }
+
+    }
+
+
     //public static class Sound
     //{
     //    [DllImport("winmm.dll", SetLastError = true)]

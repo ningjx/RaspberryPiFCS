@@ -30,14 +30,16 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         Bitmap directorV = new Bitmap(B737PFDResource.flight_director_vertical_1);
         Bitmap pullup = new Bitmap(B737PFDResource.Pull_Up_1);
 
+        System.Timers.Timer timer = new System.Timers.Timer(800);
 
+        bool isShow = false;
         FlightMode flightMode = FlightMode.Park;
         Font drawFont;
         Font altFont;
         SolidBrush drawBrush = new SolidBrush(Color.White);
         SolidBrush altBrush = new SolidBrush(Color.FromArgb(202, 89, 198));
         SolidBrush modeBrush = new SolidBrush(Color.SpringGreen);
-
+        B737PFDSound sound;
         float scale;
 
         Pen maskPen;
@@ -50,22 +52,30 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         Point headingPosition = new Point(114, 439);
         Point headingRotation = new Point(276, 601);
         Point headingBudPosition = new Point(263, 429);
-        Point pullupPosotiong;
         int x, y;
         public B737PFD()
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
                 ControlStyles.AllPaintingInWmPaint, true);
-            Sound.Start();
+            sound = new B737PFDSound();
+            timer.AutoReset = true;
+            timer.Enabled = true;
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
         }
 
-        private SoundPlayer soundPlayer = new SoundPlayer();
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (isShow)
+                isShow = false;
+            else
+                isShow = true;
+        }
 
         protected override void OnPaint(PaintEventArgs pe)
         {
             //获取控件缩放比
             scale = (float)Width / backGroung.Width;
-            pullupPosotiong = new Point(x, y);
             //绘制安定面
             RotateAndTranslate(pe, horizon, roll, 0, horPosition, (int)(5.2 * pitch), horRotation, scale);
 
@@ -145,7 +155,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             pe.Graphics.DrawString(drawString, drawFont, modeBrush, 253 * scale, 8 * scale);
 
             //pullup
-            if (terrainWarning)
+            if (terrainWarning && isShow)
             {
                 pe.Graphics.DrawImage(pullup, 0, 0, pullup.Width * scale, pullup.Height * scale);
             }
@@ -187,12 +197,12 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         {
             if (Math.Abs(roll) > 60 && !bankAngelWarning)
             {
-                Sound.Play(SoundType.bankangle,true);
+                sound.PlayLoop(SoundType.bankangle);
                 bankAngelWarning = true;
             }
             if (Math.Abs(roll) <= 60 && bankAngelWarning)
             {
-                Sound.Stop(SoundType.bankangle);
+                sound.Stop();
                 bankAngelWarning = false;
             }
         }
@@ -204,12 +214,12 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         {
             if (Math.Abs(vs) > 6 && !sinkRateWarning)
             {
-                Sound.Play(SoundType.sinkrate, true) ;
+                sound.PlayLoop(SoundType.sinkrate);
                 sinkRateWarning = true;
             }
             if (Math.Abs(vs) <= 6 && sinkRateWarning)
             {
-                Sound.Stop(SoundType.sinkrate);
+                sound.Stop();
                 sinkRateWarning = false;
             }
         }
@@ -230,80 +240,80 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             if (alt <= 25 && altBuffer > 25)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S2500);
+                sound.Play(SoundType.S2500);
                 return;
             }
             if (alt <= 20 && altBuffer > 20)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S2000);
+                sound.Play(SoundType.S2000);
                 return;
             }
             if (alt <= 10 && altBuffer > 10)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S1000);
+                sound.Play(SoundType.S1000);
                 return;
             }
             if (alt <= 5 && altBuffer > 5)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S500);
+                sound.Play(SoundType.S500);
                 return;
             }
             if (alt <= 4 && altBuffer > 4)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S400);
+                sound.Play(SoundType.S400);
                 return;
             }
             if (alt <= 3 && altBuffer > 3)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S300);
+                sound.Play(SoundType.S300);
                 return;
             }
             if (alt <= 2 && altBuffer > 2)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S200);
+                sound.Play(SoundType.S200);
                 return;
             }
             if (alt <= 1 && altBuffer > 1)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S100a);
+                sound.Play(SoundType.S100a);
                 return;
             }
 
             if (alt <= 0.5 && altBuffer > 0.5)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S50);
+                sound.Play(SoundType.S50);
                 return;
             }
             if (alt <= 0.4 && altBuffer > 0.4)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S40);
+                sound.Play(SoundType.S40);
                 return;
             }
             if (alt <= 0.3 && altBuffer > 0.3)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S30);
+                sound.Play(SoundType.S30);
                 return;
             }
             if (alt <= 0.2 && altBuffer > 0.2)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S20);
+                sound.Play(SoundType.S20);
                 return;
             }
             if (alt <= 0.1 && altBuffer > 0.1)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S10);
+                sound.Play(SoundType.S10);
                 return;
             }
             altBuffer = alt;
@@ -318,8 +328,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             {
                 if (!terrainWarning)
                     return;
-                Sound.Stop(SoundType.terrain);
-                Sound.Stop(SoundType.pullup);
+                sound.Stop();
                 terrainWarning = false;
                 return;
             }
@@ -333,8 +342,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
 
             if (vs < 0 && alt < 0.2)
                 terrainWarning = true;
-            Sound.Play(SoundType.terrain, true);
-            Sound.Play(SoundType.pullup, true);
+            sound.PlayLoop(new List<SoundType> { SoundType.terrain, SoundType.pullup });
         }
         #endregion
     }
@@ -344,172 +352,82 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         Park, Tax, Takeoff, CLB, CRZ, Descend, APP
     }
 
-    static class Sound
+    class B737PFDSound : Sound
     {
-        static SoundPlayer S10 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\10.wav");
-        static SoundPlayer S20 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\20.wav");
-        static SoundPlayer S30 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\30.wav");
-        static SoundPlayer S40 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\40.wav");
-        static SoundPlayer S50 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\50.wav");
-        static SoundPlayer S100a = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\100_above.wav");
-        static SoundPlayer S200 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\200.wav");
-        static SoundPlayer S300 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\300.wav");
-        static SoundPlayer S400 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\400.wav");
-        static SoundPlayer S500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\500.wav");
-        static SoundPlayer S1000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\1000.wav");
-        static SoundPlayer S2000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2000.wav");
-        static SoundPlayer S2500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2500.wav");
-        static SoundPlayer terrain = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\terrain.wav");
-        static SoundPlayer pullup = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\pullup.wav");
-        static SoundPlayer bankangle = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\bankangle.wav");
-        static SoundPlayer dontsink = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\dontsink.wav");
-        static SoundPlayer glideslope = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\glideslope.wav");
-        static SoundPlayer minimums = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\minimums.wav");
-        static SoundPlayer sinkrate = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\sinkrate.wav");
-        static SoundPlayer toolowflaps = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowflaps.wav");
-        static SoundPlayer toolowgear = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowgear.wav");
-
-        static Dictionary<int, bool> Buffer = new Dictionary<int, bool>();
-
-        static Sound()
+        private SoundPlayer S10 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\10.wav");
+        private SoundPlayer S20 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\20.wav");
+        private SoundPlayer S30 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\30.wav");
+        private SoundPlayer S40 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\40.wav");
+        private SoundPlayer S50 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\50.wav");
+        private SoundPlayer S100a = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\100_above.wav");
+        private SoundPlayer S200 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\200.wav");
+        private SoundPlayer S300 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\300.wav");
+        private SoundPlayer S400 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\400.wav");
+        private SoundPlayer S500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\500.wav");
+        private SoundPlayer S1000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\1000.wav");
+        private SoundPlayer S2000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2000.wav");
+        private SoundPlayer S2500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2500.wav");
+        private SoundPlayer terrain = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\terrain.wav");
+        private SoundPlayer pullup = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\pullup.wav");
+        private SoundPlayer bankangle = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\bankangle.wav");
+        private SoundPlayer dontsink = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\dontsink.wav");
+        private SoundPlayer glideslope = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\glideslope.wav");
+        private SoundPlayer minimums = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\minimums.wav");
+        private SoundPlayer sinkrate = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\sinkrate.wav");
+        private SoundPlayer toolowflaps = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowflaps.wav");
+        private SoundPlayer toolowgear = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowgear.wav");
+        protected override SoundPlayer GetSoundPlayer(int hashCode)
         {
-
-        }
-
-        public static void Play(SoundType sound, bool isLoop = false)
-        {
-            Task.Run(() =>
-            {
-                lock (Buffer)
-                {
-                    if (!Buffer.TryGetValue(sound.GetHashCode(), out bool value))
-                    {
-                        Buffer.Add(sound.GetHashCode(), isLoop);
-                    }
-                }
-            });
-
-        }
-
-        public static void Stop(SoundType sound)
-        {
-            Task.Run(() =>
-            {
-                lock (Buffer)
-                {
-                    if (Buffer.TryGetValue(sound.GetHashCode(), out bool value))
-                    {
-                        Buffer.Remove(sound.GetHashCode());
-                    }
-                }
-            });
-        }
-
-        public static void Start()
-        {
-            Task.Run(() =>
-            {
-                List<int> needDelete = new List<int>();
-                while (true)
-                {
-                    try
-                    {
-                        lock (Buffer)
-                        {
-                            needDelete.ForEach(t => Buffer.Remove(t));
-                            needDelete.Clear();
-                            foreach (var item in Buffer)
-                            {
-                                Paly(needDelete, item.Key, item.Value);
-                                Thread.Sleep(1000);
-                            }
-                        }
-                        Thread.Sleep(50);
-                    }
-                    catch
-                    {
-
-                    }
-                }
-            });
-        }
-
-        static void Paly(List<int> needDelete, int type, bool isLoop)
-        {
-            if (!isLoop)
-                needDelete.Add(type);
-            switch (type)
+            switch (hashCode)
             {
                 case 0:
-                    S10.Play();
-                    break;
+                    return S10;
                 case 1:
-                    S20.Play();
-                    break;
+                    return S20;
                 case 2:
-                    S30.Play();
-                    break;
+                    return S30;
                 case 3:
-                    S40.Play();
-                    break;
+                    return S40;
                 case 4:
-                    S50.Play();
-                    break;
+                    return S50;
                 case 5:
-                    S100a.Play();
-                    break;
+                    return S100a;
                 case 6:
-                    S200.Play();
-                    break;
+                    return S200;
                 case 7:
-                    S300.Play();
-                    break;
+                    return S300;
                 case 8:
-                    S400.Play();
-                    break;
+                    return S400;
                 case 9:
-                    S500.Play();
-                    break;
+                    return S500;
                 case 10:
-                    S1000.Play();
-                    break;
+                    return S1000;
                 case 11:
-                    S2000.Play();
-                    break;
+                    return S2000;
                 case 12:
-                    S2500.Play();
-                    break;
+                    return S2500;
                 case 13:
-                    terrain.Play();
-                    break;
+                    return terrain;
                 case 14:
-                    pullup.Play();
-                    break;
+                    return pullup;
                 case 15:
-                    bankangle.Play();
-                    break;
+                    return bankangle;
                 case 16:
-                    dontsink.Play();
-                    break;
+                    return dontsink;
                 case 17:
-                    glideslope.Play();
-                    break;
+                    return glideslope;
                 case 18:
-                    minimums.Play();
-                    break;
+                    return minimums;
                 case 19:
-                    sinkrate.Play();
-                    break;
+                    return sinkrate;
                 case 20:
-                    toolowflaps.Play();
-                    break;
+                    return toolowflaps;
                 case 21:
-                    toolowgear.Play();
-                    break;
-                default: break;
+                    return toolowgear;
+                default:
+                    return new SoundPlayer();
             }
         }
-
     }
 
     enum SoundType
