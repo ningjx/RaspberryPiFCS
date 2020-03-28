@@ -125,7 +125,7 @@ namespace RaspberryPiClient
 
         private void button3_Click(object sender, EventArgs e)
         {
-            b737PFD1.SetMode(PlaneInstrumentControlLibrary.B737PFD.FlightMode.Park);
+            b737EICAS1.SetValues(0, 0, 0);
         }
     }
 }

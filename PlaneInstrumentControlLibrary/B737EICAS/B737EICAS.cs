@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -47,20 +48,8 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
         Point insBack2Position2 = new Point(140, 113);
         Point insBack2Rotation2 = new Point(187, 159);
 
-        SoundPlayer cscSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC.wav");
-        SoundPlayer scSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\SC.wav");
-
         protected override void OnPaint(PaintEventArgs pe)
         {
-
-            //nsBackPosition1 = new Point(8, 26);
-            //nsBackRotation1 = new Point(51, 69);
-            //nsBackPosition2 = new Point(143, 26);
-            //nsBackRotation2 = new Point(187, 69);
-            //nsBack2Position1 = new Point(5, 113);
-            //nsBack2Rotation1 = new Point(52, 159);
-            //nsBack2Position2 = new Point(140, 113);
-            //nsBack2Rotation2 = new Point(187, 159);
             //获取控件缩放比
             scale = (float)Width / backGroung.Width;
 
@@ -151,13 +140,12 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
                     {
                         cscWarning = true;
                         Task.Run(() => {
-                            //cscSound.PlayLooping();
-                            Sound.PlayLoop(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC.wav");
+                            Sound.Play(SoundType.cscSound,true);
                             while (true) 
                             {
                                 if (!cscWarning)
                                 {
-                                    cscSound.Stop();
+                                    Sound.Stop(SoundType.cscSound); 
                                     break;
                                 }   
                             }
@@ -169,7 +157,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
                     if (!scWarning)
                     {
                         scWarning = true;
-                        scSound.Play();
+                        Sound.Play(SoundType.scSound);
                     }
                     break;
                 case EngineStatus.Nor:
@@ -185,13 +173,12 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
                     {
                         cscWarning = true;
                         Task.Run(() => {
-                            //cscSound.PlayLooping();
-                            Sound.PlayLoop(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC.wav");
+                            Sound.Play(SoundType.cscSound, true);
                             while (true)
                             {
                                 if (!cscWarning)
                                 {
-                                    cscSound.Stop();
+                                    Sound.Stop(SoundType.cscSound);
                                     break;
                                 }
                             }
@@ -203,7 +190,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
                     if (!scWarning)
                     {
                         scWarning = true;
-                        scSound.Play();
+                        Sound.Play(SoundType.scSound);
                     }
                     break;
                 case EngineStatus.Nor:
@@ -217,5 +204,97 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
     public enum EngineStatus
     {
         Fail,LowVol,Nor
+    }
+
+    static class Sound
+    {
+        static SoundPlayer cscSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC_fix.wav");
+        static SoundPlayer scSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\SC.wav");
+
+        static Dictionary<int, bool> Buffer = new Dictionary<int, bool>();
+
+        static Sound()
+        {
+            Task.Run(() =>
+            {
+                List<int> needDelete = new List<int>();
+                while (true)
+                {
+                    try
+                    {
+                        lock (Buffer)
+                        {
+                            needDelete.ForEach(t => Buffer.Remove(t));
+                            needDelete.Clear();
+                            foreach (var item in Buffer)
+                            {
+                                Paly(needDelete, item.Key, item.Value);
+                                Thread.Sleep(1000);
+                            }
+                        }
+                        Thread.Sleep(500);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            });
+        }
+
+        public static void Play(SoundType sound, bool isLoop = false)
+        {
+            Task.Run(() => {
+                lock (Buffer)
+                {
+                    if (!Buffer.TryGetValue(sound.GetHashCode(), out bool value))
+                    {
+                        Buffer.Add(sound.GetHashCode(), isLoop);
+                    }
+                }
+            });
+            
+        }
+
+        public static void Stop(SoundType sound)
+        {
+            Task.Run(() => {
+                lock (Buffer)
+                {
+                    if (Buffer.TryGetValue(sound.GetHashCode(), out bool value))
+                    {
+                        Buffer.Remove(sound.GetHashCode());
+                    }
+                }
+            });
+        }
+
+        public static void Start()
+        {
+            
+        }
+
+        static void Paly(List<int> needDelete, int type, bool isLoop)
+        {
+            if (!isLoop)
+                needDelete.Add(type);
+            switch (type)
+            {
+                case 0:
+                    cscSound.Play();
+                    break;
+                case 1:
+                    scSound.Play();
+                    break;
+                default: break;
+            }
+        }
+
+    }
+
+    enum SoundType
+    {
+        cscSound,
+        scSound
     }
 }

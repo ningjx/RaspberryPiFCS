@@ -5,6 +5,8 @@ using GMap.NET.MapProviders;
 using GMap.NET.Projections;
 using GMap.NET.WindowsForms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.DirectX;
+using Microsoft.DirectX.DirectSound;
 
 namespace Unit
 {
@@ -26,5 +28,15 @@ namespace Unit
                 File.WriteAllBytes(zoom + "z-" + px + ".png", img.Data.ToArray());
 
         }
+        [TestMethod]
+        public void TEst()
+        {
+            //Device device = new Device();
+            //device.SetCooperativeLevel(IntPtr.Zero, CooperativeLevel.Priority);
+            //SecondaryBuffer buf = new SecondaryBuffer(@"snd.wav", device);
+            //buf.Play(0, BufferPlayFlags.Looping);
+            //Console.ReadLine();
+        }
+
     }
 }

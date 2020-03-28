@@ -17,4 +17,10 @@
     <ProjectReference Include="..\RaspberryPiClient\RaspberryPiClient.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.DirectX.DirectSound">
+      <HintPath>C:\Users\vipni\Desktop\microsoft.directx.directsound.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
