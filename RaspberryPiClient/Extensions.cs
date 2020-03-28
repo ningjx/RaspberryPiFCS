@@ -222,7 +222,7 @@ namespace RaspberryPiClient
         {
             double lo, la;
             LocationTransform.ConvertWGS2Mars(lon, lat, out lo, out la);
-            return new PointLatLng(lo, la);
+            return new PointLatLng(la,lo);
         }
 
         /// <summary>
@@ -394,10 +394,10 @@ namespace RaspberryPiClient
             const double a = 6378245.0;
             const double ee = 0.00669342162296594323;
 
-            if (xWgs < 72.004 || xWgs > 137.8347)
-                return;
-            if (yWgs < 0.8293 || yWgs > 55.8271)
-                return;
+            //if (xWgs < 72.004 || xWgs > 137.8347)
+            //    return;
+            //if (yWgs < 0.8293 || yWgs > 55.8271)
+            //    return;
 
             double x = 0, y = 0;
             x = xWgs - 105.0;

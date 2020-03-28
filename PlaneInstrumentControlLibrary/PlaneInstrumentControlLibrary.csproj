@@ -47,6 +47,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>B737EFISResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="B737EICAS\B737EICAS.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="B737EICAS\B737EICAS.Designer.cs">
+      <DependentUpon>B737EICAS.cs</DependentUpon>
+    </Compile>
     <Compile Include="B737EICAS\B737EICASResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -132,6 +138,16 @@
     <None Include="A350ND\Images\backGround.png" />
     <Content Include="A350ND\Images\mapCover.png" />
     <Content Include="A350ND\Images\top.png" />
+    <Content Include="B737EICAS\Images\background.png" />
+    <Content Include="B737EICAS\Images\cover1.png" />
+    <Content Include="B737EICAS\Images\cover2.png" />
+    <Content Include="B737EICAS\Images\ENG-FAIL-1.png" />
+    <Content Include="B737EICAS\Images\ENG-FAIL-2.png" />
+    <Content Include="B737EICAS\Images\insBack.png" />
+    <Content Include="B737EICAS\Images\insBack2.png" />
+    <Content Include="B737EICAS\Images\LOE-VOL-2.png" />
+    <Content Include="B737EICAS\Images\LOW-VOL-1.png" />
+    <Content Include="B737EICAS\Images\top.png" />
     <Content Include="B737PFD\Images\altCover.png" />
     <Content Include="B737PFD\Images\altTape.png" />
     <Content Include="B737PFD\Images\alt_bug-1.png" />
@@ -213,7 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="B737EFIS\Images\" />
-    <Folder Include="B737EICAS\Images\" />
+    <Folder Include="B737EICAS\Sounds\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

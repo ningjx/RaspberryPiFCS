@@ -26,7 +26,7 @@ namespace RaspberryPiClient
             gMapControl1.MinZoom = 1;
             gMapControl1.MaxZoom = 24;//指定最大最小zoom才可以缩放
             gMapControl1.DragButton = MouseButtons.Left;
-            //data = TestEq.FlightData;
+            data = TestEq.FlightData;
             gMapControl1.Zoom = 10;
             //timer1.Start();
         }
@@ -104,9 +104,12 @@ namespace RaspberryPiClient
             b737PFD1.SetValues(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, data.Attitude.BarometricAltitude, data.Attitude.Aacceleration_X, data.Attitude.Aacceleration_Y * 10, data.Attitude.Angle_Z);
             a350ND1.SetValues(data.Attitude.Angle_Z);
             gMapControl1.Bearing = data.Attitude.Angle_Z;
-            gMapControl1.Position = Extends.GPSToGCJ(data.GPSData.Longitude / 1E7D, data.GPSData.Latitude / 1E7D);
-            label9.Text = data.GPSData.Latitude.ToString();
+            var a = Extends.GPSToGCJ(data.GPSData.Longitude / 1E7D, data.GPSData.Latitude / 1E7D);
+            gMapControl1.Position = a;
+            label9.Text = data.GPSData.Latitude.ToString();//40
             label10.Text = data.GPSData.Longitude.ToString();
+            label6.Text = a.Lng.ToString();
+            label8.Text = a.Lat.ToString();
             textBox1.Text = data.Attitude.Angle_X.ToString("f2");
         }
 
