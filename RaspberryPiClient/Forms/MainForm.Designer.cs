@@ -53,8 +53,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
-            this.a350ND1 = new PlaneInstrumentControlLibrary.A350ND.A350ND();
-            this.b737PFD1 = new PlaneInstrumentControlLibrary.B737PFD.B737PFD();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -62,6 +60,9 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.a350ND1 = new PlaneInstrumentControlLibrary.A350ND.A350ND();
+            this.b737PFD1 = new PlaneInstrumentControlLibrary.B737PFD.B737PFD();
+            this.b737EICAS1 = new PlaneInstrumentControlLibrary.B737EICAS.B737EICAS();
             ((System.ComponentModel.ISupportInitialize)(this.xBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.yBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rollBar)).BeginInit();
@@ -274,7 +275,7 @@
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(12, 364);
+            this.gMapControl1.Location = new System.Drawing.Point(12, 668);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
@@ -288,26 +289,9 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(726, 443);
+            this.gMapControl1.Size = new System.Drawing.Size(635, 139);
             this.gMapControl1.TabIndex = 26;
             this.gMapControl1.Zoom = 0D;
-            // 
-            // a350ND1
-            // 
-            this.a350ND1.Location = new System.Drawing.Point(388, 12);
-            this.a350ND1.MapImage = null;
-            this.a350ND1.Name = "a350ND1";
-            this.a350ND1.Size = new System.Drawing.Size(350, 346);
-            this.a350ND1.TabIndex = 25;
-            this.a350ND1.Text = "a350ND1";
-            // 
-            // b737PFD1
-            // 
-            this.b737PFD1.Location = new System.Drawing.Point(12, 12);
-            this.b737PFD1.Name = "b737PFD1";
-            this.b737PFD1.Size = new System.Drawing.Size(370, 346);
-            this.b737PFD1.TabIndex = 24;
-            this.b737PFD1.Text = "b737PFD1";
             // 
             // label6
             // 
@@ -375,11 +359,37 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // a350ND1
+            // 
+            this.a350ND1.Location = new System.Drawing.Point(388, 12);
+            this.a350ND1.MapImage = null;
+            this.a350ND1.Name = "a350ND1";
+            this.a350ND1.Size = new System.Drawing.Size(350, 346);
+            this.a350ND1.TabIndex = 25;
+            this.a350ND1.Text = "a350ND1";
+            // 
+            // b737PFD1
+            // 
+            this.b737PFD1.Location = new System.Drawing.Point(12, 12);
+            this.b737PFD1.Name = "b737PFD1";
+            this.b737PFD1.Size = new System.Drawing.Size(370, 346);
+            this.b737PFD1.TabIndex = 24;
+            this.b737PFD1.Text = "b737PFD1";
+            // 
+            // b737EICAS1
+            // 
+            this.b737EICAS1.Location = new System.Drawing.Point(24, 391);
+            this.b737EICAS1.Name = "b737EICAS1";
+            this.b737EICAS1.Size = new System.Drawing.Size(252, 249);
+            this.b737EICAS1.TabIndex = 34;
+            this.b737EICAS1.Text = "b737EICAS1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1411, 833);
+            this.Controls.Add(this.b737EICAS1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -462,5 +472,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private PlaneInstrumentControlLibrary.B737EICAS.B737EICAS b737EICAS1;
     }
 }

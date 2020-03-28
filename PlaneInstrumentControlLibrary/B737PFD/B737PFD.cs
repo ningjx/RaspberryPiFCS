@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Media;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PlaneInstrumentControlLibrary.B737PFD
@@ -32,24 +34,26 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         SolidBrush altBrush = new SolidBrush(Color.FromArgb(202, 89, 198));
         SolidBrush modeBrush = new SolidBrush(Color.SpringGreen);
 
-        SoundPlayer S10 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\10.wav");
-        SoundPlayer S20 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\20.wav");
-        SoundPlayer S30 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\30.wav");
-        SoundPlayer S40 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\40.wav");
-        SoundPlayer S50 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\50.wav");
-        SoundPlayer S60 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\60.wav");
-        SoundPlayer S70 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\70.wav");
-        SoundPlayer S80 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\80.wav");
-        SoundPlayer S90 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\90.wav");
-        SoundPlayer S100 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\100.wav");
-        SoundPlayer S100a = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\100_above.wav");
-        SoundPlayer S200 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\200.wav");
-        SoundPlayer S300 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\300.wav");
-        SoundPlayer S400 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\400.wav");
-        SoundPlayer S500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\500.wav");
-        SoundPlayer S1000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\1000.wav");
-        SoundPlayer S2000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\2000.wav");
-        SoundPlayer S2500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\2500.wav");
+        SoundPlayer S10 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\10.wav");
+        SoundPlayer S20 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\20.wav");
+        SoundPlayer S30 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\30.wav");
+        SoundPlayer S40 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\40.wav");
+        SoundPlayer S50 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\50.wav");
+        SoundPlayer S60 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\60.wav");
+        SoundPlayer S70 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\70.wav");
+        SoundPlayer S80 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\80.wav");
+        SoundPlayer S90 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\90.wav");
+        SoundPlayer S100 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\100.wav");
+        SoundPlayer S100a = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\100_above.wav");
+        SoundPlayer S200 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\200.wav");
+        SoundPlayer S300 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\300.wav");
+        SoundPlayer S400 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\400.wav");
+        SoundPlayer S500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\500.wav");
+        SoundPlayer S1000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\1000.wav");
+        SoundPlayer S2000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2000.wav");
+        SoundPlayer S2500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2500.wav");
+        SoundPlayer terrain = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\terrain.wav");
+        SoundPlayer pullup = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\pullup.wav");
 
         float scale;
 
@@ -117,9 +121,22 @@ namespace PlaneInstrumentControlLibrary.B737PFD
                 case FlightMode.APP:
                     drawString = "APP";
                     break;
+                case FlightMode.Takeoff:
+                    drawString = "TKF";
+                    break;
+                case FlightMode.Tax:
+                    drawString = "Tax";
+                    break;
+                case FlightMode.CRZ:
+                    drawString = "CRZ";
+                    break;
+                case FlightMode.Descend:
+                    drawString = "DEC";
+                    break;
+                case FlightMode.CLB:
+                    drawString = "CLB";
+                    break;
             }
-            
-
 
             //绘制ILS指示器
             //pe.Graphics.DrawImage(horizontalDots, 0, 0, horizontalDots.Width * scale, horizontalDots.Height * scale);
@@ -163,6 +180,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             this.speed = speed;
             this.vs = vs;
             this.heading = heading;
+            TerrainWarning();
             this.Refresh();
         }
 
@@ -171,6 +189,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             this.x = x;
             this.y = y;
         }
+
 
         public void SetMode(FlightMode mode)
         {
@@ -269,6 +288,38 @@ namespace PlaneInstrumentControlLibrary.B737PFD
                 return;
             }
             altBuffer = alt;
+        }
+        #endregion
+
+        #region TerrainPullUp
+        private bool terrainWarning = false;
+        private void TerrainWarning()
+        {
+            if (vs >= 0 || alt >= 0.2)
+            {
+                terrainWarning = false;
+                return;
+            }
+            if (terrainWarning)
+                return;
+            if (flightMode != FlightMode.Descend&& flightMode != FlightMode.CRZ&& flightMode != FlightMode.CLB&& flightMode != FlightMode.CLB)
+            {
+                terrainWarning = false;
+                return;
+            }
+
+            if(vs < 0 && alt < 0.2)
+                terrainWarning = true;
+            Task.Run(() => {
+                while (terrainWarning)
+                {
+                    terrain.Play();
+                    Thread.Sleep(1000);
+                    pullup.Play();
+                    Thread.Sleep(1200);
+                }
+            });
+
         }
         #endregion
     }

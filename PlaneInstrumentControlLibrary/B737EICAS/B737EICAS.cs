@@ -75,75 +75,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             RotateImage(pe, insBack, InterpolPhyToAngle(rpm2, 0, 100, 27, 204), insBackPosition2, insBackRotation2, scale);
             pe.Graphics.DrawImage(cover1, 0, 0, cover1.Width * scale, cover1.Height * scale);
 
-
-
-            switch (engineStatus1)
-            {
-                case EngineStatus.Fail:
-                    pe.Graphics.DrawImage(eng_fail_1, 0, 0, eng_fail_1.Width * scale, eng_fail_1.Height * scale);
-                    if (!cscWarning)
-                    {
-                        cscWarning = true;
-                        Task.Run(() => {
-                            cscSound.PlayLooping();
-                            while (true) 
-                            {
-                                if (!cscWarning)
-                                {
-                                    cscSound.Stop();
-                                    break;
-                                }   
-                            }
-                        });
-                    }
-                    break;
-                case EngineStatus.LowVol:
-                    pe.Graphics.DrawImage(low_vol_1, 0, 0, low_vol_1.Width * scale, low_vol_1.Height * scale);
-                    if (!scWarning)
-                    {
-                        scWarning = true;
-                        scSound.Play();
-                    }
-                    break;
-                case EngineStatus.Nor:
-                    if (engineStatus2 == EngineStatus.Nor)
-                        CancelWarning();
-                    break;
-            }
-            switch (engineStatus2)
-            {
-                case EngineStatus.Fail:
-                    pe.Graphics.DrawImage(eng_fail_2, 0, 0, eng_fail_2.Width * scale, eng_fail_2.Height * scale);
-                    if (!cscWarning)
-                    {
-                        cscWarning = true;
-                        Task.Run(() => {
-                            cscSound.PlayLooping();
-                            while (true)
-                            {
-                                if (!cscWarning)
-                                {
-                                    cscSound.Stop();
-                                    break;
-                                }
-                            }
-                        });
-                    }
-                    break;
-                case EngineStatus.LowVol:
-                    pe.Graphics.DrawImage(low_vol_2, 0, 0, low_vol_2.Width * scale, low_vol_2.Height * scale);
-                    if (!scWarning)
-                    {
-                        scWarning = true;
-                        scSound.Play();
-                    }
-                    break;
-                case EngineStatus.Nor:
-                    if(engineStatus1 == EngineStatus.Nor)
-                        CancelWarning();
-                    break;
-            }
-
+            Warning(pe);
 
             pe.Graphics.DrawImage(top, 0, 0, top.Width * scale, top.Height * scale);
 
@@ -207,6 +139,78 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
         {
             cscWarning = false;
             scWarning = false;
+        }
+
+        private void Warning(PaintEventArgs pe)
+        {
+            switch (engineStatus1)
+            {
+                case EngineStatus.Fail:
+                    pe.Graphics.DrawImage(eng_fail_1, 0, 0, eng_fail_1.Width * scale, eng_fail_1.Height * scale);
+                    if (!cscWarning)
+                    {
+                        cscWarning = true;
+                        Task.Run(() => {
+                            //cscSound.PlayLooping();
+                            Sound.PlayLoop(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC.wav");
+                            while (true) 
+                            {
+                                if (!cscWarning)
+                                {
+                                    cscSound.Stop();
+                                    break;
+                                }   
+                            }
+                        });
+                    }
+                    break;
+                case EngineStatus.LowVol:
+                    pe.Graphics.DrawImage(low_vol_1, 0, 0, low_vol_1.Width * scale, low_vol_1.Height * scale);
+                    if (!scWarning)
+                    {
+                        scWarning = true;
+                        scSound.Play();
+                    }
+                    break;
+                case EngineStatus.Nor:
+                    if (engineStatus2 == EngineStatus.Nor)
+                        CancelWarning();
+                    break;
+            }
+            switch (engineStatus2)
+            {
+                case EngineStatus.Fail:
+                    pe.Graphics.DrawImage(eng_fail_2, 0, 0, eng_fail_2.Width * scale, eng_fail_2.Height * scale);
+                    if (!cscWarning)
+                    {
+                        cscWarning = true;
+                        Task.Run(() => {
+                            //cscSound.PlayLooping();
+                            Sound.PlayLoop(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC.wav");
+                            while (true)
+                            {
+                                if (!cscWarning)
+                                {
+                                    cscSound.Stop();
+                                    break;
+                                }
+                            }
+                        });
+                    }
+                    break;
+                case EngineStatus.LowVol:
+                    pe.Graphics.DrawImage(low_vol_2, 0, 0, low_vol_2.Width * scale, low_vol_2.Height * scale);
+                    if (!scWarning)
+                    {
+                        scWarning = true;
+                        scSound.Play();
+                    }
+                    break;
+                case EngineStatus.Nor:
+                    if(engineStatus1 == EngineStatus.Nor)
+                        CancelWarning();
+                    break;
+            }
         }
     }
 

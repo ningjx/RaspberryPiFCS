@@ -38,8 +38,8 @@ namespace RaspberryPiClient
 
         private void rollBar_Scroll(object sender, EventArgs e)
         {
-            //b737PFD1.SetValues(rollBar.Value,pitchBar.Value,altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
-            //textBox3.Text = rollBar.Value.ToString();
+            b737PFD1.SetValues(rollBar.Value,pitchBar.Value,altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            textBox3.Text = rollBar.Value.ToString();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -49,8 +49,8 @@ namespace RaspberryPiClient
 
         private void pitchBar_Scroll(object sender, EventArgs e)
         {
-            //b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
-            //textBox4.Text = pitchBar.Value.ToString();
+            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            textBox4.Text = pitchBar.Value.ToString();
         }
 
         private void headingBar_Scroll(object sender, EventArgs e)
@@ -76,8 +76,8 @@ namespace RaspberryPiClient
 
         private void vsBar_Scroll(object sender, EventArgs e)
         {
-            //b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
-            //textBox8.Text = vsBar.Value.ToString();
+            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            textBox8.Text = vsBar.Value.ToString();
         }
 
         private void xBar_Scroll(object sender, EventArgs e)
@@ -115,12 +115,12 @@ namespace RaspberryPiClient
 
         private void button1_Click(object sender, EventArgs e)
         {
-            a350ND1.SetMap(new Bitmap(AMapProvider.Instance.Img.Data));
+            b737EICAS1.SetValues(50, 0, 0);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            b737PFD1.SetMode(PlaneInstrumentControlLibrary.B737PFD.FlightMode.APP);
+            b737PFD1.SetMode(PlaneInstrumentControlLibrary.B737PFD.FlightMode.CRZ);
         }
 
         private void button3_Click(object sender, EventArgs e)
