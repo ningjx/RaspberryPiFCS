@@ -36,11 +36,11 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
         bool cscWarning = false;
         bool scWarning = false;
-        float tem,rpm1, rpm2, power1, power2,cos1, cos2, volte1, volte2;
-        EngineStatus engineStatus1 = EngineStatus.Nor;  
+        float tem, rpm1, rpm2, power1, power2, cos1, cos2, volte1, volte2;
+        EngineStatus engineStatus1 = EngineStatus.Nor;
         EngineStatus engineStatus2 = EngineStatus.Nor;
         float scale;
-        int x, y,rx,ry;
+        int x, y, rx, ry;
         Point insBackPosition1 = new Point(8, 26);
         Point insBackRotation1 = new Point(51, 69);
         Point insBackPosition2 = new Point(143, 26);
@@ -76,7 +76,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             Font altFont2 = new Font("Arial", 11 * scale);
             pe.Graphics.DrawString(tem.ToString("f0").PadLeft(3, '0'), altFont, drawBrush, 36 * scale, 0);
             pe.Graphics.DrawString(rpm1.ToString("f0").PadLeft(5, '0'), altFont1, drawBrush, 59 * scale, 41 * scale);
-            pe.Graphics.DrawString(rpm2.ToString("f0").PadLeft(5, '0'), altFont1, drawBrush, 194 * scale,41 * scale);
+            pe.Graphics.DrawString(rpm2.ToString("f0").PadLeft(5, '0'), altFont1, drawBrush, 194 * scale, 41 * scale);
             pe.Graphics.DrawString(power1.ToString("f0").PadLeft(3, '0'), altFont, drawBrush, 58 * scale, 134 * scale);
             pe.Graphics.DrawString(power2.ToString("f0").PadLeft(3, '0'), altFont, drawBrush, 193 * scale, 134 * scale);
             pe.Graphics.DrawString(cos1.ToString("f0").PadLeft(3, '0'), altFont2, drawBrush, 51 * scale, 271 * scale);
@@ -86,7 +86,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
         }
 
-        public void SetValues(int rpm1,int en1,int en2)
+        public void SetValues(int rpm1, int en1, int en2)
         {
             this.rpm1 = rpm1;
             switch (en1)
@@ -141,15 +141,16 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
                     if (!cscWarning)
                     {
                         cscWarning = true;
-                        Task.Run(() => {
+                        Task.Run(() =>
+                        {
                             sound.PlayLoop(SoundType.cscSound);
-                            while (true) 
+                            while (true)
                             {
                                 if (!cscWarning)
                                 {
-                                    sound.Stop(); 
+                                    sound.Stop(SoundType.cscSound);
                                     break;
-                                }   
+                                }
                             }
                         });
                     }
@@ -174,13 +175,14 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
                     if (!cscWarning)
                     {
                         cscWarning = true;
-                        Task.Run(() => {
+                        Task.Run(() =>
+                        {
                             sound.PlayLoop(SoundType.cscSound);
                             while (true)
                             {
                                 if (!cscWarning)
                                 {
-                                    sound.Stop();
+                                    sound.Stop(SoundType.cscSound);
                                     break;
                                 }
                             }
@@ -196,7 +198,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
                     }
                     break;
                 case EngineStatus.Nor:
-                    if(engineStatus1 == EngineStatus.Nor)
+                    if (engineStatus1 == EngineStatus.Nor)
                         CancelWarning();
                     break;
             }
@@ -205,7 +207,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
     public enum EngineStatus
     {
-        Fail,LowVol,Nor
+        Fail, LowVol, Nor
     }
     class B737EICASSound : Sound
     {
@@ -215,9 +217,9 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
         {
             switch (hashCode)
             {
-                case 0:return cscSound;
-                case 1:return scSound;
-                default:return new SoundPlayer();
+                case 0: return cscSound;
+                case 1: return scSound;
+                default: return new SoundPlayer();
             }
         }
     }

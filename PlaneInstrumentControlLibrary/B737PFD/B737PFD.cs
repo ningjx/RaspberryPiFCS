@@ -202,7 +202,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             }
             if (Math.Abs(roll) <= 60 && bankAngelWarning)
             {
-                sound.Stop();
+                sound.StopFakeLoop();
                 bankAngelWarning = false;
             }
         }
@@ -219,7 +219,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             }
             if (Math.Abs(vs) <= 6 && sinkRateWarning)
             {
-                sound.Stop();
+                sound.StopFakeLoop();
                 sinkRateWarning = false;
             }
         }
@@ -328,7 +328,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             {
                 if (!terrainWarning)
                     return;
-                sound.Stop();
+                sound.StopFakeLoop();
                 terrainWarning = false;
                 return;
             }

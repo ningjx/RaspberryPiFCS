@@ -22,6 +22,7 @@ namespace PlaneInstrumentControlLibrary
         private int currentPlay;
         private bool isPriority = false;
         private bool loopingEnable = false;
+        private List<SoundPlayer> loopings = new List<SoundPlayer>();
 
         public Sound()
         {
@@ -116,11 +117,18 @@ namespace PlaneInstrumentControlLibrary
                 {
                     Thread.Sleep(500);
                 }
-                currentPlay = SoundBufferLoop = sound.GetHashCode();
-                GetSoundPlayer(sound.GetHashCode()).PlayLooping();
+                //currentPlay = SoundBufferLoop = sound.GetHashCode();
+                var instance = GetSoundPlayer(sound.GetHashCode());
+                loopings.Add(instance);
+                instance.PlayLooping();
             });
         }
 
+        /// <summary>
+        /// 假循环的方式播放多个声音
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sounds"></param>
         public void PlayLoop<T>(List<T> sounds)
         {
             Task.Run(() =>
@@ -141,12 +149,35 @@ namespace PlaneInstrumentControlLibrary
         }
 
         /// <summary>
-        /// 停止当前循环播放
+        /// 停止当前假循环播放
         /// </summary>
-        public void Stop()
+        public void StopFakeLoop()
         {
             loopingEnable = false;
             GetSoundPlayer(SoundBufferLoop.GetHashCode()).Stop();
+            //loopings.ForEach(t => t.Stop());
+        }
+
+        /// <summary>
+        /// 停止指定的循环声音
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sound"></param>
+        public void Stop<T>(T sound)
+        {
+            GetSoundPlayer(sound.GetHashCode()).Stop();
+        }
+
+        /// <summary>
+        /// 停止所有真的循环的声音
+        /// </summary>
+        public void StopAllLoop()
+        {
+            lock (loopings)
+            {
+                loopings.ForEach(t => t.Stop());
+                loopings.Clear();
+            }
         }
 
         /// <summary>
