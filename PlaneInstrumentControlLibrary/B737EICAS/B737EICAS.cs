@@ -66,7 +66,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             RotateImage(pe, insBack, InterpolPhyToAngle(rpm2, 0, 100, 27, 204), insBackPosition2, insBackRotation2, scale);
             pe.Graphics.DrawImage(cover1, 0, 0, cover1.Width * scale, cover1.Height * scale);
 
-            Warning(pe);
+            PainWarning(pe);
 
             pe.Graphics.DrawImage(top, 0, 0, top.Width * scale, top.Height * scale);
 
@@ -86,32 +86,41 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
         }
 
-        public void SetValues(int rpm1, int en1, int en2)
+        public void SetValues(float tem, float rpm1, float rpm2, float power1, float power2, float cos1, float cos2, float volte1, float volte2, EngineStatus en1 = EngineStatus.NoChange, EngineStatus en2 = EngineStatus.NoChange)
         {
+            this.tem = tem;
             this.rpm1 = rpm1;
-            switch (en1)
+            this.rpm2 = rpm2;
+            this.power1 = power1;
+            this.power2 = power2;
+            this.cos1 = cos1;
+            this.cos2 = cos2;
+            this.volte1 = volte1;
+            this.volte2 = volte2;
+            this.rpm1 = rpm1;
+            this.rpm1 = rpm1;
+            this.rpm1 = rpm1;
+            this.rpm1 = rpm1;
+            this.rpm1 = rpm1;
+            if(en1!= EngineStatus.NoChange)
             {
-                case 0:
-                    engineStatus1 = EngineStatus.Fail;
-                    break;
-                case 1:
-                    engineStatus1 = EngineStatus.LowVol;
-                    break;
-                default:
-                    engineStatus1 = EngineStatus.Nor;
-                    break;
+                if (engineStatus1 != en1 && en1 == EngineStatus.LowVol)
+                    sound.Play(SoundType.scSound);
+                if (engineStatus1 != en1 && en1 == EngineStatus.Fail)
+                    sound.PlayLoop(SoundType.cscSound);
+                if (engineStatus1 != en1 && en1 == EngineStatus.Nor)
+                    sound.Stop(SoundType.cscSound);
+                engineStatus1 = en1;
             }
-            switch (en2)
+            if (en2 != EngineStatus.NoChange)
             {
-                case 0:
-                    engineStatus2 = EngineStatus.Fail;
-                    break;
-                case 1:
-                    engineStatus2 = EngineStatus.LowVol;
-                    break;
-                default:
-                    engineStatus2 = EngineStatus.Nor;
-                    break;
+                if (engineStatus2 != en2 && en2 == EngineStatus.LowVol)
+                    sound.Play(SoundType.scSound);
+                if (engineStatus2 != en1 && en2 == EngineStatus.Fail)
+                    sound.PlayLoop(SoundType.cscSound);
+                if (engineStatus2 != en1 && en2 == EngineStatus.Nor)
+                    sound.Stop(SoundType.cscSound);
+                engineStatus2 = en2;
             }
             Refresh();
         }
@@ -132,74 +141,24 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             scWarning = false;
         }
 
-        private void Warning(PaintEventArgs pe)
+        private void PainWarning(PaintEventArgs pe)
         {
             switch (engineStatus1)
             {
                 case EngineStatus.Fail:
                     pe.Graphics.DrawImage(eng_fail_1, 0, 0, eng_fail_1.Width * scale, eng_fail_1.Height * scale);
-                    if (!cscWarning)
-                    {
-                        cscWarning = true;
-                        Task.Run(() =>
-                        {
-                            sound.PlayLoop(SoundType.cscSound);
-                            while (true)
-                            {
-                                if (!cscWarning)
-                                {
-                                    sound.Stop(SoundType.cscSound);
-                                    break;
-                                }
-                            }
-                        });
-                    }
                     break;
                 case EngineStatus.LowVol:
                     pe.Graphics.DrawImage(low_vol_1, 0, 0, low_vol_1.Width * scale, low_vol_1.Height * scale);
-                    if (!scWarning)
-                    {
-                        scWarning = true;
-                        sound.Play(SoundType.scSound);
-                    }
-                    break;
-                case EngineStatus.Nor:
-                    if (engineStatus2 == EngineStatus.Nor)
-                        CancelWarning();
                     break;
             }
             switch (engineStatus2)
             {
                 case EngineStatus.Fail:
                     pe.Graphics.DrawImage(eng_fail_2, 0, 0, eng_fail_2.Width * scale, eng_fail_2.Height * scale);
-                    if (!cscWarning)
-                    {
-                        cscWarning = true;
-                        Task.Run(() =>
-                        {
-                            sound.PlayLoop(SoundType.cscSound);
-                            while (true)
-                            {
-                                if (!cscWarning)
-                                {
-                                    sound.Stop(SoundType.cscSound);
-                                    break;
-                                }
-                            }
-                        });
-                    }
                     break;
                 case EngineStatus.LowVol:
                     pe.Graphics.DrawImage(low_vol_2, 0, 0, low_vol_2.Width * scale, low_vol_2.Height * scale);
-                    if (!scWarning)
-                    {
-                        scWarning = true;
-                        sound.Play(SoundType.scSound);
-                    }
-                    break;
-                case EngineStatus.Nor:
-                    if (engineStatus1 == EngineStatus.Nor)
-                        CancelWarning();
                     break;
             }
         }
@@ -207,7 +166,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
     public enum EngineStatus
     {
-        Fail, LowVol, Nor
+        Fail, LowVol, Nor,Unknown,NoChange
     }
     class B737EICASSound : Sound
     {

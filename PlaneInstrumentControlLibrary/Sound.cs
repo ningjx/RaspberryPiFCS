@@ -119,6 +119,8 @@ namespace PlaneInstrumentControlLibrary
                 }
                 //currentPlay = SoundBufferLoop = sound.GetHashCode();
                 var instance = GetSoundPlayer(sound.GetHashCode());
+                if (loopings.Contains(instance))
+                    return;
                 loopings.Add(instance);
                 instance.PlayLooping();
             });

@@ -33,7 +33,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         System.Timers.Timer timer = new System.Timers.Timer(800);
 
         bool isShow = false;
-        FlightMode flightMode = FlightMode.Park;
+        FlightStatus flightMode = FlightStatus.Park;
         Font drawFont;
         Font altFont;
         SolidBrush drawBrush = new SolidBrush(Color.White);
@@ -101,24 +101,24 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             string drawString = string.Empty;
             switch (flightMode)
             {
-                case FlightMode.Park:
+                case FlightStatus.Park:
                     break;
-                case FlightMode.APP:
+                case FlightStatus.APP:
                     drawString = "APP";
                     break;
-                case FlightMode.Takeoff:
+                case FlightStatus.Takeoff:
                     drawString = "TKF";
                     break;
-                case FlightMode.Tax:
+                case FlightStatus.Tax:
                     drawString = "Tax";
                     break;
-                case FlightMode.CRZ:
+                case FlightStatus.CRZ:
                     drawString = "CRZ";
                     break;
-                case FlightMode.Descend:
+                case FlightStatus.Descend:
                     drawString = "DEC";
                     break;
-                case FlightMode.CLB:
+                case FlightStatus.CLB:
                     drawString = "CLB";
                     break;
             }
@@ -184,7 +184,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         }
 
 
-        public void SetMode(FlightMode mode)
+        public void SetFlightStatus(FlightStatus mode)
         {
             flightMode = mode;
             Refresh();
@@ -334,7 +334,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             }
             if (terrainWarning)
                 return;
-            if (flightMode == FlightMode.APP || flightMode == FlightMode.Park || flightMode == FlightMode.Tax)
+            if (flightMode == FlightStatus.APP || flightMode == FlightStatus.Park || flightMode == FlightStatus.Tax)
             {
                 terrainWarning = false;
                 return;
@@ -347,7 +347,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         #endregion
     }
 
-    public enum FlightMode
+    public enum FlightStatus
     {
         Park, Tax, Takeoff, CLB, CRZ, Descend, APP
     }
