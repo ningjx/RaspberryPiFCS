@@ -80,5 +80,11 @@ namespace RaspberryPiClient.Forms
         {
             b737EICAS1.SetValues(trackBar3.Value, 2, 2);
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            //textBox1.Text = Application.StartupPath;
+            b737EICAS1.CancelWarning();
+        }
     }
 }

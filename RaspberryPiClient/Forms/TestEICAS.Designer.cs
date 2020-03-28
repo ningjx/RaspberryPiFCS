@@ -37,13 +37,14 @@
             this.trackBar5 = new System.Windows.Forms.TrackBar();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.b737EICAS1 = new PlaneInstrumentControlLibrary.B737EICAS.B737EICAS();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.b737EICAS1 = new PlaneInstrumentControlLibrary.B737EICAS.B737EICAS();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
@@ -128,15 +129,6 @@
             this.textBox4.Size = new System.Drawing.Size(100, 21);
             this.textBox4.TabIndex = 9;
             // 
-            // b737EICAS1
-            // 
-            this.b737EICAS1.Location = new System.Drawing.Point(13, 13);
-            this.b737EICAS1.Name = "b737EICAS1";
-            this.b737EICAS1.Size = new System.Drawing.Size(658, 662);
-            this.b737EICAS1.TabIndex = 10;
-            this.b737EICAS1.Text = "b737EICAS1";
-            this.b737EICAS1.Click += new System.EventHandler(this.b737EICAS1_Click);
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(703, 526);
@@ -196,11 +188,31 @@
             this.button6.Text = "button6";
             this.button6.UseVisualStyleBackColor = true;
             // 
+            // b737EICAS1
+            // 
+            this.b737EICAS1.Location = new System.Drawing.Point(13, 13);
+            this.b737EICAS1.Name = "b737EICAS1";
+            this.b737EICAS1.Size = new System.Drawing.Size(658, 662);
+            this.b737EICAS1.TabIndex = 10;
+            this.b737EICAS1.Text = "b737EICAS1";
+            this.b737EICAS1.Click += new System.EventHandler(this.b737EICAS1_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(728, 425);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 17;
+            this.button7.Text = "button7";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // TestEICAS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1117, 955);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -247,5 +259,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
     }
 }

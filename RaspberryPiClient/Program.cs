@@ -17,7 +17,7 @@ namespace RaspberryPiClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TestEICAS());
+            Application.Run(new MainForm());
         }
     }
 }

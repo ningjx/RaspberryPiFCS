@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,9 +31,11 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
         SolidBrush drawBrush = new SolidBrush(Color.White);
 
-
+        bool cscWarning = false;
+        bool scWarning = false;
         float tem,rpm1, rpm2, power1, power2,cos1, cos2, volte1, volte2;
-        EngineStatus engineStatus1, engineStatus2;
+        EngineStatus engineStatus1 = EngineStatus.Nor;  
+        EngineStatus engineStatus2 = EngineStatus.Nor;
         float scale;
         int x, y,rx,ry;
         Point insBackPosition1 = new Point(8, 26);
@@ -43,6 +46,10 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
         Point insBack2Rotation1 = new Point(52, 159);
         Point insBack2Position2 = new Point(140, 113);
         Point insBack2Rotation2 = new Point(187, 159);
+
+        SoundPlayer cscSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC.wav");
+        SoundPlayer scSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\SC.wav");
+
         protected override void OnPaint(PaintEventArgs pe)
         {
 
@@ -74,22 +81,66 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             {
                 case EngineStatus.Fail:
                     pe.Graphics.DrawImage(eng_fail_1, 0, 0, eng_fail_1.Width * scale, eng_fail_1.Height * scale);
+                    if (!cscWarning)
+                    {
+                        cscWarning = true;
+                        Task.Run(() => {
+                            cscSound.PlayLooping();
+                            while (true) 
+                            {
+                                if (!cscWarning)
+                                {
+                                    cscSound.Stop();
+                                    break;
+                                }   
+                            }
+                        });
+                    }
                     break;
                 case EngineStatus.LowVol:
                     pe.Graphics.DrawImage(low_vol_1, 0, 0, low_vol_1.Width * scale, low_vol_1.Height * scale);
+                    if (!scWarning)
+                    {
+                        scWarning = true;
+                        scSound.Play();
+                    }
                     break;
                 case EngineStatus.Nor:
+                    if (engineStatus2 == EngineStatus.Nor)
+                        CancelWarning();
                     break;
             }
             switch (engineStatus2)
             {
                 case EngineStatus.Fail:
                     pe.Graphics.DrawImage(eng_fail_2, 0, 0, eng_fail_2.Width * scale, eng_fail_2.Height * scale);
+                    if (!cscWarning)
+                    {
+                        cscWarning = true;
+                        Task.Run(() => {
+                            cscSound.PlayLooping();
+                            while (true)
+                            {
+                                if (!cscWarning)
+                                {
+                                    cscSound.Stop();
+                                    break;
+                                }
+                            }
+                        });
+                    }
                     break;
                 case EngineStatus.LowVol:
                     pe.Graphics.DrawImage(low_vol_2, 0, 0, low_vol_2.Width * scale, low_vol_2.Height * scale);
+                    if (!scWarning)
+                    {
+                        scWarning = true;
+                        scSound.Play();
+                    }
                     break;
                 case EngineStatus.Nor:
+                    if(engineStatus1 == EngineStatus.Nor)
+                        CancelWarning();
                     break;
             }
 
@@ -142,13 +193,20 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             Refresh();
         }
 
-        public void SetXY(int x,int y,int rx,int ry)
+        public void SetXY(int x, int y, int rx, int ry)
         {
             this.x = x;
             this.y = y;
             this.rx = rx;
             this.ry = ry;
             Refresh();
+        }
+
+
+        public void CancelWarning()
+        {
+            cscWarning = false;
+            scWarning = false;
         }
     }
 

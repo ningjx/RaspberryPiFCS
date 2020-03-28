@@ -26,7 +26,7 @@ namespace RaspberryPiClient
             gMapControl1.MinZoom = 1;
             gMapControl1.MaxZoom = 24;//指定最大最小zoom才可以缩放
             gMapControl1.DragButton = MouseButtons.Left;
-            data = TestEq.FlightData;
+            //data = TestEq.FlightData;
             gMapControl1.Zoom = 10;
             //timer1.Start();
         }
@@ -70,8 +70,8 @@ namespace RaspberryPiClient
 
         private void altBar_Scroll(object sender, EventArgs e)
         {
-            //b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
-            //textBox7.Text = altBar.Value.ToString();
+            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            textBox7.Text = altBar.Value.ToString();
         }
 
         private void vsBar_Scroll(object sender, EventArgs e)
@@ -82,18 +82,18 @@ namespace RaspberryPiClient
 
         private void xBar_Scroll(object sender, EventArgs e)
         {
-            //textBox1.Text = xBar.Value.ToString();
+            textBox1.Text = xBar.Value.ToString();
             //a350ND1.SetXY(xBar.Value, yBar.Value);
-            //b737PFD1.SetXY(xBar.Value, yBar.Value);
+            b737PFD1.SetXY(xBar.Value, yBar.Value);
             //b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
             //a350ND1.SetValues(headingBar.Value);
         }
 
         private void yBar_Scroll(object sender, EventArgs e)
         {
-            //textBox2.Text = yBar.Value.ToString();
+            textBox2.Text = yBar.Value.ToString();
             //a350ND1.SetXY(xBar.Value, yBar.Value);
-            //b737PFD1.SetXY(xBar.Value, yBar.Value);
+            b737PFD1.SetXY(xBar.Value, yBar.Value);
             //b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
             //a350ND1.SetValues(headingBar.Value);
 
@@ -116,6 +116,16 @@ namespace RaspberryPiClient
         private void button1_Click(object sender, EventArgs e)
         {
             a350ND1.SetMap(new Bitmap(AMapProvider.Instance.Img.Data));
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            b737PFD1.SetMode(PlaneInstrumentControlLibrary.B737PFD.FlightMode.APP);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            b737PFD1.SetMode(PlaneInstrumentControlLibrary.B737PFD.FlightMode.Park);
         }
     }
 }

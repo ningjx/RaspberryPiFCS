@@ -25,11 +25,31 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         Bitmap horizontalDots = new Bitmap(B737PFDResource.horizontal_dots_1);
         Bitmap directorH = new Bitmap(B737PFDResource.flight_director_horizontal_1);
         Bitmap directorV = new Bitmap(B737PFDResource.flight_director_vertical_1);
-
+        FlightMode flightMode = FlightMode.Park;
         Font drawFont;
         Font altFont;
         SolidBrush drawBrush = new SolidBrush(Color.White);
         SolidBrush altBrush = new SolidBrush(Color.FromArgb(202, 89, 198));
+        SolidBrush modeBrush = new SolidBrush(Color.SpringGreen);
+
+        SoundPlayer S10 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\10.wav");
+        SoundPlayer S20 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\20.wav");
+        SoundPlayer S30 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\30.wav");
+        SoundPlayer S40 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\40.wav");
+        SoundPlayer S50 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\50.wav");
+        SoundPlayer S60 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\60.wav");
+        SoundPlayer S70 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\70.wav");
+        SoundPlayer S80 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\80.wav");
+        SoundPlayer S90 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\90.wav");
+        SoundPlayer S100 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\100.wav");
+        SoundPlayer S100a = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\100_above.wav");
+        SoundPlayer S200 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\200.wav");
+        SoundPlayer S300 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\300.wav");
+        SoundPlayer S400 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\400.wav");
+        SoundPlayer S500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\500.wav");
+        SoundPlayer S1000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\1000.wav");
+        SoundPlayer S2000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\2000.wav");
+        SoundPlayer S2500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\A350ND\Sounds\2500.wav");
 
         float scale;
 
@@ -64,7 +84,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             //if (drawFont == null || altFont == null)
             //{
                 maskPen = new Pen(Color.Black, 10 * scale);
-                drawFont = new Font("Arial", 16 * scale);
+            drawFont = new Font("Arial", 16 * scale);//,FontStyle.Bold);
                 altFont = new Font("Arial", 12 * scale);
                 horPosition = new Point(76, -411);
                 horRotation = new Point(275, 241);
@@ -88,6 +108,18 @@ namespace PlaneInstrumentControlLibrary.B737PFD
 
             //绘制背景
             pe.Graphics.DrawImage(backGroung, 0, 0, backGroung.Width * scale, backGroung.Height * scale);
+
+            string drawString = string.Empty;
+            switch (flightMode)
+            {
+                case FlightMode.Park:
+                    break;
+                case FlightMode.APP:
+                    drawString = "APP";
+                    break;
+            }
+            
+
 
             //绘制ILS指示器
             //pe.Graphics.DrawImage(horizontalDots, 0, 0, horizontalDots.Width * scale, horizontalDots.Height * scale);
@@ -118,7 +150,8 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             //绘制边框
             pe.Graphics.DrawRectangle(maskPen, 0, 0, Width, Height);
 
-            
+            pe.Graphics.DrawString(drawString, drawFont, modeBrush, 253 * scale, 8 * scale);
+
         }
 
         public void SetValues(double roll, double pitch, double alt, double speed, double vs, double heading)
@@ -126,6 +159,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             this.roll = roll * Math.PI / 180;
             this.pitch = pitch;
             this.alt = alt;
+            AltSoundPlay(alt);
             this.speed = speed;
             this.vs = vs;
             this.heading = heading;
@@ -137,5 +171,110 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             this.x = x;
             this.y = y;
         }
+
+        public void SetMode(FlightMode mode)
+        {
+            flightMode = mode;
+            Refresh();
+        }
+
+        #region 高度SpeakOut
+        private double altBuffer;
+        /// <summary>
+        /// 报高度
+        /// </summary>
+        /// <param name="alt"></param>
+        private void AltSoundPlay(double alt)
+        {
+            if (flightMode != FlightMode.APP)
+                return;
+            alt = Math.Round(alt, 1);
+            if (alt<=25&& altBuffer > 25)
+            {
+                altBuffer = alt;
+                S2500.Play();
+                return;
+            }
+            if (alt <= 20 && altBuffer > 20)
+            {
+                altBuffer = alt;
+                S2000.Play();
+                return;
+            }
+            if (alt <= 10 && altBuffer > 10)
+            {
+                altBuffer = alt;
+                S1000.Play();
+                return;
+            }
+            if (alt <= 5 && altBuffer > 5)
+            {
+                altBuffer = alt;
+                S500.Play();
+                return;
+            }
+            if (alt <= 4 && altBuffer > 4)
+            {
+                altBuffer = alt;
+                S400.Play();
+                return;
+            }
+            if (alt <= 3 && altBuffer > 3)
+            {
+                altBuffer = alt;
+                S300.Play();
+                return;
+            }
+            if (alt <= 2 && altBuffer >2)
+            {
+                altBuffer = alt;
+                S200.Play();
+                return;
+            }
+            if (alt <= 1 && altBuffer > 1)
+            {
+                altBuffer = alt;
+                S100a.Play();
+                return;
+            }
+
+            if (alt <= 0.5 && altBuffer > 0.5)
+            {
+                altBuffer = alt;
+                S50.Play();
+                return;
+            }
+            if (alt <= 0.4 && altBuffer > 0.4)
+            {
+                altBuffer = alt;
+                S40.Play();
+                return;
+            }
+            if (alt <= 0.3 && altBuffer > 0.3)
+            {
+                altBuffer = alt;
+                S30.Play();
+                return;
+            }
+            if (alt <= 0.2 && altBuffer >0.2)
+            {
+                altBuffer = alt;
+                S20.Play();
+                return;
+            }
+            if (alt <= 0.1 && altBuffer > 0.1)
+            {
+                altBuffer = alt;
+                S10.Play();
+                return;
+            }
+            altBuffer = alt;
+        }
+        #endregion
+    }
+
+    public enum FlightMode
+    {
+         Park,Tax, Takeoff,CLB, CRZ, Descend,APP
     }
 }
