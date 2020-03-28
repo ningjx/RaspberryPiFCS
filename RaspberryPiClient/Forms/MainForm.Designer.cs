@@ -52,8 +52,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.a350ND1 = new PlaneInstrumentControlLibrary.A350ND.A350ND();
             this.b737PFD1 = new PlaneInstrumentControlLibrary.B737PFD.B737PFD();
+            this.b737EICAS1 = new PlaneInstrumentControlLibrary.B737EICAS.B737EICAS();
             ((System.ComponentModel.ISupportInitialize)(this.xBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.yBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rollBar)).BeginInit();
@@ -67,11 +76,11 @@
             // timer1
             // 
             this.timer1.Interval = 10;
-            this.timer1.Tick += new System.EventHandler(this.MainForm_Load);
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // xBar
             // 
-            this.xBar.Location = new System.Drawing.Point(104, 636);
+            this.xBar.Location = new System.Drawing.Point(755, 668);
             this.xBar.Maximum = 1000;
             this.xBar.Minimum = -1000;
             this.xBar.Name = "xBar";
@@ -81,7 +90,7 @@
             // 
             // yBar
             // 
-            this.yBar.Location = new System.Drawing.Point(104, 698);
+            this.yBar.Location = new System.Drawing.Point(761, 742);
             this.yBar.Maximum = 1000;
             this.yBar.Minimum = -1000;
             this.yBar.Name = "yBar";
@@ -129,14 +138,14 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(675, 648);
+            this.textBox1.Location = new System.Drawing.Point(1296, 692);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 21);
             this.textBox1.TabIndex = 7;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(665, 698);
+            this.textBox2.Location = new System.Drawing.Point(1286, 742);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 21);
             this.textBox2.TabIndex = 8;
@@ -258,12 +267,104 @@
             this.label7.TabIndex = 23;
             this.label7.Text = "vs";
             // 
+            // gMapControl1
+            // 
+            this.gMapControl1.Bearing = 0F;
+            this.gMapControl1.CanDragMap = true;
+            this.gMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
+            this.gMapControl1.GrayScaleMode = false;
+            this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.gMapControl1.LevelsKeepInMemmory = 5;
+            this.gMapControl1.Location = new System.Drawing.Point(12, 668);
+            this.gMapControl1.MarkersEnabled = true;
+            this.gMapControl1.MaxZoom = 2;
+            this.gMapControl1.MinZoom = 2;
+            this.gMapControl1.MouseWheelZoomEnabled = true;
+            this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.gMapControl1.Name = "gMapControl1";
+            this.gMapControl1.NegativeMode = false;
+            this.gMapControl1.PolygonsEnabled = true;
+            this.gMapControl1.RetryLoadTile = 0;
+            this.gMapControl1.RoutesEnabled = true;
+            this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.gMapControl1.ShowTileGridLines = false;
+            this.gMapControl1.Size = new System.Drawing.Size(635, 139);
+            this.gMapControl1.TabIndex = 26;
+            this.gMapControl1.Zoom = 0D;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(90, 812);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 12);
+            this.label6.TabIndex = 27;
+            this.label6.Text = "label6";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(283, 812);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(41, 12);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "label8";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(449, 812);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(41, 12);
+            this.label9.TabIndex = 29;
+            this.label9.Text = "label9";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(600, 812);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(47, 12);
+            this.label10.TabIndex = 30;
+            this.label10.Text = "label10";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(755, 609);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 31;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(899, 608);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 32;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(1038, 609);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 33;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // a350ND1
             // 
-            this.a350ND1.Location = new System.Drawing.Point(244, 93);
+            this.a350ND1.Location = new System.Drawing.Point(388, 12);
             this.a350ND1.MapImage = null;
             this.a350ND1.Name = "a350ND1";
-            this.a350ND1.Size = new System.Drawing.Size(434, 434);
+            this.a350ND1.Size = new System.Drawing.Size(350, 346);
             this.a350ND1.TabIndex = 25;
             this.a350ND1.Text = "a350ND1";
             // 
@@ -271,15 +372,32 @@
             // 
             this.b737PFD1.Location = new System.Drawing.Point(12, 12);
             this.b737PFD1.Name = "b737PFD1";
-            this.b737PFD1.Size = new System.Drawing.Size(194, 188);
+            this.b737PFD1.Size = new System.Drawing.Size(370, 346);
             this.b737PFD1.TabIndex = 24;
             this.b737PFD1.Text = "b737PFD1";
+            // 
+            // b737EICAS1
+            // 
+            this.b737EICAS1.Location = new System.Drawing.Point(24, 391);
+            this.b737EICAS1.Name = "b737EICAS1";
+            this.b737EICAS1.Size = new System.Drawing.Size(252, 249);
+            this.b737EICAS1.TabIndex = 34;
+            this.b737EICAS1.Text = "b737EICAS1";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1411, 833);
+            this.Controls.Add(this.b737EICAS1);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.gMapControl1);
             this.Controls.Add(this.a350ND1);
             this.Controls.Add(this.b737PFD1);
             this.Controls.Add(this.label7);
@@ -346,5 +464,14 @@
         private System.Windows.Forms.Label label7;
         private PlaneInstrumentControlLibrary.B737PFD.B737PFD b737PFD1;
         private PlaneInstrumentControlLibrary.A350ND.A350ND a350ND1;
+        private GMap.NET.WindowsForms.GMapControl gMapControl1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private PlaneInstrumentControlLibrary.B737EICAS.B737EICAS b737EICAS1;
     }
 }

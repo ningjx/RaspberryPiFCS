@@ -543,7 +543,7 @@ namespace GMap.NET.WindowsForms
         readonly ImageAttributes TileFlipXYAttributes = new ImageAttributes();
 #endif
         double zoomReal;
-        Bitmap backBuffer;
+        public Bitmap backBuffer;
         Graphics gxOff;
 
 #if !DESIGN

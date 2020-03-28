@@ -19,7 +19,7 @@ namespace RaspberryPiClient.Controllers
 
             string portName = "COM3";
             serialPort = new SerialPort(portName, 115200, Parity.None, 8, StopBits.One);
-            serialPort.DataReceived += SerialPort_DataReceived; ;
+            serialPort.DataReceived += SerialPort_DataReceived; 
             serialPort.Open();
         }
 

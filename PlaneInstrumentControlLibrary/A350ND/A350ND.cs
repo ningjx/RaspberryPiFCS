@@ -52,8 +52,7 @@ namespace PlaneInstrumentControlLibrary.A350ND
 
             if (MapImage != null)
             {
-                scale = (float)Width / MapImage.Width;
-                pe.Graphics.DrawImage(MapImage, 0, 0, MapImage.Width * scale, MapImage.Height * scale);
+                pe.Graphics.DrawImage(MapImage, 0, 0, 800, 800);
             }
             pe.Graphics.DrawImage(mapCover, 0, 0, mapCover.Width * scale, mapCover.Height * scale);
             RotateImage(pe, rose, InterpolPhyToAngle((float)heading, 0, 360, 360, 0), rosePosition, roseRotation, scale);

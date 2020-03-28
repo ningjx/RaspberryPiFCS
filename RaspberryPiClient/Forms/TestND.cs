@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FlightDataModel;
 using GMap.NET;
 using GMap.NET.MapProviders;
+using RaspberryPiClient.Controllers;
 using RaspberryPiClient.Helper;
 
 namespace RaspberryPiClient.Forms
@@ -16,6 +18,7 @@ namespace RaspberryPiClient.Forms
     public partial class TestND : Form
     {
         Bitmap map;
+        FlightData data;
         public TestND()
         {
             InitializeComponent();
@@ -25,6 +28,7 @@ namespace RaspberryPiClient.Forms
             gMapControl1.MinZoom = 1;
             gMapControl1.MaxZoom = 24;//指定最大最小zoom才可以缩放
             gMapControl1.DragButton = MouseButtons.Left;
+            data = TestEq.FlightData;
         }
 
         private void Instance_MapSet(Bitmap map)
@@ -66,6 +70,19 @@ namespace RaspberryPiClient.Forms
             a350ND1.SetValues(trackBar4.Value);
             gMapControl1.Bearing = trackBar4.Value;// - 180;
             //a350ND1.SetMap(map);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            map = gMapControl1.backBuffer;
+            a350ND1.SetMap(map);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            gMapControl1.Position = new PointLatLng(data.GPSData.Latitude, data.GPSData.Longitude);
+            textBox5.Text = data.GPSData.Latitude.ToString("f2");
+            textBox6.Text = data.GPSData.Longitude.ToString("f2");
         }
     }
 }

@@ -42,6 +42,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="B737EFIS\B737EFISResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B737EFISResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="B737EICAS\B737EICAS.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="B737EICAS\B737EICAS.Designer.cs">
+      <DependentUpon>B737EICAS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="B737EICAS\B737EICASResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B737EICASResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="B737PFD\B737PFD.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -109,6 +125,7 @@
       <DependentUpon>VerticalSpeedIndicatorInstrumentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sound.cs" />
     <Compile Include="TemForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +139,94 @@
     <None Include="A350ND\Images\backGround.png" />
     <Content Include="A350ND\Images\mapCover.png" />
     <Content Include="A350ND\Images\top.png" />
+    <Content Include="B737EICAS\Sounds\CSC_fix.wav" />
+    <Content Include="B737EICAS\Sounds\CSC_short.wav" />
+    <Content Include="B737PFD\Sounds\10.wav" />
+    <Content Include="B737PFD\Sounds\100.wav" />
+    <Content Include="B737PFD\Sounds\1000.wav" />
+    <Content Include="B737PFD\Sounds\100_above.wav" />
+    <Content Include="B737PFD\Sounds\20.wav" />
+    <Content Include="B737PFD\Sounds\200.wav" />
+    <Content Include="B737PFD\Sounds\2000.wav" />
+    <Content Include="B737PFD\Sounds\2500.wav" />
+    <Content Include="B737PFD\Sounds\30.wav" />
+    <Content Include="B737PFD\Sounds\300.wav" />
+    <Content Include="B737PFD\Sounds\40.wav" />
+    <Content Include="B737PFD\Sounds\400.wav" />
+    <Content Include="B737PFD\Sounds\50.wav" />
+    <Content Include="B737PFD\Sounds\500.wav" />
+    <Content Include="B737PFD\Sounds\60.wav" />
+    <Content Include="B737PFD\Sounds\70.wav" />
+    <Content Include="B737PFD\Sounds\80.wav" />
+    <Content Include="B737PFD\Sounds\90.wav" />
+    <Content Include="B737PFD\Sounds\A380EGPWS_OBSTACLE_AHEAD_2.wav" />
+    <Content Include="B737PFD\Sounds\A380EGPWS_OBSTACLE_PULL_UP.wav" />
+    <Content Include="B737PFD\Sounds\A380EGPWS_TERRAIN_2.wav" />
+    <Content Include="B737PFD\Sounds\A380EGPWS_TERRAIN_AHEAD_2.wav" />
+    <Content Include="B737PFD\Sounds\A380EGPWS_TERRAIN_PULL_UP.wav" />
+    <Content Include="B737PFD\Sounds\A380WINDSHEAR.wav" />
+    <Content Include="B737PFD\Sounds\bankangle.wav" />
+    <Content Include="B737PFD\Sounds\dontsink.wav" />
+    <Content Include="B737PFD\Sounds\glideslope.wav" />
+    <Content Include="B737PFD\Sounds\minimums.wav" />
+    <Content Include="B737PFD\Sounds\pullup.wav" />
+    <Content Include="B737PFD\Sounds\sinkrate.wav" />
+    <Content Include="B737PFD\Sounds\terrain.wav" />
+    <Content Include="B737PFD\Sounds\toolowflaps.wav" />
+    <Content Include="B737PFD\Sounds\toolowgear.wav" />
+    <Content Include="B737PFD\Sounds\toolowterrain.wav" />
+    <Content Include="B737EICAS\Images\background.png" />
+    <Content Include="B737EICAS\Images\cover1.png" />
+    <Content Include="B737EICAS\Images\cover2.png" />
+    <Content Include="B737EICAS\Images\ENG-FAIL-1.png" />
+    <Content Include="B737EICAS\Images\ENG-FAIL-2.png" />
+    <Content Include="B737EICAS\Images\insBack.png" />
+    <Content Include="B737EICAS\Images\insBack2.png" />
+    <Content Include="B737EICAS\Images\LOE-VOL-2.png" />
+    <Content Include="B737EICAS\Images\LOW-VOL-1.png" />
+    <Content Include="B737EICAS\Images\top.png" />
+    <Content Include="B737EICAS\Sounds\10.wav" />
+    <Content Include="B737EICAS\Sounds\100.wav" />
+    <Content Include="B737EICAS\Sounds\1000.wav" />
+    <Content Include="B737EICAS\Sounds\100_above.wav" />
+    <Content Include="B737EICAS\Sounds\20.wav" />
+    <Content Include="B737EICAS\Sounds\200.wav" />
+    <Content Include="B737EICAS\Sounds\2000.wav" />
+    <Content Include="B737EICAS\Sounds\2500.wav" />
+    <Content Include="B737EICAS\Sounds\30.wav" />
+    <Content Include="B737EICAS\Sounds\300.wav" />
+    <Content Include="B737EICAS\Sounds\40.wav" />
+    <Content Include="B737EICAS\Sounds\400.wav" />
+    <Content Include="B737EICAS\Sounds\50.wav" />
+    <Content Include="B737EICAS\Sounds\500.wav" />
+    <Content Include="B737EICAS\Sounds\60.wav" />
+    <Content Include="B737EICAS\Sounds\70.wav" />
+    <Content Include="B737EICAS\Sounds\80.wav" />
+    <Content Include="B737EICAS\Sounds\90.wav" />
+    <Content Include="B737EICAS\Sounds\A380EGPWS_OBSTACLE_AHEAD_2.wav" />
+    <Content Include="B737EICAS\Sounds\A380EGPWS_OBSTACLE_PULL_UP.wav" />
+    <Content Include="B737EICAS\Sounds\A380EGPWS_TERRAIN_2.wav" />
+    <Content Include="B737EICAS\Sounds\A380EGPWS_TERRAIN_AHEAD_2.wav" />
+    <Content Include="B737EICAS\Sounds\A380EGPWS_TERRAIN_PULL_UP.wav" />
+    <Content Include="B737EICAS\Sounds\A380WINDSHEAR.wav" />
+    <Content Include="B737EICAS\Sounds\bankangle.wav" />
+    <Content Include="B737EICAS\Sounds\belts.wav" />
+    <Content Include="B737EICAS\Sounds\cavalry_ch.wav" />
+    <Content Include="B737EICAS\Sounds\CSC.wav" />
+    <Content Include="B737EICAS\Sounds\dontsink.wav" />
+    <Content Include="B737EICAS\Sounds\glideslope.wav" />
+    <Content Include="B737EICAS\Sounds\minimums.wav" />
+    <Content Include="B737EICAS\Sounds\pullup.wav" />
+    <Content Include="B737EICAS\Sounds\retard.wav" />
+    <Content Include="B737EICAS\Sounds\SC.wav" />
+    <Content Include="B737EICAS\Sounds\sinkrate.wav" />
+    <Content Include="B737EICAS\Sounds\speed.wav" />
+    <Content Include="B737EICAS\Sounds\terrain.wav" />
+    <Content Include="B737EICAS\Sounds\toolowflaps.wav" />
+    <Content Include="B737EICAS\Sounds\toolowgear.wav" />
+    <Content Include="B737EICAS\Sounds\toolowterrain.wav" />
+    <Content Include="B737EICAS\Sounds\triple.wav" />
+    <Content Include="B737EICAS\Sounds\v1.wav" />
     <Content Include="B737PFD\Images\altCover.png" />
     <Content Include="B737PFD\Images\altTape.png" />
     <Content Include="B737PFD\Images\alt_bug-1.png" />
@@ -177,6 +282,14 @@
     <Content Include="OtherInstruments\Images\VerticalSpeedNeedle.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="B737EFIS\B737EFISResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>B737EFISResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="B737EICAS\B737EICASResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>B737EICASResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="B737PFD\B737PFDResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>B737PFDResource.Designer.cs</LastGenOutput>
@@ -193,6 +306,8 @@
       <DependentUpon>TemForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="B737EFIS\Images\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

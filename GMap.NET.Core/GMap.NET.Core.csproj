@@ -231,6 +231,8 @@
     <Compile Include="GMap.NET.MapProviders\ArcGIS\ArcGIS_World_Street_MapProvider.cs" />
     <Compile Include="GMap.NET.MapProviders\ArcGIS\ArcGIS_World_Terrain_Base_MapProvider.cs" />
     <Compile Include="GMap.NET.MapProviders\ArcGIS\ArcGIS_World_Topo_MapProvider.cs" />
+    <Compile Include="GMap.NET.MapProviders\BMap\BMapProvider.cs" />
+    <Compile Include="GMap.NET.MapProviders\BMap\BMapSateliteMProvider.cs" />
     <Compile Include="GMap.NET.MapProviders\Czech\CzechGeographicMapProvider.cs" />
     <Compile Include="GMap.NET.MapProviders\Czech\CzechHistoryMapProvider.cs" />
     <Compile Include="GMap.NET.MapProviders\Czech\CzechHybridMapProvider.cs" />
