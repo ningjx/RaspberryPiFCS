@@ -50,9 +50,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.button1 = new System.Windows.Forms.Button();
-            this.a350ND1 = new PlaneInstrumentControlLibrary.A350ND.A350ND();
-            this.b737PFD1 = new PlaneInstrumentControlLibrary.B737PFD.B737PFD();
-            this.b737EICAS1 = new PlaneInstrumentControlLibrary.B737EICAS.B737EICAS();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -62,6 +59,10 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.b737EICAS1 = new PlaneInstrumentControlLibrary.B737EICAS.B737EICAS();
+            this.a350ND1 = new PlaneInstrumentControlLibrary.A350ND.A350ND();
+            this.b737PFD1 = new PlaneInstrumentControlLibrary.B737PFD.B737PFD();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.rollBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pitchBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.headingBar)).BeginInit();
@@ -161,8 +162,8 @@
             // vsBar
             // 
             this.vsBar.Location = new System.Drawing.Point(812, 391);
-            this.vsBar.Maximum = 60;
-            this.vsBar.Minimum = -60;
+            this.vsBar.Maximum = 70;
+            this.vsBar.Minimum = -70;
             this.vsBar.Name = "vsBar";
             this.vsBar.Size = new System.Drawing.Size(460, 45);
             this.vsBar.TabIndex = 15;
@@ -266,31 +267,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // a350ND1
-            // 
-            this.a350ND1.Location = new System.Drawing.Point(388, 12);
-            this.a350ND1.MapImage = null;
-            this.a350ND1.Name = "a350ND1";
-            this.a350ND1.Size = new System.Drawing.Size(350, 346);
-            this.a350ND1.TabIndex = 25;
-            this.a350ND1.Text = "a350ND1";
-            // 
-            // b737PFD1
-            // 
-            this.b737PFD1.Location = new System.Drawing.Point(12, 12);
-            this.b737PFD1.Name = "b737PFD1";
-            this.b737PFD1.Size = new System.Drawing.Size(370, 346);
-            this.b737PFD1.TabIndex = 24;
-            this.b737PFD1.Text = "b737PFD1";
-            // 
-            // b737EICAS1
-            // 
-            this.b737EICAS1.Location = new System.Drawing.Point(12, 362);
-            this.b737EICAS1.Name = "b737EICAS1";
-            this.b737EICAS1.Size = new System.Drawing.Size(370, 373);
-            this.b737EICAS1.TabIndex = 34;
-            this.b737EICAS1.Text = "b737EICAS1";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -387,11 +363,47 @@
             this.comboBox3.Size = new System.Drawing.Size(121, 20);
             this.comboBox3.TabIndex = 39;
             // 
+            // b737EICAS1
+            // 
+            this.b737EICAS1.Location = new System.Drawing.Point(12, 362);
+            this.b737EICAS1.Name = "b737EICAS1";
+            this.b737EICAS1.Size = new System.Drawing.Size(370, 373);
+            this.b737EICAS1.TabIndex = 34;
+            this.b737EICAS1.Text = "b737EICAS1";
+            // 
+            // a350ND1
+            // 
+            this.a350ND1.Location = new System.Drawing.Point(388, 12);
+            this.a350ND1.MapImage = null;
+            this.a350ND1.Name = "a350ND1";
+            this.a350ND1.Size = new System.Drawing.Size(350, 346);
+            this.a350ND1.TabIndex = 25;
+            this.a350ND1.Text = "a350ND1";
+            // 
+            // b737PFD1
+            // 
+            this.b737PFD1.Location = new System.Drawing.Point(12, 12);
+            this.b737PFD1.Name = "b737PFD1";
+            this.b737PFD1.Size = new System.Drawing.Size(370, 346);
+            this.b737PFD1.TabIndex = 24;
+            this.b737PFD1.Text = "b737PFD1";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(390, 763);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 40;
+            this.button2.Text = "取消警告";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1411, 833);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.comboBox2);
@@ -472,5 +484,6 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Button button2;
     }
 }

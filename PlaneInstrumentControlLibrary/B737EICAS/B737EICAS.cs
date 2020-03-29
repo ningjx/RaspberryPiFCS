@@ -105,21 +105,21 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             if(en1!= EngineStatus.NoChange)
             {
                 if (engineStatus1 != en1 && en1 == EngineStatus.LowVol)
-                    sound.Play(SoundType.scSound);
+                    sound.SysPlay(SoundType.scSound);
                 if (engineStatus1 != en1 && en1 == EngineStatus.Fail)
-                    sound.PlayLoop(SoundType.cscSound);
+                    sound.cscSound.PlayLooping();
                 if (engineStatus1 != en1 && en1 == EngineStatus.Nor)
-                    sound.Stop(SoundType.cscSound);
+                    sound.cscSound.Stop();
                 engineStatus1 = en1;
             }
             if (en2 != EngineStatus.NoChange)
             {
                 if (engineStatus2 != en2 && en2 == EngineStatus.LowVol)
-                    sound.Play(SoundType.scSound);
+                    sound.SysPlay(SoundType.scSound);
                 if (engineStatus2 != en1 && en2 == EngineStatus.Fail)
-                    sound.PlayLoop(SoundType.cscSound);
+                    sound.cscSound.PlayLooping();
                 if (engineStatus2 != en1 && en2 == EngineStatus.Nor)
-                    sound.Stop(SoundType.cscSound);
+                    sound.cscSound.Stop();
                 engineStatus2 = en2;
             }
             Refresh();
@@ -170,21 +170,34 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
     }
     class B737EICASSound : Sound
     {
-        SoundPlayer cscSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC_fix.wav");
-        SoundPlayer scSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\SC.wav");
-        protected override SoundPlayer GetSoundPlayer(int hashCode)
+        SysSound scSound = new SysSound
+        {
+            FileName = @"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\SC.wav",
+            MillionSec = 1000
+        };
+
+        public SoundPlayer cscSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC_fix.wav");
+
+        protected override SysSound GetSysSound(int hashCode)
         {
             switch (hashCode)
             {
-                case 0: return cscSound;
-                case 1: return scSound;
-                default: return new SoundPlayer();
+                case 0: return scSound;
+                default: return new SysSound();
             }
         }
+        //protected override SoundPlayer GetSoundPlayer(int hashCode)
+        //{
+        //    switch (hashCode)
+        //    {
+        //        case 0: return cscSound;
+        //        case 1: return scSound;
+        //        default: return new SoundPlayer();
+        //    }
+        //}
     }
     enum SoundType
     {
-        cscSound,
         scSound
     }
 }

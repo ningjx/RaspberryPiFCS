@@ -197,12 +197,12 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         {
             if (Math.Abs(roll) > 60 && !bankAngelWarning)
             {
-                sound.PlayLoop(SoundType.bankangle);
+                sound.PlayLoopInArray(SoundType.bankangle);
                 bankAngelWarning = true;
             }
             if (Math.Abs(roll) <= 60 && bankAngelWarning)
             {
-                sound.StopFakeLoop();
+                sound.StopPlayInArray(SoundType.bankangle);
                 bankAngelWarning = false;
             }
         }
@@ -212,14 +212,14 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         private bool sinkRateWarning = false;
         private void SinkRate(double vs)
         {
-            if (Math.Abs(vs) > 6 && !sinkRateWarning)
+            if (vs < -6 && !sinkRateWarning)
             {
-                sound.PlayLoop(SoundType.sinkrate);
+                sound.PlayLoopInArray(SoundType.sinkrate);
                 sinkRateWarning = true;
             }
-            if (Math.Abs(vs) <= 6 && sinkRateWarning)
+            if (vs >= -6 && sinkRateWarning)
             {
-                sound.StopFakeLoop();
+                sound.StopPlayInArray(SoundType.sinkrate);
                 sinkRateWarning = false;
             }
         }
@@ -240,80 +240,80 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             if (alt <= 25 && altBuffer > 25)
             {
                 altBuffer = alt;
-                sound.Play(SoundType.S2500);
+                sound.SysPlay(SoundType.S2500);
                 return;
             }
             if (alt <= 20 && altBuffer > 20)
             {
                 altBuffer = alt;
-                sound.Play(SoundType.S2000);
+                sound.SysPlay(SoundType.S2000);
                 return;
             }
             if (alt <= 10 && altBuffer > 10)
             {
                 altBuffer = alt;
-                sound.Play(SoundType.S1000);
+                sound.SysPlay(SoundType.S1000);
                 return;
             }
             if (alt <= 5 && altBuffer > 5)
             {
                 altBuffer = alt;
-                sound.Play(SoundType.S500);
+                sound.SysPlay(SoundType.S500);
                 return;
             }
             if (alt <= 4 && altBuffer > 4)
             {
                 altBuffer = alt;
-                sound.Play(SoundType.S400);
+                sound.SysPlay(SoundType.S400);
                 return;
             }
             if (alt <= 3 && altBuffer > 3)
             {
                 altBuffer = alt;
-                sound.Play(SoundType.S300);
+                sound.SysPlay(SoundType.S300);
                 return;
             }
             if (alt <= 2 && altBuffer > 2)
             {
                 altBuffer = alt;
-                sound.Play(SoundType.S200);
+                sound.SysPlay(SoundType.S200);
                 return;
             }
             if (alt <= 1 && altBuffer > 1)
             {
                 altBuffer = alt;
-                sound.Play(SoundType.S100a);
+                sound.SysPlay(SoundType.S100a);
                 return;
             }
 
             if (alt <= 0.5 && altBuffer > 0.5)
             {
                 altBuffer = alt;
-                sound.Play(SoundType.S50);
+                sound.SysPlay(SoundType.S50);
                 return;
             }
             if (alt <= 0.4 && altBuffer > 0.4)
             {
                 altBuffer = alt;
-                sound.Play(SoundType.S40);
+                sound.SysPlay(SoundType.S40);
                 return;
             }
             if (alt <= 0.3 && altBuffer > 0.3)
             {
                 altBuffer = alt;
-                sound.Play(SoundType.S30);
+                sound.SysPlay(SoundType.S30);
                 return;
             }
             if (alt <= 0.2 && altBuffer > 0.2)
             {
                 altBuffer = alt;
-                sound.Play(SoundType.S20);
+                sound.SysPlay(SoundType.S20);
                 return;
             }
             if (alt <= 0.1 && altBuffer > 0.1)
             {
                 altBuffer = alt;
-                sound.Play(SoundType.S10);
+                sound.SysPlay(SoundType.S10);
                 return;
             }
             altBuffer = alt;
@@ -328,7 +328,8 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             {
                 if (!terrainWarning)
                     return;
-                sound.StopFakeLoop();
+                sound.StopPlayInArray(SoundType.terrain);
+                sound.StopPlayInArray(SoundType.pullup);
                 terrainWarning = false;
                 return;
             }
@@ -342,7 +343,8 @@ namespace PlaneInstrumentControlLibrary.B737PFD
 
             if (vs < 0 && alt < 0.2)
                 terrainWarning = true;
-            sound.PlayLoop(new List<SoundType> { SoundType.terrain, SoundType.pullup });
+            sound.PlayLoopInArray(SoundType.terrain);
+            sound.PlayLoopInArray(SoundType.pullup);
         }
         #endregion
     }
@@ -354,29 +356,29 @@ namespace PlaneInstrumentControlLibrary.B737PFD
 
     class B737PFDSound : Sound
     {
-        private SoundPlayer S10 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\10.wav");
-        private SoundPlayer S20 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\20.wav");
-        private SoundPlayer S30 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\30.wav");
-        private SoundPlayer S40 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\40.wav");
-        private SoundPlayer S50 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\50.wav");
-        private SoundPlayer S100a = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\100_above.wav");
-        private SoundPlayer S200 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\200.wav");
-        private SoundPlayer S300 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\300.wav");
-        private SoundPlayer S400 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\400.wav");
-        private SoundPlayer S500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\500.wav");
-        private SoundPlayer S1000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\1000.wav");
-        private SoundPlayer S2000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2000.wav");
-        private SoundPlayer S2500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2500.wav");
-        private SoundPlayer terrain = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\terrain.wav");
-        private SoundPlayer pullup = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\pullup.wav");
-        private SoundPlayer bankangle = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\bankangle.wav");
-        private SoundPlayer dontsink = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\dontsink.wav");
-        private SoundPlayer glideslope = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\glideslope.wav");
-        private SoundPlayer minimums = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\minimums.wav");
-        private SoundPlayer sinkrate = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\sinkrate.wav");
-        private SoundPlayer toolowflaps = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowflaps.wav");
-        private SoundPlayer toolowgear = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowgear.wav");
-        protected override SoundPlayer GetSoundPlayer(int hashCode)
+        private SysSound S10 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\10.wav");
+        private SysSound S20 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\20.wav");
+        private SysSound S30 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\30.wav");
+        private SysSound S40 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\40.wav");
+        private SysSound S50 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\50.wav");
+        private SysSound S100a = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\100_above.wav");
+        private SysSound S200 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\200.wav");
+        private SysSound S300 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\300.wav");
+        private SysSound S400 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\400.wav");
+        private SysSound S500 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\500.wav");
+        private SysSound S1000 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\1000.wav");
+        private SysSound S2000 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2000.wav");
+        private SysSound S2500 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2500.wav",1500);
+        private SysSound terrain = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\terrain.wav");
+        private SysSound pullup = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\pullup.wav");
+        private SysSound bankangle = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\bankangle.wav");
+        private SysSound dontsink = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\dontsink.wav");
+        private SysSound glideslope = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\glideslope.wav");
+        private SysSound minimums = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\minimums.wav");
+        private SysSound sinkrate = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\sinkrate.wav");
+        private SysSound toolowflaps = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowflaps.wav");
+        private SysSound toolowgear = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowgear.wav");
+        protected override SysSound GetSysSound(int hashCode)
         {
             switch (hashCode)
             {
@@ -425,7 +427,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
                 case 21:
                     return toolowgear;
                 default:
-                    return new SoundPlayer();
+                    return new SysSound();
             }
         }
     }
