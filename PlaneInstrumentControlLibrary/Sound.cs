@@ -86,9 +86,22 @@ namespace PlaneInstrumentControlLibrary
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sound"></param>
-        public void SysPlay<T>(T sound)
+        public void PlaySync<T>(T sound)
         {
             GetSysSound(sound.GetHashCode()).PlaySync();
+        }
+
+        public void Play<T>(T sound)
+        {
+            GetSysSound(sound.GetHashCode()).Play();
+        }
+
+        public void PlaySync<T>(T sound,Action action)
+        {
+            Task.Run(() => {
+                GetSysSound(sound.GetHashCode()).Play();
+                action.Invoke();
+            });
         }
 
         protected virtual SysSound GetSysSound(int hashCode)

@@ -105,20 +105,28 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             if(en1!= EngineStatus.NoChange)
             {
                 if (engineStatus1 != en1 && en1 == EngineStatus.LowVol)
-                    sound.SysPlay(SoundType.scSound);
-                if (engineStatus1 != en1 && en1 == EngineStatus.Fail)
-                    sound.cscSound.PlayLooping();
-                if (engineStatus1 != en1 && en1 == EngineStatus.Nor)
-                    sound.cscSound.Stop();
+                {
+                    if(engineStatus1 == EngineStatus.Fail&& engineStatus2 != EngineStatus.Fail)
+                        sound.cscSound.Stop();
+                    sound.PlaySync(SoundType.scSound);
+                }
+                if (engineStatus1 != en1 && en1 == EngineStatus.Fail&& engineStatus2 != EngineStatus.Fail)
+                        sound.cscSound.PlayLooping();
+                if (engineStatus1 != en1 && en1 == EngineStatus.Nor&& engineStatus2 != EngineStatus.Fail)
+                        sound.cscSound.Stop();
                 engineStatus1 = en1;
             }
             if (en2 != EngineStatus.NoChange)
             {
                 if (engineStatus2 != en2 && en2 == EngineStatus.LowVol)
-                    sound.SysPlay(SoundType.scSound);
-                if (engineStatus2 != en1 && en2 == EngineStatus.Fail)
+                {
+                    if (engineStatus2 == EngineStatus.Fail && engineStatus1 != EngineStatus.Fail)
+                        sound.cscSound.Stop();
+                    sound.PlaySync(SoundType.scSound);
+                }
+                if (engineStatus2 != en2 && en2 == EngineStatus.Fail&& engineStatus1 != EngineStatus.Fail)
                     sound.cscSound.PlayLooping();
-                if (engineStatus2 != en1 && en2 == EngineStatus.Nor)
+                if (engineStatus2 != en2 && en2 == EngineStatus.Nor&& engineStatus1 != EngineStatus.Fail)
                     sound.cscSound.Stop();
                 engineStatus2 = en2;
             }
@@ -137,8 +145,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
         public void CancelWarning()
         {
-            cscWarning = false;
-            scWarning = false;
+            sound.cscSound.Stop();
         }
 
         private void PainWarning(PaintEventArgs pe)

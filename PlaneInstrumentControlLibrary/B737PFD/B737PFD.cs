@@ -212,15 +212,16 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         private bool sinkRateWarning = false;
         private void SinkRate(double vs)
         {
+            if (sinkRateWarning)
+                return;
+            void action()
+            {
+                sinkRateWarning = false;
+            }
             if (vs < -6 && !sinkRateWarning)
             {
-                sound.PlayLoopInArray(SoundType.sinkrate);
                 sinkRateWarning = true;
-            }
-            if (vs >= -6 && sinkRateWarning)
-            {
-                sound.StopPlayInArray(SoundType.sinkrate);
-                sinkRateWarning = false;
+                sound.PlaySync(SoundType.sinkrate, action);
             }
         }
 
@@ -240,80 +241,80 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             if (alt <= 25 && altBuffer > 25)
             {
                 altBuffer = alt;
-                sound.SysPlay(SoundType.S2500);
+                sound.PlaySync(SoundType.S2500);
                 return;
             }
             if (alt <= 20 && altBuffer > 20)
             {
                 altBuffer = alt;
-                sound.SysPlay(SoundType.S2000);
+                sound.PlaySync(SoundType.S2000);
                 return;
             }
             if (alt <= 10 && altBuffer > 10)
             {
                 altBuffer = alt;
-                sound.SysPlay(SoundType.S1000);
+                sound.PlaySync(SoundType.S1000);
                 return;
             }
             if (alt <= 5 && altBuffer > 5)
             {
                 altBuffer = alt;
-                sound.SysPlay(SoundType.S500);
+                sound.PlaySync(SoundType.S500);
                 return;
             }
             if (alt <= 4 && altBuffer > 4)
             {
                 altBuffer = alt;
-                sound.SysPlay(SoundType.S400);
+                sound.PlaySync(SoundType.S400);
                 return;
             }
             if (alt <= 3 && altBuffer > 3)
             {
                 altBuffer = alt;
-                sound.SysPlay(SoundType.S300);
+                sound.PlaySync(SoundType.S300);
                 return;
             }
             if (alt <= 2 && altBuffer > 2)
             {
                 altBuffer = alt;
-                sound.SysPlay(SoundType.S200);
+                sound.PlaySync(SoundType.S200);
                 return;
             }
             if (alt <= 1 && altBuffer > 1)
             {
                 altBuffer = alt;
-                sound.SysPlay(SoundType.S100a);
+                sound.PlaySync(SoundType.S100a);
                 return;
             }
 
             if (alt <= 0.5 && altBuffer > 0.5)
             {
                 altBuffer = alt;
-                sound.SysPlay(SoundType.S50);
+                sound.PlaySync(SoundType.S50);
                 return;
             }
             if (alt <= 0.4 && altBuffer > 0.4)
             {
                 altBuffer = alt;
-                sound.SysPlay(SoundType.S40);
+                sound.PlaySync(SoundType.S40);
                 return;
             }
             if (alt <= 0.3 && altBuffer > 0.3)
             {
                 altBuffer = alt;
-                sound.SysPlay(SoundType.S30);
+                sound.PlaySync(SoundType.S30);
                 return;
             }
             if (alt <= 0.2 && altBuffer > 0.2)
             {
                 altBuffer = alt;
-                sound.SysPlay(SoundType.S20);
+                sound.PlaySync(SoundType.S20);
                 return;
             }
             if (alt <= 0.1 && altBuffer > 0.1)
             {
                 altBuffer = alt;
-                sound.SysPlay(SoundType.S10);
+                sound.PlaySync(SoundType.S10);
                 return;
             }
             altBuffer = alt;

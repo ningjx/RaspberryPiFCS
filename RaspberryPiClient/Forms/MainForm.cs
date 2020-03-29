@@ -27,9 +27,9 @@ namespace RaspberryPiClient
             gMapControl1.MinZoom = 1;
             gMapControl1.MaxZoom = 24;//指定最大最小zoom才可以缩放
             gMapControl1.DragButton = MouseButtons.Left;
-            //data = TestEq.FlightData;
+            data = TestEq.FlightData;
             gMapControl1.Zoom = 10;
-            //timer1.Start();
+            timer1.Start();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -82,7 +82,8 @@ namespace RaspberryPiClient
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            b737PFD1.SetValues(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, data.Attitude.BarometricAltitude, data.Attitude.Aacceleration_X, data.Attitude.Aacceleration_Y * 10, data.Attitude.Angle_Z);
+            //b737PFD1.SetValues(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, data.Attitude.BarometricAltitude, data.Attitude.Aacceleration_X, data.Attitude.Aacceleration_Y * 10, data.Attitude.Angle_Z);
+            b737PFD1.SetValues(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
             a350ND1.SetValues(data.Attitude.Angle_Z);
             gMapControl1.Bearing = data.Attitude.Angle_Z;
             var a = Extends.GPSToGCJ(data.GPSData.Longitude / 1E7D, data.GPSData.Latitude / 1E7D);
@@ -136,13 +137,13 @@ namespace RaspberryPiClient
             switch (comboBox1.Text)
             {
                 case "失效":
-                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, EngineStatus.Fail, EngineStatus.Unknown);
+                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, EngineStatus.Fail);
                     break;
                 case "正常":
-                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, EngineStatus.Nor, EngineStatus.Unknown);
+                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, EngineStatus.Nor);
                     break;
                 case "警告":
-                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, EngineStatus.LowVol, EngineStatus.Unknown);
+                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, EngineStatus.LowVol);
                     break;
             }
         }
@@ -152,16 +153,16 @@ namespace RaspberryPiClient
             //失效
             //警告
             //正常
-            switch (comboBox1.Text)
+            switch (comboBox2.Text)
             {
                 case "失效":
-                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, EngineStatus.Unknown, EngineStatus.Fail);
+                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, en2: EngineStatus.Fail);
                     break;
                 case "正常":
-                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, EngineStatus.Unknown, EngineStatus.Nor);
+                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, en2: EngineStatus.Nor);
                     break;
                 case "警告":
-                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, EngineStatus.Unknown, EngineStatus.LowVol);
+                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, en2: EngineStatus.LowVol);
                     break;
             }
         }
