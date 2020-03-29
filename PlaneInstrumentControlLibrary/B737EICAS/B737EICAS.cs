@@ -31,7 +31,6 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
         Bitmap eng_fail_2 = new Bitmap(B737EICASResource.ENG_FAIL_2);
         Bitmap low_vol_1 = new Bitmap(B737EICASResource.LOW_VOL_1);
         Bitmap low_vol_2 = new Bitmap(B737EICASResource.LOE_VOL_2);
-        Bitmap textRetan = new Bitmap(B737EICASResource.textRetangle);
 
         SolidBrush drawBrush = new SolidBrush(Color.White);
         SolidBrush infoBrush = new SolidBrush(Color.FromArgb(115, 255, 87));
@@ -91,7 +90,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             pe.Graphics.DrawString(volte1.ToString("f0").PadLeft(3, '0'), altFont, drawBrush, 302 * scale, 430 * scale);
             pe.Graphics.DrawString(volte2.ToString("f0").PadLeft(3, '0'), altFont, drawBrush, 402 * scale, 430 * scale);
 
-            pe.Graphics.DrawImage(textRetan, 0, 0, textRetan.Width * scale, textRetan.Height * scale);
+            //pe.Graphics.DrawImage(textRetan, 0, 0, textRetan.Width * scale, textRetan.Height * scale);
             int yPosition = 60;
             foreach(var item in texts)
             {
