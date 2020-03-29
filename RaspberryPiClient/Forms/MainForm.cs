@@ -70,7 +70,8 @@ namespace RaspberryPiClient
 
         private void altBar_Scroll(object sender, EventArgs e)
         {
-            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            //b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            //b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
             textBox7.Text = altBar.Value.ToString();
         }
 
@@ -85,6 +86,7 @@ namespace RaspberryPiClient
             //b737PFD1.SetValues(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, data.Attitude.BarometricAltitude, data.Attitude.Aacceleration_X, data.Attitude.Aacceleration_Y * 10, data.Attitude.Angle_Z);
             b737PFD1.SetValues(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, data.Attitude.Angle_Z);
             a350ND1.SetValues(data.Attitude.Angle_Z);
+            b737EICAS1.SetValues(20, 60, 60, 50, 50, data.Attitude.Angle_Z, 0, 4.2F, 4.2F);
             gMapControl1.Bearing = data.Attitude.Angle_Z;
             var a = Extends.GPSToGCJ(data.GPSData.Longitude / 1E7D, data.GPSData.Latitude / 1E7D);
             gMapControl1.Position = a;
@@ -170,6 +172,32 @@ namespace RaspberryPiClient
         private void button2_Click(object sender, EventArgs e)
         {
             b737EICAS1.CancelWarning();
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string[] aa = textBox1.Text.Split('.');
+            List<EICASInfo> infos = new List<EICASInfo>();
+            foreach(var item in aa)
+            {
+                infos.Add(new EICASInfo { WarningType = WarningType.Info, Text = item });
+                infos.Add(new EICASInfo { WarningType = WarningType.Warning, Text = item });
+                infos.Add(new EICASInfo { WarningType = WarningType.Error, Text = item });
+            }
+            b737EICAS1.SetTexts(infos);
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            textBox2.Text = trackBar1.Value.ToString();
+            b737EICAS1.SetXY(trackBar1.Value, trackBar2.Value,0,0);
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            textBox9.Text = trackBar2.Value.ToString();
+            b737EICAS1.SetXY(trackBar1.Value, trackBar2.Value,0,0);
 
         }
     }

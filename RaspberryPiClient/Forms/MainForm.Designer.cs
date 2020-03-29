@@ -63,12 +63,20 @@
             this.a350ND1 = new PlaneInstrumentControlLibrary.A350ND.A350ND();
             this.b737PFD1 = new PlaneInstrumentControlLibrary.B737PFD.B737PFD();
             this.button2 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox9 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.rollBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pitchBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.headingBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.altBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vsBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -398,11 +406,66 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(786, 509);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(121, 21);
+            this.textBox1.TabIndex = 41;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(945, 507);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 42;
+            this.button3.Text = "设置信息";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(853, 610);
+            this.trackBar1.Maximum = 500;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(419, 45);
+            this.trackBar1.TabIndex = 43;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // trackBar2
+            // 
+            this.trackBar2.Location = new System.Drawing.Point(853, 675);
+            this.trackBar2.Maximum = 500;
+            this.trackBar2.Name = "trackBar2";
+            this.trackBar2.Size = new System.Drawing.Size(419, 45);
+            this.trackBar2.TabIndex = 44;
+            this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(1286, 620);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 21);
+            this.textBox2.TabIndex = 45;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(1286, 684);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(100, 21);
+            this.textBox9.TabIndex = 46;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1411, 833);
+            this.Controls.Add(this.textBox9);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.trackBar2);
+            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.button5);
@@ -445,6 +508,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.speedBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.altBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vsBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -485,5 +550,11 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar trackBar2;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox9;
     }
 }
