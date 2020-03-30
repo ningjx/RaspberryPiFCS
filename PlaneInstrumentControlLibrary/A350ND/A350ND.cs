@@ -24,12 +24,14 @@ namespace PlaneInstrumentControlLibrary.A350ND
         Bitmap rose = new Bitmap(A350NDResource.ARCRose);
         Bitmap mapCover = new Bitmap(A350NDResource.mapCover);
         Bitmap top = new Bitmap(A350NDResource.top);
+        Bitmap point = new Bitmap(A350NDResource.point);
 
-        double heading;
+        double heading,GPSHeading;
 
         float scale;
-        Point rosePosition;
-        Point roseRotation;
+        Point rosePosition = new Point(0, 0);
+        Point roseRotation = new Point(400, 413);
+        Point topRotation = new Point(400, 412);
         //public HeadingInstrument(IContainer container)
         //{
         //    container.Add(this);
@@ -43,12 +45,6 @@ namespace PlaneInstrumentControlLibrary.A350ND
             scale = (float)Width / backGroung.Width;
 
             pe.Graphics.DrawImage(backGroung, 0, 0, backGroung.Width * scale, backGroung.Height * scale);
-            //if (rosePosition == null)
-            //{
-              rosePosition = new Point(0, 0);
-              roseRotation = new Point(rose.Width-400, rose.Height-387);
-            //}
-
 
             if (MapImage != null)
             {
@@ -56,7 +52,17 @@ namespace PlaneInstrumentControlLibrary.A350ND
             }
             pe.Graphics.DrawImage(mapCover, 0, 0, mapCover.Width * scale, mapCover.Height * scale);
             RotateImage(pe, rose, InterpolPhyToAngle((float)heading, 0, 360, 360, 0), rosePosition, roseRotation, scale);
-            pe.Graphics.DrawImage(top, 0, 0, top.Width * scale, top.Height * scale);
+            double angel;
+            if (GPSHeading>= heading)
+            {
+                angel = GPSHeading - heading;
+            }
+            else
+            {
+                angel = GPSHeading - heading + 360;
+            }
+            RotateImage(pe, top, InterpolPhyToAngle((float)angel, 0, 360, 0, 360), rosePosition, topRotation, scale);
+            pe.Graphics.DrawImage(point, 0, 0, point.Width * scale, point.Height * scale);
 
         }
 
@@ -68,9 +74,10 @@ namespace PlaneInstrumentControlLibrary.A350ND
             Refresh();
         }
 
-        public void SetValues( double heading)
+        public void SetValues( double heading,double GPSHeading)
         {
             this.heading = heading;
+            this.GPSHeading = GPSHeading;
             Refresh();
         }
         public void SetXY(int x,int y)

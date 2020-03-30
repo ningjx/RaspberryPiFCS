@@ -5,8 +5,6 @@ using GMap.NET.MapProviders;
 using GMap.NET.Projections;
 using GMap.NET.WindowsForms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.DirectX;
-using Microsoft.DirectX.DirectSound;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Reflection.Metadata;

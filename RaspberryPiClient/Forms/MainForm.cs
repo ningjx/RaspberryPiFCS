@@ -56,9 +56,9 @@ namespace RaspberryPiClient
         private void headingBar_Scroll(object sender, EventArgs e)
         {
             b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
-            a350ND1.SetValues(headingBar.Value);
+            a350ND1.SetValues(headingBar.Value,0);
             textBox5.Text = headingBar.Value.ToString();
-            a350ND1.SetValues(headingBar.Value);
+            a350ND1.SetValues(headingBar.Value,0);
             gMapControl1.Bearing = headingBar.Value;
         }
 
@@ -85,7 +85,7 @@ namespace RaspberryPiClient
         {
             //b737PFD1.SetValues(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, data.Attitude.BarometricAltitude, data.Attitude.Aacceleration_X, data.Attitude.Aacceleration_Y * 10, data.Attitude.Angle_Z);
             b737PFD1.SetValues(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, data.Attitude.Angle_Z);
-            a350ND1.SetValues(data.Attitude.Angle_Z);
+            a350ND1.SetValues(data.Attitude.Angle_Z,0);
             b737EICAS1.SetValues(20, 60, 60, 50, 50, data.Attitude.Angle_Z, 0, 4.2F, 4.2F);
             gMapControl1.Bearing = data.Attitude.Angle_Z;
             var a = Extends.GPSToGCJ(data.GPSData.Longitude / 1E7D, data.GPSData.Latitude / 1E7D);
