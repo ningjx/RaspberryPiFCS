@@ -373,7 +373,7 @@
             // 
             // b737EICAS1
             // 
-            this.b737EICAS1.Location = new System.Drawing.Point(12, 362);
+            this.b737EICAS1.Location = new System.Drawing.Point(12, 364);
             this.b737EICAS1.Name = "b737EICAS1";
             this.b737EICAS1.Size = new System.Drawing.Size(370, 373);
             this.b737EICAS1.TabIndex = 34;
@@ -381,12 +381,13 @@
             // 
             // a350ND1
             // 
-            this.a350ND1.Location = new System.Drawing.Point(388, 12);
+            this.a350ND1.Location = new System.Drawing.Point(390, 22);
             this.a350ND1.MapImage = null;
             this.a350ND1.Name = "a350ND1";
-            this.a350ND1.Size = new System.Drawing.Size(350, 346);
+            this.a350ND1.Size = new System.Drawing.Size(329, 312);
             this.a350ND1.TabIndex = 25;
             this.a350ND1.Text = "a350ND1";
+            this.a350ND1.Click += new System.EventHandler(this.a350ND1_Click);
             // 
             // b737PFD1
             // 
@@ -472,7 +473,6 @@
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.b737EICAS1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -499,6 +499,7 @@
             this.Controls.Add(this.headingBar);
             this.Controls.Add(this.pitchBar);
             this.Controls.Add(this.rollBar);
+            this.Controls.Add(this.b737EICAS1);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);

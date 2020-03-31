@@ -18,11 +18,13 @@ namespace PlaneInstrumentControlLibrary.A350ND
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |ControlStyles.AllPaintingInWmPaint, true);
             //SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             //BackColor = Color.FromArgb(0, 0, 0, 0);
+            Region = Extendsion.ImageToRegionPx(mapCover, Color.Transparent);
         }
 
         Bitmap backGroung = new Bitmap(A350NDResource.backGround);
         Bitmap rose = new Bitmap(A350NDResource.ARCRose);
         Bitmap mapCover = new Bitmap(A350NDResource.mapCover);
+        Bitmap mapCover1 = new Bitmap(A350NDResource.mapCover___复制);
         Bitmap top = new Bitmap(A350NDResource.top);
         Bitmap point = new Bitmap(A350NDResource.point);
 
@@ -50,7 +52,7 @@ namespace PlaneInstrumentControlLibrary.A350ND
             {
                 pe.Graphics.DrawImage(MapImage, 0, 0, 800, 800);
             }
-            pe.Graphics.DrawImage(mapCover, 0, 0, mapCover.Width * scale, mapCover.Height * scale);
+            pe.Graphics.DrawImage(mapCover1, 0, 0, mapCover1.Width * scale, mapCover1.Height * scale);
             RotateImage(pe, rose, InterpolPhyToAngle((float)heading, 0, 360, 360, 0), rosePosition, roseRotation, scale);
             double angel;
             if (GPSHeading>= heading)

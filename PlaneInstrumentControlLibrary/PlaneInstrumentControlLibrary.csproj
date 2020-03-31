@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -80,6 +82,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>A350NDResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Extendsion.cs" />
     <Compile Include="InstrumentControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -137,6 +140,7 @@
   <ItemGroup>
     <None Include="A350ND\Images\ARCRose.png" />
     <None Include="A350ND\Images\backGround.png" />
+    <Content Include="A350ND\Images\mapCover - 复制.png" />
     <Content Include="A350ND\Images\mapCover.png" />
     <Content Include="A350ND\Images\point.png" />
     <Content Include="A350ND\Images\top.png" />

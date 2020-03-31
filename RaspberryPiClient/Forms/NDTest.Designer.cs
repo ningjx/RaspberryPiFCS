@@ -37,6 +37,7 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.a350ND1 = new PlaneInstrumentControlLibrary.A350ND.A350ND();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
@@ -116,6 +117,15 @@
             this.a350ND1.TabIndex = 0;
             this.a350ND1.Text = "a350ND1";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(107, 146);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // NDTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -130,6 +140,7 @@
             this.Controls.Add(this.trackBar2);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.a350ND1);
+            this.Controls.Add(this.button1);
             this.Name = "NDTest";
             this.Text = "NDTest";
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
@@ -152,5 +163,6 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button button1;
     }
 }

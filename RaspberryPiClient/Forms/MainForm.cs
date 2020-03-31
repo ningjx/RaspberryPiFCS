@@ -27,9 +27,9 @@ namespace RaspberryPiClient
             gMapControl1.MinZoom = 1;
             gMapControl1.MaxZoom = 24;//指定最大最小zoom才可以缩放
             gMapControl1.DragButton = MouseButtons.Left;
-            data = TestEq.FlightData;
+            //data = TestEq.FlightData;
             gMapControl1.Zoom = 10;
-            timer1.Start();
+            //timer1.Start();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -198,6 +198,11 @@ namespace RaspberryPiClient
         {
             textBox9.Text = trackBar2.Value.ToString();
             b737EICAS1.SetXY(trackBar1.Value, trackBar2.Value,0,0);
+
+        }
+
+        private void a350ND1_Click(object sender, EventArgs e)
+        {
 
         }
     }
