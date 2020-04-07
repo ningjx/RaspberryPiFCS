@@ -18,7 +18,7 @@ namespace PlaneInstrumentControlLibrary
     /// </summary>
     public class Sound
     {
-        private List<SysSound> SoundBuffer = new List<SysSound>();
+        private List<SoundRes> SoundBuffer = new List<SoundRes>();
 
         public Sound()
         {
@@ -56,7 +56,7 @@ namespace PlaneInstrumentControlLibrary
             {
                 lock (SoundBuffer)
                 {
-                    var instance = GetSysSound(sound.GetHashCode());
+                    var instance = GetSoundRes(sound.GetHashCode());
                     if (!SoundBuffer.Contains(instance))
                         SoundBuffer.Add(instance);
                 }
@@ -74,7 +74,7 @@ namespace PlaneInstrumentControlLibrary
             {
                 lock (SoundBuffer)
                 {
-                    var instance = GetSysSound(sound.GetHashCode());
+                    var instance = GetSoundRes(sound.GetHashCode());
                     if (SoundBuffer.Contains(instance))
                         SoundBuffer.Remove(instance);
                 }
@@ -89,7 +89,7 @@ namespace PlaneInstrumentControlLibrary
         /// <param name="times">播放次数</param>
         public void PlaySync<T>(T sound, int times = 1)
         {
-            GetSysSound(sound.GetHashCode()).PlaySync(times);
+            GetSoundRes(sound.GetHashCode()).PlaySync(times);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace PlaneInstrumentControlLibrary
         /// <param name="times">播放次数</param>
         public void Play<T>(T sound, int times = 1)
         {
-            GetSysSound(sound.GetHashCode()).Play(times);
+            GetSoundRes(sound.GetHashCode()).Play(times);
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace PlaneInstrumentControlLibrary
         {
             Task.Run(() =>
             {
-                GetSysSound(sound.GetHashCode()).Play(times);
+                GetSoundRes(sound.GetHashCode()).Play(times);
                 action.Invoke();
             });
         }
@@ -124,9 +124,9 @@ namespace PlaneInstrumentControlLibrary
         /// </summary>
         /// <param name="hashCode"></param>
         /// <returns></returns>
-        protected virtual SysSound GetSysSound(int hashCode)
+        protected virtual SoundRes GetSoundRes(int hashCode)
         {
-            return new SysSound();
+            return new SoundRes();
         }
     }
 
@@ -159,7 +159,7 @@ namespace PlaneInstrumentControlLibrary
             });
         }
 
-        public static void Play(this SysSound sound, int times = 1)
+        public static void Play(this SoundRes sound, int times = 1)
         {
             string device = regex.Match(sound.FileName).Value.Replace(@"Sounds\", "").Replace(".wav", "");
             for (int i = 0; i < times; i++)
@@ -172,7 +172,7 @@ namespace PlaneInstrumentControlLibrary
             }
         }
 
-        public static void PlaySync(this SysSound sound, int times = 1)
+        public static void PlaySync(this SoundRes sound, int times = 1)
         {
             Task.Run(() =>
             {
@@ -192,7 +192,7 @@ namespace PlaneInstrumentControlLibrary
     /// <summary>
     /// 声音对象
     /// </summary>
-    public class SysSound
+    public class SoundRes
     {
         /// <summary>
         /// 文件路径
@@ -203,7 +203,7 @@ namespace PlaneInstrumentControlLibrary
         /// </summary>
         public int MillionSec;
 
-        public SysSound()
+        public SoundRes()
         {
 
         }
@@ -212,7 +212,7 @@ namespace PlaneInstrumentControlLibrary
         /// 默认音频时长为1000ms
         /// </summary>
         /// <param name="fileName">文件路径</param>
-        public SysSound(string fileName)
+        public SoundRes(string fileName)
         {
             FileName = fileName;
             MillionSec = 1000;
@@ -223,7 +223,7 @@ namespace PlaneInstrumentControlLibrary
         /// </summary>
         /// <param name="fileName">文件路径</param>
         /// <param name="miSec">音频长度，单位ms</param>
-        public SysSound(string fileName, int miSec)
+        public SoundRes(string fileName, int miSec)
         {
             FileName = fileName;
             MillionSec = miSec;
