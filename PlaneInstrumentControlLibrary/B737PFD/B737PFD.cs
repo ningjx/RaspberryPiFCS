@@ -331,7 +331,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         private bool terrainWarning = false;
         private void TerrainWarning()
         {
-            if (vs >= 0 || alt >= 0.2)
+            if (vs >= 0 || alt >= 5)
             {
                 if (!terrainWarning)
                     return;
@@ -348,7 +348,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
                 return;
             }
 
-            if (vs < 0 && alt < 0.2)
+            if (vs < 0 && alt < 5)
                 terrainWarning = true;
             sound.PlayLoopInArray(SoundType.terrain);
             sound.PlayLoopInArray(SoundType.pullup);
