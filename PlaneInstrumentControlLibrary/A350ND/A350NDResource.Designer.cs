@@ -93,9 +93,9 @@ namespace PlaneInstrumentControlLibrary.A350ND {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap mapCover___复制 {
+        internal static System.Drawing.Bitmap mapCover_Copy {
             get {
-                object obj = ResourceManager.GetObject("mapCover___复制", resourceCulture);
+                object obj = ResourceManager.GetObject("mapCover_Copy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

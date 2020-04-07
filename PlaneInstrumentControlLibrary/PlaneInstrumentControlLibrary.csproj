@@ -140,7 +140,7 @@
   <ItemGroup>
     <None Include="A350ND\Images\ARCRose.png" />
     <None Include="A350ND\Images\backGround.png" />
-    <Content Include="A350ND\Images\mapCover - 复制.png" />
+    <Content Include="A350ND\Images\mapCover_Copy.png" />
     <Content Include="A350ND\Images\mapCover.png" />
     <Content Include="A350ND\Images\point.png" />
     <Content Include="A350ND\Images\top.png" />

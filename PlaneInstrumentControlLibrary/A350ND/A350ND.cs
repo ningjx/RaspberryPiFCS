@@ -24,7 +24,7 @@ namespace PlaneInstrumentControlLibrary.A350ND
         Bitmap backGroung = new Bitmap(A350NDResource.backGround);
         Bitmap rose = new Bitmap(A350NDResource.ARCRose);
         Bitmap mapCover = new Bitmap(A350NDResource.mapCover);
-        Bitmap mapCover1 = new Bitmap(A350NDResource.mapCover___复制);
+        Bitmap mapCover1 = new Bitmap(A350NDResource.mapCover_Copy);
         Bitmap top = new Bitmap(A350NDResource.top);
         Bitmap point = new Bitmap(A350NDResource.point);
 
