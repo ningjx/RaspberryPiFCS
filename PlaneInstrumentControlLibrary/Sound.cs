@@ -46,7 +46,7 @@ namespace PlaneInstrumentControlLibrary
         }
 
         /// <summary>
-        /// 通过队列播放的方式，循环播放各种警告
+        /// 通过队列播放的方式，循环播放各种警告，每个声音在队列中只能唯一存在
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sound"></param>
@@ -82,33 +82,52 @@ namespace PlaneInstrumentControlLibrary
         }
 
         /// <summary>
-        /// 直接播放一次某个声音
+        /// 异步播放某个声音
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sound"></param>
-        public void PlaySync<T>(T sound)
+        /// <param name="times">播放次数</param>
+        public void PlaySync<T>(T sound, int times = 1)
         {
-            GetSysSound(sound.GetHashCode()).PlaySync();
+            GetSysSound(sound.GetHashCode()).PlaySync(times);
         }
 
-        public void Play<T>(T sound)
+        /// <summary>
+        /// 同步播放某个声音
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sound"></param>
+        /// <param name="times">播放次数</param>
+        public void Play<T>(T sound, int times = 1)
         {
-            GetSysSound(sound.GetHashCode()).Play();
+            GetSysSound(sound.GetHashCode()).Play(times);
         }
 
-        public void PlaySync<T>(T sound,Action action)
+        /// <summary>
+        /// 播放某个声音指定次数之后，回调<see cref="Action"/>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sound"></param>
+        /// <param name="action"></param>
+        /// <param name="times">播放次数</param>
+        public void PlaySync<T>(T sound, Action action, int times = 1)
         {
-            Task.Run(() => {
-                GetSysSound(sound.GetHashCode()).Play();
+            Task.Run(() =>
+            {
+                GetSysSound(sound.GetHashCode()).Play(times);
                 action.Invoke();
             });
         }
 
+        /// <summary>
+        /// 重写此方法，以获取指定音频资源
+        /// </summary>
+        /// <param name="hashCode"></param>
+        /// <returns></returns>
         protected virtual SysSound GetSysSound(int hashCode)
         {
             return new SysSound();
         }
-
     }
 
     static class SystemSound
@@ -123,43 +142,49 @@ namespace PlaneInstrumentControlLibrary
         /// <param name="hwndCallback">回调句柄，如果命令参数中没有指定notify标识，可以为new IntPtr(0)</param>
         /// <returns>返回命令执行状态的错误代码</returns>
         [DllImport("winmm.dll")]
-        static extern Int32 mciSendString(string lpszCommand, StringBuilder returnString, int bufferSize, IntPtr hwndCallback);
+        static extern Int32 MciSendString(string lpszCommand, StringBuilder returnString, int bufferSize, IntPtr hwndCallback);
 
-        static Regex regex = new Regex("(Sounds)(.*)(wav)");
+        static readonly Regex regex = new Regex("(Sounds)(.*)(wav)");
 
         public static void Play(string fileName, int miSec = 1000)
         {
             Task.Run(() =>
             {
                 string device = regex.Match(fileName).Value.Replace(@"Sounds\", "").Replace(".wav", "");
-                mciSendString($"close {device}", null, 0, IntPtr.Zero);
-                mciSendString($"open {@fileName} alias {device}", null, 0, new IntPtr(0));
-                mciSendString($"play {device}", null, 0, IntPtr.Zero);
+                MciSendString($"close {device}", null, 0, IntPtr.Zero);
+                MciSendString($"open {@fileName} alias {device}", null, 0, new IntPtr(0));
+                MciSendString($"play {device}", null, 0, IntPtr.Zero);
                 Thread.Sleep(miSec);
-                mciSendString($"close {device}", null, 0, IntPtr.Zero);
+                MciSendString($"close {device}", null, 0, IntPtr.Zero);
             });
         }
 
-        public static void Play(this SysSound sound)
+        public static void Play(this SysSound sound, int times = 1)
         {
             string device = regex.Match(sound.FileName).Value.Replace(@"Sounds\", "").Replace(".wav", "");
-            mciSendString($"close {device}", null, 0, IntPtr.Zero);
-            mciSendString($"open {sound.FileName} alias {device}", null, 0, new IntPtr(0));
-            mciSendString($"play {device}", null, 0, IntPtr.Zero);
-            Thread.Sleep(sound.MillionSec);
-            mciSendString($"close {device}", null, 0, IntPtr.Zero);
+            for (int i = 0; i < times; i++)
+            {
+                MciSendString($"close {device}", null, 0, IntPtr.Zero);
+                MciSendString($"open {sound.FileName} alias {device}", null, 0, new IntPtr(0));
+                MciSendString($"play {device}", null, 0, IntPtr.Zero);
+                Thread.Sleep(sound.MillionSec);
+                MciSendString($"close {device}", null, 0, IntPtr.Zero);
+            }
         }
 
-        public static void PlaySync(this SysSound sound)
+        public static void PlaySync(this SysSound sound, int times = 1)
         {
             Task.Run(() =>
             {
                 string device = regex.Match(sound.FileName).Value.Replace(@"Sounds\", "").Replace(".wav", "");
-                mciSendString($"close {device}", null, 0, IntPtr.Zero);
-                mciSendString($"open {sound.FileName} alias {device}", null, 0, new IntPtr(0));
-                mciSendString($"play {device}", null, 0, IntPtr.Zero);
-                Thread.Sleep(sound.MillionSec);
-                mciSendString($"close {device}", null, 0, IntPtr.Zero);
+                for (int i = 0; i < times; i++)
+                {
+                    MciSendString($"close {device}", null, 0, IntPtr.Zero);
+                    MciSendString($"open {sound.FileName} alias {device}", null, 0, new IntPtr(0));
+                    MciSendString($"play {device}", null, 0, IntPtr.Zero);
+                    Thread.Sleep(sound.MillionSec);
+                    MciSendString($"close {device}", null, 0, IntPtr.Zero);
+                }
             });
         }
     }
@@ -169,7 +194,13 @@ namespace PlaneInstrumentControlLibrary
     /// </summary>
     public class SysSound
     {
+        /// <summary>
+        /// 文件路径
+        /// </summary>
         public string FileName;
+        /// <summary>
+        /// 音频长度，单位ms
+        /// </summary>
         public int MillionSec;
 
         public SysSound()
@@ -177,13 +208,22 @@ namespace PlaneInstrumentControlLibrary
 
         }
 
+        /// <summary>
+        /// 默认音频时长为1000ms
+        /// </summary>
+        /// <param name="fileName">文件路径</param>
         public SysSound(string fileName)
         {
             FileName = fileName;
             MillionSec = 1000;
         }
 
-        public SysSound(string fileName,int miSec)
+        /// <summary>
+        /// 音频资源
+        /// </summary>
+        /// <param name="fileName">文件路径</param>
+        /// <param name="miSec">音频长度，单位ms</param>
+        public SysSound(string fileName, int miSec)
         {
             FileName = fileName;
             MillionSec = miSec;

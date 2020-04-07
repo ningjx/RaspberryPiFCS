@@ -212,16 +212,22 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         private bool sinkRateWarning = false;
         private void SinkRate(double vs)
         {
+            if (vs > -6 && sinkRateWarning)
+            {
+                sinkRateWarning = false;
+                if (vs > 0)
+                    sound.StopPlayInArray(SoundType.pullup);
+            }
             if (sinkRateWarning)
                 return;
             void action()
             {
-                sinkRateWarning = false;
+                sound.PlayLoopInArray(SoundType.pullup);
             }
             if (vs < -6 && !sinkRateWarning)
             {
                 sinkRateWarning = true;
-                sound.PlaySync(SoundType.sinkrate, action);
+                sound.PlaySync(SoundType.sinkrate, action,2);
             }
         }
 
@@ -369,7 +375,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         private SysSound S500 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\500.wav");
         private SysSound S1000 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\1000.wav");
         private SysSound S2000 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2000.wav");
-        private SysSound S2500 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2500.wav",1500);
+        private SysSound S2500 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2500.wav", 1500);
         private SysSound terrain = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\terrain.wav");
         private SysSound pullup = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\pullup.wav");
         private SysSound bankangle = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\bankangle.wav");

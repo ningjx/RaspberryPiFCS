@@ -68,14 +68,6 @@ namespace PlaneInstrumentControlLibrary.A350ND
 
         }
 
-        public void SetValues(Bitmap MapImage,double heading)
-        {
-            this.heading = heading;
-            this.MapImage = MapImage;
-            Task.Run(()=> { Thread.Sleep(500); this.MapImage = MapImage; });
-            Refresh();
-        }
-
         public void SetValues( double heading,double GPSHeading)
         {
             this.heading = heading;
@@ -88,13 +80,6 @@ namespace PlaneInstrumentControlLibrary.A350ND
             this.y = y;
         }
 
-        public void SetMap(Bitmap map)
-        {
-            if (map == null)
-                return;
-            MapImage = map;
-            Refresh();
-        }
         public Bitmap MapImage { get; set; }
     }
 }
