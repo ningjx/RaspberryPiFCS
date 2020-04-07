@@ -11,10 +11,10 @@ using System.Windows.Forms;
 //using Microsoft.DirectX.DirectSound;
 
 
-namespace PlaneInstrumentControlLibrary
+namespace PlaneInstrumentControlLibrary.SoundHandle
 {
     /// <summary>
-    /// 
+    /// 播放声音
     /// </summary>
     public class Sound
     {
@@ -130,7 +130,7 @@ namespace PlaneInstrumentControlLibrary
         }
     }
 
-    static class SystemSound
+    internal static class SystemSound
     {
         /// <summary>
         /// 向媒体控制接口发送控制命令
@@ -190,7 +190,7 @@ namespace PlaneInstrumentControlLibrary
     }
 
     /// <summary>
-    /// 声音对象
+    /// 声音资源
     /// </summary>
     public class SoundRes
     {

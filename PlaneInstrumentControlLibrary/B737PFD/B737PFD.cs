@@ -5,6 +5,7 @@ using System.Media;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PlaneInstrumentControlLibrary.SoundHandle;
 
 namespace PlaneInstrumentControlLibrary.B737PFD
 {
