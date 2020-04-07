@@ -231,7 +231,6 @@ namespace PlaneInstrumentControlLibrary.B737PFD
                 sound.PlaySync(SoundType.sinkrate, action,2);
             }
         }
-
         #endregion
 
         #region 高度SpeakOut
@@ -284,7 +283,11 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             if (alt <= 2 && altBuffer > 2)
             {
                 altBuffer = alt;
-                sound.PlaySync(SoundType.S200);
+                void action()
+                {
+                    sound.Play(SoundType.minimums);
+                }
+                sound.PlaySync(SoundType.S200, action);
                 return;
             }
             if (alt <= 1 && altBuffer > 1)
