@@ -14,10 +14,12 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 {
     public partial class B737EICAS : InstrumentControl
     {
+        B737EICASSound sound;
         public B737EICAS()
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
                ControlStyles.AllPaintingInWmPaint, true);
+            sound = new B737EICASSound();
         }
         Bitmap backGroung = new Bitmap(B737EICASResource.background);
         Bitmap cover1 = new Bitmap(B737EICASResource.cover1);
@@ -31,14 +33,19 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
         Bitmap low_vol_2 = new Bitmap(B737EICASResource.LOE_VOL_2);
 
         SolidBrush drawBrush = new SolidBrush(Color.White);
+        SolidBrush infoBrush = new SolidBrush(Color.FromArgb(115, 255, 87));
+        SolidBrush warningBrush = new SolidBrush(Color.FromArgb(255, 179, 27));
+        SolidBrush errorBrush = new SolidBrush(Color.FromArgb(255, 0, 0));
 
-        bool cscWarning = false;
-        bool scWarning = false;
-        float tem,rpm1, rpm2, power1, power2,cos1, cos2, volte1, volte2;
-        EngineStatus engineStatus1 = EngineStatus.Nor;  
+
+        float tem, rpm1, rpm2, power1, power2, cos1, cos2, volte1, volte2;
+        List<EICASInfo> texts = new List<EICASInfo>();
+
+        EngineStatus engineStatus1 = EngineStatus.Nor;
         EngineStatus engineStatus2 = EngineStatus.Nor;
         float scale;
-        int x, y,rx,ry;
+        int x, y, rx, ry;
+
         Point insBackPosition1 = new Point(8, 26);
         Point insBackRotation1 = new Point(51, 69);
         Point insBackPosition2 = new Point(143, 26);
@@ -64,7 +71,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             RotateImage(pe, insBack, InterpolPhyToAngle(rpm2, 0, 100, 27, 204), insBackPosition2, insBackRotation2, scale);
             pe.Graphics.DrawImage(cover1, 0, 0, cover1.Width * scale, cover1.Height * scale);
 
-            Warning(pe);
+            PainWarning(pe);
 
             pe.Graphics.DrawImage(top, 0, 0, top.Width * scale, top.Height * scale);
 
@@ -72,9 +79,10 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             Font altFont = new Font("Arial", 12 * scale);
             Font altFont1 = new Font("Arial", 14 * scale);
             Font altFont2 = new Font("Arial", 11 * scale);
+            Font altFont3 = new Font("Arial", 10 * scale);
             pe.Graphics.DrawString(tem.ToString("f0").PadLeft(3, '0'), altFont, drawBrush, 36 * scale, 0);
             pe.Graphics.DrawString(rpm1.ToString("f0").PadLeft(5, '0'), altFont1, drawBrush, 59 * scale, 41 * scale);
-            pe.Graphics.DrawString(rpm2.ToString("f0").PadLeft(5, '0'), altFont1, drawBrush, 194 * scale,41 * scale);
+            pe.Graphics.DrawString(rpm2.ToString("f0").PadLeft(5, '0'), altFont1, drawBrush, 194 * scale, 41 * scale);
             pe.Graphics.DrawString(power1.ToString("f0").PadLeft(3, '0'), altFont, drawBrush, 58 * scale, 134 * scale);
             pe.Graphics.DrawString(power2.ToString("f0").PadLeft(3, '0'), altFont, drawBrush, 193 * scale, 134 * scale);
             pe.Graphics.DrawString(cos1.ToString("f0").PadLeft(3, '0'), altFont2, drawBrush, 51 * scale, 271 * scale);
@@ -82,36 +90,77 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             pe.Graphics.DrawString(volte1.ToString("f0").PadLeft(3, '0'), altFont, drawBrush, 302 * scale, 430 * scale);
             pe.Graphics.DrawString(volte2.ToString("f0").PadLeft(3, '0'), altFont, drawBrush, 402 * scale, 430 * scale);
 
+            //pe.Graphics.DrawImage(textRetan, 0, 0, textRetan.Width * scale, textRetan.Height * scale);
+            int yPosition = 60;
+            foreach(var item in texts)
+            {
+                int rowCount = 1;
+                switch (item.WarningType)
+                {
+                    case WarningType.Info:
+                        pe.Graphics.DrawString(GetString(item.Text,out rowCount), altFont3, infoBrush, 273 * scale, yPosition * scale);
+                        break;
+                    case WarningType.Warning:
+                        pe.Graphics.DrawString(GetString(item.Text, out rowCount), altFont3, warningBrush, 273 * scale, yPosition * scale);
+                        break;
+                    case WarningType.Error:
+                        pe.Graphics.DrawString(GetString(item.Text, out rowCount), altFont3, errorBrush, 273 * scale, yPosition * scale);
+                        break;
+                }
+                yPosition += 20* rowCount;
+            }
         }
 
-        public void SetValues(int rpm1,int en1,int en2)
+        public void SetValues(float tem, float rpm1, float rpm2, float power1, float power2, float cos1, float cos2, float volte1, float volte2, EngineStatus en1 = EngineStatus.NoChange, EngineStatus en2 = EngineStatus.NoChange)
         {
+            this.tem = tem;
             this.rpm1 = rpm1;
-            switch (en1)
+            this.rpm2 = rpm2;
+            this.power1 = power1;
+            this.power2 = power2;
+            this.cos1 = cos1;
+            this.cos2 = cos2;
+            this.volte1 = volte1;
+            this.volte2 = volte2;
+            this.rpm1 = rpm1;
+            this.rpm1 = rpm1;
+            this.rpm1 = rpm1;
+            this.rpm1 = rpm1;
+            this.rpm1 = rpm1;
+            if(en1!= EngineStatus.NoChange)
             {
-                case 0:
-                    engineStatus1 = EngineStatus.Fail;
-                    break;
-                case 1:
-                    engineStatus1 = EngineStatus.LowVol;
-                    break;
-                default:
-                    engineStatus1 = EngineStatus.Nor;
-                    break;
+                if (engineStatus1 != en1 && en1 == EngineStatus.LowVol)
+                {
+                    if(engineStatus1 == EngineStatus.Fail&& engineStatus2 != EngineStatus.Fail)
+                        sound.cscSound.Stop();
+                    sound.PlaySync(SoundType.scSound);
+                }
+                if (engineStatus1 != en1 && en1 == EngineStatus.Fail&& engineStatus2 != EngineStatus.Fail)
+                        sound.cscSound.PlayLooping();
+                if (engineStatus1 != en1 && en1 == EngineStatus.Nor&& engineStatus2 != EngineStatus.Fail)
+                        sound.cscSound.Stop();
+                engineStatus1 = en1;
             }
-            switch (en2)
+            if (en2 != EngineStatus.NoChange)
             {
-                case 0:
-                    engineStatus2 = EngineStatus.Fail;
-                    break;
-                case 1:
-                    engineStatus2 = EngineStatus.LowVol;
-                    break;
-                default:
-                    engineStatus2 = EngineStatus.Nor;
-                    break;
+                if (engineStatus2 != en2 && en2 == EngineStatus.LowVol)
+                {
+                    if (engineStatus2 == EngineStatus.Fail && engineStatus1 != EngineStatus.Fail)
+                        sound.cscSound.Stop();
+                    sound.PlaySync(SoundType.scSound);
+                }
+                if (engineStatus2 != en2 && en2 == EngineStatus.Fail&& engineStatus1 != EngineStatus.Fail)
+                    sound.cscSound.PlayLooping();
+                if (engineStatus2 != en2 && en2 == EngineStatus.Nor&& engineStatus1 != EngineStatus.Fail)
+                    sound.cscSound.Stop();
+                engineStatus2 = en2;
             }
             Refresh();
+        }
+
+        public void SetTexts(List<EICASInfo> texts)
+        {
+            this.texts = texts;
         }
 
         public void SetXY(int x, int y, int rx, int ry)
@@ -126,175 +175,92 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
         public void CancelWarning()
         {
-            cscWarning = false;
-            scWarning = false;
+            sound.cscSound.Stop();
         }
 
-        private void Warning(PaintEventArgs pe)
+        private void PainWarning(PaintEventArgs pe)
         {
             switch (engineStatus1)
             {
                 case EngineStatus.Fail:
                     pe.Graphics.DrawImage(eng_fail_1, 0, 0, eng_fail_1.Width * scale, eng_fail_1.Height * scale);
-                    if (!cscWarning)
-                    {
-                        cscWarning = true;
-                        Task.Run(() => {
-                            Sound.Play(SoundType.cscSound,true);
-                            while (true) 
-                            {
-                                if (!cscWarning)
-                                {
-                                    Sound.Stop(SoundType.cscSound); 
-                                    break;
-                                }   
-                            }
-                        });
-                    }
                     break;
                 case EngineStatus.LowVol:
                     pe.Graphics.DrawImage(low_vol_1, 0, 0, low_vol_1.Width * scale, low_vol_1.Height * scale);
-                    if (!scWarning)
-                    {
-                        scWarning = true;
-                        Sound.Play(SoundType.scSound);
-                    }
-                    break;
-                case EngineStatus.Nor:
-                    if (engineStatus2 == EngineStatus.Nor)
-                        CancelWarning();
                     break;
             }
             switch (engineStatus2)
             {
                 case EngineStatus.Fail:
                     pe.Graphics.DrawImage(eng_fail_2, 0, 0, eng_fail_2.Width * scale, eng_fail_2.Height * scale);
-                    if (!cscWarning)
-                    {
-                        cscWarning = true;
-                        Task.Run(() => {
-                            Sound.Play(SoundType.cscSound, true);
-                            while (true)
-                            {
-                                if (!cscWarning)
-                                {
-                                    Sound.Stop(SoundType.cscSound);
-                                    break;
-                                }
-                            }
-                        });
-                    }
                     break;
                 case EngineStatus.LowVol:
                     pe.Graphics.DrawImage(low_vol_2, 0, 0, low_vol_2.Width * scale, low_vol_2.Height * scale);
-                    if (!scWarning)
-                    {
-                        scWarning = true;
-                        Sound.Play(SoundType.scSound);
-                    }
-                    break;
-                case EngineStatus.Nor:
-                    if(engineStatus1 == EngineStatus.Nor)
-                        CancelWarning();
                     break;
             }
         }
+
+        private string GetString(string str,out int count)
+        {
+            string buffer = str.Clone() as string;
+            int splitCount = 12;
+            count = 1;
+            for (int i= splitCount; i< str.Length; i += splitCount)
+            {
+                buffer =buffer.Insert(i+ count-1, "\n");
+                count++;
+            }
+            return buffer;
+        }
+    }
+
+    public class EICASInfo
+    {
+        public WarningType WarningType;
+        public string Text;
+    }
+
+    public enum WarningType
+    {
+        Info, Warning, Error
     }
 
     public enum EngineStatus
     {
-        Fail,LowVol,Nor
+        Fail, LowVol, Nor,Unknown,NoChange
     }
 
-    static class Sound
+    class B737EICASSound : Sound
     {
-        static SoundPlayer cscSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC_fix.wav");
-        static SoundPlayer scSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\SC.wav");
-
-        static Dictionary<int, bool> Buffer = new Dictionary<int, bool>();
-
-        static Sound()
+        SysSound scSound = new SysSound
         {
-            Task.Run(() =>
+            FileName = @"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\SC.wav",
+            MillionSec = 1000
+        };
+
+        public SoundPlayer cscSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC_fix.wav");
+
+        protected override SysSound GetSysSound(int hashCode)
+        {
+            switch (hashCode)
             {
-                List<int> needDelete = new List<int>();
-                while (true)
-                {
-                    try
-                    {
-                        lock (Buffer)
-                        {
-                            needDelete.ForEach(t => Buffer.Remove(t));
-                            needDelete.Clear();
-                            foreach (var item in Buffer)
-                            {
-                                Paly(needDelete, item.Key, item.Value);
-                                Thread.Sleep(1000);
-                            }
-                        }
-                        Thread.Sleep(500);
-                    }
-                    catch
-                    {
-
-                    }
-                }
-            });
-        }
-
-        public static void Play(SoundType sound, bool isLoop = false)
-        {
-            Task.Run(() => {
-                lock (Buffer)
-                {
-                    if (!Buffer.TryGetValue(sound.GetHashCode(), out bool value))
-                    {
-                        Buffer.Add(sound.GetHashCode(), isLoop);
-                    }
-                }
-            });
-            
-        }
-
-        public static void Stop(SoundType sound)
-        {
-            Task.Run(() => {
-                lock (Buffer)
-                {
-                    if (Buffer.TryGetValue(sound.GetHashCode(), out bool value))
-                    {
-                        Buffer.Remove(sound.GetHashCode());
-                    }
-                }
-            });
-        }
-
-        public static void Start()
-        {
-            
-        }
-
-        static void Paly(List<int> needDelete, int type, bool isLoop)
-        {
-            if (!isLoop)
-                needDelete.Add(type);
-            switch (type)
-            {
-                case 0:
-                    cscSound.Play();
-                    break;
-                case 1:
-                    scSound.Play();
-                    break;
-                default: break;
+                case 0: return scSound;
+                default: return new SysSound();
             }
         }
-
+        //protected override SoundPlayer GetSoundPlayer(int hashCode)
+        //{
+        //    switch (hashCode)
+        //    {
+        //        case 0: return cscSound;
+        //        case 1: return scSound;
+        //        default: return new SoundPlayer();
+        //    }
+        //}
     }
 
     enum SoundType
     {
-        cscSound,
         scSound
     }
 }

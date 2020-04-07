@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FlightDataModel;
 using GMap.NET;
 using GMap.NET.MapProviders;
+using PlaneInstrumentControlLibrary.B737EICAS;
 using RaspberryPiClient.Controllers;
 
 namespace RaspberryPiClient
@@ -33,12 +34,11 @@ namespace RaspberryPiClient
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //
         }
 
         private void rollBar_Scroll(object sender, EventArgs e)
         {
-            b737PFD1.SetValues(rollBar.Value,pitchBar.Value,altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
             textBox3.Text = rollBar.Value.ToString();
         }
 
@@ -55,22 +55,23 @@ namespace RaspberryPiClient
 
         private void headingBar_Scroll(object sender, EventArgs e)
         {
-            //b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
-            //a350ND1.SetValues(headingBar.Value);
-            //textBox5.Text = headingBar.Value.ToString();
-            //a350ND1.SetValues(headingBar.Value);
-            //gMapControl1.Bearing = headingBar.Value;
+            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            a350ND1.SetValues(headingBar.Value,0);
+            textBox5.Text = headingBar.Value.ToString();
+            a350ND1.SetValues(headingBar.Value,0);
+            gMapControl1.Bearing = headingBar.Value;
         }
 
         private void speedBar_Scroll(object sender, EventArgs e)
         {
-            //b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
-            //textBox6.Text = (speedBar.Value/10F).ToString();
+            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            textBox6.Text = (speedBar.Value/10F).ToString();
         }
 
         private void altBar_Scroll(object sender, EventArgs e)
         {
-            b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            //b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
+            //b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
             textBox7.Text = altBar.Value.ToString();
         }
 
@@ -80,29 +81,12 @@ namespace RaspberryPiClient
             textBox8.Text = vsBar.Value.ToString();
         }
 
-        private void xBar_Scroll(object sender, EventArgs e)
-        {
-            textBox1.Text = xBar.Value.ToString();
-            //a350ND1.SetXY(xBar.Value, yBar.Value);
-            b737PFD1.SetXY(xBar.Value, yBar.Value);
-            //b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
-            //a350ND1.SetValues(headingBar.Value);
-        }
-
-        private void yBar_Scroll(object sender, EventArgs e)
-        {
-            textBox2.Text = yBar.Value.ToString();
-            //a350ND1.SetXY(xBar.Value, yBar.Value);
-            b737PFD1.SetXY(xBar.Value, yBar.Value);
-            //b737PFD1.SetValues(rollBar.Value, pitchBar.Value, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, headingBar.Value);
-            //a350ND1.SetValues(headingBar.Value);
-
-        }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
-            b737PFD1.SetValues(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, data.Attitude.BarometricAltitude, data.Attitude.Aacceleration_X, data.Attitude.Aacceleration_Y * 10, data.Attitude.Angle_Z);
-            a350ND1.SetValues(data.Attitude.Angle_Z);
+            //b737PFD1.SetValues(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, data.Attitude.BarometricAltitude, data.Attitude.Aacceleration_X, data.Attitude.Aacceleration_Y * 10, data.Attitude.Angle_Z);
+            b737PFD1.SetValues(data.Attitude.Angle_X - 180, 180 - data.Attitude.Angle_Y, altBar.Value / 10F, speedBar.Value / 10F, vsBar.Value / 10F, data.Attitude.Angle_Z);
+            a350ND1.SetValues(data.Attitude.Angle_Z,0);
+            b737EICAS1.SetValues(20, 60, 60, 50, 50, data.Attitude.Angle_Z, 0, 4.2F, 4.2F);
             gMapControl1.Bearing = data.Attitude.Angle_Z;
             var a = Extends.GPSToGCJ(data.GPSData.Longitude / 1E7D, data.GPSData.Latitude / 1E7D);
             gMapControl1.Position = a;
@@ -110,22 +94,116 @@ namespace RaspberryPiClient
             label10.Text = data.GPSData.Longitude.ToString();
             label6.Text = a.Lng.ToString();
             label8.Text = a.Lat.ToString();
-            textBox1.Text = data.Attitude.Angle_X.ToString("f2");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            b737EICAS1.SetValues(50, 0, 0);
+            //Park
+            //Tax
+            //Takeoff
+            //Climb
+            //CRZ
+            //Dec
+            //APP
+            switch (comboBox3.Text)
+            {
+                case "Park":
+                    b737PFD1.SetFlightStatus(PlaneInstrumentControlLibrary.B737PFD.FlightStatus.Park);
+                    break;
+                case "Tax":
+                    b737PFD1.SetFlightStatus(PlaneInstrumentControlLibrary.B737PFD.FlightStatus.Tax);
+                    break;
+                case "Takeoff":
+                    b737PFD1.SetFlightStatus(PlaneInstrumentControlLibrary.B737PFD.FlightStatus.Takeoff);
+                    break;
+                case "Climb":
+                    b737PFD1.SetFlightStatus(PlaneInstrumentControlLibrary.B737PFD.FlightStatus.CLB);
+                    break;
+                case "CRZ":
+                    b737PFD1.SetFlightStatus(PlaneInstrumentControlLibrary.B737PFD.FlightStatus.CRZ);
+                    break;
+                case "Dec":
+                    b737PFD1.SetFlightStatus(PlaneInstrumentControlLibrary.B737PFD.FlightStatus.Descend);
+                    break;
+                case "APP":
+                    b737PFD1.SetFlightStatus(PlaneInstrumentControlLibrary.B737PFD.FlightStatus.APP);
+                    break;
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //失效
+            //警告
+            //正常
+            switch (comboBox1.Text)
+            {
+                case "失效":
+                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, EngineStatus.Fail);
+                    break;
+                case "正常":
+                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, EngineStatus.Nor);
+                    break;
+                case "警告":
+                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, EngineStatus.LowVol);
+                    break;
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            //失效
+            //警告
+            //正常
+            switch (comboBox2.Text)
+            {
+                case "失效":
+                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, en2: EngineStatus.Fail);
+                    break;
+                case "正常":
+                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, en2: EngineStatus.Nor);
+                    break;
+                case "警告":
+                    b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, en2: EngineStatus.LowVol);
+                    break;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            b737PFD1.SetMode(PlaneInstrumentControlLibrary.B737PFD.FlightMode.CRZ);
+            b737EICAS1.CancelWarning();
+
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            b737EICAS1.SetValues(0, 0, 0);
+            string[] aa = textBox1.Text.Split('.');
+            List<EICASInfo> infos = new List<EICASInfo>();
+            foreach(var item in aa)
+            {
+                infos.Add(new EICASInfo { WarningType = WarningType.Info, Text = item });
+                infos.Add(new EICASInfo { WarningType = WarningType.Warning, Text = item });
+                infos.Add(new EICASInfo { WarningType = WarningType.Error, Text = item });
+            }
+            b737EICAS1.SetTexts(infos);
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            textBox2.Text = trackBar1.Value.ToString();
+            b737EICAS1.SetXY(trackBar1.Value, trackBar2.Value,0,0);
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            textBox9.Text = trackBar2.Value.ToString();
+            b737EICAS1.SetXY(trackBar1.Value, trackBar2.Value,0,0);
+
+        }
+
+        private void a350ND1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

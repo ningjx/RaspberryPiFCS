@@ -30,14 +30,16 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         Bitmap directorV = new Bitmap(B737PFDResource.flight_director_vertical_1);
         Bitmap pullup = new Bitmap(B737PFDResource.Pull_Up_1);
 
+        System.Timers.Timer timer = new System.Timers.Timer(800);
 
-        FlightMode flightMode = FlightMode.Park;
+        bool isShow = false;
+        FlightStatus flightMode = FlightStatus.Park;
         Font drawFont;
         Font altFont;
         SolidBrush drawBrush = new SolidBrush(Color.White);
         SolidBrush altBrush = new SolidBrush(Color.FromArgb(202, 89, 198));
         SolidBrush modeBrush = new SolidBrush(Color.SpringGreen);
-
+        B737PFDSound sound;
         float scale;
 
         Pen maskPen;
@@ -50,22 +52,30 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         Point headingPosition = new Point(114, 439);
         Point headingRotation = new Point(276, 601);
         Point headingBudPosition = new Point(263, 429);
-        Point pullupPosotiong;
         int x, y;
         public B737PFD()
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
                 ControlStyles.AllPaintingInWmPaint, true);
-            Sound.Start();
+            sound = new B737PFDSound();
+            timer.AutoReset = true;
+            timer.Enabled = true;
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
         }
 
-        private SoundPlayer soundPlayer = new SoundPlayer();
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (isShow)
+                isShow = false;
+            else
+                isShow = true;
+        }
 
         protected override void OnPaint(PaintEventArgs pe)
         {
             //获取控件缩放比
             scale = (float)Width / backGroung.Width;
-            pullupPosotiong = new Point(x, y);
             //绘制安定面
             RotateAndTranslate(pe, horizon, roll, 0, horPosition, (int)(5.2 * pitch), horRotation, scale);
 
@@ -91,24 +101,24 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             string drawString = string.Empty;
             switch (flightMode)
             {
-                case FlightMode.Park:
+                case FlightStatus.Park:
                     break;
-                case FlightMode.APP:
+                case FlightStatus.APP:
                     drawString = "APP";
                     break;
-                case FlightMode.Takeoff:
+                case FlightStatus.Takeoff:
                     drawString = "TKF";
                     break;
-                case FlightMode.Tax:
+                case FlightStatus.Tax:
                     drawString = "Tax";
                     break;
-                case FlightMode.CRZ:
+                case FlightStatus.CRZ:
                     drawString = "CRZ";
                     break;
-                case FlightMode.Descend:
+                case FlightStatus.Descend:
                     drawString = "DEC";
                     break;
-                case FlightMode.CLB:
+                case FlightStatus.CLB:
                     drawString = "CLB";
                     break;
             }
@@ -145,7 +155,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             pe.Graphics.DrawString(drawString, drawFont, modeBrush, 253 * scale, 8 * scale);
 
             //pullup
-            if (terrainWarning)
+            if (terrainWarning && isShow)
             {
                 pe.Graphics.DrawImage(pullup, 0, 0, pullup.Width * scale, pullup.Height * scale);
             }
@@ -174,7 +184,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         }
 
 
-        public void SetMode(FlightMode mode)
+        public void SetFlightStatus(FlightStatus mode)
         {
             flightMode = mode;
             Refresh();
@@ -187,12 +197,12 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         {
             if (Math.Abs(roll) > 60 && !bankAngelWarning)
             {
-                Sound.Play(SoundType.bankangle,true);
+                sound.PlayLoopInArray(SoundType.bankangle);
                 bankAngelWarning = true;
             }
             if (Math.Abs(roll) <= 60 && bankAngelWarning)
             {
-                Sound.Stop(SoundType.bankangle);
+                sound.StopPlayInArray(SoundType.bankangle);
                 bankAngelWarning = false;
             }
         }
@@ -202,15 +212,22 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         private bool sinkRateWarning = false;
         private void SinkRate(double vs)
         {
-            if (Math.Abs(vs) > 6 && !sinkRateWarning)
+            if (vs > -6 && sinkRateWarning)
             {
-                Sound.Play(SoundType.sinkrate, true) ;
-                sinkRateWarning = true;
-            }
-            if (Math.Abs(vs) <= 6 && sinkRateWarning)
-            {
-                Sound.Stop(SoundType.sinkrate);
                 sinkRateWarning = false;
+                if (vs > 0)
+                    sound.StopPlayInArray(SoundType.pullup);
+            }
+            if (sinkRateWarning)
+                return;
+            void action()
+            {
+                sound.PlayLoopInArray(SoundType.pullup);
+            }
+            if (vs < -6 && !sinkRateWarning)
+            {
+                sinkRateWarning = true;
+                sound.PlaySync(SoundType.sinkrate, action,2);
             }
         }
 
@@ -230,80 +247,80 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             if (alt <= 25 && altBuffer > 25)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S2500);
+                sound.PlaySync(SoundType.S2500);
                 return;
             }
             if (alt <= 20 && altBuffer > 20)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S2000);
+                sound.PlaySync(SoundType.S2000);
                 return;
             }
             if (alt <= 10 && altBuffer > 10)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S1000);
+                sound.PlaySync(SoundType.S1000);
                 return;
             }
             if (alt <= 5 && altBuffer > 5)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S500);
+                sound.PlaySync(SoundType.S500);
                 return;
             }
             if (alt <= 4 && altBuffer > 4)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S400);
+                sound.PlaySync(SoundType.S400);
                 return;
             }
             if (alt <= 3 && altBuffer > 3)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S300);
+                sound.PlaySync(SoundType.S300);
                 return;
             }
             if (alt <= 2 && altBuffer > 2)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S200);
+                sound.PlaySync(SoundType.S200);
                 return;
             }
             if (alt <= 1 && altBuffer > 1)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S100a);
+                sound.PlaySync(SoundType.S100a);
                 return;
             }
 
             if (alt <= 0.5 && altBuffer > 0.5)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S50);
+                sound.PlaySync(SoundType.S50);
                 return;
             }
             if (alt <= 0.4 && altBuffer > 0.4)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S40);
+                sound.PlaySync(SoundType.S40);
                 return;
             }
             if (alt <= 0.3 && altBuffer > 0.3)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S30);
+                sound.PlaySync(SoundType.S30);
                 return;
             }
             if (alt <= 0.2 && altBuffer > 0.2)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S20);
+                sound.PlaySync(SoundType.S20);
                 return;
             }
             if (alt <= 0.1 && altBuffer > 0.1)
             {
                 altBuffer = alt;
-                Sound.Play(SoundType.S10);
+                sound.PlaySync(SoundType.S10);
                 return;
             }
             altBuffer = alt;
@@ -314,202 +331,112 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         private bool terrainWarning = false;
         private void TerrainWarning()
         {
-            if (vs >= 0 || alt >= 0.2)
+            if (vs >= 0 || alt >= 5)
             {
                 if (!terrainWarning)
                     return;
-                Sound.Stop(SoundType.terrain);
-                Sound.Stop(SoundType.pullup);
+                sound.StopPlayInArray(SoundType.terrain);
+                sound.StopPlayInArray(SoundType.pullup);
                 terrainWarning = false;
                 return;
             }
             if (terrainWarning)
                 return;
-            if (flightMode == FlightMode.APP || flightMode == FlightMode.Park || flightMode == FlightMode.Tax)
+            if (flightMode == FlightStatus.APP || flightMode == FlightStatus.Park || flightMode == FlightStatus.Tax)
             {
                 terrainWarning = false;
                 return;
             }
 
-            if (vs < 0 && alt < 0.2)
+            if (vs < 0 && alt < 5)
                 terrainWarning = true;
-            Sound.Play(SoundType.terrain, true);
-            Sound.Play(SoundType.pullup, true);
+            sound.PlayLoopInArray(SoundType.terrain);
+            sound.PlayLoopInArray(SoundType.pullup);
         }
         #endregion
     }
 
-    public enum FlightMode
+    public enum FlightStatus
     {
         Park, Tax, Takeoff, CLB, CRZ, Descend, APP
     }
 
-    static class Sound
+    class B737PFDSound : Sound
     {
-        static SoundPlayer S10 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\10.wav");
-        static SoundPlayer S20 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\20.wav");
-        static SoundPlayer S30 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\30.wav");
-        static SoundPlayer S40 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\40.wav");
-        static SoundPlayer S50 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\50.wav");
-        static SoundPlayer S100a = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\100_above.wav");
-        static SoundPlayer S200 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\200.wav");
-        static SoundPlayer S300 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\300.wav");
-        static SoundPlayer S400 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\400.wav");
-        static SoundPlayer S500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\500.wav");
-        static SoundPlayer S1000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\1000.wav");
-        static SoundPlayer S2000 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2000.wav");
-        static SoundPlayer S2500 = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2500.wav");
-        static SoundPlayer terrain = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\terrain.wav");
-        static SoundPlayer pullup = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\pullup.wav");
-        static SoundPlayer bankangle = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\bankangle.wav");
-        static SoundPlayer dontsink = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\dontsink.wav");
-        static SoundPlayer glideslope = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\glideslope.wav");
-        static SoundPlayer minimums = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\minimums.wav");
-        static SoundPlayer sinkrate = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\sinkrate.wav");
-        static SoundPlayer toolowflaps = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowflaps.wav");
-        static SoundPlayer toolowgear = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowgear.wav");
-
-        static Dictionary<int, bool> Buffer = new Dictionary<int, bool>();
-
-        static Sound()
+        private SysSound S10 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\10.wav");
+        private SysSound S20 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\20.wav");
+        private SysSound S30 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\30.wav");
+        private SysSound S40 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\40.wav");
+        private SysSound S50 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\50.wav");
+        private SysSound S100a = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\100_above.wav");
+        private SysSound S200 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\200.wav");
+        private SysSound S300 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\300.wav");
+        private SysSound S400 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\400.wav");
+        private SysSound S500 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\500.wav");
+        private SysSound S1000 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\1000.wav");
+        private SysSound S2000 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2000.wav");
+        private SysSound S2500 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2500.wav", 1500);
+        private SysSound terrain = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\terrain.wav");
+        private SysSound pullup = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\pullup.wav");
+        private SysSound bankangle = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\bankangle.wav");
+        private SysSound dontsink = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\dontsink.wav");
+        private SysSound glideslope = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\glideslope.wav");
+        private SysSound minimums = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\minimums.wav");
+        private SysSound sinkrate = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\sinkrate.wav");
+        private SysSound toolowflaps = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowflaps.wav");
+        private SysSound toolowgear = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowgear.wav");
+        protected override SysSound GetSysSound(int hashCode)
         {
-
-        }
-
-        public static void Play(SoundType sound, bool isLoop = false)
-        {
-            Task.Run(() =>
-            {
-                lock (Buffer)
-                {
-                    if (!Buffer.TryGetValue(sound.GetHashCode(), out bool value))
-                    {
-                        Buffer.Add(sound.GetHashCode(), isLoop);
-                    }
-                }
-            });
-
-        }
-
-        public static void Stop(SoundType sound)
-        {
-            Task.Run(() =>
-            {
-                lock (Buffer)
-                {
-                    if (Buffer.TryGetValue(sound.GetHashCode(), out bool value))
-                    {
-                        Buffer.Remove(sound.GetHashCode());
-                    }
-                }
-            });
-        }
-
-        public static void Start()
-        {
-            Task.Run(() =>
-            {
-                List<int> needDelete = new List<int>();
-                while (true)
-                {
-                    try
-                    {
-                        lock (Buffer)
-                        {
-                            needDelete.ForEach(t => Buffer.Remove(t));
-                            needDelete.Clear();
-                            foreach (var item in Buffer)
-                            {
-                                Paly(needDelete, item.Key, item.Value);
-                                Thread.Sleep(1000);
-                            }
-                        }
-                        Thread.Sleep(50);
-                    }
-                    catch
-                    {
-
-                    }
-                }
-            });
-        }
-
-        static void Paly(List<int> needDelete, int type, bool isLoop)
-        {
-            if (!isLoop)
-                needDelete.Add(type);
-            switch (type)
+            switch (hashCode)
             {
                 case 0:
-                    S10.Play();
-                    break;
+                    return S10;
                 case 1:
-                    S20.Play();
-                    break;
+                    return S20;
                 case 2:
-                    S30.Play();
-                    break;
+                    return S30;
                 case 3:
-                    S40.Play();
-                    break;
+                    return S40;
                 case 4:
-                    S50.Play();
-                    break;
+                    return S50;
                 case 5:
-                    S100a.Play();
-                    break;
+                    return S100a;
                 case 6:
-                    S200.Play();
-                    break;
+                    return S200;
                 case 7:
-                    S300.Play();
-                    break;
+                    return S300;
                 case 8:
-                    S400.Play();
-                    break;
+                    return S400;
                 case 9:
-                    S500.Play();
-                    break;
+                    return S500;
                 case 10:
-                    S1000.Play();
-                    break;
+                    return S1000;
                 case 11:
-                    S2000.Play();
-                    break;
+                    return S2000;
                 case 12:
-                    S2500.Play();
-                    break;
+                    return S2500;
                 case 13:
-                    terrain.Play();
-                    break;
+                    return terrain;
                 case 14:
-                    pullup.Play();
-                    break;
+                    return pullup;
                 case 15:
-                    bankangle.Play();
-                    break;
+                    return bankangle;
                 case 16:
-                    dontsink.Play();
-                    break;
+                    return dontsink;
                 case 17:
-                    glideslope.Play();
-                    break;
+                    return glideslope;
                 case 18:
-                    minimums.Play();
-                    break;
+                    return minimums;
                 case 19:
-                    sinkrate.Play();
-                    break;
+                    return sinkrate;
                 case 20:
-                    toolowflaps.Play();
-                    break;
+                    return toolowflaps;
                 case 21:
-                    toolowgear.Play();
-                    break;
-                default: break;
+                    return toolowgear;
+                default:
+                    return new SysSound();
             }
         }
-
     }
 
     enum SoundType
