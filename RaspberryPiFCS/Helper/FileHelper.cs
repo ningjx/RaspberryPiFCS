@@ -13,13 +13,15 @@ namespace RaspberryPiFCS.Helper
         public static void Write(this string[] path, string data)
         {
             string pathStr = Path.Combine(path);
-            string dicPath = Path.Combine(path.GetByCount(path.Length - 1));
-            if (!Directory.Exists(dicPath))
+            string dicPath = string.Empty;
+            if (path.Length > 1)
+                dicPath = Path.Combine(path.GetByCount(path.Length - 1));
+            if (!string.IsNullOrEmpty(dicPath) && !Directory.Exists(dicPath))
                 Directory.CreateDirectory(dicPath);
             using (FileStream fileStream = new FileStream(pathStr, FileMode.OpenOrCreate))
             {
                 byte[] bytes = Encoding.UTF8.GetBytes(data);
-                fileStream.Write(bytes);
+                fileStream.Write(bytes, 0, bytes.Length);
             };
         }
 
@@ -50,13 +52,15 @@ namespace RaspberryPiFCS.Helper
         public static void Write_Append(this string[] path, string data)
         {
             string pathStr = Path.Combine(path);
-            string dicPath = Path.Combine(path.GetByCount(path.Length - 1));
-            if (!Directory.Exists(dicPath))
+            string dicPath = string.Empty;
+            if (path.Length > 1)
+                dicPath = Path.Combine(path.GetByCount(path.Length - 1));
+            if (!string.IsNullOrEmpty(dicPath) && !Directory.Exists(dicPath))
                 Directory.CreateDirectory(dicPath);
             using (FileStream fileStream = new FileStream(pathStr, FileMode.Append))
             {
                 byte[] bytes = Encoding.UTF8.GetBytes(data);
-                fileStream.Write(bytes);
+                fileStream.Write(bytes, 0, bytes.Length);
             };
         }
     }
