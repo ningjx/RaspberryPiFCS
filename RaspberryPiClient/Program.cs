@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HelperLib;
 using RaspberryPiClient.Forms;
 
 namespace RaspberryPiClient
@@ -15,9 +16,30 @@ namespace RaspberryPiClient
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new NDTest());
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new NDTest());
+
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Config.ReadConfig();
+                using (MainForm form = new MainForm())
+                {
+                    form.FormClosed += delegate (object sender, FormClosedEventArgs e)
+                    {
+                        Config.SaveConfig();
+                        Application.Exit();
+                    };
+                    Application.Run(form);
+                }
+            }
+            catch (Exception ex)
+            {
+                Config.SaveConfig();
+                FileHelper.Write(new string[] { "ErrorLog.txt" }, ex.ToString());
+            }
         }
     }
 }

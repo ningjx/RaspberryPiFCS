@@ -1,4 +1,6 @@
-﻿using RaspberryPiFCS.Models;
+﻿using RaspberryPiFCS.Configs;
+using RaspberryPiFCS.Models;
+using RaspberryPiFCS.SystemMessage;
 using System;
 using System.Threading;
 
@@ -10,13 +12,26 @@ namespace RaspberryPiFCS
         {
             try
             {
-                Lunch.StartUp();
-                Console.ReadKey();
+                //ErrorMessage
+                Config.ReadConfig();
+
+                while (SysSwitch.Switch)
+                {
+
+                }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine($"系统出现异常\r\n异常消息[{e.Message}]\r\n堆栈追踪\r\n--------------------------------------------------------------------------\r\n{e.StackTrace}\r\n--------------------------------------------------------------------------");
+                ErrorMessage.Add(Enum.ErrorType.Error, "系统异常", ex);
+            }
+            finally
+            {
+                Config.SaveConfig();
             }
         }
+    }
+    public static class SysSwitch
+    {
+        public static bool Switch = true;
     }
 }
