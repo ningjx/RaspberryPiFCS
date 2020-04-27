@@ -30,6 +30,8 @@
         {
             this.b737PFD1 = new PlaneInstrumentControlLibrary.B737PFD.B737PFD();
             this.attitudeIndicatorInstrumentControl1 = new PlaneInstrumentControlLibrary.OtherInstruments.AttitudeIndicatorInstrumentControl();
+            this.turnCoordinatorInstrumentControl1 = new PlaneInstrumentControlLibrary.OtherInstruments.TurnCoordinatorInstrumentControl();
+            this.airSpeedIndicatorInstrumentControl1 = new PlaneInstrumentControlLibrary.OtherInstruments.AirSpeedIndicatorInstrumentControl();
             this.SuspendLayout();
             // 
             // b737PFD1
@@ -48,11 +50,29 @@
             this.attitudeIndicatorInstrumentControl1.TabIndex = 1;
             this.attitudeIndicatorInstrumentControl1.Text = "attitudeIndicatorInstrumentControl1";
             // 
+            // turnCoordinatorInstrumentControl1
+            // 
+            this.turnCoordinatorInstrumentControl1.Location = new System.Drawing.Point(928, 507);
+            this.turnCoordinatorInstrumentControl1.Name = "turnCoordinatorInstrumentControl1";
+            this.turnCoordinatorInstrumentControl1.Size = new System.Drawing.Size(188, 173);
+            this.turnCoordinatorInstrumentControl1.TabIndex = 2;
+            this.turnCoordinatorInstrumentControl1.Text = "turnCoordinatorInstrumentControl1";
+            // 
+            // airSpeedIndicatorInstrumentControl1
+            // 
+            this.airSpeedIndicatorInstrumentControl1.Location = new System.Drawing.Point(1249, 235);
+            this.airSpeedIndicatorInstrumentControl1.Name = "airSpeedIndicatorInstrumentControl1";
+            this.airSpeedIndicatorInstrumentControl1.Size = new System.Drawing.Size(259, 281);
+            this.airSpeedIndicatorInstrumentControl1.TabIndex = 3;
+            this.airSpeedIndicatorInstrumentControl1.Text = "airSpeedIndicatorInstrumentControl1";
+            // 
             // TemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1786, 811);
+            this.Controls.Add(this.airSpeedIndicatorInstrumentControl1);
+            this.Controls.Add(this.turnCoordinatorInstrumentControl1);
             this.Controls.Add(this.attitudeIndicatorInstrumentControl1);
             this.Controls.Add(this.b737PFD1);
             this.Name = "TemForm";
@@ -65,5 +85,7 @@
 
         private B737PFD.B737PFD b737PFD1;
         private OtherInstruments.AttitudeIndicatorInstrumentControl attitudeIndicatorInstrumentControl1;
+        private OtherInstruments.TurnCoordinatorInstrumentControl turnCoordinatorInstrumentControl1;
+        private OtherInstruments.AirSpeedIndicatorInstrumentControl airSpeedIndicatorInstrumentControl1;
     }
 }

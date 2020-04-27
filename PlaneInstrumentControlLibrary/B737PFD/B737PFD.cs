@@ -30,6 +30,8 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         Bitmap directorH = new Bitmap(B737PFDResource.flight_director_horizontal_1);
         Bitmap directorV = new Bitmap(B737PFDResource.flight_director_vertical_1);
         Bitmap pullup = new Bitmap(B737PFDResource.Pull_Up_1);
+        Bitmap altScroll = new Bitmap(B737PFDResource.altScroll);
+        Bitmap speedScroll = new Bitmap(B737PFDResource.speedScorll);
 
         System.Timers.Timer timer = new System.Timers.Timer(800);
 
@@ -37,6 +39,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         FlightStatus flightMode = FlightStatus.Park;
         Font drawFont;
         Font altFont;
+        Font altScrFont;
         SolidBrush drawBrush = new SolidBrush(Color.White);
         SolidBrush altBrush = new SolidBrush(Color.FromArgb(202, 89, 198));
         SolidBrush modeBrush = new SolidBrush(Color.SpringGreen);
@@ -53,7 +56,9 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         Point headingPosition = new Point(114, 439);
         Point headingRotation = new Point(276, 601);
         Point headingBudPosition = new Point(263, 429);
-        int x, y;
+        public int x, y;
+        public float z;
+        
         public B737PFD()
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
@@ -81,7 +86,8 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             RotateAndTranslate(pe, horizon, roll, 0, horPosition, (int)(5.2 * pitch), horRotation, scale);
 
             maskPen = new Pen(Color.Black, 10 * scale);
-            drawFont = new Font("Arial", 16 * scale);
+            drawFont = new Font("Arial", 18 * scale);
+            altScrFont = new Font("Arial", 14 * scale);
             altFont = new Font("Arial", 12 * scale);
 
             speedTapePosition = new Point(56, (int)(speed * 31.2) - 1075);
@@ -136,8 +142,14 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             pe.Graphics.DrawImage(altNum, (backGroung.Width - altNum.Width) * scale * 0.65F, (backGroung.Height - altNum.Height) * scale * 0.45F, altNum.Width * scale, altNum.Height * scale);
 
             //显示高度速度数字
-            pe.Graphics.DrawString(speed.ToString("f1").PadLeft(4), drawFont, drawBrush, (backGroung.Width - altNum.Width) * scale * 0.65F, (backGroung.Height - altNum.Height) * scale * 0.49F);
-            pe.Graphics.DrawString(alt.ToString("f1").PadLeft(5), drawFont, drawBrush, (backGroung.Width - altNum.Width) * scale * 5.05F, (backGroung.Height - altNum.Height) * scale * 0.49F);
+            string altStr = alt.ToString("f0").PadLeft(4, '0');
+            if (altStr.Contains("-"))
+            {
+                string[] spl = altStr.Split('-');
+                altStr = "-"+spl[0] + spl[1];
+            }
+            pe.Graphics.DrawString(speed.ToString("f0").PadLeft(2,'0'), drawFont, drawBrush, 62 * scale, 230* scale );
+            pe.Graphics.DrawString(altStr, altScrFont, drawBrush, 448 * scale, 233 * scale);
 
             //绘制航向盘
             RotateImage(pe, headingRose, InterpolPhyToAngle((float)heading, 0, 360, 360, 0), headingPosition, headingRotation, scale);
@@ -160,6 +172,11 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             {
                 pe.Graphics.DrawImage(pullup, 0, 0, pullup.Width * scale, pullup.Height * scale);
             }
+
+            Rectangle altrectangle = new Rectangle((int)(493* scale), (int)(224* scale), (int)(18* scale), (int)(43* scale));
+            DrawScrollCounter(pe, altScroll, altrectangle, 0, 1, (float)(alt-Math.Truncate(alt)));
+            Rectangle spdrectangle = new Rectangle((int)(93 * scale), (int)(222 * scale), (int)(12 * scale), (int)(44 * scale));
+            DrawScrollCounter(pe, speedScroll, spdrectangle, 0, 1, (float)(speed - Math.Truncate(speed)));
         }
 
         public void SetValues(double roll, double pitch, double alt, double speed, double vs, double heading)
@@ -178,10 +195,12 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             this.Refresh();
         }
 
-        public void SetXY(int x, int y)
+        public void SetXY(int x, int y,float z)
         {
             this.x = x;
             this.y = y;
+            this.z = z;
+            Refresh();
         }
 
 

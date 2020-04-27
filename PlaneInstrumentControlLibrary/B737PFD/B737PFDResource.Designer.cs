@@ -93,6 +93,16 @@ namespace PlaneInstrumentControlLibrary.B737PFD {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap altScroll {
+            get {
+                object obj = ResourceManager.GetObject("altScroll", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap altTape {
             get {
                 object obj = ResourceManager.GetObject("altTape", resourceCulture);
@@ -316,6 +326,16 @@ namespace PlaneInstrumentControlLibrary.B737PFD {
         internal static System.Drawing.Bitmap spd_80_1 {
             get {
                 object obj = ResourceManager.GetObject("spd_80_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap speedScorll {
+            get {
+                object obj = ResourceManager.GetObject("speedScorll", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

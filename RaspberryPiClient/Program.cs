@@ -17,7 +17,7 @@ namespace RaspberryPiClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new NDTest());
+            Application.Run(new MainForm());
         }
     }
 }

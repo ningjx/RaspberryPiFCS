@@ -59,9 +59,6 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.b737EICAS1 = new PlaneInstrumentControlLibrary.B737EICAS.B737EICAS();
-            this.a350ND1 = new PlaneInstrumentControlLibrary.A350ND.A350ND();
-            this.b737PFD1 = new PlaneInstrumentControlLibrary.B737PFD.B737PFD();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
@@ -69,6 +66,9 @@
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
+            this.a350ND1 = new PlaneInstrumentControlLibrary.A350ND.A350ND();
+            this.b737PFD1 = new PlaneInstrumentControlLibrary.B737PFD.B737PFD();
+            this.b737EICAS1 = new PlaneInstrumentControlLibrary.B737EICAS.B737EICAS();
             ((System.ComponentModel.ISupportInitialize)(this.rollBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pitchBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.headingBar)).BeginInit();
@@ -86,110 +86,123 @@
             // 
             // rollBar
             // 
-            this.rollBar.Location = new System.Drawing.Point(812, 24);
+            this.rollBar.Location = new System.Drawing.Point(1218, 36);
+            this.rollBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rollBar.Maximum = 180;
             this.rollBar.Minimum = -180;
             this.rollBar.Name = "rollBar";
-            this.rollBar.Size = new System.Drawing.Size(460, 45);
+            this.rollBar.Size = new System.Drawing.Size(690, 69);
             this.rollBar.TabIndex = 3;
             this.rollBar.Scroll += new System.EventHandler(this.rollBar_Scroll);
             // 
             // pitchBar
             // 
-            this.pitchBar.Location = new System.Drawing.Point(812, 93);
+            this.pitchBar.Location = new System.Drawing.Point(1218, 140);
+            this.pitchBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pitchBar.Maximum = 90;
             this.pitchBar.Minimum = -180;
             this.pitchBar.Name = "pitchBar";
-            this.pitchBar.Size = new System.Drawing.Size(460, 45);
+            this.pitchBar.Size = new System.Drawing.Size(690, 69);
             this.pitchBar.TabIndex = 4;
             this.pitchBar.Scroll += new System.EventHandler(this.pitchBar_Scroll);
             // 
             // headingBar
             // 
-            this.headingBar.Location = new System.Drawing.Point(812, 155);
+            this.headingBar.Location = new System.Drawing.Point(1218, 232);
+            this.headingBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.headingBar.Maximum = 360;
             this.headingBar.Name = "headingBar";
-            this.headingBar.Size = new System.Drawing.Size(460, 45);
+            this.headingBar.Size = new System.Drawing.Size(690, 69);
             this.headingBar.TabIndex = 5;
             this.headingBar.Scroll += new System.EventHandler(this.headingBar_Scroll);
             // 
             // speedBar
             // 
-            this.speedBar.Location = new System.Drawing.Point(812, 234);
-            this.speedBar.Maximum = 400;
+            this.speedBar.Location = new System.Drawing.Point(1218, 351);
+            this.speedBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.speedBar.Maximum = 4000;
             this.speedBar.Name = "speedBar";
-            this.speedBar.Size = new System.Drawing.Size(460, 45);
+            this.speedBar.Size = new System.Drawing.Size(690, 69);
             this.speedBar.TabIndex = 6;
             this.speedBar.Scroll += new System.EventHandler(this.speedBar_Scroll);
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(1286, 30);
+            this.textBox3.Location = new System.Drawing.Point(1929, 45);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 21);
+            this.textBox3.Size = new System.Drawing.Size(148, 28);
             this.textBox3.TabIndex = 9;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(1286, 99);
+            this.textBox4.Location = new System.Drawing.Point(1929, 148);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 21);
+            this.textBox4.Size = new System.Drawing.Size(148, 28);
             this.textBox4.TabIndex = 10;
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(1286, 164);
+            this.textBox5.Location = new System.Drawing.Point(1929, 246);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 21);
+            this.textBox5.Size = new System.Drawing.Size(148, 28);
             this.textBox5.TabIndex = 11;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(1286, 235);
+            this.textBox6.Location = new System.Drawing.Point(1929, 352);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 21);
+            this.textBox6.Size = new System.Drawing.Size(148, 28);
             this.textBox6.TabIndex = 12;
             // 
             // altBar
             // 
-            this.altBar.Location = new System.Drawing.Point(812, 313);
+            this.altBar.Location = new System.Drawing.Point(1218, 470);
+            this.altBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.altBar.Maximum = 4000;
             this.altBar.Minimum = -200;
             this.altBar.Name = "altBar";
-            this.altBar.Size = new System.Drawing.Size(460, 45);
+            this.altBar.Size = new System.Drawing.Size(690, 69);
             this.altBar.TabIndex = 13;
             this.altBar.Scroll += new System.EventHandler(this.altBar_Scroll);
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(1286, 313);
+            this.textBox7.Location = new System.Drawing.Point(1929, 470);
+            this.textBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 21);
+            this.textBox7.Size = new System.Drawing.Size(148, 28);
             this.textBox7.TabIndex = 14;
             // 
             // vsBar
             // 
-            this.vsBar.Location = new System.Drawing.Point(812, 391);
+            this.vsBar.Location = new System.Drawing.Point(1218, 586);
+            this.vsBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.vsBar.Maximum = 70;
             this.vsBar.Minimum = -70;
             this.vsBar.Name = "vsBar";
-            this.vsBar.Size = new System.Drawing.Size(460, 45);
+            this.vsBar.Size = new System.Drawing.Size(690, 69);
             this.vsBar.TabIndex = 15;
             this.vsBar.Scroll += new System.EventHandler(this.vsBar_Scroll);
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(1286, 391);
+            this.textBox8.Location = new System.Drawing.Point(1929, 586);
+            this.textBox8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(100, 21);
+            this.textBox8.Size = new System.Drawing.Size(148, 28);
             this.textBox8.TabIndex = 16;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(753, 33);
+            this.label1.Location = new System.Drawing.Point(1130, 50);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.Size = new System.Drawing.Size(44, 18);
             this.label1.TabIndex = 17;
             this.label1.Text = "roll";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -197,45 +210,50 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(747, 102);
+            this.label2.Location = new System.Drawing.Point(1120, 153);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 12);
+            this.label2.Size = new System.Drawing.Size(53, 18);
             this.label2.TabIndex = 18;
             this.label2.Text = "pitch";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(747, 164);
+            this.label3.Location = new System.Drawing.Point(1120, 246);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 12);
+            this.label3.Size = new System.Drawing.Size(71, 18);
             this.label3.TabIndex = 19;
             this.label3.Text = "heading";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(753, 244);
+            this.label4.Location = new System.Drawing.Point(1130, 366);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 12);
+            this.label4.Size = new System.Drawing.Size(53, 18);
             this.label4.TabIndex = 20;
             this.label4.Text = "speed";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(759, 321);
+            this.label5.Location = new System.Drawing.Point(1138, 482);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(23, 12);
+            this.label5.Size = new System.Drawing.Size(35, 18);
             this.label5.TabIndex = 21;
             this.label5.Text = "alt";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(765, 394);
+            this.label7.Location = new System.Drawing.Point(1148, 591);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(17, 12);
+            this.label7.Size = new System.Drawing.Size(26, 18);
             this.label7.TabIndex = 23;
             this.label7.Text = "vs";
             // 
@@ -247,7 +265,8 @@
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(388, 364);
+            this.gMapControl1.Location = new System.Drawing.Point(582, 546);
+            this.gMapControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
@@ -261,15 +280,16 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(350, 356);
+            this.gMapControl1.Size = new System.Drawing.Size(525, 534);
             this.gMapControl1.TabIndex = 26;
             this.gMapControl1.Zoom = 0D;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(945, 460);
+            this.button1.Location = new System.Drawing.Point(1418, 690);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(112, 34);
             this.button1.TabIndex = 31;
             this.button1.Text = "设置飞行状态";
             this.button1.UseVisualStyleBackColor = true;
@@ -278,44 +298,49 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(388, 723);
+            this.label6.Location = new System.Drawing.Point(582, 1084);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 12);
+            this.label6.Size = new System.Drawing.Size(62, 18);
             this.label6.TabIndex = 27;
             this.label6.Text = "label6";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(484, 723);
+            this.label8.Location = new System.Drawing.Point(726, 1084);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(41, 12);
+            this.label8.Size = new System.Drawing.Size(62, 18);
             this.label8.TabIndex = 28;
             this.label8.Text = "label8";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(570, 723);
+            this.label9.Location = new System.Drawing.Point(855, 1084);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(41, 12);
+            this.label9.Size = new System.Drawing.Size(62, 18);
             this.label9.TabIndex = 29;
             this.label9.Text = "label9";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(670, 723);
+            this.label10.Location = new System.Drawing.Point(1005, 1084);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(47, 12);
+            this.label10.Size = new System.Drawing.Size(71, 18);
             this.label10.TabIndex = 30;
             this.label10.Text = "label10";
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(165, 752);
+            this.button4.Location = new System.Drawing.Point(248, 1128);
+            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(110, 23);
+            this.button4.Size = new System.Drawing.Size(165, 34);
             this.button4.TabIndex = 35;
             this.button4.Text = "设置引擎一状态";
             this.button4.UseVisualStyleBackColor = true;
@@ -328,9 +353,10 @@
             "失效",
             "警告",
             "正常"});
-            this.comboBox1.Location = new System.Drawing.Point(21, 752);
+            this.comboBox1.Location = new System.Drawing.Point(32, 1128);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 20);
+            this.comboBox1.Size = new System.Drawing.Size(180, 26);
             this.comboBox1.TabIndex = 36;
             // 
             // comboBox2
@@ -340,16 +366,18 @@
             "失效",
             "警告",
             "正常"});
-            this.comboBox2.Location = new System.Drawing.Point(21, 796);
+            this.comboBox2.Location = new System.Drawing.Point(32, 1194);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 20);
+            this.comboBox2.Size = new System.Drawing.Size(180, 26);
             this.comboBox2.TabIndex = 37;
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(165, 793);
+            this.button5.Location = new System.Drawing.Point(248, 1190);
+            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(110, 23);
+            this.button5.Size = new System.Drawing.Size(165, 34);
             this.button5.TabIndex = 38;
             this.button5.Text = "设置引擎二状态";
             this.button5.UseVisualStyleBackColor = true;
@@ -366,42 +394,18 @@
             "CRZ",
             "Dec",
             "APP"});
-            this.comboBox3.Location = new System.Drawing.Point(786, 462);
+            this.comboBox3.Location = new System.Drawing.Point(1179, 693);
+            this.comboBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 20);
+            this.comboBox3.Size = new System.Drawing.Size(180, 26);
             this.comboBox3.TabIndex = 39;
-            // 
-            // b737EICAS1
-            // 
-            this.b737EICAS1.Location = new System.Drawing.Point(12, 364);
-            this.b737EICAS1.Name = "b737EICAS1";
-            this.b737EICAS1.Size = new System.Drawing.Size(370, 373);
-            this.b737EICAS1.TabIndex = 34;
-            this.b737EICAS1.Text = "b737EICAS1";
-            // 
-            // a350ND1
-            // 
-            this.a350ND1.Location = new System.Drawing.Point(390, 22);
-            this.a350ND1.MapImage = null;
-            this.a350ND1.Name = "a350ND1";
-            this.a350ND1.Size = new System.Drawing.Size(329, 312);
-            this.a350ND1.TabIndex = 25;
-            this.a350ND1.Text = "a350ND1";
-            this.a350ND1.Click += new System.EventHandler(this.a350ND1_Click);
-            // 
-            // b737PFD1
-            // 
-            this.b737PFD1.Location = new System.Drawing.Point(12, 12);
-            this.b737PFD1.Name = "b737PFD1";
-            this.b737PFD1.Size = new System.Drawing.Size(370, 346);
-            this.b737PFD1.TabIndex = 24;
-            this.b737PFD1.Text = "b737PFD1";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(390, 763);
+            this.button2.Location = new System.Drawing.Point(585, 1144);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(112, 34);
             this.button2.TabIndex = 40;
             this.button2.Text = "取消警告";
             this.button2.UseVisualStyleBackColor = true;
@@ -409,16 +413,18 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(786, 509);
+            this.textBox1.Location = new System.Drawing.Point(1179, 764);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(121, 21);
+            this.textBox1.Size = new System.Drawing.Size(180, 28);
             this.textBox1.TabIndex = 41;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(945, 507);
+            this.button3.Location = new System.Drawing.Point(1418, 760);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(112, 34);
             this.button3.TabIndex = 42;
             this.button3.Text = "设置信息";
             this.button3.UseVisualStyleBackColor = true;
@@ -426,41 +432,74 @@
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(853, 610);
+            this.trackBar1.Location = new System.Drawing.Point(1280, 915);
+            this.trackBar1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackBar1.Maximum = 500;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(419, 45);
+            this.trackBar1.Size = new System.Drawing.Size(628, 69);
             this.trackBar1.TabIndex = 43;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // trackBar2
             // 
-            this.trackBar2.Location = new System.Drawing.Point(853, 675);
+            this.trackBar2.Location = new System.Drawing.Point(1280, 1012);
+            this.trackBar2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackBar2.Maximum = 500;
             this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(419, 45);
+            this.trackBar2.Size = new System.Drawing.Size(628, 69);
             this.trackBar2.TabIndex = 44;
             this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(1286, 620);
+            this.textBox2.Location = new System.Drawing.Point(1929, 930);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 21);
+            this.textBox2.Size = new System.Drawing.Size(148, 28);
             this.textBox2.TabIndex = 45;
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(1286, 684);
+            this.textBox9.Location = new System.Drawing.Point(1929, 1026);
+            this.textBox9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(100, 21);
+            this.textBox9.Size = new System.Drawing.Size(148, 28);
             this.textBox9.TabIndex = 46;
+            // 
+            // a350ND1
+            // 
+            this.a350ND1.Location = new System.Drawing.Point(585, 33);
+            this.a350ND1.MapImage = null;
+            this.a350ND1.Margin = new System.Windows.Forms.Padding(4);
+            this.a350ND1.Name = "a350ND1";
+            this.a350ND1.Size = new System.Drawing.Size(494, 468);
+            this.a350ND1.TabIndex = 25;
+            this.a350ND1.Text = "a350ND1";
+            this.a350ND1.Click += new System.EventHandler(this.a350ND1_Click);
+            // 
+            // b737PFD1
+            // 
+            this.b737PFD1.Location = new System.Drawing.Point(18, 18);
+            this.b737PFD1.Margin = new System.Windows.Forms.Padding(4);
+            this.b737PFD1.Name = "b737PFD1";
+            this.b737PFD1.Size = new System.Drawing.Size(555, 519);
+            this.b737PFD1.TabIndex = 24;
+            this.b737PFD1.Text = "b737PFD1";
+            // 
+            // b737EICAS1
+            // 
+            this.b737EICAS1.Location = new System.Drawing.Point(18, 546);
+            this.b737EICAS1.Margin = new System.Windows.Forms.Padding(4);
+            this.b737EICAS1.Name = "b737EICAS1";
+            this.b737EICAS1.Size = new System.Drawing.Size(555, 560);
+            this.b737EICAS1.TabIndex = 34;
+            this.b737EICAS1.Text = "b737EICAS1";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1411, 833);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(2116, 1250);
             this.Controls.Add(this.textBox9);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.trackBar2);
@@ -500,6 +539,7 @@
             this.Controls.Add(this.pitchBar);
             this.Controls.Add(this.rollBar);
             this.Controls.Add(this.b737EICAS1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
