@@ -181,6 +181,12 @@
     <Compile Include="Controllers\MavlinkController.cs" />
     <Compile Include="Controllers\TestEq.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Forms\EFISTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EFISTest.Designer.cs">
+      <DependentUpon>EFISTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NDTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -210,6 +216,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\EFISTest.resx">
+      <DependentUpon>EFISTest.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

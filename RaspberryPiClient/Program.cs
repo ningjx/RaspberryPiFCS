@@ -25,7 +25,7 @@ namespace RaspberryPiClient
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Config.ReadConfig();
-                using (MainForm form = new MainForm())
+                using (Form form = new EFISTest())
                 {
                     form.FormClosed += delegate (object sender, FormClosedEventArgs e)
                     {
