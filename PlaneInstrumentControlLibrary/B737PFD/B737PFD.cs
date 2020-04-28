@@ -142,13 +142,13 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             pe.Graphics.DrawImage(altNum, (backGroung.Width - altNum.Width) * scale * 0.65F, (backGroung.Height - altNum.Height) * scale * 0.45F, altNum.Width * scale, altNum.Height * scale);
 
             //显示高度速度数字
-            string altStr = alt.ToString("f0").PadLeft(4, '0');
+            string altStr = Math.Truncate(alt).ToString().PadLeft(4, '0');
             if (altStr.Contains("-"))
             {
                 string[] spl = altStr.Split('-');
                 altStr = "-"+spl[0] + spl[1];
             }
-            pe.Graphics.DrawString(speed.ToString("f0").PadLeft(2,'0'), drawFont, drawBrush, 62 * scale, 230* scale );
+            pe.Graphics.DrawString(Math.Truncate(speed).ToString().PadLeft(2,'0'), drawFont, drawBrush, 62 * scale, 230* scale );
             pe.Graphics.DrawString(altStr, altScrFont, drawBrush, 448 * scale, 233 * scale);
 
             //绘制航向盘
