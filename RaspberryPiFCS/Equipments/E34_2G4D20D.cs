@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Handlers;
-using RaspberryPiFCS.Helper;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
 using RaspberryPiFCS.SystemMessage;

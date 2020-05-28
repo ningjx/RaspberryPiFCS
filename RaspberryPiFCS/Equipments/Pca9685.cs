@@ -1,4 +1,5 @@
-﻿using RaspberryPiFCS.Enum;
+﻿using RaspberryPiFCS.Drivers;
+using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
 using RaspberryPiFCS.SystemMessage;
@@ -103,7 +104,7 @@ namespace RaspberryPiFCS.Equipments
                     throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
 
-                _device = EquipmentBus.I2CBus.AddDevice(Addr);
+                _device = I2CDriver.I2CBus.AddDevice(Addr);
                 _device.WriteAddressByte(MODE1, 0x00);
                 SetPWMFreq(Freq);
                 EquipmentData.IsEnable = true;
