@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PlaneInstrumentControlLibrary.SoundHandle;
+
 
 namespace PlaneInstrumentControlLibrary.B737EICAS
 {
@@ -232,7 +234,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
     class B737EICASSound : Sound
     {
-        SysSound scSound = new SysSound
+        SoundRes scSound = new SoundRes
         {
             FileName = @"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\SC.wav",
             MillionSec = 1000
@@ -240,12 +242,12 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
         public SoundPlayer cscSound = new SoundPlayer(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737EICAS\Sounds\CSC_fix.wav");
 
-        protected override SysSound GetSysSound(int hashCode)
+        protected override SoundRes GetSoundRes(int hashCode)
         {
             switch (hashCode)
             {
                 case 0: return scSound;
-                default: return new SysSound();
+                default: return new SoundRes();
             }
         }
         //protected override SoundPlayer GetSoundPlayer(int hashCode)

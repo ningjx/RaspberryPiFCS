@@ -28,7 +28,7 @@ namespace RaspberryPiFCS.Models
         {
             bool result = true;
             List<int> current = RelyControllers.Select(t => t.ControllerType.GetHashCode()).ToList();
-            foreach (var item in relyConyrollers.RelyConyrollers)
+            foreach (var item in relyConyrollers)
             {
                 if (!current.Contains(item.GetHashCode()))
                 {
@@ -40,13 +40,13 @@ namespace RaspberryPiFCS.Models
         }
     }
 
-    public class RelyConyroller
+    public class RelyConyroller: List<RegisterType>
     {
-        public List<RegisterType> RelyConyrollers = new List<RegisterType>();
-        public void Add(RegisterType controllerType)
-        {
-            RelyConyrollers.Add(controllerType);
-        }
+        //public List<RegisterType> RelyConyrollers = new List<RegisterType>();
+        //public void Add(RegisterType controllerType)
+        //{
+        //    RelyConyrollers.Add(controllerType);
+        //}
     }
 
     class RegistedEquipment

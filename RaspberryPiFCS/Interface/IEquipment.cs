@@ -17,5 +17,7 @@ namespace RaspberryPiFCS.Interface
         /// </summary>
         /// <returns></returns>
         public bool Lunch();
+
+        public RelyConyroller RelyConyroller { get; set; }
     }
 }

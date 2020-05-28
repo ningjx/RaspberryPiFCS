@@ -2,6 +2,7 @@
 using RaspberryPiFCS.Helper;
 using RaspberryPiFCS.SystemMessage;
 using System;
+using HelperLib;
 
 namespace RaspberryPiFCS.Configs
 {
@@ -10,25 +11,20 @@ namespace RaspberryPiFCS.Configs
     /// </summary>
     public static class Config
     {
-        private static string[] _sys = new string[] { "Configs", "SystemConfig.json" };//系统配置
-        private static string[] _equipment = new string[] { "Configs", "EquipmentConfig.json" };//设备配置
-        private static string[] _remoteControl = new string[] { "Configs", "RemoteControlConfig.json" };//遥控器配置
+        private static readonly string[] _sys = new string[] { "Configs", "SystemConfig.json" };//系统配置
+        private static readonly string[] _equipment = new string[] { "Configs", "EquipmentConfig.json" };//设备配置
+        private static readonly string[] _remoteControl = new string[] { "Configs", "RemoteControlConfig.json" };//遥控器配置
 
-        public static SysConfig SysConfig;//{ get { return SysConfig; } set { } }
+        public static SysConfig SysConfig;
         public static RemoteConfigs RemoteConfigs;
         public static Equipment EquipmentConfigs;
 
-        static Config()
-        {
-
-        }
-
-        [Obsolete]
         /// <summary>
         /// 修改配置文件
         /// </summary>
         /// <param name="configName">参数名</param>
         /// <param name="value">要修改的值</param>
+        [Obsolete]
         public static void ChangeConfig(string configName, object value)
         {
             var currentValue = typeof(SysConfig).GetField(configName).GetValue(SysConfig);
@@ -41,14 +37,23 @@ namespace RaspberryPiFCS.Configs
             path.Write(JsonConvert.SerializeObject(SysConfig));
         }
 
-        public static void SaveConfig()
+        public static bool SaveConfig()
         {
-            _sys.Write(JsonConvert.SerializeObject(SysConfig));
-            _equipment.Write(JsonConvert.SerializeObject(RemoteConfigs));
-            _remoteControl.Write(JsonConvert.SerializeObject(EquipmentConfigs));
+            try
+            {
+                _sys.Write(JsonConvert.SerializeObject(SysConfig));
+                _equipment.Write(JsonConvert.SerializeObject(RemoteConfigs));
+                _remoteControl.Write(JsonConvert.SerializeObject(EquipmentConfigs));
+                return true;
+            }
+            catch(Exception ex)
+            {
+                ErrorMessage.Add(Enum.ErrorType.Debug, "读取配置信息失败", ex);
+                return false;
+            }
         }
 
-        public static bool InitConfig()
+        public static bool ReadConfig()
         {
             try
             {

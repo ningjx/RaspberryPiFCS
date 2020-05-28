@@ -121,6 +121,9 @@
   <data name="altCover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\altCover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="altScroll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\altScroll.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="altTape" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\altTape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -195,6 +198,9 @@
   </data>
   <data name="spd_80_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\spd_80-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="speedScorll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\speedScorll.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\stic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

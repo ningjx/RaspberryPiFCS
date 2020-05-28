@@ -177,14 +177,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="Controllers\MavlinkController.cs" />
     <Compile Include="Controllers\TestEq.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Forms\EFISTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EFISTest.Designer.cs">
+      <DependentUpon>EFISTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NDTest.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\NDTest.Designer.cs">
       <DependentUpon>NDTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PFDTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PFDTest.Designer.cs">
+      <DependentUpon>PFDTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\HttpHelper.cs" />
     <Compile Include="Helper\UARTHelper.cs" />
@@ -203,6 +216,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\EFISTest.resx">
+      <DependentUpon>EFISTest.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -211,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NDTest.resx">
       <DependentUpon>NDTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PFDTest.resx">
+      <DependentUpon>PFDTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -251,6 +270,10 @@
     <ProjectReference Include="..\GMap.NET.WindowsPresentation\GMap.NET.WindowsPresentation.csproj">
       <Project>{644fe7d4-0184-400f-b2d7-99cb41360658}</Project>
       <Name>GMap.NET.WindowsPresentation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HelperLib\HelperLib.csproj">
+      <Project>{6E45F1A3-D3CD-47EB-99D4-FD3BD558CB87}</Project>
+      <Name>HelperLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mavlink\Mavlink.csproj">
       <Project>{9f867dd2-7b8b-4352-be3a-2ad8f9dd80af}</Project>

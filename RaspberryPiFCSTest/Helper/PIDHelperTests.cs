@@ -12,7 +12,7 @@ namespace RaspberryPiFCS.Helper.Tests
         [TestMethod()]
         public void PIDCaculateTest()
         {
-            PIDHelper PID = new PIDHelper();
+            PIDDriver PID = new PIDDriver();
             while (true)
             {
                 //var res = PID.PIDCaculate(100);

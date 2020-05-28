@@ -233,6 +233,41 @@ namespace PlaneInstrumentControlLibrary
             }
         }
 
+        protected void DrawScrollCounter(PaintEventArgs pe, Image imgBand, Rectangle showRectanglel, float minValue, float maxValue, float currValue)
+        {
+            float rectangleScale = showRectanglel.Width / (float)showRectanglel.Height;
+            currValue %= (maxValue - minValue);
+            int sigleHeight = imgBand.Height / 3;
+            float currPos = currValue / (maxValue - minValue);
+            int currPix = (int)(sigleHeight * (2 - currPos));//当前像素位置
+            if (currPos > .5)
+                currPix += sigleHeight;
+
+            int yDistance = (int)(imgBand.Width / rectangleScale);//y长度
+
+            Rectangle imageRectangle = new Rectangle(0, currPix - (int)(yDistance*.7F), imgBand.Width, yDistance);
+
+            pe.Graphics.DrawImage(imgBand, showRectanglel, imageRectangle, GraphicsUnit.Pixel);
+        }
+
+        protected void DrawScrollCounter(PaintEventArgs pe, Image imgBand, Rectangle showRectanglel, float minValue, float maxValue, float currValue, float scale)
+        {
+            float rectangleScale = showRectanglel.Width / (float)showRectanglel.Height;
+            //currValue += 0.1F;
+            currValue %= (maxValue - minValue);
+            int sigleHeight = imgBand.Height / 3;
+            float currPos = currValue / (maxValue - minValue);
+            int currPix = (int)(sigleHeight * (2 - currPos));//当前像素位置
+            if (currPos > .5)
+                currPix += sigleHeight;
+
+            int yDistance = (int)(imgBand.Width / rectangleScale);//y长度
+
+            //Rectangle imageRectangle = new Rectangle(0, currPix + yDistance / 2, imgBand.Width, yDistance);
+            Rectangle imageRectangle = new Rectangle(0, currPix - yDistance / 2, imgBand.Width, yDistance);
+
+            pe.Graphics.DrawImage(imgBand, showRectanglel, imageRectangle, GraphicsUnit.Pixel);
+        }
 
         /// <summary>
         /// Convert a physical value in an rad angle used by the rotate function

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FlightData\FlightData.csproj" />
+    <ProjectReference Include="..\HelperLib\HelperLib.csproj" />
     <ProjectReference Include="..\Mavlink\Mavlink.csproj" />
   </ItemGroup>
 

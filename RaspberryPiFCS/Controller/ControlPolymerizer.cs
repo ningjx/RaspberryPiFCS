@@ -12,7 +12,7 @@ namespace RaspberryPiFCS.ComputeCenter
     public class ControlPolymerizer : IController
     {
         private readonly Timer _timer = new Timer();
-        private readonly PIDHelper _pid = new PIDHelper();
+        private readonly PIDDriver _pid = new PIDDriver();
 
         public ControlPolymerizer()
         {

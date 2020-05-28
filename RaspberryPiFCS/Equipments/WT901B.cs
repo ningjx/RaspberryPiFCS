@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Enum;
-using RaspberryPiFCS.Helper;
+using RaspberryPiFCS.Handlers;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
 using RaspberryPiFCS.SystemMessage;
@@ -14,11 +16,18 @@ namespace RaspberryPiFCS.Equipments
     {
         private bool _lock = false;
 
-        private UARTHelper uart;
+        private UARTDriver uart;
 
-        public EquipmentData EquipmentData { get; } = new EquipmentData();
+        public event DataHandler ReciveEvent;
+
+        public EquipmentData EquipmentData { get; } = new EquipmentData("WT901B");
 
         public string ComName { get; } = string.Empty;
+        public byte[] SendBytes { set => throw new NotImplementedException(); }
+        public RelyConyroller RelyConyroller { get; set; } = new RelyConyroller
+        {
+            RegisterType.Sys
+        };
 
 
         /// <summary>
@@ -39,14 +48,12 @@ namespace RaspberryPiFCS.Equipments
             try
             {
                 //检查依赖
-                RelyConyroller relyConyroller = new RelyConyroller();
-                relyConyroller.Add(RegisterType.Sys);
-                if (!StatusDatasBus.ControllerRegister.CheckRely(relyConyroller))
+                if (!StatusDatasBus.ControllerRegister.CheckRely(RelyConyroller))
                 {
-                    throw new Exception("依赖设备尚未启动");
+                    throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
 
-                uart = new UARTHelper(ComName);
+                uart = DriversFactory.GetUARTDriver(ComName);
                 uart.ReceivedEvent += ReceivedEvent;
                 uart.Open();
                 EquipmentData.IsEnable = true;
@@ -54,6 +61,7 @@ namespace RaspberryPiFCS.Equipments
             }
             catch (Exception ex)
             {
+                EquipmentData.AddError(Enum.ErrorType.Error, "启动WT901B失败！", ex);
                 ErrorMessage.Add(Enum.ErrorType.Error, "启动WT901B失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
@@ -76,7 +84,7 @@ namespace RaspberryPiFCS.Equipments
                 return;
             _lock = true;
 
-            var byteList = byteTemp.GetBytesFromByte(new byte[] { 0x55, 0x50 }, 11);
+            var byteList = GetBytesFromByte(byteTemp,new byte[] { 0x55, 0x50 }, 11);
 
             if (byteList.Count == 0)
             {
@@ -183,6 +191,41 @@ namespace RaspberryPiFCS.Equipments
                 }
             });
             _lock = false;
+        }
+
+        public static List<byte[]> GetBytesFromByte(byte[] bytesData, byte[] bytes, int length = 0)
+        {
+            bool isMatch = false;
+            if (length == 0)
+                length = bytesData.Length;
+            int currLength = 1;
+            List<byte[]> buffer = new List<byte[]>();
+            int row = 0;
+            for (int i = 0; i < bytesData.Length; i++)
+            {
+                if (isMatch == true && bytesData[i] == bytes[1] && bytesData[i - 1] == bytes[0])
+                    break;
+                if (currLength == length)
+                {
+                    row++;
+                    buffer.Add(new byte[length]);
+                    currLength = 0;
+                }
+                if (i > 0 && bytesData[i] == bytes[1] && bytesData[i - 1] == bytes[0])
+                {
+                    buffer.Add(new byte[length]);
+                    buffer[row][0] = bytesData[i - 1];
+                    isMatch = true;
+                }
+                if (isMatch)
+                {
+                    buffer[row][currLength] = bytesData[i];
+                    currLength++;
+                }
+            }
+            if (buffer.Count != 0 && buffer[buffer.Count - 1].Length != length)
+                buffer.RemoveAt(buffer.Count - 1);
+            return buffer;
         }
     }
 }

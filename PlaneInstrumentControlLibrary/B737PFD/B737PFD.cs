@@ -5,6 +5,7 @@ using System.Media;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PlaneInstrumentControlLibrary.SoundHandle;
 
 namespace PlaneInstrumentControlLibrary.B737PFD
 {
@@ -29,6 +30,8 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         Bitmap directorH = new Bitmap(B737PFDResource.flight_director_horizontal_1);
         Bitmap directorV = new Bitmap(B737PFDResource.flight_director_vertical_1);
         Bitmap pullup = new Bitmap(B737PFDResource.Pull_Up_1);
+        Bitmap altScroll = new Bitmap(B737PFDResource.altScroll);
+        Bitmap speedScroll = new Bitmap(B737PFDResource.speedScorll);
 
         System.Timers.Timer timer = new System.Timers.Timer(800);
 
@@ -36,6 +39,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         FlightStatus flightMode = FlightStatus.Park;
         Font drawFont;
         Font altFont;
+        Font altScrFont;
         SolidBrush drawBrush = new SolidBrush(Color.White);
         SolidBrush altBrush = new SolidBrush(Color.FromArgb(202, 89, 198));
         SolidBrush modeBrush = new SolidBrush(Color.SpringGreen);
@@ -52,7 +56,9 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         Point headingPosition = new Point(114, 439);
         Point headingRotation = new Point(276, 601);
         Point headingBudPosition = new Point(263, 429);
-        int x, y;
+        public int x, y;
+        public float z;
+        
         public B737PFD()
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
@@ -80,7 +86,8 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             RotateAndTranslate(pe, horizon, roll, 0, horPosition, (int)(5.2 * pitch), horRotation, scale);
 
             maskPen = new Pen(Color.Black, 10 * scale);
-            drawFont = new Font("Arial", 16 * scale);
+            drawFont = new Font("Arial", 18 * scale);
+            altScrFont = new Font("Arial", 14 * scale);
             altFont = new Font("Arial", 12 * scale);
 
             speedTapePosition = new Point(56, (int)(speed * 31.2) - 1075);
@@ -135,8 +142,14 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             pe.Graphics.DrawImage(altNum, (backGroung.Width - altNum.Width) * scale * 0.65F, (backGroung.Height - altNum.Height) * scale * 0.45F, altNum.Width * scale, altNum.Height * scale);
 
             //显示高度速度数字
-            pe.Graphics.DrawString(speed.ToString("f1").PadLeft(4), drawFont, drawBrush, (backGroung.Width - altNum.Width) * scale * 0.65F, (backGroung.Height - altNum.Height) * scale * 0.49F);
-            pe.Graphics.DrawString(alt.ToString("f1").PadLeft(5), drawFont, drawBrush, (backGroung.Width - altNum.Width) * scale * 5.05F, (backGroung.Height - altNum.Height) * scale * 0.49F);
+            string altStr = Math.Truncate(alt).ToString().PadLeft(4, '0');
+            if (altStr.Contains("-"))
+            {
+                string[] spl = altStr.Split('-');
+                altStr = "-"+spl[0] + spl[1];
+            }
+            pe.Graphics.DrawString(Math.Truncate(speed).ToString().PadLeft(2,'0'), drawFont, drawBrush, 62 * scale, 230* scale );
+            pe.Graphics.DrawString(altStr, altScrFont, drawBrush, 448 * scale, 233 * scale);
 
             //绘制航向盘
             RotateImage(pe, headingRose, InterpolPhyToAngle((float)heading, 0, 360, 360, 0), headingPosition, headingRotation, scale);
@@ -159,6 +172,11 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             {
                 pe.Graphics.DrawImage(pullup, 0, 0, pullup.Width * scale, pullup.Height * scale);
             }
+
+            Rectangle altrectangle = new Rectangle((int)(493* scale), (int)(224* scale), (int)(18* scale), (int)(43* scale));
+            DrawScrollCounter(pe, altScroll, altrectangle, 0, 1, (float)(alt-Math.Truncate(alt)));
+            Rectangle spdrectangle = new Rectangle((int)(93 * scale), (int)(222 * scale), (int)(12 * scale), (int)(44 * scale));
+            DrawScrollCounter(pe, speedScroll, spdrectangle, 0, 1, (float)(speed - Math.Truncate(speed)));
         }
 
         public void SetValues(double roll, double pitch, double alt, double speed, double vs, double heading)
@@ -177,10 +195,12 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             this.Refresh();
         }
 
-        public void SetXY(int x, int y)
+        public void SetXY(int x, int y,float z)
         {
             this.x = x;
             this.y = y;
+            this.z = z;
+            Refresh();
         }
 
 
@@ -230,7 +250,6 @@ namespace PlaneInstrumentControlLibrary.B737PFD
                 sound.PlaySync(SoundType.sinkrate, action,2);
             }
         }
-
         #endregion
 
         #region 高度SpeakOut
@@ -283,7 +302,11 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             if (alt <= 2 && altBuffer > 2)
             {
                 altBuffer = alt;
-                sound.PlaySync(SoundType.S200);
+                void action()
+                {
+                    sound.Play(SoundType.minimums);
+                }
+                sound.PlaySync(SoundType.S200, action);
                 return;
             }
             if (alt <= 1 && altBuffer > 1)
@@ -363,29 +386,29 @@ namespace PlaneInstrumentControlLibrary.B737PFD
 
     class B737PFDSound : Sound
     {
-        private SysSound S10 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\10.wav");
-        private SysSound S20 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\20.wav");
-        private SysSound S30 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\30.wav");
-        private SysSound S40 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\40.wav");
-        private SysSound S50 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\50.wav");
-        private SysSound S100a = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\100_above.wav");
-        private SysSound S200 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\200.wav");
-        private SysSound S300 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\300.wav");
-        private SysSound S400 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\400.wav");
-        private SysSound S500 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\500.wav");
-        private SysSound S1000 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\1000.wav");
-        private SysSound S2000 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2000.wav");
-        private SysSound S2500 = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2500.wav", 1500);
-        private SysSound terrain = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\terrain.wav");
-        private SysSound pullup = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\pullup.wav");
-        private SysSound bankangle = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\bankangle.wav");
-        private SysSound dontsink = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\dontsink.wav");
-        private SysSound glideslope = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\glideslope.wav");
-        private SysSound minimums = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\minimums.wav");
-        private SysSound sinkrate = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\sinkrate.wav");
-        private SysSound toolowflaps = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowflaps.wav");
-        private SysSound toolowgear = new SysSound(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowgear.wav");
-        protected override SysSound GetSysSound(int hashCode)
+        private SoundRes S10 = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\10.wav");
+        private SoundRes S20 = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\20.wav");
+        private SoundRes S30 = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\30.wav");
+        private SoundRes S40 = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\40.wav");
+        private SoundRes S50 = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\50.wav");
+        private SoundRes S100a = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\100_above.wav");
+        private SoundRes S200 = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\200.wav");
+        private SoundRes S300 = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\300.wav");
+        private SoundRes S400 = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\400.wav");
+        private SoundRes S500 = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\500.wav");
+        private SoundRes S1000 = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\1000.wav");
+        private SoundRes S2000 = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2000.wav");
+        private SoundRes S2500 = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\2500.wav", 1500);
+        private SoundRes terrain = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\terrain.wav");
+        private SoundRes pullup = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\pullup.wav");
+        private SoundRes bankangle = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\bankangle.wav");
+        private SoundRes dontsink = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\dontsink.wav");
+        private SoundRes glideslope = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\glideslope.wav");
+        private SoundRes minimums = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\minimums.wav");
+        private SoundRes sinkrate = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\sinkrate.wav");
+        private SoundRes toolowflaps = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowflaps.wav");
+        private SoundRes toolowgear = new SoundRes(@"D:\WorkSpace\RaspberryPiFCS\PlaneInstrumentControlLibrary\B737PFD\Sounds\toolowgear.wav");
+        protected override SoundRes GetSoundRes(int hashCode)
         {
             switch (hashCode)
             {
@@ -434,7 +457,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
                 case 21:
                     return toolowgear;
                 default:
-                    return new SysSound();
+                    return new SoundRes();
             }
         }
     }
@@ -464,5 +487,4 @@ namespace PlaneInstrumentControlLibrary.B737PFD
         toolowflaps,
         toolowgear
     }
-
 }

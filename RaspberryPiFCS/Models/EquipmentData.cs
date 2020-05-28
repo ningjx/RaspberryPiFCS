@@ -13,6 +13,9 @@ namespace RaspberryPiFCS.Models
         /// </summary>
         public bool IsEnable { get; set; }
 
+
+        public string EquipmentName { get; set; }
+
         /// <summary>
         /// 设备异常信息
         /// </summary>
@@ -31,9 +34,15 @@ namespace RaspberryPiFCS.Models
         /// 构造函数
         /// </summary>
         /// <param name="isEnable"></param>
-        public EquipmentData()
+        public EquipmentData(string name)
         {
+            EquipmentName = name;
             IsEnable = false;
+        }
+
+        public void AddError(ErrorType errorType,string message, Exception exception)
+        {
+            ErrorData.Add(new Tuple<DateTime, ErrorType, string, Exception>(DateTime.Now, errorType, message, exception));
         }
     }
 }

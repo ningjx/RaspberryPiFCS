@@ -140,12 +140,14 @@
   <ItemGroup>
     <None Include="A350ND\Images\ARCRose.png" />
     <None Include="A350ND\Images\backGround.png" />
-    <Content Include="A350ND\Images\mapCover - 复制.png" />
+    <Content Include="A350ND\Images\mapCover_Copy.png" />
     <Content Include="A350ND\Images\mapCover.png" />
     <Content Include="A350ND\Images\point.png" />
     <Content Include="A350ND\Images\top.png" />
     <Content Include="B737EICAS\Sounds\CSC_fix.wav" />
     <Content Include="B737EICAS\Sounds\CSC_short.wav" />
+    <Content Include="B737PFD\Images\altScroll.png" />
+    <Content Include="B737PFD\Images\speedScorll.png" />
     <Content Include="B737PFD\Sounds\10.wav" />
     <Content Include="B737PFD\Sounds\100.wav" />
     <Content Include="B737PFD\Sounds\1000.wav" />
