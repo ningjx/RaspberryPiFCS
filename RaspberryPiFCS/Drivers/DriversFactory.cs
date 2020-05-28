@@ -21,5 +21,10 @@ namespace RaspberryPiFCS.Drivers
         {
             return new PIDDriver(kp, ki, kd);
         }
+
+        public static SocketDriver GetSocketDriver(int bindPort, int sendPort = 0)
+        {
+            return new SocketDriver(bindPort, sendPort);
+        }
     }
 }

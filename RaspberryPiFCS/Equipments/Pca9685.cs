@@ -99,7 +99,7 @@ namespace RaspberryPiFCS.Equipments
             try
             {
                 //检查依赖
-                if (!DataBus.ControllerRegister.CheckRely(RelyConyroller))
+                if (!EquipmentBus.ControllerRegister.CheckRely(RelyConyroller))
                 {
                     throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
@@ -108,7 +108,7 @@ namespace RaspberryPiFCS.Equipments
                 _device.WriteAddressByte(MODE1, 0x00);
                 SetPWMFreq(Freq);
                 EquipmentData.IsEnable = true;
-                DataBus.ControllerRegister.Register(RegisterType.Pca9685, false);
+                EquipmentBus.ControllerRegister.Register(RegisterType.Pca9685, false);
             }
             catch (Exception ex)
             {

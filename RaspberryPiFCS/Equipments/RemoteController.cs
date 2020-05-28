@@ -14,7 +14,7 @@ namespace RaspberryPiFCS.Equipments
     {
         public EquipmentData EquipmentData { get; } = new EquipmentData("RemoteController");
 
-        private Socket Socket;
+        private SocketDriver SocketDriver;
         public SBusDriver SBus;
 
         public RelyConyroller RelyConyroller { get; set; } = new RelyConyroller
@@ -32,7 +32,7 @@ namespace RaspberryPiFCS.Equipments
         {
             try
             {
-                if (!DataBus.ControllerRegister.CheckRely(RelyConyroller))
+                if (!EquipmentBus.ControllerRegister.CheckRely(RelyConyroller))
                 {
                     throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
@@ -40,11 +40,10 @@ namespace RaspberryPiFCS.Equipments
                 SBus = DriversFactory.GetSBusDriver(3);
                 SBus.SetSignal += SBus_SetSignal;
 
-                Socket = new Socket(5000, 5001);
-                Socket.ReceivedEvent += Socket_ReceivedEvent;
+                SocketDriver = DriversFactory.GetSocketDriver(5000, 5001);
 
                 EquipmentData.IsEnable = true;
-                DataBus.ControllerRegister.Register(Enum.RegisterType.Socket, true);
+                EquipmentBus.ControllerRegister.Register(Enum.RegisterType.Socket, true);
             }
             catch (Exception ex)
             {
@@ -54,6 +53,11 @@ namespace RaspberryPiFCS.Equipments
                 return false;
             }
             return true;
+        }
+
+        public void Excute()
+        {
+            SBus.DecodeSignal(SocketDriver.ReciveBytes());
         }
 
         private void Socket_ReceivedEvent(byte[] bytes)

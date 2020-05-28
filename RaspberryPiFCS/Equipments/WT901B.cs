@@ -48,7 +48,7 @@ namespace RaspberryPiFCS.Equipments
             try
             {
                 //检查依赖
-                if (!DataBus.ControllerRegister.CheckRely(RelyConyroller))
+                if (!EquipmentBus.ControllerRegister.CheckRely(RelyConyroller))
                 {
                     throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
@@ -57,7 +57,7 @@ namespace RaspberryPiFCS.Equipments
                 uart.ReceivedEvent += ReceivedEvent;
                 uart.Open();
                 EquipmentData.IsEnable = true;
-                DataBus.ControllerRegister.Register(RegisterType.WT901B, false);
+                EquipmentBus.ControllerRegister.Register(RegisterType.WT901B, false);
             }
             catch (Exception ex)
             {

@@ -36,7 +36,7 @@ namespace RaspberryPiFCS.Equipments
         {
             try
             {
-                if (!DataBus.ControllerRegister.CheckRely(RelyConyroller))
+                if (!EquipmentBus.ControllerRegister.CheckRely(RelyConyroller))
                 {
                     throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
@@ -46,7 +46,7 @@ namespace RaspberryPiFCS.Equipments
                 UART.Open();
 
                 EquipmentData.IsEnable = true;
-                DataBus.ControllerRegister.Register(Enum.RegisterType.E34_2G4D20D, true);
+                EquipmentBus.ControllerRegister.Register(Enum.RegisterType.E34_2G4D20D, true);
             }
             catch (Exception ex)
             {

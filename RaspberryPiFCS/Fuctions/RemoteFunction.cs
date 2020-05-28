@@ -15,7 +15,30 @@ namespace RaspberryPiFCS.Fuctions
         public FunctionStatus FunctionStatus { get; set; } = FunctionStatus.Online;
         public RemoteFunction()
         {
+            Timer.AutoReset = true;
+            Timer.Elapsed += Timer_Elapsed;
+            Timer.Start();
+        }
 
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            try
+            {
+                if (Lock)
+                    return;
+                Lock = true;
+                EquipmentBus.RemoteController.Excute();
+                Lock = false;
+            }
+            catch(Exception exception)
+            {
+                RetryTime++;
+                if (RetryTime > 10)
+                {
+                    FunctionStatus = FunctionStatus.Failure;
+                    //打日志throw ex;
+                }
+            }
         }
 
         public void Dispose()
