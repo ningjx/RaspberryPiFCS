@@ -1,5 +1,4 @@
-﻿using RaspberryPiFCS.Helper;
-using RaspberryPiFCS.Models;
+﻿using RaspberryPiFCS.Models;
 using System;
 using System.Collections.Generic;
 using System.Device.Gpio;
@@ -61,7 +60,7 @@ namespace RaspberryPiFCS.Controller
                     break;
                 }
             }
-            StatusDatasBus.FlightData.MicroAltitude = _sw.Elapsed.Milliseconds * 343 / 20;
+            DataBus.FlightData.MicroAltitude = _sw.Elapsed.Milliseconds * 343 / 20;
             _sw.Reset();
             _isOverTime = false;
         }
@@ -72,7 +71,7 @@ namespace RaspberryPiFCS.Controller
         public void Stop()
         {
             _timer.Stop();
-            StatusDatasBus.FlightData.MicroAltitude = 0;
+            DataBus.FlightData.MicroAltitude = 0;
         }
         public void SetOvetTime()
         {

@@ -1,4 +1,6 @@
-﻿using RaspberryPiFCS.Interface;
+﻿using RaspberryPiFCS.Enum;
+using RaspberryPiFCS.Handlers;
+using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
 using System;
 using System.Collections.Generic;
@@ -11,116 +13,105 @@ namespace RaspberryPiFCS.Fuctions
 {
     public class LEDFunction : IFunction
     {
-        private static readonly Timer _timer = new Timer(2000);
+        public int RetryTime { get; set; } = 0;
+        public Timer Timer { get; set; } = new Timer(500);
+        public bool Lock { get; set; } = false;
+        public FunctionStatus FunctionStatus { get; set; } = FunctionStatus.Online;
 
-        /// <summary>
-        /// 航行灯（翼尖闪烁）
-        /// </summary>
-        private static bool _flightLight = false;
-        /// <summary>
-        /// 红色信标灯（闪烁）
-        /// </summary>
-        private static bool _antiCollisionLight = false;
+        public event WatcherHandler CallWatcher;
 
-        static LEDFunction()
+        public LEDFunction()
         {
-            _timer.AutoReset = true;
-            _timer.Elapsed += TwinkleLed;
-            _timer.Start();
+            Timer.AutoReset = true;
+            Timer.Elapsed += Excute;
+            Timer.Start();
         }
 
-        public void Excute<Pca9685>(CenterSignal signal, Pca9685 equipment)
+        private void Excute(object sender, ElapsedEventArgs e)
         {
-            //bool flightLight = datas[0];
-            //bool antiCollisionLight = datas[1];
-            //bool logoLight = datas[2];
-            //bool taxiLight = datas[3];
-            //bool runwayLight = datas[4];
-            //bool takeOffLight = datas[5];
-            //bool landingLight = datas[6];
-            //bool wingInspectionLight = datas[7];
-            //bool positionLight = datas[8];
-            //
-            //_flightLight = flightLight;
-            //_antiCollisionLight = antiCollisionLight;
-            //
-            //switch (logoLight)
-            //{
-            //    case true: EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.LogoLight); break;
-            //    case false: EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.LogoLight); break;
-            //}
-            //switch (taxiLight)
-            //{
-            //    case true: EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.TaxiLight); break;
-            //    case false: EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.TaxiLight); break;
-            //}
-            //switch (runwayLight)
-            //{
-            //    case true: EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.RunwayLight); break;
-            //    case false: EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.RunwayLight); break;
-            //}
-            //switch (takeOffLight)
-            //{
-            //    case true: EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.TakeoffLight); break;
-            //    case false: EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.TakeoffLight); break;
-            //}
-            //switch (landingLight)
-            //{
-            //    case true: EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.LandingLight); break;
-            //    case false: EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.LandingLight); break;
-            //}
-            //switch (wingInspectionLight)
-            //{
-            //    case true: EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.WingInspectionLight); break;
-            //    case false: EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.WingInspectionLight); break;
-            //}
-            //switch (positionLight)
-            //{
-            //    case true: EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.AntiCollisionLightWhite); break;
-            //    case false: EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.AntiCollisionLightWhite); break;
-            //}
+            if (Lock)
+                return;
+            else
+                Lock = true;
+
+            try
+            {
+                //根据控制信号操作
+                switch (DataBus.CenterSignal.TaxiLight)
+                {
+                    case true:
+                        EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.TaxiLight);
+                        break;
+                    case false:
+                        EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.TaxiLight);
+                        break;
+                }
+                switch (DataBus.CenterSignal.RunwayLight)
+                {
+                    case true:
+                        EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.RunwayLight);
+                        break;
+                    case false:
+                        EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.RunwayLight);
+                        break;
+                }
+                switch (DataBus.CenterSignal.TakeOffLight)
+                {
+                    case true:
+                        EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.TakeoffLight);
+                        break;
+                    case false:
+                        EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.TakeoffLight);
+                        break;
+                }
+                switch (DataBus.CenterSignal.LandingLight)
+                {
+                    case true:
+                        EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.LandingLight);
+                        break;
+                    case false:
+                        EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.LandingLight);
+                        break;
+                }
+                switch (DataBus.CenterSignal.WingInspectionLight)
+                {
+                    case true:
+                        EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.WingInspectionLight);
+                        break;
+                    case false:
+                        EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.WingInspectionLight);
+                        break;
+                }
+                switch (DataBus.CenterSignal.PositionLight)
+                {
+                    case true:
+                        EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.AntiCollisionLightWhite);
+                        break;
+                    case false:
+                        EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.AntiCollisionLightWhite);
+                        break;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                RetryTime++;
+                if (RetryTime > 10)
+                {
+                    FunctionStatus = FunctionStatus.Failure;
+                }
+            }
+
+            CallWatcher?.Invoke();
+            Lock = false;
         }
 
-        private static void TwinkleLed(object sender, System.Timers.ElapsedEventArgs e)
+
+        public void Dispose()
         {
-            if (_flightLight)
-            {
-                EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.FilghtLightL);
-                Thread.Sleep(100);
-                EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.FilghtLightL);
-                Thread.Sleep(100);
-                EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.FilghtLightL);
-                Thread.Sleep(100);
-                EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.FilghtLightL);
-                Thread.Sleep(200);
-
-                EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.FilghtLightR);
-                Thread.Sleep(100);
-                EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.FilghtLightR);
-                Thread.Sleep(100);
-                EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.FilghtLightR);
-                Thread.Sleep(100);
-                EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.FilghtLightR);
-                Thread.Sleep(200);
-
-                EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.FilghtLightB);
-                Thread.Sleep(100);
-                EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.FilghtLightB);
-                Thread.Sleep(100);
-                EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.FilghtLightB);
-                Thread.Sleep(100);
-                EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.FilghtLightB);
-            }
-            if (_antiCollisionLight)
-            {
-                EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.AntiCollisionLight);
-                Thread.Sleep(100);
-                EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.AntiCollisionLight);
-                Thread.Sleep(100);
-                EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.AntiCollisionLight);
-                Thread.Sleep(100);
-                EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.AntiCollisionLight);
-            }
+            Timer.Dispose();
+            this.Dispose();
         }
     }
 }

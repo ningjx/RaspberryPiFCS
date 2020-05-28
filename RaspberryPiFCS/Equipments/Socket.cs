@@ -52,7 +52,7 @@ namespace RaspberryPiFCS.Equipments
             try
             {
                 //检查依赖
-                if (!StatusDatasBus.ControllerRegister.CheckRely(RelyConyroller))
+                if (!DataBus.ControllerRegister.CheckRely(RelyConyroller))
                 {
                     throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
@@ -61,7 +61,7 @@ namespace RaspberryPiFCS.Equipments
                 _timer.AutoReset = true;
                 _timer.Elapsed += TimerElapsed;
                 _timer.Start();
-                StatusDatasBus.ControllerRegister.Register(RegisterType.Socket, false);
+                DataBus.ControllerRegister.Register(RegisterType.Socket, false);
             }
             catch (Exception ex)
             {

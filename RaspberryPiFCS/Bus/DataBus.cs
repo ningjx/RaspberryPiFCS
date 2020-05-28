@@ -10,7 +10,7 @@ using FlightDataModel;
 
 namespace RaspberryPiFCS
 {
-    public static class StatusDatasBus
+    public static class DataBus
     {
         public static SysRegister ControllerRegister = new SysRegister();//注册
 
