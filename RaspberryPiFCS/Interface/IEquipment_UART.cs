@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RaspberryPiFCS.Handlers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +10,10 @@ namespace RaspberryPiFCS.Interface
         /// <summary>
         /// 串口名称
         /// </summary>
-        public string ComName { get; }
+        string ComName { get; }
+
+        byte[] SendBytes { set; }
+
+        event DataHandler ReciveEvent;
     }
 }

@@ -2,14 +2,14 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RaspberryPiFCS.Helper
+namespace RaspberryPiFCS.Drivers
 {
     /// <summary>
     /// 一个整数粒度的PID控制器，支持正反输出，
     /// 支持不断重复调用，
     /// 该控制器会始终保持最后一次调用在持续输出
     /// </summary>
-    public class PIDHelper
+    public class PIDDriver
     {
         private float SetSpeed; //定义设定值     
         private float ActualSpeed; //定义实际值    
@@ -26,7 +26,7 @@ namespace RaspberryPiFCS.Helper
         /// <param name="kp"></param>
         /// <param name="ki"></param>
         /// <param name="kd"></param>
-        public PIDHelper(float kp = 0.1f, float ki = 0.2f, float kd = 0.4f)
+        public PIDDriver(float kp = 0.1f, float ki = 0.2f, float kd = 0.4f)
         {
             SetSpeed = 0;
             ActualSpeed = 0;

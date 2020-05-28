@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Net.Sockets;
 using System.Net;
 using System.Timers;
-using System.IO;
-using System.Diagnostics;
-using System.Threading;
 using Timer = System.Timers.Timer;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
 using RaspberryPiFCS.SystemMessage;
 using RaspberryPiFCS.Enum;
 
-namespace RaspberryPiFCS.Helper
+namespace RaspberryPiFCS.Equipments
 {
     /// <summary>
     /// Socket设备
@@ -23,7 +18,7 @@ namespace RaspberryPiFCS.Helper
         public IPEndPoint BindIP { get; }
         public IPEndPoint TargetIP { get; }
         public EndPoint OriginIP => _endPoint;
-        public EquipmentData EquipmentData { get; } = new EquipmentData();
+        public EquipmentData EquipmentData { get; } = new EquipmentData("Socket");
 
         private System.Net.Sockets.Socket _socket = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         private Timer _timer = new Timer(10);
@@ -40,6 +35,11 @@ namespace RaspberryPiFCS.Helper
         /// </summary>
         public byte[] ByteForOrigin { set { _socket.SendTo(value, OriginIP); } }
 
+        public RelyConyroller RelyConyroller { get; set; } = new RelyConyroller
+        {
+            RegisterType.Sys
+        };
+
         public Socket(int bindPort, int sendPort = 0)
         {
             BindIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), bindPort);
@@ -52,11 +52,9 @@ namespace RaspberryPiFCS.Helper
             try
             {
                 //检查依赖
-                RelyConyroller relyConyroller = new RelyConyroller();
-                relyConyroller.Add(RegisterType.Sys);
-                if (!StatusDatasBus.ControllerRegister.CheckRely(relyConyroller))
+                if (!StatusDatasBus.ControllerRegister.CheckRely(RelyConyroller))
                 {
-                    throw new Exception("依赖设备尚未启动");
+                    throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
 
                 _socket.Bind(BindIP);
@@ -67,6 +65,7 @@ namespace RaspberryPiFCS.Helper
             }
             catch (Exception ex)
             {
+                EquipmentData.AddError(Enum.ErrorType.Error, $"IP为{BindIP.Address.ToString()}、端口为{BindIP.Port}Socket设备启动失败！", ex);
                 ErrorMessage.Add(Enum.ErrorType.Error, $"IP为{BindIP.Address.ToString()}、端口为{BindIP.Port}Socket设备启动失败！", ex);
                 return false;
             }

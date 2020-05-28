@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using RaspberryPiFCS.Drivers;
+using RaspberryPiFCS.Handlers;
 using RaspberryPiFCS.Helper;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
@@ -13,13 +15,20 @@ namespace RaspberryPiFCS.Equipments
     /// </summary>
     public class E34_2G4D20D : IEquipment_UART
     {
-        public EquipmentData EquipmentData { get; } = new EquipmentData();
+        public EquipmentData EquipmentData { get; } = new EquipmentData("E34_2G4D20D");
 
         public string ComName { get; } = string.Empty;
 
-        private UARTHelper uart;
+        private UARTDriver UART;
 
-        public byte[] SendBytes { set { uart.Write(value); } }
+        public event DataHandler ReciveEvent;
+
+        public byte[] SendBytes { set { UART.Write(value); } }
+
+        public RelyConyroller RelyConyroller { get; set; } = new RelyConyroller
+        {
+                Enum.RegisterType.Sys
+        };
 
         public E34_2G4D20D(string comName)
         {
@@ -30,22 +39,22 @@ namespace RaspberryPiFCS.Equipments
         {
             try
             {
-                //检查依赖
-                RelyConyroller relyConyroller = new RelyConyroller();
-                relyConyroller.Add(Enum.RegisterType.Sys);
-                if (!StatusDatasBus.ControllerRegister.CheckRely(relyConyroller))
+                if (!StatusDatasBus.ControllerRegister.CheckRely(RelyConyroller))
                 {
-                    throw new Exception("依赖设备尚未启动");
+                    throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
-                uart = new UARTHelper(ComName);
-                uart.ReceivedEvent += ReceivedEvent;
-                uart.Open();
+
+                UART = DriversFactory.GetUARTDriver(ComName);
+                UART.ReceivedEvent += ReceivedEvent;
+                UART.Open();
+
                 EquipmentData.IsEnable = true;
                 StatusDatasBus.ControllerRegister.Register(Enum.RegisterType.E34_2G4D20D, true);
             }
             catch (Exception ex)
             {
-                ErrorMessage.Add(Enum.ErrorType.Error, "启动WT901B失败！", ex);
+                EquipmentData.AddError(Enum.ErrorType.Error, "启动E34_2G4D20D失败！", ex);
+                ErrorMessage.Add(Enum.ErrorType.Error, "启动E34_2G4D20D失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }
@@ -54,7 +63,7 @@ namespace RaspberryPiFCS.Equipments
 
         private void ReceivedEvent(object sender, byte[] bytes)
         {
-
+            ReciveEvent?.Invoke(bytes);
         }
     }
 }

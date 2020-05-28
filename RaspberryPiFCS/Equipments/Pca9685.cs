@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Unosquare.RaspberryIO.Abstractions;
 
-namespace RaspberryPiFCS.Helper
+namespace RaspberryPiFCS.Equipments
 {
     /// <summary>
     /// 可用于普通的Pca9685，或者奇果派那个可以驱动电机的9685Plus
@@ -49,7 +49,7 @@ namespace RaspberryPiFCS.Helper
             {14,-1 },
             {15,-1 }
         };
-        private Dictionary<int, int> _ledBuffer = new Dictionary<int, int>
+        private Dictionary<int, int> _switchBuffer = new Dictionary<int, int>
         {
             {0,-1 },
             {1,-1 },
@@ -68,14 +68,19 @@ namespace RaspberryPiFCS.Helper
             {14,-1 },
             {15,-1 }
         };
+        #endregion
 
         public int Addr { get; } = 0;
 
         public double Freq { get; } = 0;
 
-        public EquipmentData EquipmentData { get; } = new EquipmentData();
-        #endregion
+        public EquipmentData EquipmentData { get; } = new EquipmentData("Pca9685");
 
+        public RelyConyroller RelyConyroller { get; set; } = new RelyConyroller
+        {
+            RegisterType.Sys,
+            RegisterType.IIC
+        };
 
         /// <summary>
         /// Pca9685默认设备地址0x40
@@ -93,12 +98,9 @@ namespace RaspberryPiFCS.Helper
             try
             {
                 //检查依赖
-                RelyConyroller relyConyroller = new RelyConyroller();
-                relyConyroller.Add(RegisterType.Sys);
-                relyConyroller.Add(RegisterType.IIC);
-                if (!StatusDatasBus.ControllerRegister.CheckRely(relyConyroller))
+                if (!StatusDatasBus.ControllerRegister.CheckRely(RelyConyroller))
                 {
-                    throw new Exception("依赖设备尚未启动");
+                    throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
 
                 _device = EquipmentBus.I2CBus.AddDevice(Addr);
@@ -109,6 +111,7 @@ namespace RaspberryPiFCS.Helper
             }
             catch (Exception ex)
             {
+                EquipmentData.AddError(ErrorType.Error, $"启动地址为{Addr},频率为{Freq}的PCA9685失败！", ex);
                 ErrorMessage.Add(ErrorType.Error, $"启动地址为{Addr},频率为{Freq}的PCA9685失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
@@ -143,7 +146,7 @@ namespace RaspberryPiFCS.Helper
         {
             if (channel < 0 || channel > 15)
                 return;
-            if (_ledBuffer[channel] == 1)
+            if (_switchBuffer[channel] == 1)
                 return;
             //int off = 4096;
             //Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
@@ -151,15 +154,14 @@ namespace RaspberryPiFCS.Helper
             //Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
             //Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
             SetAngle(channel, 360);
-            _ledBuffer[channel] = 1;
-            OnEvent?.Invoke(channel);
+            _switchBuffer[channel] = 1;
         }
 
         public void SetOff(int channel)
         {
             if (channel < 0 || channel > 15)
                 return;
-            if (_ledBuffer[channel] == 0)
+            if (_switchBuffer[channel] == 0)
                 return;
             //int off = 0;
             //Write(LED0_ON_L + 4 * channel, 0 & 0xFF);
@@ -167,8 +169,7 @@ namespace RaspberryPiFCS.Helper
             //Write(LED0_OFF_L + 4 * channel, Convert.ToByte(off & 0xFF));
             //Write(LED0_OFF_H + 4 * channel, Convert.ToByte(off >> 8));
             SetAngle(channel, 0);
-            _ledBuffer[channel] = 0;
-            OffEvent?.Invoke(channel);
+            _switchBuffer[channel] = 0;
         }
 
         /// <summary>
@@ -271,17 +272,5 @@ namespace RaspberryPiFCS.Helper
             double ms = 0.5 + (angle / 180) * (2.5 - 0.5);
             return Convert.ToInt32(4096 * ms / 20);
         }
-
-        public delegate void LedEventHandle(int channel);
-
-        /// <summary>
-        /// 这个Led被点亮的事件
-        /// </summary>
-        public event LedEventHandle OnEvent;
-
-        /// <summary>
-        /// 这个Led被关掉的事件
-        /// </summary>
-        public event LedEventHandle OffEvent;
     }
 }
