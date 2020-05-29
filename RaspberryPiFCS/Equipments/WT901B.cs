@@ -48,7 +48,7 @@ namespace RaspberryPiFCS.Equipments
             try
             {
                 //检查依赖
-                if (!StatusDatasBus.ControllerRegister.CheckRely(RelyConyroller))
+                if (!EquipmentBus.ControllerRegister.CheckRely(RelyConyroller))
                 {
                     throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
@@ -57,12 +57,12 @@ namespace RaspberryPiFCS.Equipments
                 uart.ReceivedEvent += ReceivedEvent;
                 uart.Open();
                 EquipmentData.IsEnable = true;
-                StatusDatasBus.ControllerRegister.Register(RegisterType.WT901B, false);
+                EquipmentBus.ControllerRegister.Register(RegisterType.WT901B, false);
             }
             catch (Exception ex)
             {
                 EquipmentData.AddError(Enum.ErrorType.Error, "启动WT901B失败！", ex);
-                ErrorMessage.Add(Enum.ErrorType.Error, "启动WT901B失败！", ex);
+                Message.Add(Enum.ErrorType.Error, "启动WT901B失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }
@@ -115,41 +115,41 @@ namespace RaspberryPiFCS.Equipments
                         break;
                     case 0x51:
                         //Data[3] = Data[3] / 32768 * double.Parse(textBox9.Text) + double.Parse(textBox8.Text);
-                        StatusDatasBus.FlightData.ExtraData.Temperature = Data[3] / 100.0;
+                        DataBus.FlightData.ExtraData.Temperature = Data[3] / 100.0;
                         Data[0] = Data[0] / 32768.0 * 16;
                         Data[1] = Data[1] / 32768.0 * 16;
                         Data[2] = Data[2] / 32768.0 * 16;
 
-                        StatusDatasBus.FlightData.Attitude.Aacceleration_X = (float)Data[0];
-                        StatusDatasBus.FlightData.Attitude.Aacceleration_Y = (float)Data[1];
-                        StatusDatasBus.FlightData.Attitude.Aacceleration_Z = (float)Data[2];
+                        DataBus.FlightData.Attitude.Aacceleration_X = (float)Data[0];
+                        DataBus.FlightData.Attitude.Aacceleration_Y = (float)Data[1];
+                        DataBus.FlightData.Attitude.Aacceleration_Z = (float)Data[2];
                         break;
                     case 0x52:
                         //Data[3] = Data[3] / 32768 * double.Parse(textBox9.Text) + double.Parse(textBox8.Text);
-                        StatusDatasBus.FlightData.ExtraData.Temperature = Data[3] / 100.0;
+                        DataBus.FlightData.ExtraData.Temperature = Data[3] / 100.0;
                         Data[0] = Data[0] / 32768.0 * 2000;
                         Data[1] = Data[1] / 32768.0 * 2000;
                         Data[2] = Data[2] / 32768.0 * 2000;
-                        StatusDatasBus.FlightData.Attitude.Palstance_X = (float)Data[0];
-                        StatusDatasBus.FlightData.Attitude.Palstance_Y = (float)Data[1];
-                        StatusDatasBus.FlightData.Attitude.Palstance_Z = (float)Data[2];
+                        DataBus.FlightData.Attitude.Palstance_X = (float)Data[0];
+                        DataBus.FlightData.Attitude.Palstance_Y = (float)Data[1];
+                        DataBus.FlightData.Attitude.Palstance_Z = (float)Data[2];
                         break;
                     case 0x53:
                         //Data[3] = Data[3] / 32768 * double.Parse(textBox9.Text) + double.Parse(textBox8.Text);
-                        StatusDatasBus.FlightData.ExtraData.Temperature = Data[3] / 100.0;
+                        DataBus.FlightData.ExtraData.Temperature = Data[3] / 100.0;
                         Data[0] = Data[0] / 32768.0 * 180;
                         Data[1] = Data[1] / 32768.0 * 180;
                         Data[2] = Data[2] / 32768.0 * 180;
-                        StatusDatasBus.FlightData.Attitude.Angle_X = (float)Data[0] + 180;
-                        StatusDatasBus.FlightData.Attitude.Angle_Y = (float)Data[1] + 180;
-                        StatusDatasBus.FlightData.Attitude.Angle_Z = (float)Data[2] + 180;
+                        DataBus.FlightData.Attitude.Angle_X = (float)Data[0] + 180;
+                        DataBus.FlightData.Attitude.Angle_Y = (float)Data[1] + 180;
+                        DataBus.FlightData.Attitude.Angle_Z = (float)Data[2] + 180;
                         break;
                     case 0x54:
                         //Data[3] = Data[3] / 32768 * double.Parse(textBox9.Text) + double.Parse(textBox8.Text);
-                        StatusDatasBus.FlightData.ExtraData.Temperature = Data[3] / 100.0;
-                        StatusDatasBus.FlightData.Attitude.Magnetic_X = (float)Data[0];
-                        StatusDatasBus.FlightData.Attitude.Magnetic_Y = (float)Data[1];
-                        StatusDatasBus.FlightData.Attitude.Magnetic_Z = (float)Data[2];
+                        DataBus.FlightData.ExtraData.Temperature = Data[3] / 100.0;
+                        DataBus.FlightData.Attitude.Magnetic_X = (float)Data[0];
+                        DataBus.FlightData.Attitude.Magnetic_Y = (float)Data[1];
+                        DataBus.FlightData.Attitude.Magnetic_Z = (float)Data[2];
                         break;
                     case 0x55:
                         //Port[0] = Data[0];
@@ -159,18 +159,18 @@ namespace RaspberryPiFCS.Equipments
                         break;
 
                     case 0x56:
-                        StatusDatasBus.FlightData.Attitude.BarometricAltitude = BitConverter.ToInt32(t, 6) / 100.0F;
+                        DataBus.FlightData.Attitude.BarometricAltitude = BitConverter.ToInt32(t, 6) / 100.0F;
                         break;
 
                     case 0x57:
-                        StatusDatasBus.FlightData.GPSData.Longitude = BitConverter.ToInt32(t, 2);
-                        StatusDatasBus.FlightData.GPSData.Latitude = BitConverter.ToInt32(t, 6);
+                        DataBus.FlightData.GPSData.Longitude = BitConverter.ToInt32(t, 2);
+                        DataBus.FlightData.GPSData.Latitude = BitConverter.ToInt32(t, 6);
                         break;
 
                     case 0x58:
-                        StatusDatasBus.FlightData.GPSData.GPSAltitude = BitConverter.ToInt16(t, 2) / 10.0F;
-                        StatusDatasBus.FlightData.GPSData.GPSYaw = BitConverter.ToInt16(t, 4) / 10.0F;
-                        StatusDatasBus.FlightData.GPSData.GPSSpeed = BitConverter.ToInt16(t, 6) / 1e3F;
+                        DataBus.FlightData.GPSData.GPSAltitude = BitConverter.ToInt16(t, 2) / 10.0F;
+                        DataBus.FlightData.GPSData.GPSYaw = BitConverter.ToInt16(t, 4) / 10.0F;
+                        DataBus.FlightData.GPSData.GPSSpeed = BitConverter.ToInt16(t, 6) / 1e3F;
                         break;
 
                     case 0x59:
@@ -180,10 +180,10 @@ namespace RaspberryPiFCS.Equipments
                         break;
 
                     case 0x5A:
-                        StatusDatasBus.FlightData.GPSData.SatellitesCount = (int)Data[0];
-                        StatusDatasBus.FlightData.GPSData.PositionalAccuracy = (float)Data[1];
-                        StatusDatasBus.FlightData.GPSData.HorizontalAccuracy = (float)Data[2];
-                        StatusDatasBus.FlightData.GPSData.VerticalAccuracy = (float)Data[3];
+                        DataBus.FlightData.GPSData.SatellitesCount = (int)Data[0];
+                        DataBus.FlightData.GPSData.PositionalAccuracy = (float)Data[1];
+                        DataBus.FlightData.GPSData.HorizontalAccuracy = (float)Data[2];
+                        DataBus.FlightData.GPSData.VerticalAccuracy = (float)Data[3];
                         break;
 
                     default:

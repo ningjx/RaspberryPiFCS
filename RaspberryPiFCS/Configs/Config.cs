@@ -1,23 +1,23 @@
 ﻿using Newtonsoft.Json;
-using RaspberryPiFCS.Helper;
 using RaspberryPiFCS.SystemMessage;
 using System;
 using HelperLib;
+using RaspberryPiFCS.BaseController;
 
 namespace RaspberryPiFCS.Configs
 {
     /// <summary>
     /// 配置文件
     /// </summary>
-    public static class Config
+    public class Config
     {
-        private static readonly string[] _sys = new string[] { "Configs", "SystemConfig.json" };//系统配置
-        private static readonly string[] _equipment = new string[] { "Configs", "EquipmentConfig.json" };//设备配置
-        private static readonly string[] _remoteControl = new string[] { "Configs", "RemoteControlConfig.json" };//遥控器配置
+        private string[] _sys = new string[] { "Configs", "SystemConfig.json" };//系统配置
+        private string[] _equipment = new string[] { "Configs", "EquipmentConfig.json" };//设备配置
+        private string[] _remoteControl = new string[] { "Configs", "RemoteControlConfig.json" };//遥控器配置
 
-        public static SysConfig SysConfig;
-        public static RemoteConfigs RemoteConfigs;
-        public static Equipment EquipmentConfigs;
+        public SysConfig SysConfig;
+        public RemoteConfigs RemoteConfigs;
+        public Equipment EquipmentConfigs;
 
         /// <summary>
         /// 修改配置文件
@@ -25,7 +25,7 @@ namespace RaspberryPiFCS.Configs
         /// <param name="configName">参数名</param>
         /// <param name="value">要修改的值</param>
         [Obsolete]
-        public static void ChangeConfig(string configName, object value)
+        public void ChangeConfig(string configName, object value)
         {
             var currentValue = typeof(SysConfig).GetField(configName).GetValue(SysConfig);
             if (currentValue == null)
@@ -37,7 +37,7 @@ namespace RaspberryPiFCS.Configs
             path.Write(JsonConvert.SerializeObject(SysConfig));
         }
 
-        public static bool SaveConfig()
+        public bool SaveConfig()
         {
             try
             {
@@ -46,14 +46,14 @@ namespace RaspberryPiFCS.Configs
                 _remoteControl.Write(JsonConvert.SerializeObject(EquipmentConfigs));
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                ErrorMessage.Add(Enum.ErrorType.Debug, "读取配置信息失败", ex);
+                LogManager.Message.Add(Enum.ErrorType.Debug, "读取配置信息失败", ex);
                 return false;
             }
         }
 
-        public static bool ReadConfig()
+        public bool ReadConfig()
         {
             try
             {
@@ -61,15 +61,15 @@ namespace RaspberryPiFCS.Configs
                 ReadEquConfig(_equipment);
                 ReadRemConfig(_remoteControl);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                ErrorMessage.Add(Enum.ErrorType.Error, "未能成功初始化配置信息", ex);
+                LogManager.Message.Add(Enum.ErrorType.Error, "未能成功初始化配置信息", ex);
                 return false;
             }
             return true;
         }
 
-        private static void ReadSysConfig(string[] path)
+        private void ReadSysConfig(string[] path)
         {
             string data = path.Read();
             if (string.IsNullOrEmpty(data))
@@ -85,14 +85,14 @@ namespace RaspberryPiFCS.Configs
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessage.Add(Enum.ErrorType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
+                    LogManager.Message.Add(Enum.ErrorType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
                     SysConfig = new SysConfig();
                     path.Write(JsonConvert.SerializeObject(SysConfig));
                 }
             }
         }
 
-        private static void ReadEquConfig(string[] path)
+        private void ReadEquConfig(string[] path)
         {
             string data = path.Read();
             if (string.IsNullOrEmpty(data))
@@ -108,14 +108,14 @@ namespace RaspberryPiFCS.Configs
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessage.Add(Enum.ErrorType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
+                    LogManager.Message.Add(Enum.ErrorType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
                     EquipmentConfigs = new Equipment();
                     path.Write(JsonConvert.SerializeObject(SysConfig));
                 }
             }
         }
 
-        private static void ReadRemConfig(string[] path)
+        private void ReadRemConfig(string[] path)
         {
             string data = path.Read();
             if (string.IsNullOrEmpty(data))
@@ -131,7 +131,7 @@ namespace RaspberryPiFCS.Configs
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessage.Add(Enum.ErrorType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
+                    LogManager.Message.Add(Enum.ErrorType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
                     RemoteConfigs = new RemoteConfigs();
                     path.Write(JsonConvert.SerializeObject(SysConfig));
                 }

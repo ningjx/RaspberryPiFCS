@@ -5,15 +5,15 @@ using System.Timers;
 
 namespace RaspberryPiFCS.Fuctions
 {
-    public class PushBackFunction : IFunction
+    public class TemperatureFunction : IFunction
     {
         public int RetryTime { get; set; } = 0;
-        public Timer Timer { get; set; } = new Timer(500);
+        public Timer Timer { get; set; } = new Timer(10);
         public bool Lock { get; set; } = false;
 
         public event WatcherHandler CallWatcher;
 
-        public PushBackFunction()
+        public TemperatureFunction()
         {
             Timer.AutoReset = true;
             Timer.Elapsed += Excute;

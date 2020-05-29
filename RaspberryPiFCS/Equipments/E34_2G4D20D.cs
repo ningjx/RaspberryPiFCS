@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Handlers;
-using RaspberryPiFCS.Helper;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
 using RaspberryPiFCS.SystemMessage;
@@ -39,7 +36,7 @@ namespace RaspberryPiFCS.Equipments
         {
             try
             {
-                if (!StatusDatasBus.ControllerRegister.CheckRely(RelyConyroller))
+                if (!EquipmentBus.ControllerRegister.CheckRely(RelyConyroller))
                 {
                     throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
@@ -49,12 +46,12 @@ namespace RaspberryPiFCS.Equipments
                 UART.Open();
 
                 EquipmentData.IsEnable = true;
-                StatusDatasBus.ControllerRegister.Register(Enum.RegisterType.E34_2G4D20D, true);
+                EquipmentBus.ControllerRegister.Register(Enum.RegisterType.E34_2G4D20D, true);
             }
             catch (Exception ex)
             {
                 EquipmentData.AddError(Enum.ErrorType.Error, "启动E34_2G4D20D失败！", ex);
-                ErrorMessage.Add(Enum.ErrorType.Error, "启动E34_2G4D20D失败！", ex);
+                Message.Add(Enum.ErrorType.Error, "启动E34_2G4D20D失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }

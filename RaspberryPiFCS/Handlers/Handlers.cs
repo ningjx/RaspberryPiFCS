@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RaspberryPiFCS.Enum;
+using System;
 
-namespace RaspberryPiFCS.Handlers
+namespace RaspberryPiFCS
 {
-
-        public delegate void DataHandler(byte[] bytes);
-    
+    public delegate void DataHandler(byte[] bytes);
+    public delegate void WatcherHandler();
+    public delegate void ErrorMessageHandler(ErrorType errorType, string message, Exception ex);
 }

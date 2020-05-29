@@ -1,4 +1,5 @@
-﻿using RaspberryPiFCS.Enum;
+﻿using RaspberryPiFCS.Drivers;
+using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
 using RaspberryPiFCS.SystemMessage;
@@ -98,21 +99,21 @@ namespace RaspberryPiFCS.Equipments
             try
             {
                 //检查依赖
-                if (!StatusDatasBus.ControllerRegister.CheckRely(RelyConyroller))
+                if (!EquipmentBus.ControllerRegister.CheckRely(RelyConyroller))
                 {
                     throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
 
-                _device = EquipmentBus.I2CBus.AddDevice(Addr);
+                _device = I2CDriver.I2CBus.AddDevice(Addr);
                 _device.WriteAddressByte(MODE1, 0x00);
                 SetPWMFreq(Freq);
                 EquipmentData.IsEnable = true;
-                StatusDatasBus.ControllerRegister.Register(RegisterType.Pca9685, false);
+                EquipmentBus.ControllerRegister.Register(RegisterType.Pca9685, false);
             }
             catch (Exception ex)
             {
                 EquipmentData.AddError(ErrorType.Error, $"启动地址为{Addr},频率为{Freq}的PCA9685失败！", ex);
-                ErrorMessage.Add(ErrorType.Error, $"启动地址为{Addr},频率为{Freq}的PCA9685失败！", ex);
+                Message.Add(ErrorType.Error, $"启动地址为{Addr},频率为{Freq}的PCA9685失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }

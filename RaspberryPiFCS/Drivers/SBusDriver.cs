@@ -18,7 +18,7 @@ namespace RaspberryPiFCS.Drivers
         {
             Timer.AutoReset = false;
             Timer.Interval = 1000 * sec;
-            Timer.Elapsed += SignalLoseDely; ;
+            Timer.Elapsed += SignalLoseDely;
         }
 
         private void SignalLoseDely(object sender, ElapsedEventArgs e)

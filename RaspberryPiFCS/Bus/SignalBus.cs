@@ -1,19 +1,13 @@
-﻿using RaspberryPiFCS.Configs;
-using RaspberryPiFCS.Enum;
-using RaspberryPiFCS.Models;
-using RaspberryPiFCS.Signals;
+﻿using RaspberryPiFCS.Models;
 using System;
-using System.Collections.Generic;
+using RaspberryPiFCS.Configs;
+using RaspberryPiFCS.Signals;
 using System.Linq;
-using System.Text;
-using FlightDataModel;
 
 namespace RaspberryPiFCS
 {
-    public static class StatusDatasBus
+    public static class SignalBus
     {
-        public static SysRegister ControllerRegister = new SysRegister();//注册
-
         #region 挂载控制信号
         /// <summary>
         /// 遥控配置信息
@@ -26,13 +20,14 @@ namespace RaspberryPiFCS
                 if (Config.RemoteConfigs.Count == 0)
                     return null;
                 var time = Config.RemoteConfigs.Values.Max(t => t.EffctiveTime);
-                return Config.RemoteConfigs.Values.Where(t => t.EffctiveTime == time).FirstOrDefault();
+                return Config.RemoteConfigs.Values.FirstOrDefault(t => t.EffctiveTime == time);
             }
             set
             {
                 string controlName = value.ControlName;
                 value.EffctiveTime = DateTime.Now;
-                Config.RemoteConfigs.AddOrUpdate(controlName, value); Config.SaveConfig();
+                Config.RemoteConfigs.AddOrUpdate(controlName, value);
+                Config.SaveConfig();
             }
         }
 
@@ -56,12 +51,5 @@ namespace RaspberryPiFCS
         /// </summary>
         public static AutoSignal AutoSignal = new AutoSignal();
         #endregion
-
-        /// <summary>
-        /// 数据
-        /// </summary>
-        public static FlightData FlightData = new FlightData();
-
-        public static FlightStatus FlightStatus = new FlightStatus();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using RaspberryPiFCS.Enum;
-using System.Collections.Generic;
 
 namespace RaspberryPiFCS.Models
 {

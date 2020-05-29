@@ -1,8 +1,4 @@
-﻿using RaspberryPiFCS.Configs;
-using RaspberryPiFCS.Enum;
-using RaspberryPiFCS.Helper;
-
-namespace RaspberryPiFCS.Signals
+﻿namespace RaspberryPiFCS.Models
 {
     public class RemoteSignal
     {

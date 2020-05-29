@@ -1,10 +1,7 @@
-﻿using RaspberryPiFCS.Signals;
-using System.Threading.Tasks;
-
-namespace RaspberryPiFCS.Models
+﻿namespace RaspberryPiFCS.Models
 {
     public class OriginSignal
-    { 
+    {
         public long Channel01;
         public long Channel02;
         public long Channel03;
@@ -23,7 +20,7 @@ namespace RaspberryPiFCS.Models
         public long Channel16;
         public bool IsConnected = true;
 
-        private  int _channelCount = 0;
+        private int _channelCount = 0;
         public void SetSignal(long data)
         {
             _channelCount++;
@@ -110,10 +107,10 @@ namespace RaspberryPiFCS.Models
                     16 => Channel16,
                     _ => 0,
                 };
+            }
         }
-    }
 
-    public void SetDefaultSignal()
+        public void SetDefaultSignal()
         {
             Channel01 = 1000;
             Channel02 = 1000;
