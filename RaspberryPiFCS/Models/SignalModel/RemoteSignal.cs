@@ -1,4 +1,4 @@
-﻿namespace RaspberryPiFCS.Signals
+﻿namespace RaspberryPiFCS.Models
 {
     public class RemoteSignal
     {

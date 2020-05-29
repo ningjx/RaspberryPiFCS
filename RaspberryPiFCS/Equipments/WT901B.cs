@@ -62,7 +62,7 @@ namespace RaspberryPiFCS.Equipments
             catch (Exception ex)
             {
                 EquipmentData.AddError(Enum.ErrorType.Error, "启动WT901B失败！", ex);
-                ErrorMessage.Add(Enum.ErrorType.Error, "启动WT901B失败！", ex);
+                Message.Add(Enum.ErrorType.Error, "启动WT901B失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }

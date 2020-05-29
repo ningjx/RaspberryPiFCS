@@ -51,7 +51,7 @@ namespace RaspberryPiFCS.Equipments
             catch (Exception ex)
             {
                 EquipmentData.AddError(Enum.ErrorType.Error, "启动E34_2G4D20D失败！", ex);
-                ErrorMessage.Add(Enum.ErrorType.Error, "启动E34_2G4D20D失败！", ex);
+                Message.Add(Enum.ErrorType.Error, "启动E34_2G4D20D失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }

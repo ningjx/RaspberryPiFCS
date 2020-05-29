@@ -20,13 +20,14 @@ namespace RaspberryPiFCS
                 if (Config.RemoteConfigs.Count == 0)
                     return null;
                 var time = Config.RemoteConfigs.Values.Max(t => t.EffctiveTime);
-                return Config.RemoteConfigs.Values.Where(t => t.EffctiveTime == time).FirstOrDefault();
+                return Config.RemoteConfigs.Values.FirstOrDefault(t => t.EffctiveTime == time);
             }
             set
             {
                 string controlName = value.ControlName;
                 value.EffctiveTime = DateTime.Now;
-                Config.RemoteConfigs.AddOrUpdate(controlName, value); Config.SaveConfig();
+                Config.RemoteConfigs.AddOrUpdate(controlName, value);
+                Config.SaveConfig();
             }
         }
 

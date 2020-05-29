@@ -113,7 +113,7 @@ namespace RaspberryPiFCS.Equipments
             catch (Exception ex)
             {
                 EquipmentData.AddError(ErrorType.Error, $"启动地址为{Addr},频率为{Freq}的PCA9685失败！", ex);
-                ErrorMessage.Add(ErrorType.Error, $"启动地址为{Addr},频率为{Freq}的PCA9685失败！", ex);
+                Message.Add(ErrorType.Error, $"启动地址为{Addr},频率为{Freq}的PCA9685失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }

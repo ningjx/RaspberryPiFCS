@@ -22,7 +22,7 @@ namespace RaspberryPiFCS
             }
             catch (Exception ex)
             {
-                ErrorMessage.Add(Enum.ErrorType.Error, "系统异常", ex);
+                Message.Add(Enum.ErrorType.Error, "系统异常", ex);
             }
             finally
             {
