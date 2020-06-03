@@ -1,9 +1,9 @@
 ﻿using System;
+using RaspberryPiFCS.BaseController;
 using RaspberryPiFCS.Drivers;
-using RaspberryPiFCS.Handlers;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
-using RaspberryPiFCS.SystemMessage;
+using RaspberryPiFCS.Models;
 
 namespace RaspberryPiFCS.Equipments
 {
@@ -20,7 +20,7 @@ namespace RaspberryPiFCS.Equipments
 
         public event DataHandler ReciveEvent;
 
-        public byte[] SendBytes { set { UART.Write(value); } }
+        public byte[] SendBytes { set { UART.WriteBytes(value); } }
 
         public RelyConyroller RelyConyroller { get; set; } = new RelyConyroller
         {
@@ -42,8 +42,7 @@ namespace RaspberryPiFCS.Equipments
                 }
 
                 UART = DriversFactory.GetUARTDriver(ComName);
-                UART.ReceivedEvent += ReceivedEvent;
-                UART.Open();
+                UART.RecEvent += ReceivedEvent;
 
                 EquipmentData.IsEnable = true;
                 EquipmentBus.ControllerRegister.Register(Enum.RegisterType.E34_2G4D20D, true);
@@ -51,14 +50,14 @@ namespace RaspberryPiFCS.Equipments
             catch (Exception ex)
             {
                 EquipmentData.AddError(Enum.ErrorType.Error, "启动E34_2G4D20D失败！", ex);
-                Message.Add(Enum.ErrorType.Error, "启动E34_2G4D20D失败！", ex);
+                Logger.Add(Enum.ErrorType.Error, "启动E34_2G4D20D失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }
             return true;
         }
 
-        private void ReceivedEvent(object sender, byte[] bytes)
+        private void ReceivedEvent(byte[] bytes)
         {
             ReciveEvent?.Invoke(bytes);
         }

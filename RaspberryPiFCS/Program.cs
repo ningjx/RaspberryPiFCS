@@ -1,8 +1,5 @@
-﻿using RaspberryPiFCS.Configs;
-using RaspberryPiFCS.Models;
-using RaspberryPiFCS.SystemMessage;
+﻿using RaspberryPiFCS.BaseController;
 using System;
-using System.Threading;
 
 namespace RaspberryPiFCS
 {
@@ -22,7 +19,7 @@ namespace RaspberryPiFCS
             }
             catch (Exception ex)
             {
-                Message.Add(Enum.ErrorType.Error, "系统异常", ex);
+                Logger.Add(Enum.ErrorType.Error, "系统异常", ex);
             }
             finally
             {

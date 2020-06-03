@@ -7,7 +7,6 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using RaspberryPiFCS;
-using RaspberryPiFCS.Helper;
 
 namespace TestConsole
 {

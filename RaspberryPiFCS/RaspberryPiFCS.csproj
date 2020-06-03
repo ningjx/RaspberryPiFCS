@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FlightData\FlightData.csproj" />
     <ProjectReference Include="..\HelperLib\HelperLib.csproj" />
     <ProjectReference Include="..\Mavlink\Mavlink.csproj" />
   </ItemGroup>
@@ -45,7 +44,7 @@
     <None Update="libnserial.so.1.1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="PythonScripts\ss.py">
+    <None Update="PythonScripts\SerialPortLib.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

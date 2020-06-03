@@ -18,7 +18,6 @@ namespace RaspberryPiFCSTest
         [TestMethod]
         public void TestMethod1()
         {
-            MicroTimer aa = new MicroTimer();
         }
 
         [TestMethod]

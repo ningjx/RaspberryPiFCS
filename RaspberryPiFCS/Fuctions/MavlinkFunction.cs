@@ -27,7 +27,7 @@ namespace RaspberryPiFCS.Fuctions
             mavlink = new Mavlink();
             mavlink.SetMessage += Mavlink_SetMessage;
             messageTypes = Assembly.GetExecutingAssembly().GetTypes();
-            DataBus.ControllerRegister.Register(Enum.RegisterType.MavlinkController, false);
+            EquipmentBus.ControllerRegister.Register(Enum.RegisterType.MavlinkController, false);
             Timer.AutoReset = true;
             Timer.Elapsed += Excute;
             Timer.Start();

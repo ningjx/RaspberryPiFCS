@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using RaspberryPiFCS.BaseController;
 using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Enum;
-using RaspberryPiFCS.Handlers;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
-using RaspberryPiFCS.SystemMessage;
+using RaspberryPiFCS.Models;
 
 namespace RaspberryPiFCS.Equipments
 {
@@ -54,22 +54,21 @@ namespace RaspberryPiFCS.Equipments
                 }
 
                 uart = DriversFactory.GetUARTDriver(ComName);
-                uart.ReceivedEvent += ReceivedEvent;
-                uart.Open();
+                uart.RecEvent += ReceivedEvent;
                 EquipmentData.IsEnable = true;
                 EquipmentBus.ControllerRegister.Register(RegisterType.WT901B, false);
             }
             catch (Exception ex)
             {
                 EquipmentData.AddError(Enum.ErrorType.Error, "启动WT901B失败！", ex);
-                Message.Add(Enum.ErrorType.Error, "启动WT901B失败！", ex);
+                Logger.Add(Enum.ErrorType.Error, "启动WT901B失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }
             return true;
         }
 
-        private void ReceivedEvent(object sender, byte[] bytes)
+        private void ReceivedEvent(byte[] bytes)
         {
             DecodeData(bytes);
         }
@@ -84,7 +83,7 @@ namespace RaspberryPiFCS.Equipments
                 return;
             _lock = true;
 
-            var byteList = GetBytesFromByte(byteTemp,new byte[] { 0x55, 0x50 }, 11);
+            var byteList = GetBytesFromByte(byteTemp, new byte[] { 0x55, 0x50 }, 11);
 
             if (byteList.Count == 0)
             {

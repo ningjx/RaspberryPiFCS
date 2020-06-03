@@ -15,24 +15,7 @@ namespace RaspberryPiFCS.Helper.Tests
         {
             try
             {
-                string portname = Extends.GetPorts()[0];
-                UARTHelper uart = new UARTHelper(portname, 9600);
-                uart.ReceivedEvent += Uart_ReceivedEvent;
-                uart.BufSize = 1000;
-                uart.ReceiveTimeoutEnable = false;
-                uart.Open();
-                //uart.EventStart();
-                Thread.Sleep(1000);
 
-                //while (true)
-                //{
-                    var a = DataBus.FlightData.Attitude.Magnetic_X;
-                    var b = DataBus.FlightData.Attitude.Magnetic_Y;
-                    var c = DataBus.FlightData.Attitude.Magnetic_Z;
-                //}
-                Console.WriteLine(a);
-                Console.WriteLine(b);
-                Console.WriteLine(c);
             }
             catch (Exception ex)
             {

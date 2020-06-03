@@ -1,4 +1,6 @@
-﻿using RaspberryPiFCS.Configs;
+﻿using RaspberryPiFCS.BaseController;
+using RaspberryPiFCS.Configs;
+using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
 using System;
@@ -33,11 +35,11 @@ namespace RaspberryPiFCS.Controller
         private bool _locker = false;
         public TempController()
         {
-            foreach(var item in Config.EquipmentConfigs)
+            foreach (var item in Config.EquipmentConfigs)
             {
-                II2CDevice device = EquipmentBus.I2CBus.AddDevice(item.Value);
+                II2CDevice device = I2CDriver.I2CBus.AddDevice(item.Value);
                 device.WriteAddressByte(0x01, 0x00);
-                equipments.Add(device,item.Key);
+                equipments.Add(device, item.Key);
             }
             _timer.AutoReset = true;
             _timer.Elapsed += _timer_Elapsed;

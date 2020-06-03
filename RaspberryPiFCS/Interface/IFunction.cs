@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Timers;
 using RaspberryPiFCS.Enum;
-using RaspberryPiFCS.Handlers;
 using RaspberryPiFCS.Models;
 
 namespace RaspberryPiFCS.Interface

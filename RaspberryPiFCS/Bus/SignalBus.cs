@@ -1,8 +1,8 @@
 ﻿using RaspberryPiFCS.Models;
 using System;
 using RaspberryPiFCS.Configs;
-using RaspberryPiFCS.Signals;
 using System.Linq;
+using RaspberryPiFCS.BaseController;
 
 namespace RaspberryPiFCS
 {

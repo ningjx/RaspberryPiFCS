@@ -1,4 +1,4 @@
-﻿using RaspberryPiFCS.Handlers;
+﻿using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Interface;
 using System;
 using System.Timers;
@@ -10,6 +10,7 @@ namespace RaspberryPiFCS.Fuctions
         public int RetryTime { get; set; } = 0;
         public Timer Timer { get; set; } = new Timer(500);
         public bool Lock { get; set; } = false;
+        public FunctionStatus FunctionStatus { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public event WatcherHandler CallWatcher;
 
