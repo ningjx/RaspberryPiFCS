@@ -1,4 +1,4 @@
-﻿using RaspberryPiFCS.BaseController;
+﻿using RaspberryPiFCS.Main;
 using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
@@ -14,7 +14,7 @@ namespace RaspberryPiFCS.Equipments
         private SocketDriver SocketDriver;
         public SBusDriver SBus;
 
-        public RelyConyroller RelyConyroller { get; set; } = new RelyConyroller
+        public RelyEquipment RelyEquipment { get; set; } = new RelyEquipment
         {
             Enum.RegisterType.Sys
         };
@@ -29,9 +29,9 @@ namespace RaspberryPiFCS.Equipments
         {
             try
             {
-                if (!EquipmentBus.ControllerRegister.CheckRely(RelyConyroller))
+                if (!EquipmentBus.ControllerRegister.CheckRely(RelyEquipment))
                 {
-                    throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
+                    throw new Exception($"依赖设备尚未启动{string.Join("、", RelyEquipment)}");
                 }
 
                 SBus = DriversFactory.GetSBusDriver(3);
@@ -44,8 +44,8 @@ namespace RaspberryPiFCS.Equipments
             }
             catch (Exception ex)
             {
-                EquipmentData.AddError(Enum.ErrorType.Error, "启动遥控器失败！", ex);
-                Logger.Add(Enum.ErrorType.Error, "启动遥控器失败！", ex);
+                EquipmentData.AddError(Enum.LogType.Error, "启动遥控器失败！", ex);
+                Logger.Add(Enum.LogType.Error, "启动遥控器失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }

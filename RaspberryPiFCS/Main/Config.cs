@@ -5,7 +5,7 @@ using System.Text;
 using HelperLib;
 using Newtonsoft.Json;
 
-namespace RaspberryPiFCS.BaseController
+namespace RaspberryPiFCS.Main
 {
     /// <summary>
     /// 配置文件
@@ -31,7 +31,7 @@ namespace RaspberryPiFCS.BaseController
             }
             catch (Exception ex)
             {
-                Logger.Add(Enum.ErrorType.Debug, "读取配置信息失败", ex);
+                Logger.Add(Enum.LogType.Debug, "读取配置信息失败", ex);
                 return false;
             }
         }
@@ -46,7 +46,7 @@ namespace RaspberryPiFCS.BaseController
             }
             catch (Exception ex)
             {
-                Logger.Add(Enum.ErrorType.Error, "未能成功初始化配置信息", ex);
+                Logger.Add(Enum.LogType.Error, "未能成功初始化配置信息", ex);
                 return false;
             }
             return true;
@@ -68,7 +68,7 @@ namespace RaspberryPiFCS.BaseController
                 }
                 catch (Exception ex)
                 {
-                    Logger.Add(Enum.ErrorType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
+                    Logger.Add(Enum.LogType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
                     SysConfig = new SysConfig();
                     path.Write(JsonConvert.SerializeObject(SysConfig));
                 }
@@ -91,7 +91,7 @@ namespace RaspberryPiFCS.BaseController
                 }
                 catch (Exception ex)
                 {
-                    Logger.Add(Enum.ErrorType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
+                    Logger.Add(Enum.LogType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
                     EquipmentConfigs = new Equipment();
                     path.Write(JsonConvert.SerializeObject(SysConfig));
                 }
@@ -114,7 +114,7 @@ namespace RaspberryPiFCS.BaseController
                 }
                 catch (Exception ex)
                 {
-                    Logger.Add(Enum.ErrorType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
+                    Logger.Add(Enum.LogType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
                     RemoteConfigs = new RemoteConfigs();
                     path.Write(JsonConvert.SerializeObject(SysConfig));
                 }

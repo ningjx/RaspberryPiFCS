@@ -1,16 +1,21 @@
 ﻿using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Interface;
+using RaspberryPiFCS.Models;
 using System;
 using System.Timers;
 
 namespace RaspberryPiFCS.Fuctions
 {
+    /// <summary>
+    /// 反推功能
+    /// </summary>
     public class PushBackFunction : IFunction
     {
         public int RetryTime { get; set; } = 0;
         public Timer Timer { get; set; } = new Timer(500);
         public bool Lock { get; set; } = false;
         public FunctionStatus FunctionStatus { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public RelyEquipment RelyEquipment { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public event WatcherHandler CallWatcher;
 

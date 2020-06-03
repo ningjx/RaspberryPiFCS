@@ -24,7 +24,7 @@ namespace RaspberryPiFCS.Models
                 throw new Exception("该设备不允许重复注册");
             RelyControllers.Add(new RegistedEquipment(controllerType, isOnly));
         }
-        public bool CheckRely(RelyConyroller relyConyrollers)
+        public bool CheckRely(RelyEquipment relyConyrollers)
         {
             bool result = true;
             List<int> current = RelyControllers.Select(t => t.ControllerType.GetHashCode()).ToList();
@@ -40,7 +40,7 @@ namespace RaspberryPiFCS.Models
         }
     }
 
-    public class RelyConyroller: List<RegisterType>
+    public class RelyEquipment : List<RegisterType>
     {
         //public List<RegisterType> RelyConyrollers = new List<RegisterType>();
         //public void Add(RegisterType controllerType)

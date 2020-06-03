@@ -11,7 +11,7 @@ namespace RaspberryPiFCS.Interface
         /// </summary>
         string ComName { get; }
 
-        byte[] SendBytes { set; }
+        List<byte[]> SendBytes { set; }
 
         event DataHandler ReciveEvent;
     }

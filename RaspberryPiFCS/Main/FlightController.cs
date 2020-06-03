@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaspberryPiFCS.BaseController
+namespace RaspberryPiFCS.Main
 {
     public class FlightController
     {

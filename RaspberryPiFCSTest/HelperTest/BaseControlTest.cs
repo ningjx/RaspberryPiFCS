@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RaspberryPiFCS.Controller;
-using RaspberryPiFCS.Helper;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Swan.DependencyInjection;
 using Xunit;
 

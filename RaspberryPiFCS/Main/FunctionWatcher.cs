@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RaspberryPiFCS.BaseController
+namespace RaspberryPiFCS.Main
 {
     public static class FunctionWatcher
     {
         public static Dictionary<string, FunctionStatus> Functions = new Dictionary<string, FunctionStatus>();
 
         private static List<IFunction> FunctionInstances = new List<IFunction>();
-        static FunctionWatcher()
+        public static void Lunch()
         {
             var funcTypes = typeof(IFunction).Assembly.GetTypes().Where(t => !t.IsAbstract && t.IsClass);
             var functionNames = funcTypes.Select(t => t.Name).ToList();

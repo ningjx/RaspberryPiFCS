@@ -10,12 +10,16 @@ using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFCS.Fuctions
 {
+    /// <summary>
+    /// LED功能
+    /// </summary>
     public class LEDFunction : IFunction
     {
         public int RetryTime { get; set; } = 0;
         public Timer Timer { get; set; } = new Timer(500);
         public bool Lock { get; set; } = false;
         public FunctionStatus FunctionStatus { get; set; } = FunctionStatus.Online;
+        public RelyEquipment RelyEquipment { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public event WatcherHandler CallWatcher;
 
