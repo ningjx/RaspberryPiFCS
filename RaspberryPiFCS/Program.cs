@@ -1,4 +1,4 @@
-﻿using RaspberryPiFCS.BaseController;
+﻿using RaspberryPiFCS.Main;
 using System;
 
 namespace RaspberryPiFCS
@@ -9,26 +9,26 @@ namespace RaspberryPiFCS
         {
             try
             {
-                //ErrorMessage
+                //读取配置信息
                 Config.ReadConfig();
+                //启动远程通信；启动远程日志
+                EquipmentBus.ControllerRegister.Register(Enum.RegisterType.Sys, true);
+                //启动设备
+                EquipmentBus.Lunch();
+                //启动function
+                FunctionWatcher.Lunch();
 
-                while (SysSwitch.Switch)
-                {
 
-                }
+
             }
             catch (Exception ex)
             {
-                Logger.Add(Enum.ErrorType.Error, "系统异常", ex);
+                Logger.Add(Enum.LogType.Error, "系统异常", ex);
             }
             finally
             {
                 Config.SaveConfig();
             }
         }
-    }
-    public static class SysSwitch
-    {
-        public static bool Switch = true;
     }
 }

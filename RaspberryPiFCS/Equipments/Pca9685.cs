@@ -1,4 +1,4 @@
-﻿using RaspberryPiFCS.BaseController;
+﻿using RaspberryPiFCS.Main;
 using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Interface;
@@ -76,7 +76,7 @@ namespace RaspberryPiFCS.Equipments
 
         public EquipmentData EquipmentData { get; } = new EquipmentData("Pca9685");
 
-        public RelyConyroller RelyConyroller { get; set; } = new RelyConyroller
+        public RelyEquipment RelyEquipment { get; set; } = new RelyEquipment
         {
             RegisterType.Sys,
             RegisterType.IIC
@@ -99,9 +99,9 @@ namespace RaspberryPiFCS.Equipments
             try
             {
                 //检查依赖
-                if (!EquipmentBus.ControllerRegister.CheckRely(RelyConyroller))
+                if (!EquipmentBus.ControllerRegister.CheckRely(RelyEquipment))
                 {
-                    throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
+                    throw new Exception($"依赖设备尚未启动{string.Join("、", RelyEquipment)}");
                 }
 
                 I2CDevice = I2CDriver.I2CBus.AddDevice(Addr);
@@ -112,8 +112,8 @@ namespace RaspberryPiFCS.Equipments
             }
             catch (Exception ex)
             {
-                EquipmentData.AddError(ErrorType.Error, $"启动地址为{Addr},频率为{Freq}的PCA9685失败！", ex);
-                Logger.Add(ErrorType.Error, $"启动地址为{Addr},频率为{Freq}的PCA9685失败！", ex);
+                EquipmentData.AddError(LogType.Error, $"启动地址为{Addr},频率为{Freq}的PCA9685失败！", ex);
+                Logger.Add(LogType.Error, $"启动地址为{Addr},频率为{Freq}的PCA9685失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }

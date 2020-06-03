@@ -2,6 +2,7 @@
 using RaspberryPiFCS.Channels;
 using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Interface;
+using RaspberryPiFCS.Main;
 using RaspberryPiFCS.Models;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,18 @@ namespace RaspberryPiFCS.Fuctions
         public Timer Timer { get; set; } = new Timer(20);
         public bool Lock { get; set; } = false;
         public FunctionStatus FunctionStatus { get; set; } = FunctionStatus.Online;
-
+        public RelyEquipment RelyEquipment { get; set; } = new RelyEquipment
+        {
+            RegisterType.Sys,
+            RegisterType.RemoteController
+        };
         public ControlFuncion()
         {
+            if (!EquipmentBus.ControllerRegister.CheckRely(RelyEquipment))
+            {
+                Logger.Add(LogType.Warning, "无法启动控制功能，依赖设备不在线");
+                return;
+            }
             Timer.AutoReset = true;
             Timer.Elapsed += Excute;
             Timer.Start();

@@ -19,7 +19,7 @@ namespace RaspberryPiFCS.Models
         /// <summary>
         /// 设备异常信息
         /// </summary>
-        public List<Tuple<DateTime, ErrorType, string, Exception>> ErrorData { get; set; } = new List<Tuple<DateTime, ErrorType, string, Exception>>();
+        public List<Tuple<DateTime, LogType, string, Exception>> ErrorData { get; set; } = new List<Tuple<DateTime, LogType, string, Exception>>();
 
         /// <summary>
         /// 构造函数
@@ -40,9 +40,9 @@ namespace RaspberryPiFCS.Models
             IsEnable = false;
         }
 
-        public void AddError(ErrorType errorType,string message, Exception exception)
+        public void AddError(LogType errorType,string message, Exception exception)
         {
-            ErrorData.Add(new Tuple<DateTime, ErrorType, string, Exception>(DateTime.Now, errorType, message, exception));
+            ErrorData.Add(new Tuple<DateTime, LogType, string, Exception>(DateTime.Now, errorType, message, exception));
         }
     }
 }

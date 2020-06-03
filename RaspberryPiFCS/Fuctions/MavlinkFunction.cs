@@ -2,6 +2,7 @@
 using MavLink.Message;
 using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Interface;
+using RaspberryPiFCS.Models;
 using System;
 using System.Reflection;
 using System.Threading;
@@ -22,6 +23,8 @@ namespace RaspberryPiFCS.Fuctions
         public bool Lock { get; set; } = false;
 
         public FunctionStatus FunctionStatus { get; set; } = FunctionStatus.Online;
+        public RelyEquipment RelyEquipment { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public MavlinkFunction()
         {
             mavlink = new Mavlink();
@@ -48,7 +51,7 @@ namespace RaspberryPiFCS.Fuctions
                 {
                     if (type.BaseType.Name != "MavlinkMessage")
                         continue;
-                    EquipmentBus.E34_2G4D20D.SendBytes = mavlink.Send(type);
+                    EquipmentBus.E34_2G4D20D.SendBytes.Add(mavlink.Send(type));
                     Thread.Sleep(10);
                 }
 

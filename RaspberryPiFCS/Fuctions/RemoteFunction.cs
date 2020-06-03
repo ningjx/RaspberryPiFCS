@@ -1,5 +1,6 @@
 ﻿using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Interface;
+using RaspberryPiFCS.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,8 @@ namespace RaspberryPiFCS.Fuctions
         public Timer Timer { get; set; } = new Timer(20);
         public bool Lock { get; set; } = false;
         public FunctionStatus FunctionStatus { get; set; } = FunctionStatus.Online;
+        public RelyEquipment RelyEquipment { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public RemoteFunction()
         {
             Timer.AutoReset = true;

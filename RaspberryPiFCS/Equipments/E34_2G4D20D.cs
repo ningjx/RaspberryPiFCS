@@ -1,5 +1,8 @@
 ﻿using System;
-using RaspberryPiFCS.BaseController;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using RaspberryPiFCS.Main;
 using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
@@ -20,9 +23,10 @@ namespace RaspberryPiFCS.Equipments
 
         public event DataHandler ReciveEvent;
 
-        public byte[] SendBytes { set { UART.WriteBytes(value); } }
 
-        public RelyConyroller RelyConyroller { get; set; } = new RelyConyroller
+        public List<byte[]> SendBytes { get; set; } = new List<byte[]>();
+
+        public RelyEquipment RelyEquipment { get; set; } = new RelyEquipment
         {
                 Enum.RegisterType.Sys
         };
@@ -36,9 +40,9 @@ namespace RaspberryPiFCS.Equipments
         {
             try
             {
-                if (!EquipmentBus.ControllerRegister.CheckRely(RelyConyroller))
+                if (!EquipmentBus.ControllerRegister.CheckRely(RelyEquipment))
                 {
-                    throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
+                    throw new Exception($"依赖设备尚未启动{string.Join("、", RelyEquipment)}");
                 }
 
                 UART = DriversFactory.GetUARTDriver(ComName);
@@ -46,11 +50,31 @@ namespace RaspberryPiFCS.Equipments
 
                 EquipmentData.IsEnable = true;
                 EquipmentBus.ControllerRegister.Register(Enum.RegisterType.E34_2G4D20D, true);
+
+                Task.Run(() =>
+                {
+                    while (true)
+                    {
+                        Thread.Sleep(1);
+                        try
+                        {
+                            lock (SendBytes)
+                            {
+                                if (SendBytes.Count != 0)
+                                {
+                                    UART.WriteBytes(SendBytes[0]);
+                                    SendBytes.RemoveAt(0);
+                                }
+                            }
+                        }
+                        catch { }
+                    }
+                });
             }
             catch (Exception ex)
             {
-                EquipmentData.AddError(Enum.ErrorType.Error, "启动E34_2G4D20D失败！", ex);
-                Logger.Add(Enum.ErrorType.Error, "启动E34_2G4D20D失败！", ex);
+                EquipmentData.AddError(Enum.LogType.Error, "启动E34_2G4D20D失败！", ex);
+                Logger.Add(Enum.LogType.Error, "启动E34_2G4D20D失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }

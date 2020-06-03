@@ -1,4 +1,4 @@
-﻿using RaspberryPiFCS.BaseController;
+﻿using RaspberryPiFCS.Main;
 using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
@@ -33,7 +33,7 @@ namespace RaspberryPiFCS.Equipments
 
         public EquipmentData EquipmentData => throw new NotImplementedException();
 
-        public RelyConyroller RelyConyroller { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public RelyEquipment RelyEquipment { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         int IEquipment_IIC.Addr => throw new NotImplementedException();
 

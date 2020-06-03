@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using RaspberryPiFCS.BaseController;
+using RaspberryPiFCS.Main;
 using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Interface;
@@ -23,11 +23,11 @@ namespace RaspberryPiFCS.Equipments
         public EquipmentData EquipmentData { get; } = new EquipmentData("WT901B");
 
         public string ComName { get; } = string.Empty;
-        public byte[] SendBytes { set => throw new NotImplementedException(); }
-        public RelyConyroller RelyConyroller { get; set; } = new RelyConyroller
+        public RelyEquipment RelyEquipment { get; set; } = new RelyEquipment
         {
             RegisterType.Sys
         };
+        public List<byte[]> SendBytes { set => throw new NotImplementedException(); }
 
 
         /// <summary>
@@ -48,9 +48,9 @@ namespace RaspberryPiFCS.Equipments
             try
             {
                 //检查依赖
-                if (!EquipmentBus.ControllerRegister.CheckRely(RelyConyroller))
+                if (!EquipmentBus.ControllerRegister.CheckRely(RelyEquipment))
                 {
-                    throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
+                    throw new Exception($"依赖设备尚未启动{string.Join("、", RelyEquipment)}");
                 }
 
                 uart = DriversFactory.GetUARTDriver(ComName);
@@ -60,8 +60,8 @@ namespace RaspberryPiFCS.Equipments
             }
             catch (Exception ex)
             {
-                EquipmentData.AddError(Enum.ErrorType.Error, "启动WT901B失败！", ex);
-                Logger.Add(Enum.ErrorType.Error, "启动WT901B失败！", ex);
+                EquipmentData.AddError(Enum.LogType.Error, "启动WT901B失败！", ex);
+                Logger.Add(Enum.LogType.Error, "启动WT901B失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }

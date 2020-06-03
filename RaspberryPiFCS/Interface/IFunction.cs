@@ -11,6 +11,7 @@ namespace RaspberryPiFCS.Interface
         abstract Timer Timer { get; set; }
         bool Lock { get; set; }
         FunctionStatus FunctionStatus { get; set; }
+        RelyEquipment RelyEquipment { get; set; }
     }
 
 }
