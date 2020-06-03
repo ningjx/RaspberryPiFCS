@@ -96,6 +96,8 @@ namespace RaspberryPiFCS.Main
                     path.Write(JsonConvert.SerializeObject(EquipmentConfigs));
                 }
             }
+            if (EquipmentConfigs.Count == 0)
+                EquipmentConfigs.InitRemote();
         }
 
         private static void ReadRemConfig(string[] path)
@@ -119,6 +121,8 @@ namespace RaspberryPiFCS.Main
                     path.Write(JsonConvert.SerializeObject(RemoteConfigs));
                 }
             }
+            if (RemoteConfigs.Count == 0)
+                RemoteConfigs.InitRemote();
         }
     }
 }

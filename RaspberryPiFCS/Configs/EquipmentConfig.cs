@@ -23,4 +23,11 @@ namespace RaspberryPiFCS.Configs
             base.Add(name, addr);
         }
     }
+    public static class Equipmentxtension
+    {
+        public static void InitRemote(this EquipmentConfig EquipmentConfig)
+        {
+
+        }
+    }
 }

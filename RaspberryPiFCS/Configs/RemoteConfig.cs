@@ -111,4 +111,12 @@ namespace RaspberryPiFCS.Configs
         [JsonProperty("摇杆型")]
         Rocker
     }
+
+    public static class RemoteExtension
+    {
+        public static void InitRemote(this RemoteConfigs RemoteConfigs)
+        {
+
+        }
+    }
 }
