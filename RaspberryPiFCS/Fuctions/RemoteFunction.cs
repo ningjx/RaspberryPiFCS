@@ -1,5 +1,6 @@
 ﻿using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Interface;
+using RaspberryPiFCS.Main;
 using RaspberryPiFCS.Models;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,9 @@ using System.Timers;
 
 namespace RaspberryPiFCS.Fuctions
 {
+    /// <summary>
+    /// 遥控功能
+    /// </summary>
     public class RemoteFunction : IFunction
     {
         public int RetryTime { get; set; } = 0;
@@ -33,13 +37,13 @@ namespace RaspberryPiFCS.Fuctions
                 EquipmentBus.RemoteController.Excute();
                 Lock = false;
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 RetryTime++;
                 if (RetryTime > 10)
                 {
                     FunctionStatus = FunctionStatus.Failure;
-                    //打日志throw ex;
+                    Logger.Add(LogType.Error, "遥控功能启动失败", exception);
                 }
             }
         }

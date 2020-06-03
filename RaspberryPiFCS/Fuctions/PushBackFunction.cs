@@ -6,6 +6,9 @@ using System.Timers;
 
 namespace RaspberryPiFCS.Fuctions
 {
+    /// <summary>
+    /// 反推功能
+    /// </summary>
     public class PushBackFunction : IFunction
     {
         public int RetryTime { get; set; } = 0;

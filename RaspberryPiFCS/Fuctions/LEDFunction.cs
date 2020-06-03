@@ -10,6 +10,9 @@ using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFCS.Fuctions
 {
+    /// <summary>
+    /// LED功能
+    /// </summary>
     public class LEDFunction : IFunction
     {
         public int RetryTime { get; set; } = 0;
