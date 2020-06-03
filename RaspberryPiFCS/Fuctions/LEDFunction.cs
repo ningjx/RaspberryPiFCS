@@ -1,5 +1,4 @@
 ﻿using RaspberryPiFCS.Enum;
-using RaspberryPiFCS.Handlers;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
 using System;
@@ -37,7 +36,7 @@ namespace RaspberryPiFCS.Fuctions
             try
             {
                 //根据控制信号操作
-                switch (DataBus.CenterSignal.TaxiLight)
+                switch (SignalBus.CenterSignal.TaxiLight)
                 {
                     case true:
                         EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.TaxiLight);
@@ -46,7 +45,7 @@ namespace RaspberryPiFCS.Fuctions
                         EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.TaxiLight);
                         break;
                 }
-                switch (DataBus.CenterSignal.RunwayLight)
+                switch (SignalBus.CenterSignal.RunwayLight)
                 {
                     case true:
                         EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.RunwayLight);
@@ -55,7 +54,7 @@ namespace RaspberryPiFCS.Fuctions
                         EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.RunwayLight);
                         break;
                 }
-                switch (DataBus.CenterSignal.TakeOffLight)
+                switch (SignalBus.CenterSignal.TakeOffLight)
                 {
                     case true:
                         EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.TakeoffLight);
@@ -64,7 +63,7 @@ namespace RaspberryPiFCS.Fuctions
                         EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.TakeoffLight);
                         break;
                 }
-                switch (DataBus.CenterSignal.LandingLight)
+                switch (SignalBus.CenterSignal.LandingLight)
                 {
                     case true:
                         EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.LandingLight);
@@ -73,7 +72,7 @@ namespace RaspberryPiFCS.Fuctions
                         EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.LandingLight);
                         break;
                 }
-                switch (DataBus.CenterSignal.WingInspectionLight)
+                switch (SignalBus.CenterSignal.WingInspectionLight)
                 {
                     case true:
                         EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.WingInspectionLight);
@@ -82,7 +81,7 @@ namespace RaspberryPiFCS.Fuctions
                         EquipmentBus.LEDPca.SetOff((int)Channels.LedChannel.WingInspectionLight);
                         break;
                 }
-                switch (DataBus.CenterSignal.PositionLight)
+                switch (SignalBus.CenterSignal.PositionLight)
                 {
                     case true:
                         EquipmentBus.LEDPca.SetOn((int)Channels.LedChannel.AntiCollisionLightWhite);

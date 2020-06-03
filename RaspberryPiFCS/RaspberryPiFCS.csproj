@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FlightData\FlightData.csproj" />
     <ProjectReference Include="..\HelperLib\HelperLib.csproj" />
     <ProjectReference Include="..\Mavlink\Mavlink.csproj" />
   </ItemGroup>

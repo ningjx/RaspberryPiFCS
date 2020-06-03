@@ -1,8 +1,5 @@
-﻿using RaspberryPiFCS.Configs;
-using RaspberryPiFCS.Models;
-using RaspberryPiFCS.Models;
+﻿using RaspberryPiFCS.BaseController;
 using System;
-using System.Threading;
 
 namespace RaspberryPiFCS
 {

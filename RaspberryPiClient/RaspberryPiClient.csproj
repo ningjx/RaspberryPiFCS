@@ -256,7 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FlightData\FlightData.csproj">
-      <Project>{e2ded000-5111-4d2a-910c-dd1416fc6c6a}</Project>
+      <Project>{FEFCA397-D55A-477D-A165-2954E1C64557}</Project>
       <Name>FlightData</Name>
     </ProjectReference>
     <ProjectReference Include="..\GMap.NET.Core\GMap.NET.Core.csproj">

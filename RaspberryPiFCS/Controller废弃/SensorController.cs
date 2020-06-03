@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Timers;
-using RaspberryPiFCS.Helper;
 using RaspberryPiFCS.Interface;
 
 namespace RaspberryPiFCS.Controller

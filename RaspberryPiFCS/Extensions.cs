@@ -1,6 +1,5 @@
 ﻿using flyfire.IO.Ports;
 using RaspberryPiFCS.Enum;
-using RaspberryPiFCS.Helper;
 using RaspberryPiFCS.Models;
 using System;
 using System.Collections.Generic;

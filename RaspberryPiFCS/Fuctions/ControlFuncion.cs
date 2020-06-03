@@ -1,7 +1,6 @@
 ﻿using Iot.Device.Pwm;
 using RaspberryPiFCS.Channels;
 using RaspberryPiFCS.Enum;
-using RaspberryPiFCS.Handlers;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
 using System;
@@ -63,13 +62,13 @@ namespace RaspberryPiFCS.Fuctions
         private void SetControl()
         {
             #region 最基本的四个通道
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.PitchL, DataBus.CenterSignal.PitchL);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.PitchR, DataBus.CenterSignal.PitchR);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.RollL, DataBus.CenterSignal.RollL);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.RollR, DataBus.CenterSignal.RollR);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.Yaw, DataBus.CenterSignal.Yaw);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelL, DataBus.CenterSignal.ThrottelL1);
-            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelR, DataBus.CenterSignal.ThrottelR1);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.PitchL, SignalBus.CenterSignal.PitchL);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.PitchR, SignalBus.CenterSignal.PitchR);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.RollL, SignalBus.CenterSignal.RollL);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.RollR, SignalBus.CenterSignal.RollR);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.Yaw, SignalBus.CenterSignal.Yaw);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelL, SignalBus.CenterSignal.ThrottelL1);
+            EquipmentBus.BasePca.SetAngle((int)BaseChannel.ThrottelR, SignalBus.CenterSignal.ThrottelR1);
             #endregion
         }
     }

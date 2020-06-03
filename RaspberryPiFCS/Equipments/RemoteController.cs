@@ -1,12 +1,9 @@
-﻿using RaspberryPiFCS.Drivers;
-using RaspberryPiFCS.Handlers;
+﻿using RaspberryPiFCS.BaseController;
+using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
-using RaspberryPiFCS.Models;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 
 namespace RaspberryPiFCS.Equipments
 {

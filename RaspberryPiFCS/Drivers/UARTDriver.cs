@@ -40,6 +40,11 @@ namespace RaspberryPiFCS.Drivers
             RecEvent?.Invoke(bytes);
         }
 
+        public void WriteBytes(byte[] bytes)
+        {
+            Write(bytes);
+        }
+
         public event UARTRecHandler RecEvent;
     }
 }

@@ -1,6 +1,5 @@
 ﻿using RaspberryPiFCS.Configs;
 using RaspberryPiFCS.Enum;
-using RaspberryPiFCS.Helper;
 using System.Timers;
 using RaspberryPiFCS.Interface;
 
