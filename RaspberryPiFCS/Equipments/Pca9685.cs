@@ -3,7 +3,6 @@ using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
-using RaspberryPiFCS.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -31,7 +30,6 @@ namespace RaspberryPiFCS.Equipments
         private const int ALLLED_OFF_L = 0xFC;
         private const int ALLLED_OFF_H = 0xFD;
         private int _speed = 0;
-        private II2CDevice _device;
         private Dictionary<int, double> _angleBuffer = new Dictionary<int, double>
         {
             {0,-1 },
@@ -83,6 +81,7 @@ namespace RaspberryPiFCS.Equipments
             RegisterType.Sys,
             RegisterType.IIC
         };
+        public II2CDevice I2CDevice { get ; set ; }
 
         /// <summary>
         /// Pca9685默认设备地址0x40
@@ -105,8 +104,8 @@ namespace RaspberryPiFCS.Equipments
                     throw new Exception($"依赖设备尚未启动{string.Join("、", RelyConyroller)}");
                 }
 
-                _device = I2CDriver.I2CBus.AddDevice(Addr);
-                _device.WriteAddressByte(MODE1, 0x00);
+                I2CDevice = I2CDriver.I2CBus.AddDevice(Addr);
+                I2CDevice.WriteAddressByte(MODE1, 0x00);
                 SetPWMFreq(Freq);
                 EquipmentData.IsEnable = true;
                 EquipmentBus.ControllerRegister.Register(RegisterType.Pca9685, false);
@@ -261,12 +260,12 @@ namespace RaspberryPiFCS.Equipments
 
         private void Write(int reg, byte value)
         {
-            _device.WriteAddressByte(reg, value);
+            I2CDevice.WriteAddressByte(reg, value);
         }
 
         private byte Read(int reg)
         {
-            return _device.ReadAddressByte(reg);
+            return I2CDevice.ReadAddressByte(reg);
         }
 
         private static int ConvertAngle(double angle)

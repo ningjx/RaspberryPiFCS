@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Unosquare.RaspberryIO.Abstractions;
 
 namespace RaspberryPiFCS.Interface
 {
@@ -11,9 +12,6 @@ namespace RaspberryPiFCS.Interface
         /// </summary>
         public int Addr { get;}
 
-        /// <summary>
-        /// 设备频率
-        /// </summary>
-        public double Freq { get;}
+        public II2CDevice I2CDevice { get; set; }
     }
 }
