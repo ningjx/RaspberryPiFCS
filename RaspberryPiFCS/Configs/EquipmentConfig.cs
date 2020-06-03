@@ -7,7 +7,7 @@ namespace RaspberryPiFCS.Configs
     /// <summary>
     /// 设备列表
     /// </summary>
-    public class Equipment : Dictionary<string, int>
+    public class EquipmentConfig : Dictionary<string, int>
     {
         public new void Add(string name, int addr)
         {

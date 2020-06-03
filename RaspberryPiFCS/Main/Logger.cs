@@ -10,12 +10,12 @@ namespace RaspberryPiFCS.Main
     {
         public static bool ReadyToSend = false;
         private static readonly string[] path = new string[] { "Log", "SystemLog.txt" };
-        private static List<Tuple<DateTime, LogType, string, Exception>> ErrorData { get; }
+        private static List<Tuple<DateTime, LogType, string, Exception>> ErrorData { get; } = new List<Tuple<DateTime, LogType, string, Exception>>();
 
         public static void Add(LogType errorType, string message, Exception ex = null)
         {
             ErrorData.Add(new Tuple<DateTime, LogType, string, Exception>(DateTime.Now, errorType, message, ex));
-            string text = $"{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff")}    异常类型:{errorType.ToString()}    信息:{message}    异常信息:{ex?.Message}    异常位置:{ex?.StackTrace}";
+            string text = $"{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff")}    异常类型:{errorType.ToString()}    信息:{message}    异常信息:{ex?.Message}    异常位置:{ex?.StackTrace}\r";
             path.Write_Append(text);
             if (ReadyToSend)
             {

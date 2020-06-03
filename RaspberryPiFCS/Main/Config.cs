@@ -18,7 +18,7 @@ namespace RaspberryPiFCS.Main
 
         public static SysConfig SysConfig;
         public static RemoteConfigs RemoteConfigs;
-        public static Equipment EquipmentConfigs;
+        public static EquipmentConfig EquipmentConfigs;
 
         public static bool SaveConfig()
         {
@@ -80,20 +80,20 @@ namespace RaspberryPiFCS.Main
             string data = path.Read();
             if (string.IsNullOrEmpty(data))
             {
-                EquipmentConfigs = new Equipment();
-                path.Write(JsonConvert.SerializeObject(SysConfig));
+                EquipmentConfigs = new EquipmentConfig();
+                path.Write(JsonConvert.SerializeObject(EquipmentConfigs));
             }
             else
             {
                 try
                 {
-                    EquipmentConfigs = JsonConvert.DeserializeObject<Equipment>(data);
+                    EquipmentConfigs = JsonConvert.DeserializeObject<EquipmentConfig>(data);
                 }
                 catch (Exception ex)
                 {
                     Logger.Add(Enum.LogType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
-                    EquipmentConfigs = new Equipment();
-                    path.Write(JsonConvert.SerializeObject(SysConfig));
+                    EquipmentConfigs = new EquipmentConfig();
+                    path.Write(JsonConvert.SerializeObject(EquipmentConfigs));
                 }
             }
         }
@@ -104,7 +104,7 @@ namespace RaspberryPiFCS.Main
             if (string.IsNullOrEmpty(data))
             {
                 RemoteConfigs = new RemoteConfigs();
-                path.Write(JsonConvert.SerializeObject(SysConfig));
+                path.Write(JsonConvert.SerializeObject(RemoteConfigs));
             }
             else
             {
@@ -116,7 +116,7 @@ namespace RaspberryPiFCS.Main
                 {
                     Logger.Add(Enum.LogType.Debug, $"未能成功初始化“{path[1].Replace(".json", "")}”的配置信息", ex);
                     RemoteConfigs = new RemoteConfigs();
-                    path.Write(JsonConvert.SerializeObject(SysConfig));
+                    path.Write(JsonConvert.SerializeObject(RemoteConfigs));
                 }
             }
         }

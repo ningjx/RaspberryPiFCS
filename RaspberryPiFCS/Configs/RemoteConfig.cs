@@ -8,12 +8,12 @@ namespace RaspberryPiFCS.Configs
     /// <summary>
     /// 遥控器列表
     /// </summary>
-    public class RemoteConfigs:Dictionary<string, RemoteControl>
+    public class RemoteConfigs:Dictionary<string, RemoteConfig>
     {
 
     }
 
-    public class RemoteControl
+    public class RemoteConfig
     {
         /// <summary>
         /// 遥控器名称
