@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using RaspberryPiFCS.Enum;
 using HelperLib;
 
-namespace RaspberryPiFCS.SystemMessage
+namespace RaspberryPiFCS.Models
 {
-    public class Message
+    public class Logger
     {
         //private static FileStream fileStream;
         private string[] path = new string[] { "Log", "SystemLog.txt" };
-        public Message(string[] path = null)
+        public Logger(string[] path = null)
         {
             if (path != null)
             {

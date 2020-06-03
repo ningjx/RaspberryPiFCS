@@ -5,7 +5,7 @@ using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Handlers;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
-using RaspberryPiFCS.SystemMessage;
+using RaspberryPiFCS.Models;
 
 namespace RaspberryPiFCS.Equipments
 {
@@ -62,7 +62,7 @@ namespace RaspberryPiFCS.Equipments
             catch (Exception ex)
             {
                 EquipmentData.AddError(Enum.ErrorType.Error, "启动WT901B失败！", ex);
-                Message.Add(Enum.ErrorType.Error, "启动WT901B失败！", ex);
+                Logger.Add(Enum.ErrorType.Error, "启动WT901B失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }

@@ -2,7 +2,7 @@
 using RaspberryPiFCS.Handlers;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
-using RaspberryPiFCS.SystemMessage;
+using RaspberryPiFCS.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -48,7 +48,7 @@ namespace RaspberryPiFCS.Equipments
             catch (Exception ex)
             {
                 EquipmentData.AddError(Enum.ErrorType.Error, "启动遥控器失败！", ex);
-                Message.Add(Enum.ErrorType.Error, "启动遥控器失败！", ex);
+                Logger.Add(Enum.ErrorType.Error, "启动遥控器失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }
