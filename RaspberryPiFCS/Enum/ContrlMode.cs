@@ -20,8 +20,6 @@
         /// </summary>
         VerticalNavigation = 2,
 
-        APOn = 3,
-
-        AutoSpeed = 4
+        APOn = 3
     }
 }
