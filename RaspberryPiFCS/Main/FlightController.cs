@@ -2,47 +2,41 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using RaspberryPiFCS.Models;
+using RaspberryPiFCS.Configs;
 
 namespace RaspberryPiFCS.Main
 {
     public class FlightController
     {
-        private void Excute(object sender, System.Timers.ElapsedEventArgs e)
+
+        /// <summary>
+        /// 将<see cref="OriginSignal"/>转换成<see cref="RemoteSignal"/>
+        /// </summary>
+        private void TranslateSignal()
         {
-            switch (DataBus.FlightStatus.ContrlMode)
+            foreach (var channel in SignalBus.ControlConfig.Channels)
             {
-                case ContrlMode.Manual:
-                    ManualPolymerize();
-                    break;
-                case ContrlMode.LateralNavigation:
-                    LateralNavigation();
-                    break;
-                case ContrlMode.VerticalNavigation:
-                    VerticalNavigation();
-                    break;
-                case ContrlMode.APOn:
-                    APOn();
-                    break;
-                case ContrlMode.AutoSpeed:
-                    AutoSpeed();
-                    break;
+                if (channel.ChannelType == ChannelType.Switch)
+                {
+                    if (SignalBus.OriginSignal[channel.ChannelNum] == channel.MinValue)
+                        SignalBus.RemoteSignal[channel.RemoteMapping.GetHashCode()] = Switch.Off;
+                    else if (SignalBus.OriginSignal[channel.ChannelNum] == channel.MaxValue)
+                        SignalBus.RemoteSignal[channel.RemoteMapping.GetHashCode()] = Switch.On;
+                    else if (SignalBus.OriginSignal[channel.ChannelNum] == channel.MidValue)
+                        SignalBus.RemoteSignal[channel.RemoteMapping.GetHashCode()] = Switch.MId;
+                }
+                else if (channel.ChannelType == ChannelType.Rocker)
+                {
+                    SignalBus.RemoteSignal[channel.RemoteMapping.GetHashCode()] = (SignalBus.OriginSignal[channel.ChannelNum] - channel.MinValue) / (channel.MaxValue - channel.MinValue) * (channel.MaxAngle - channel.MinAngle) + channel.MinAngle;
+                }
             }
         }
 
-        private void ManualPolymerize()
-        {
-            SignalBus.CenterSignal.Yaw = SignalBus.RemoteSignal.Yaw;
-            SignalBus.CenterSignal.ThrottelL1 = SignalBus.RemoteSignal.Throttel;
-            SignalBus.CenterSignal.ThrottelR1 = SignalBus.RemoteSignal.Throttel;
-            //对油门进行PID控制
-            //_pid.SetWithPID((float)Cache.CenterControlData.ThrottelL, (float)Cache.RemoteSignal.Channel03);
-            SignalBus.CenterSignal.RollL = SignalBus.RemoteSignal.Roll;
-            SignalBus.CenterSignal.RollR = SignalBus.RemoteSignal.Roll;
-            SignalBus.CenterSignal.PitchL = SignalBus.RemoteSignal.Pitch;
-            SignalBus.CenterSignal.PitchR = SignalBus.RemoteSignal.Pitch;
 
-            CommonOperation();
-        }
+
+
+        
         private void LateralNavigation()
         {
 

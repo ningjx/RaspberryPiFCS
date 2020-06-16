@@ -37,6 +37,7 @@ namespace RaspberryPiFCS.Main
                         {
                             Functions.AddOrUpdate(func.GetType().Name, func.FunctionStatus);
                         }
+                        LunchFailure();
                     }
                     catch
                     {
@@ -49,6 +50,8 @@ namespace RaspberryPiFCS.Main
         public static void LunchFailure()
         {
             var failureNames = Functions.Where(t => t.Value == FunctionStatus.Failure).Select(t => t.Key);
+            if (failureNames.Count() == 0)
+                return;
             var needDalete = FunctionInstances.Where(t => failureNames.Contains(t.GetType().Name)).ToList();
             needDalete.ForEach(t => FunctionInstances.Remove(t));
             var funcTypes = typeof(IFunction).Assembly.GetTypes().Where(t => !t.IsAbstract && t.IsClass).Where(t => failureNames.Contains(t.Name));

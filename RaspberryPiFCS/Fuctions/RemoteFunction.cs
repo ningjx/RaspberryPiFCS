@@ -18,13 +18,28 @@ namespace RaspberryPiFCS.Fuctions
         public Timer Timer { get; set; } = new Timer(20);
         public bool Lock { get; set; } = false;
         public FunctionStatus FunctionStatus { get; set; } = FunctionStatus.Online;
-        public RelyEquipment RelyEquipment { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public RelyEquipment RelyEquipment { get; set; } = new RelyEquipment
+        {
+            RegisterType.Sys,
+            RegisterType.RemoteController
+        };
 
         public RemoteFunction()
         {
-            Timer.AutoReset = true;
-            Timer.Elapsed += Timer_Elapsed;
-            Timer.Start();
+            try
+            {
+                if (!EquipmentBus.ControllerRegister.CheckRely(RelyEquipment))
+                {
+                    throw new Exception($"依赖设备尚未启动{string.Join("、", RelyEquipment)}");
+                }
+                Timer.AutoReset = true;
+                Timer.Elapsed += Timer_Elapsed;
+                Timer.Start();
+            }
+            catch (Exception ex)
+            {
+                Logger.Add(Enum.LogType.Error, "启动遥控器失败！", ex);
+            }
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -52,5 +67,6 @@ namespace RaspberryPiFCS.Fuctions
         {
             Timer.Dispose();
         }
+
     }
 }
