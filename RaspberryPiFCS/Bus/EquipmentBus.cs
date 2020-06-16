@@ -12,12 +12,12 @@ namespace RaspberryPiFCS
         public static SysRegister ControllerRegister = new SysRegister();//注册
         public static Pca9685 BasePca;
         public static Pca9685 LEDPca;
-        public static E34_2G4D20D E34_2G4D20D;
+        public static MavlinkEquipment MavlinkEquipment;
+        //public static E34_2G4D20D E34_2G4D20D;
         public static RemoteController RemoteController;
         static EquipmentBus()
         {
-            E34_2G4D20D = new E34_2G4D20D("");
-            E34_2G4D20D.Lunch();
+            MavlinkEquipment = new MavlinkEquipment();
             Logger.ReadyToSend = true;
         }
 

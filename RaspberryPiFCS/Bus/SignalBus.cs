@@ -13,7 +13,7 @@ namespace RaspberryPiFCS
         /// 遥控配置信息
         /// 配置信息中，日期最大的遥控器配置为当前生效配置
         /// </summary>
-        public static RemoteControl ControlConfig
+        public static RemoteConfig ControlConfig
         {
             get
             {

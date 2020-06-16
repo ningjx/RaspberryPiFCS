@@ -4,26 +4,27 @@ using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
 using System;
 using System.Net;
+using System.Collections.Generic;
 
 namespace RaspberryPiFCS.Equipments
 {
-    public class RemoteController : IEquipment_Socket
+    public class RemoteController : IEquipment_UART
     {
         public EquipmentData EquipmentData { get; } = new EquipmentData("RemoteController");
 
-        private SocketDriver SocketDriver;
+        private UARTDriver UARTDriver;
         public SBusDriver SBus;
+
+        public event DataHandler ReciveEvent;
 
         public RelyEquipment RelyEquipment { get; set; } = new RelyEquipment
         {
             Enum.RegisterType.Sys
         };
 
-        public IPEndPoint BindIP => throw new NotImplementedException();
+        public string ComName  { get;set;}
 
-        public IPEndPoint TargetIP => throw new NotImplementedException();
-
-        public EndPoint OriginIP => throw new NotImplementedException();
+        public List<byte[]> SendBytes { get;set;}
 
         public bool Lunch()
         {
@@ -37,10 +38,10 @@ namespace RaspberryPiFCS.Equipments
                 SBus = DriversFactory.GetSBusDriver(3);
                 SBus.SetSignal += SBus_SetSignal;
 
-                SocketDriver = DriversFactory.GetSocketDriver(5000, 5001);
+                UARTDriver = DriversFactory.GetUARTDriver(ComName);
 
                 EquipmentData.IsEnable = true;
-                EquipmentBus.ControllerRegister.Register(Enum.RegisterType.Socket, true);
+                EquipmentBus.ControllerRegister.Register(Enum.RegisterType.RemoteController, true);
             }
             catch (Exception ex)
             {
@@ -54,12 +55,7 @@ namespace RaspberryPiFCS.Equipments
 
         public void Excute()
         {
-            SBus.DecodeSignal(SocketDriver.ReciveBytes());
-        }
-
-        private void Socket_ReceivedEvent(byte[] bytes)
-        {
-            SBus.DecodeSignal(bytes);
+            SBus.DecodeSignal(UARTDriver.Read());
         }
 
         private void SBus_SetSignal(long[] signals)

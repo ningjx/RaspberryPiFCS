@@ -37,7 +37,8 @@ namespace RaspberryPiFCS.Drivers
         private void Read(object sender, ElapsedEventArgs e)
         {
             byte[] bytes = Read();
-            RecEvent?.Invoke(bytes);
+            if (bytes.Length != 0)
+                RecEvent?.Invoke(bytes);
         }
 
         public void WriteBytes(byte[] bytes)

@@ -5,7 +5,6 @@ using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
-using RaspberryPiFCS.Models;
 
 namespace RaspberryPiFCS.Equipments
 {

@@ -10,6 +10,11 @@ using System.Threading.Tasks;
 
 namespace RaspberryPiFCS.Main
 {
+    /// <summary>
+    /// 修改watcher的功能，在启动watcher时，通过watcher去收集所有function（但不启动）
+    /// 然后将所有function信息发送到地面站
+    /// 通过地面站去手动启动function
+    /// </summary>
     public static class FunctionWatcher
     {
         public static Dictionary<string, FunctionStatus> Functions = new Dictionary<string, FunctionStatus>();
@@ -20,11 +25,11 @@ namespace RaspberryPiFCS.Main
             var funcTypes = typeof(IFunction).Assembly.GetTypes().Where(t => !t.IsAbstract && t.IsClass);
             var functionNames = funcTypes.Select(t => t.Name).ToList();
             functionNames.ForEach(t => Functions.Add(t, FunctionStatus.Offline));
+            //发送mavlink message
+            //Msg_sys_status message = new Msg_sys_status();
+            //EquipmentBus.MavlinkEquipment.SendMessage(message);
 
-            foreach (Type type in funcTypes)//所有function Online
-            {
-                FunctionInstances.Add(Activator.CreateInstance(type) as IFunction);
-            }
+            EquipmentBus.MavlinkEquipment.RecivePacket += SetFunction;
 
             Task.Run(() =>
             {
@@ -37,6 +42,7 @@ namespace RaspberryPiFCS.Main
                         {
                             Functions.AddOrUpdate(func.GetType().Name, func.FunctionStatus);
                         }
+                        LunchFailure();
                     }
                     catch
                     {
@@ -46,9 +52,23 @@ namespace RaspberryPiFCS.Main
             });
         }
 
+        /// <summary>
+        /// 通过message操作function的状态
+        /// </summary>
+        /// <param name="packet"></param>
+        private static void SetFunction(MavLink.MavlinkPacket packet)
+        {
+            if(packet.ComponentId == 0)
+            {
+
+            }
+        }
+
         public static void LunchFailure()
         {
             var failureNames = Functions.Where(t => t.Value == FunctionStatus.Failure).Select(t => t.Key);
+            if (failureNames.Count() == 0)
+                return;
             var needDalete = FunctionInstances.Where(t => failureNames.Contains(t.GetType().Name)).ToList();
             needDalete.ForEach(t => FunctionInstances.Remove(t));
             var funcTypes = typeof(IFunction).Assembly.GetTypes().Where(t => !t.IsAbstract && t.IsClass).Where(t => failureNames.Contains(t.Name));

@@ -7,7 +7,7 @@ namespace RaspberryPiFCS.Configs
     /// <summary>
     /// 设备列表
     /// </summary>
-    public class Equipment : Dictionary<string, int>
+    public class EquipmentConfig : Dictionary<string, int>
     {
         public new void Add(string name, int addr)
         {
@@ -21,6 +21,13 @@ namespace RaspberryPiFCS.Configs
             else if (Values.Contains(addr))
                 throw new Exception("不能在设备列表中保存相同的名字或设备地址");
             base.Add(name, addr);
+        }
+    }
+    public static class Equipmentxtension
+    {
+        public static void InitRemote(this EquipmentConfig EquipmentConfig)
+        {
+
         }
     }
 }

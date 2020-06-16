@@ -8,12 +8,12 @@ namespace RaspberryPiFCS.Configs
     /// <summary>
     /// 遥控器列表
     /// </summary>
-    public class RemoteConfigs:Dictionary<string, RemoteControl>
+    public class RemoteConfigs : Dictionary<string, RemoteConfig>
     {
 
     }
 
-    public class RemoteControl
+    public class RemoteConfig
     {
         /// <summary>
         /// 遥控器名称
@@ -67,25 +67,31 @@ namespace RaspberryPiFCS.Configs
         /// 通道中值
         /// </summary>
         [JsonProperty("通道中值")]
-        public float MidValue;
+        public long MidValue;
 
         /// <summary>
         /// 通道最大值
         /// </summary>
         [JsonProperty("通道最大值")]
-        public float MaxValue;
+        public long MaxValue;
 
         /// <summary>
         /// 通道最小值
         /// </summary>
         [JsonProperty("通道最小值")]
-        public float MinValue;
+        public long MinValue;
 
         /// <summary>
-        /// 单边最大角度阈值
+        /// 最大角度
         /// </summary>
-        [JsonProperty("单边最大角度阈值")]
-        public float AngleLimit;
+        [JsonProperty("最大角度")]
+        public float MaxAngle;
+
+        /// <summary>
+        /// 最小角度
+        /// </summary>
+        [JsonProperty("最小角度")]
+        public float MinAngle;
 
         /// <summary>
         /// 是否翻转
@@ -110,5 +116,13 @@ namespace RaspberryPiFCS.Configs
         /// </summary>
         [JsonProperty("摇杆型")]
         Rocker
+    }
+
+    public static class RemoteExtension
+    {
+        public static void InitRemote(this RemoteConfigs RemoteConfigs)
+        {
+
+        }
     }
 }

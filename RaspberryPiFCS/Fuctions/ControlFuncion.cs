@@ -26,7 +26,8 @@ namespace RaspberryPiFCS.Fuctions
         {
             if (!EquipmentBus.ControllerRegister.CheckRely(RelyEquipment))
             {
-                Logger.Add(LogType.Warning, "无法启动控制功能，依赖设备不在线");
+                Logger.Add(LogType.Error, "无法启动控制功能，依赖设备不在线");
+                FunctionStatus = FunctionStatus.Failure;
                 return;
             }
             Timer.AutoReset = true;
