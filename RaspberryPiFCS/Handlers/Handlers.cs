@@ -1,4 +1,5 @@
-﻿using RaspberryPiFCS.Enum;
+﻿using MavLink;
+using RaspberryPiFCS.Enum;
 using System;
 
 namespace RaspberryPiFCS
@@ -7,4 +8,5 @@ namespace RaspberryPiFCS
     public delegate void WatcherHandler();
     public delegate void ErrorMessageHandler(LogType errorType, string message, Exception ex);
     public delegate void UARTRecHandler(byte[] bytes);
+    public delegate void MavlinkHandler(MavlinkPacket packet);
 }

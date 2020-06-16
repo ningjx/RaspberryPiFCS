@@ -1,39 +1,48 @@
 ﻿using MavLink;
 using MavLink.Message;
-using RaspberryPiFCS.Enum;
-using RaspberryPiFCS.Interface;
-using RaspberryPiFCS.Models;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Timers;
 using Timer = System.Timers.Timer;
 
-namespace RaspberryPiFCS.Fuctions
+namespace RaspberryPiFCS.Equipments
 {
-    public class MavlinkFunction : IFunction
+    public class MavlinkEquipment
     {
-        Mavlink mavlink;
-        static int SequenceNumber = 0;
-
-        Timer timer = new Timer(10);
+        private E34_2G4D20D e34_2G4D20D = new E34_2G4D20D("");
+        private Mavlink Mavlink = new Mavlink();
         Type[] messageTypes;
-        public int RetryTime { get; set; } = 0;
         public Timer Timer { get; set; } = new Timer(10);
         public bool Lock { get; set; } = false;
-
-        public FunctionStatus FunctionStatus { get; set; } = FunctionStatus.Online;
-        public RelyEquipment RelyEquipment { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public MavlinkFunction()
+        public MavlinkEquipment()
         {
-            mavlink = new Mavlink();
-            mavlink.SetMessage += Mavlink_SetMessage;
+            e34_2G4D20D.Lunch();
+            e34_2G4D20D.ReciveEvent += E34_2G4D20D_ReciveEvent;
+            Mavlink.SetMessage += Mavlink_SetMessage;
+            Mavlink.PacketReceived += Mavlink_PacketReceived;
             messageTypes = Assembly.GetExecutingAssembly().GetTypes();
-            EquipmentBus.ControllerRegister.Register(Enum.RegisterType.MavlinkController, false);
             Timer.AutoReset = true;
             Timer.Elapsed += Excute;
             Timer.Start();
+        }
+
+        public void  SendMessage(MavlinkMessage message)
+        {
+            MavlinkPacket packet = new MavlinkPacket(message);
+            Mavlink.Send(packet);
+        }
+
+        private void Mavlink_PacketReceived(object sender, MavlinkPacket e)
+        {
+            RecivePacket?.Invoke(e);
+        }
+
+        private void E34_2G4D20D_ReciveEvent(byte[] bytes)
+        {
+            Mavlink.ParseBytes(bytes);
         }
 
         private void Excute(object sender, ElapsedEventArgs e)
@@ -45,48 +54,16 @@ namespace RaspberryPiFCS.Fuctions
 
             try
             {
-                //根据控制信号操作
-
                 foreach (var type in messageTypes)
                 {
                     if (type.BaseType.Name != "MavlinkMessage")
                         continue;
-                    EquipmentBus.E34_2G4D20D.SendBytes.Add(mavlink.Send(type));
+                    e34_2G4D20D.SendBytes.Add(Mavlink.Send(type));
                     Thread.Sleep(10);
                 }
-
-
-
             }
-            catch (Exception ex)
-            {
-                RetryTime++;
-                if (RetryTime > 10)
-                {
-                    FunctionStatus = FunctionStatus.Failure;
-                    //日志
-                }
-            }
+            catch { }
             Lock = false;
-        }
-
-
-        public void Dispose()
-        {
-
-        }
-
-        private static MavlinkPacket GetPacket(MavlinkMessage message)
-        {
-            MavlinkPacket packet = new MavlinkPacket(message);
-            packet.SystemId = 1;
-            packet.ComponentId = 1;
-            packet.SequenceNumber = (byte)((SequenceNumber >> 24) & 0xFF);
-            if (SequenceNumber == 255)
-                SequenceNumber = 0;
-            else
-                SequenceNumber++;
-            return packet;
         }
 
         private void Mavlink_SetMessage(MavlinkMessage message, Type type)
@@ -121,5 +98,10 @@ namespace RaspberryPiFCS.Fuctions
                     break;
             }
         }
+
+        /// <summary>
+        /// 订阅此事件以接收mavlink消息
+        /// </summary>
+        public event MavlinkHandler RecivePacket;
     }
 }

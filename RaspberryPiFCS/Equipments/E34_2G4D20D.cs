@@ -7,6 +7,7 @@ using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Interface;
 using RaspberryPiFCS.Models;
 using RaspberryPiFCS.Models;
+using MavLink;
 
 namespace RaspberryPiFCS.Equipments
 {

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using HelperLib;
 using System.Text;
+using MavLink.Message;
 
 namespace RaspberryPiFCS.Main
 {
@@ -24,7 +25,9 @@ namespace RaspberryPiFCS.Main
                     ErrorData.ForEach(t =>
                     {
                         string text = $"{t.Item1.ToString("yyyy-MM-dd hh:mm:ss fff")}    异常类型:{t.Item2.ToString()}    信息:{t.Item3}    异常信息:{t.Item4?.Message}";
-                        EquipmentBus.E34_2G4D20D.SendBytes.Add(Encoding.UTF8.GetBytes(text));
+                        //发送mavlink消息
+                        //Msg_sys_status message = new Msg_sys_status();
+                        //EquipmentBus.MavlinkEquipment.SendMessage(message);
                     });
                     ErrorData.Clear();
                 }
