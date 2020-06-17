@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using HelperLib;
-using System.Text;
-using MavLink.Message;
 
 namespace RaspberryPiFCS.Main
 {

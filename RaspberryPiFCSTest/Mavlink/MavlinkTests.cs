@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MavLink.Message;
 
 namespace MavLink.Tests
 {
@@ -11,7 +10,6 @@ namespace MavLink.Tests
         {
             Mavlink mavlink = new Mavlink();
             Msg_attitude msg_Attitude = new Msg_attitude();
-            msg_Attitude.Aacceleration_X = 1;
             msg_Attitude.roll = 1;
             MavlinkPacket packet = new MavlinkPacket(msg_Attitude);
             var res = mavlink.Send(packet);
