@@ -1,4 +1,5 @@
-﻿using RaspberryPiFCS.Enum;
+﻿using MavLink;
+using RaspberryPiFCS.Enum;
 using RaspberryPiFCS.Fuctions;
 using RaspberryPiFCS.Interface;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using FunctionStatus = RaspberryPiFCS.Enum.FunctionStatus;
 
 namespace RaspberryPiFCS.Main
 {
@@ -24,10 +26,16 @@ namespace RaspberryPiFCS.Main
         {
             var funcTypes = typeof(IFunction).Assembly.GetTypes().Where(t => !t.IsAbstract && t.IsClass);
             var functionNames = funcTypes.Select(t => t.Name).ToList();
-            functionNames.ForEach(t => Functions.Add(t, FunctionStatus.Offline));
-            //发送mavlink message
-            //Msg_sys_status message = new Msg_sys_status();
-            //EquipmentBus.MavlinkEquipment.SendMessage(message);
+
+            functionNames.ForEach(t =>
+            {
+                Functions.Add(t, FunctionStatus.Offline);
+                Msg_functionstatus msg_Functionstatus = new Msg_functionstatus();
+                msg_Functionstatus.functionname = Encoding.UTF8.GetBytes(t);
+                msg_Functionstatus.status =  (byte)FunctionStatus.Offline;
+                msg_Functionstatus.time_usec = DateTime.Now.GetTimeStamp();
+                EquipmentBus.MavlinkEquipment.SendMessage(msg_Functionstatus);
+            });
 
             EquipmentBus.MavlinkEquipment.RecivePacket += SetFunction;
 
@@ -42,7 +50,6 @@ namespace RaspberryPiFCS.Main
                         {
                             Functions.AddOrUpdate(func.GetType().Name, func.FunctionStatus);
                         }
-                        LunchFailure();
                     }
                     catch
                     {
@@ -58,7 +65,7 @@ namespace RaspberryPiFCS.Main
         /// <param name="packet"></param>
         private static void SetFunction(MavLink.MavlinkPacket packet)
         {
-            if(packet.ComponentId == 0)
+            if (packet.ComponentId == 0)
             {
 
             }

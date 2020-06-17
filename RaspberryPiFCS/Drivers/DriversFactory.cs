@@ -1,6 +1,8 @@
-﻿using RJCP.IO.Ports;
+﻿using RaspberryPiFCS.Interface;
+using RJCP.IO.Ports;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace RaspberryPiFCS.Drivers
@@ -12,9 +14,20 @@ namespace RaspberryPiFCS.Drivers
             return new SBusDriver(sec);
         }
 
-        public static UARTDriver GetUARTDriver(string portName, int baudRate = 115200, Parity parity = Parity.None, int databits = 8, StopBits stopBits = StopBits.One)
+        public static IUARTDriver GetUARTDriver(string portName, int baudRate = 115200, Parity parity = Parity.None, int databits = 8, StopBits stopBits = StopBits.One)
         {
-            return new UARTDriver(portName, baudRate, parity, databits, stopBits);
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                return new UARTDriver(portName, baudRate, parity, databits, stopBits);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return new UART_Win_Driver(portName, baudRate, parity, databits, stopBits);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static PIDDriver GetPIDDriver(float kp = 0.1f, float ki = 0.2f, float kd = 0.4f)

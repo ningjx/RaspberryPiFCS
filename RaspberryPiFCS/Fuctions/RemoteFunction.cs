@@ -34,7 +34,7 @@ namespace RaspberryPiFCS.Fuctions
                 }
                 Timer.AutoReset = true;
                 Timer.Elapsed += Timer_Elapsed;
-                Timer.Start();
+                //Timer.Start();
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace RaspberryPiFCS.Fuctions
                 if (Lock)
                     return;
                 Lock = true;
-                EquipmentBus.RemoteController.Excute();
+                //EquipmentBus.RemoteController.Excute();
                 Lock = false;
             }
             catch (Exception exception)

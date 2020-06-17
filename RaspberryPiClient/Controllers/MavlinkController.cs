@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MavLink;
-using MavLink.Message;
+﻿using MavLink;
 using FlightDataModel;
-using System.Timers;
 using System.IO.Ports;
 using flyfire.IO.Ports;
 
@@ -47,7 +40,6 @@ namespace RaspberryPiClient.Controllers
                     FlightData.Attitude.Angle_X = message.roll;
                     FlightData.Attitude.Angle_Y = message.pitch;
                     FlightData.Attitude.Angle_Z = message.yaw;
-                    FlightData.Attitude.BarometricAltitude = message.BarometricAltitude;
                     break;
             }
         }

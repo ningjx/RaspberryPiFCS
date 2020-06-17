@@ -13,7 +13,6 @@ namespace RaspberryPiFCS
         public static Pca9685 BasePca;
         public static Pca9685 LEDPca;
         public static MavlinkEquipment MavlinkEquipment;
-        //public static E34_2G4D20D E34_2G4D20D;
         public static RemoteController RemoteController;
         static EquipmentBus()
         {

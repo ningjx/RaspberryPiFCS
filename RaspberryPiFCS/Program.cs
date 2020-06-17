@@ -11,7 +11,6 @@ namespace RaspberryPiFCS
             {
                 //读取配置信息
                 Config.ReadConfig();
-                //Config.SaveConfig();
                 //注册系统//启动远程通信；
                 EquipmentBus.ControllerRegister.Register(Enum.RegisterType.Sys, true);
 
@@ -19,7 +18,7 @@ namespace RaspberryPiFCS
 
 
                 //启动其它设备
-                EquipmentBus.Lunch();
+                //EquipmentBus.Lunch();
                 //启动function
                 FunctionWatcher.Lunch();
 

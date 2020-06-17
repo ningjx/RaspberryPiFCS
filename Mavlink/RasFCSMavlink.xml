@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<mavlink>
+  <version>3</version>
+  <dialect>0</dialect>
+  <enums>
+    <enum name="FlightSTATUS">
+      <description>FlightSTATUS</description>
+      <entry value="0" name="Connected">
+        <description>Connected</description>
+      </entry>
+      <entry value="1" name="Idle">
+        <description>Idle</description>
+      </entry>
+      <entry value="2" name="Taxi">
+        <description>Taxi</description>
+      </entry>
+      <entry value="3" name="Standby">
+        <description>Standby</description>
+      </entry>
+      <entry value="4" name="RollOut">
+        <description>RollOut</description>
+      </entry>
+      <entry value="5" name="Climb">
+        <description>Climb</description>
+      </entry>
+      <entry value="6" name="Cruise">
+        <description>Cruise</description>
+      </entry>
+      <entry value="7" name="Descend">
+        <description>Descend</description>
+      </entry>
+      <entry value="8" name="Approach">
+        <description>Approach</description>
+      </entry>
+      <entry value="9" name="Unkonwn">
+        <description>Unkonwn</description>
+      </entry>
+    </enum>
+    <enum name="ContrlMode">
+      <description>ContrlMode</description>
+      <entry value="0" name="Manual">
+        <description>Manual</description>
+      </entry>
+      <entry value="1" name="LateralNavigation">
+        <description>LateralNavigation</description>
+      </entry>
+      <entry value="2" name="VerticalNavigation">
+        <description>VerticalNavigation</description>
+      </entry>
+      <entry value="3" name="APOn">
+        <description>APOn</description>
+      </entry>
+    </enum>
+    <enum name="SpeedMode">
+      <description>SpeedMode</description>
+      <entry value="0" name="ManualSpeed">
+        <description>ManualSpeed</description>
+      </entry>
+      <entry value="1" name="AutoSpeed">
+        <description>AutoSpeed</description>
+      </entry>
+    </enum>
+    <enum name="FunctionStatus">
+      <description>FunctionStatus</description>
+      <entry value="0" name="Online">
+        <description>Online</description>
+      </entry>
+      <entry value="1" name="Offline">
+        <description>Offline</description>
+      </entry>
+      <entry value="2" name="Failure">
+        <description>Failure</description>
+      </entry>
+    </enum>
+    <enum name="LogType">
+      <description>LogType</description>
+      <entry value="0" name="Debug">
+        <description>Debug</description>
+      </entry>
+      <entry value="1" name="Warning">
+        <description>Warning</description>
+      </entry>
+      <entry value="2" name="Error">
+        <description>Error</description>
+      </entry>
+    </enum>
+  </enums>
+  <messages>
+    <message id="0" name="HEARTBEAT">
+      <description>HEARTBEAT</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="uint8_t" name="fightstatus" enum="FlightSTATUS">fightstatus</field>
+    </message>
+    <message id="4" name="PING">
+      <description>ping</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="uint32_t" name="seq">PING sequence</field>
+      <field type="uint8_t" name="target_system">0: request ping from all receiving systems. If greater than 0: message is a ping response and number is the system id of the requesting system</field>
+      <field type="uint8_t" name="target_component">0: request ping from all receiving components. If greater than 0: message is a ping response and number is the component id of the requesting component.</field>
+    </message>
+    <message id="20" name="CONTROLMODE">
+      <description>ContrlMode</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="uint8_t" name="contrlmode" enum = "ContrlMode">contrlmode</field>
+    </message>
+    <message id="21" name="SPEEDMODE">
+      <description>SpeedMode</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="uint8_t" name="speedmode" enum = "SpeedMode">speedmode</field>
+    </message>
+    <message id="25" name="GPS_STATUS">
+      <description>The positioning status, as reported by GPS. This message is intended to display status information about each satellite visible to the receiver. See message GLOBAL_POSITION for the global position estimate. This message can contain information for up to 20 satellites.</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="uint8_t" name="satellites_visible">Number of satellites visible</field>
+      <field type="uint8_t[20]" name="satellite_prn">Global satellite ID</field>
+      <field type="uint8_t[20]" name="satellite_used">0: Satellite not used, 1: used for localization</field>
+      <field type="uint8_t[20]" name="satellite_elevation" units="deg">Elevation (0: right on top of receiver, 90: on the horizon) of satellite</field>
+      <field type="uint8_t[20]" name="satellite_azimuth" units="deg">Direction of satellite, 0: 0 deg, 255: 360 deg.</field>
+      <field type="uint8_t[20]" name="satellite_snr" units="dB">Signal to noise ratio of satellite</field>
+    </message>
+    <message id="30" name="ATTITUDE">
+      <description>The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right).</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="float" name="roll" units="rad">Roll angle (-pi..+pi)</field>
+      <field type="float" name="pitch" units="rad">Pitch angle (-pi..+pi)</field>
+      <field type="float" name="yaw" units="rad">Yaw angle (-pi..+pi)</field>
+      <field type="float" name="rollspeed" units="rad/s">Roll angular speed</field>
+      <field type="float" name="pitchspeed" units="rad/s">Pitch angular speed</field>
+      <field type="float" name="yawspeed" units="rad/s">Yaw angular speed</field>
+    </message>
+    <message id="31" name="ATTITUDE_EXT">
+      <description>attitudeext</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="float" name="Aacceleration_X" units="m/s2">Aacceleration_X</field>
+      <field type="float" name="Aacceleration_Y" units="m/s2">Aacceleration_Y</field>
+      <field type="float" name="Aacceleration_Z" units="m/s2">Aacceleration_Z</field>
+      <field type="float" name="BarometricAltitude" units="m">BarometricAltitude</field>
+      <field type="float" name="MicroAltitude" units="m">MicroAltitude</field>
+      <field type="float" name="Pressure" units="Pa">Pressure</field>
+    </message>
+    <message id="33" name="GLOBAL_POSITION_INT">
+      <description>GPS</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="int32_t" name="lat" units="degE7">Latitude, expressed</field>
+      <field type="int32_t" name="lon" units="degE7">Longitude, expressed</field>
+      <field type="int32_t" name="alt" units="mm">Altitude (MSL). Note that virtually all GPS modules provide both WGS84 and MSL.</field>
+      <field type="int32_t" name="relative_alt" units="mm">Altitude above ground</field>
+      <field type="int16_t" name="vx" units="cm/s">Ground X Speed (Latitude, positive north)</field>
+      <field type="int16_t" name="vy" units="cm/s">Ground Y Speed (Longitude, positive east)</field>
+      <field type="int16_t" name="vz" units="cm/s">Ground Z Speed (Altitude, positive down)</field>
+      <field type="uint16_t" name="hdg" units="cdeg">Vehicle heading (yaw angle), 0.0..359.99 degrees. If unknown, set to: UINT16_MAX</field>
+    </message>
+    <message id="34" name="GLOBAL_POSITION_INT_EXT">
+      <description>GPSExt</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="int32_t" name="GPSSpeed" units="m/s">GPSSpeed</field>
+      <field type="int32_t" name="GPSYaw" units="degE7">GPSYaw</field>
+      <field type="int32_t" name="SatellitesCount">SatellitesCount</field>
+      <field type="int32_t" name="PositionalAccuracy" units="m">PositionalAccuracy</field>
+      <field type="int16_t" name="HorizontalAccuracy" units="m">HorizontalAccuracy</field>
+      <field type="int16_t" name="VerticalAccuracy" units="m">VerticalAccuracy</field>
+    </message>
+    <message id="80" name="FUNCTIONSTATUS">
+      <description>FunctionStatus</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="char[50]" name="functionname">function name</field>
+      <field type="uint8_t" name="status" enum="FunctionStatus">function status</field>
+    </message>
+    <message id="81" name="SETFUNCTIONSTATUS">
+      <description>SetFunctionStatus</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="char[50]" name="functionname">function name</field>
+      <field type="uint8_t" name="status" enum="FunctionStatus">function status</field>
+    </message>
+    <message id="90" name="LOG">
+      <description>LOG</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="uint8_t" name="logtype" enum="LogType">logtype</field>
+      <field type="char[200]" name="logtext">logtext</field>
+    </message>
+    <message id="242" name="HOME_POSITION">
+      <description>This message can be requested by sending the MAV_CMD_GET_HOME_POSITION command. The position the system will return to and land on. The position is set automatically by the system during the takeoff in case it was not explicitly set by the operator before or after. The position the system will return to and land on. The global and local positions encode the position in the respective coordinate frames, while the q parameter encodes the orientation of the surface. Under normal conditions it describes the heading and terrain slope, which can be used by the aircraft to adjust the approach. The approach 3D vector describes the point to which the system should fly in normal flight mode and then perform a landing sequence along the vector.</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="int32_t" name="latitude" units="degE7">Latitude (WGS84)</field>
+      <field type="int32_t" name="longitude" units="degE7">Longitude (WGS84)</field>
+      <field type="int32_t" name="altitude" units="mm">Altitude (MSL). Positive for up.</field>
+      <field type="float" name="x" units="m">Local X position of this position in the local coordinate frame</field>
+      <field type="float" name="y" units="m">Local Y position of this position in the local coordinate frame</field>
+      <field type="float" name="z" units="m">Local Z position of this position in the local coordinate frame</field>
+      <field type="float[4]" name="q">World to surface normal and heading transformation of the takeoff position. Used to indicate the heading and slope of the ground</field>
+      <field type="float" name="approach_x" units="m">Local X position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.</field>
+      <field type="float" name="approach_y" units="m">Local Y position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.</field>
+      <field type="float" name="approach_z" units="m">Local Z position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.</field>
+    </message>
+  </messages>
+</mavlink>

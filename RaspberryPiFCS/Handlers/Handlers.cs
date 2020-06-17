@@ -1,6 +1,7 @@
 ﻿using MavLink;
 using RaspberryPiFCS.Enum;
 using System;
+using LogType = RaspberryPiFCS.Enum.LogType;
 
 namespace RaspberryPiFCS
 {

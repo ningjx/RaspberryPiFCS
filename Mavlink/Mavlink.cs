@@ -1,5 +1,4 @@
 ﻿using System;
-using MavLink.Message;
 
 namespace MavLink
 {
@@ -232,6 +231,7 @@ namespace MavLink
 
         /// <summary>
         /// 发送数据包，使用此方法时，请先对事件SetMessage赋值
+        /// 如果消息没有被处理赋值，则会返回null
         /// </summary>
         /// <param name="obj">message的<see cref="Type"></param>
         /// <returns></returns>
@@ -246,10 +246,17 @@ namespace MavLink
                 SequenceNumber = 0;
             else
                 SequenceNumber++;
-            //SetMessage(message, type);
-            SetMessage?.Invoke(message, type);
+            type.GetField("time_usec").SetValue(message, GetTimeStamp());
+            if (SetMessage == null || !SetMessage.Invoke(message, type))
+                return null;
             return Send(packet);
         }
+
+        public static ulong GetTimeStamp()
+        {
+            TimeSpan ts = DateTime.Now - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return Convert.ToUInt64(ts.TotalMilliseconds);
+        }    
 
         /// <summary>
         /// 发送数据包
@@ -337,7 +344,7 @@ namespace MavLink
             if (PacketReceived != null)
                 PacketReceived.Invoke(this, packet);
             //else //GetMessage(packet);
-                //GetMessage?.Invoke(packet);
+            //GetMessage?.Invoke(packet);
             // else do what?
         }
         #endregion
@@ -419,7 +426,7 @@ namespace MavLink
     public delegate void PacketReceivedEventHandler(object sender, MavlinkPacket e);
 
 
-    public delegate void SetMessageEventHandler(MavlinkMessage message, Type type);
+    public delegate bool SetMessageEventHandler(MavlinkMessage message, Type type);
 
     public delegate void GetMessageEventHandler(MavlinkPacket packet);
 

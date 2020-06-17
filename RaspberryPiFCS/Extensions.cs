@@ -227,5 +227,10 @@ namespace RaspberryPiFCS
             return newBytes;
         }
 
+        public static ulong GetTimeStamp(this DateTime time)
+        {
+            TimeSpan ts = time - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return Convert.ToUInt64(ts.TotalMilliseconds);
+        }    
     }
 }
