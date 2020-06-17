@@ -42,7 +42,6 @@ namespace RaspberryPiFCS.Main
                         {
                             Functions.AddOrUpdate(func.GetType().Name, func.FunctionStatus);
                         }
-                        LunchFailure();
                     }
                     catch
                     {

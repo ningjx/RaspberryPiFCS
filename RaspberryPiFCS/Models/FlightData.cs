@@ -8,12 +8,6 @@ namespace RaspberryPiFCS.Models
     public class FlightData
     {
         /// <summary>
-        /// 雷达高度
-        /// </summary>
-        [JsonProperty("雷达高度")]
-        public float MicroAltitude;
-
-        /// <summary>
         /// GPS数据
         /// </summary>
         [JsonProperty("GPS数据")]
@@ -24,6 +18,7 @@ namespace RaspberryPiFCS.Models
         /// </summary>
         [JsonProperty("姿态仪数据")]
         public Attitude Attitude = new Attitude();
+
         /// <summary>
         /// 引擎数据
         /// </summary>
@@ -125,6 +120,12 @@ namespace RaspberryPiFCS.Models
         /// </summary>
         [JsonProperty("气压高度")]
         public float BarometricAltitude;
+
+        /// <summary>
+        /// 雷达高度
+        /// </summary>
+        [JsonProperty("雷达高度")]
+        public float MicroAltitude;
 
         /// <summary>
         /// 气压
