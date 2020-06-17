@@ -12,7 +12,7 @@ namespace RaspberryPiFCS.Equipments
     {
         public EquipmentData EquipmentData { get; } = new EquipmentData("RemoteController");
 
-        private UARTDriver UARTDriver;
+        private IUARTDriver UARTDriver;
         public SBusDriver SBus;
 
         public event DataHandler ReciveEvent;
@@ -35,10 +35,11 @@ namespace RaspberryPiFCS.Equipments
                     throw new Exception($"依赖设备尚未启动{string.Join("、", RelyEquipment)}");
                 }
 
+                UARTDriver = DriversFactory.GetUARTDriver(ComName);
+                UARTDriver.RecEvent += UARTDriver_RecEvent;
+
                 SBus = DriversFactory.GetSBusDriver(3);
                 SBus.SetSignal += SBus_SetSignal;
-
-                UARTDriver = DriversFactory.GetUARTDriver(ComName);
 
                 EquipmentData.IsEnable = true;
                 EquipmentBus.ControllerRegister.Register(Enum.RegisterType.RemoteController, true);
@@ -53,9 +54,9 @@ namespace RaspberryPiFCS.Equipments
             return true;
         }
 
-        public void Excute()
+        private void UARTDriver_RecEvent(byte[] bytes)
         {
-            SBus.DecodeSignal(UARTDriver.Read());
+            SBus.DecodeSignal(bytes);
         }
 
         private void SBus_SetSignal(long[] signals)

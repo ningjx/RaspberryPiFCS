@@ -19,7 +19,7 @@ namespace RaspberryPiFCS.Equipments
 
         public string ComName { get; } = string.Empty;
 
-        private UARTDriver UART;
+        private IUARTDriver UART;
 
         public event DataHandler ReciveEvent;
 

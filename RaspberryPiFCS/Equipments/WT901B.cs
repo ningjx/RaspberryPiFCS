@@ -15,7 +15,7 @@ namespace RaspberryPiFCS.Equipments
     {
         private bool _lock = false;
 
-        private UARTDriver uart;
+        private IUARTDriver uart;
 
         public event DataHandler ReciveEvent;
 
