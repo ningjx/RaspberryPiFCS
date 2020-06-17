@@ -9,5 +9,6 @@ namespace RaspberryPiFCS.Models
     {
         public ContrlMode ContrlMode = ContrlMode.Manual;
         public LoraDataMode LoraDataMode = LoraDataMode.SysData;
+        public SpeedMode SpeedMode = SpeedMode.ManualSpeed;
     }
 }

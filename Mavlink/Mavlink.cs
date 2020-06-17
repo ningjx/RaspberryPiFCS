@@ -231,6 +231,7 @@ namespace MavLink
 
         /// <summary>
         /// 发送数据包，使用此方法时，请先对事件SetMessage赋值
+        /// 如果消息没有被处理赋值，则会返回null
         /// </summary>
         /// <param name="obj">message的<see cref="Type"></param>
         /// <returns></returns>
@@ -245,8 +246,8 @@ namespace MavLink
                 SequenceNumber = 0;
             else
                 SequenceNumber++;
-            //SetMessage(message, type);
-            SetMessage?.Invoke(message, type);
+            if (SetMessage == null || !SetMessage.Invoke(message, type))
+                return null;
             return Send(packet);
         }
 
@@ -336,7 +337,7 @@ namespace MavLink
             if (PacketReceived != null)
                 PacketReceived.Invoke(this, packet);
             //else //GetMessage(packet);
-                //GetMessage?.Invoke(packet);
+            //GetMessage?.Invoke(packet);
             // else do what?
         }
         #endregion
@@ -418,7 +419,7 @@ namespace MavLink
     public delegate void PacketReceivedEventHandler(object sender, MavlinkPacket e);
 
 
-    public delegate void SetMessageEventHandler(MavlinkMessage message, Type type);
+    public delegate bool SetMessageEventHandler(MavlinkMessage message, Type type);
 
     public delegate void GetMessageEventHandler(MavlinkPacket packet);
 

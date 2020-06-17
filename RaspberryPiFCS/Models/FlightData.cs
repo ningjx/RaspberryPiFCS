@@ -177,6 +177,8 @@ namespace RaspberryPiFCS.Models
         [JsonProperty("GPS高度")]
         public float GPSAltitude;
 
+        public float GroundAlt;
+
         /// <summary>
         /// GPS经度
         /// </summary>
