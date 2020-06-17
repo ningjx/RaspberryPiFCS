@@ -62,7 +62,6 @@ namespace RaspberryPiFCS.Equipments
                 foreach (var type in messageTypes)
                 {
                     e34_2G4D20D.SendBytes.Add(Mavlink.Send(type));
-                    Thread.Sleep(10);
                 }
             }
             catch { }

@@ -62,7 +62,8 @@ namespace RaspberryPiFCS.Equipments
                             {
                                 if (SendBytes.Count != 0)
                                 {
-                                    UART.WriteBytes(SendBytes[0]);
+                                    if (SendBytes[0] != null)
+                                        UART.WriteBytes(SendBytes[0]);
                                     SendBytes.RemoveAt(0);
                                 }
                             }
