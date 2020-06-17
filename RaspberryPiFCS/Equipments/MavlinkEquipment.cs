@@ -15,7 +15,7 @@ namespace RaspberryPiFCS.Equipments
         private E34_2G4D20D e34_2G4D20D = new E34_2G4D20D("");
         private Mavlink Mavlink = new Mavlink();
         Type[] messageTypes;
-        public Timer Timer { get; set; } = new Timer(10);
+        public Timer Timer { get; set; } = new Timer(30);
         public bool Lock { get; set; } = false;
         public MavlinkEquipment()
         {
