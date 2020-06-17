@@ -246,10 +246,17 @@ namespace MavLink
                 SequenceNumber = 0;
             else
                 SequenceNumber++;
+            type.GetField("time_usec").SetValue(message, GetTimeStamp());
             if (SetMessage == null || !SetMessage.Invoke(message, type))
                 return null;
             return Send(packet);
         }
+
+        public static ulong GetTimeStamp()
+        {
+            TimeSpan ts = DateTime.Now - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return Convert.ToUInt64(ts.TotalMilliseconds);
+        }    
 
         /// <summary>
         /// 发送数据包

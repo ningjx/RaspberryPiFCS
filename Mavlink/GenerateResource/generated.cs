@@ -11,6 +11,7 @@ using System;
 
 using System.Reflection;
 
+
 namespace MavLink
 {
 
@@ -191,6 +192,11 @@ namespace MavLink
     /// </summary>
     public class Msg_heartbeat : MavlinkMessage
     {
+
+        /// <summary>
+        /// Timestamp
+        /// </summary>
+        public UInt64 time_usec;
         public byte fightstatus;
 
         public override int Serialize(byte[] bytes, ref int offset)
@@ -207,7 +213,7 @@ namespace MavLink
     {
 
         /// <summary>
-        /// Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude the number.
+        /// Timestamp
         /// </summary>
         public UInt64 time_usec;
 
@@ -238,6 +244,11 @@ namespace MavLink
     /// </summary>
     public class Msg_controlmode : MavlinkMessage
     {
+
+        /// <summary>
+        /// Timestamp
+        /// </summary>
+        public UInt64 time_usec;
         public byte contrlmode;
 
         public override int Serialize(byte[] bytes, ref int offset)
@@ -252,6 +263,11 @@ namespace MavLink
     /// </summary>
     public class Msg_speedmode : MavlinkMessage
     {
+
+        /// <summary>
+        /// Timestamp
+        /// </summary>
+        public UInt64 time_usec;
         public byte speedmode;
 
         public override int Serialize(byte[] bytes, ref int offset)
@@ -266,6 +282,11 @@ namespace MavLink
     /// </summary>
     public class Msg_gps_status : MavlinkMessage
     {
+
+        /// <summary>
+        /// Timestamp
+        /// </summary>
+        public UInt64 time_usec;
 
         /// <summary>
         /// Number of satellites visible
@@ -311,9 +332,9 @@ namespace MavLink
     {
 
         /// <summary>
-        /// Timestamp (time since system boot).
+        /// Timestamp
         /// </summary>
-        public UInt32 time_boot_ms;
+        public UInt64 time_usec;
 
         /// <summary>
         /// Roll angle (-pi..+pi)
@@ -359,9 +380,9 @@ namespace MavLink
     {
 
         /// <summary>
-        /// Timestamp (time since system boot).
+        /// Timestamp
         /// </summary>
-        public UInt32 time_boot_ms;
+        public UInt64 time_usec;
         public float Aacceleration_X;
         public float Aacceleration_Y;
         public float Aacceleration_Z;
@@ -383,9 +404,9 @@ namespace MavLink
     {
 
         /// <summary>
-        /// Timestamp (time since system boot).
+        /// Timestamp
         /// </summary>
-        public UInt32 time_boot_ms;
+        public UInt64 time_usec;
 
         /// <summary>
         /// Latitude, expressed
@@ -441,9 +462,9 @@ namespace MavLink
     {
 
         /// <summary>
-        /// Timestamp (time since system boot).
+        /// Timestamp
         /// </summary>
-        public UInt32 time_boot_ms;
+        public UInt64 time_usec;
         public Int32 GPSSpeed;
         public Int32 GPSYaw;
         public Int32 SatellitesCount;
@@ -465,9 +486,9 @@ namespace MavLink
     {
 
         /// <summary>
-        /// Timestamp (time since system boot).
+        /// Timestamp
         /// </summary>
-        public UInt32 time_boot_ms;
+        public UInt64 time_usec;
 
         /// <summary>
         /// function name
@@ -493,9 +514,9 @@ namespace MavLink
     {
 
         /// <summary>
-        /// Timestamp (time since system boot).
+        /// Timestamp
         /// </summary>
-        public UInt32 time_boot_ms;
+        public UInt64 time_usec;
 
         /// <summary>
         /// function name
@@ -521,9 +542,9 @@ namespace MavLink
     {
 
         /// <summary>
-        /// Timestamp (time since system boot).
+        /// Timestamp
         /// </summary>
-        public UInt32 time_boot_ms;
+        public UInt64 time_usec;
         public byte logtype;
         public byte[] logtext; // Array size 200
 
@@ -539,6 +560,11 @@ namespace MavLink
     /// </summary>
     public class Msg_home_position : MavlinkMessage
     {
+
+        /// <summary>
+        /// Timestamp
+        /// </summary>
+        public UInt64 time_usec;
 
         /// <summary>
         /// Latitude (WGS84)

@@ -88,25 +88,29 @@
   <messages>
     <message id="0" name="HEARTBEAT">
       <description>HEARTBEAT</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
       <field type="uint8_t" name="fightstatus" enum="FlightSTATUS">fightstatus</field>
     </message>
     <message id="4" name="PING">
       <description>ping</description>
-      <field type="uint64_t" name="time_usec" units="us">Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude the number.</field>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
       <field type="uint32_t" name="seq">PING sequence</field>
       <field type="uint8_t" name="target_system">0: request ping from all receiving systems. If greater than 0: message is a ping response and number is the system id of the requesting system</field>
       <field type="uint8_t" name="target_component">0: request ping from all receiving components. If greater than 0: message is a ping response and number is the component id of the requesting component.</field>
     </message>
     <message id="20" name="CONTROLMODE">
       <description>ContrlMode</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
       <field type="uint8_t" name="contrlmode" enum = "ContrlMode">contrlmode</field>
     </message>
     <message id="21" name="SPEEDMODE">
       <description>SpeedMode</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
       <field type="uint8_t" name="speedmode" enum = "SpeedMode">speedmode</field>
     </message>
     <message id="25" name="GPS_STATUS">
       <description>The positioning status, as reported by GPS. This message is intended to display status information about each satellite visible to the receiver. See message GLOBAL_POSITION for the global position estimate. This message can contain information for up to 20 satellites.</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
       <field type="uint8_t" name="satellites_visible">Number of satellites visible</field>
       <field type="uint8_t[20]" name="satellite_prn">Global satellite ID</field>
       <field type="uint8_t[20]" name="satellite_used">0: Satellite not used, 1: used for localization</field>
@@ -116,7 +120,7 @@
     </message>
     <message id="30" name="ATTITUDE">
       <description>The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right).</description>
-      <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
       <field type="float" name="roll" units="rad">Roll angle (-pi..+pi)</field>
       <field type="float" name="pitch" units="rad">Pitch angle (-pi..+pi)</field>
       <field type="float" name="yaw" units="rad">Yaw angle (-pi..+pi)</field>
@@ -126,7 +130,7 @@
     </message>
     <message id="31" name="ATTITUDE_EXT">
       <description>attitudeext</description>
-      <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
       <field type="float" name="Aacceleration_X" units="m/s2">Aacceleration_X</field>
       <field type="float" name="Aacceleration_Y" units="m/s2">Aacceleration_Y</field>
       <field type="float" name="Aacceleration_Z" units="m/s2">Aacceleration_Z</field>
@@ -136,7 +140,7 @@
     </message>
     <message id="33" name="GLOBAL_POSITION_INT">
       <description>GPS</description>
-      <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
       <field type="int32_t" name="lat" units="degE7">Latitude, expressed</field>
       <field type="int32_t" name="lon" units="degE7">Longitude, expressed</field>
       <field type="int32_t" name="alt" units="mm">Altitude (MSL). Note that virtually all GPS modules provide both WGS84 and MSL.</field>
@@ -148,7 +152,7 @@
     </message>
     <message id="34" name="GLOBAL_POSITION_INT_EXT">
       <description>GPSExt</description>
-      <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
       <field type="int32_t" name="GPSSpeed" units="m/s">GPSSpeed</field>
       <field type="int32_t" name="GPSYaw" units="degE7">GPSYaw</field>
       <field type="int32_t" name="SatellitesCount">SatellitesCount</field>
@@ -158,24 +162,25 @@
     </message>
     <message id="80" name="FUNCTIONSTATUS">
       <description>FunctionStatus</description>
-      <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
       <field type="char[50]" name="functionname">function name</field>
       <field type="uint8_t" name="status" enum="FunctionStatus">function status</field>
     </message>
     <message id="81" name="SETFUNCTIONSTATUS">
       <description>SetFunctionStatus</description>
-      <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
       <field type="char[50]" name="functionname">function name</field>
       <field type="uint8_t" name="status" enum="FunctionStatus">function status</field>
     </message>
     <message id="90" name="LOG">
       <description>LOG</description>
-      <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
       <field type="uint8_t" name="logtype" enum="LogType">logtype</field>
       <field type="char[200]" name="logtext">logtext</field>
     </message>
     <message id="242" name="HOME_POSITION">
       <description>This message can be requested by sending the MAV_CMD_GET_HOME_POSITION command. The position the system will return to and land on. The position is set automatically by the system during the takeoff in case it was not explicitly set by the operator before or after. The position the system will return to and land on. The global and local positions encode the position in the respective coordinate frames, while the q parameter encodes the orientation of the surface. Under normal conditions it describes the heading and terrain slope, which can be used by the aircraft to adjust the approach. The approach 3D vector describes the point to which the system should fly in normal flight mode and then perform a landing sequence along the vector.</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
       <field type="int32_t" name="latitude" units="degE7">Latitude (WGS84)</field>
       <field type="int32_t" name="longitude" units="degE7">Longitude (WGS84)</field>
       <field type="int32_t" name="altitude" units="mm">Altitude (MSL). Positive for up.</field>
@@ -186,8 +191,6 @@
       <field type="float" name="approach_x" units="m">Local X position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.</field>
       <field type="float" name="approach_y" units="m">Local Y position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.</field>
       <field type="float" name="approach_z" units="m">Local Z position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.</field>
-      <extensions/>
-      <field type="uint64_t" name="time_usec" units="us">Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude the number.</field>
     </message>
   </messages>
 </mavlink>

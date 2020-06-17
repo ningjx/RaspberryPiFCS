@@ -86,7 +86,6 @@ namespace RaspberryPiFCS.Equipments
 
 
                 case "Msg_attitude":
-                    type.GetField("time_boot_ms").SetValue(message, DateTime.Now.GetTimeStamp());
                     type.GetField("roll").SetValue(message, DataBus.FlightData.Attitude.Angle_X);
                     type.GetField("pitch").SetValue(message, DataBus.FlightData.Attitude.Angle_Y);
                     type.GetField("yaw").SetValue(message, DataBus.FlightData.Attitude.Angle_Z);
@@ -96,7 +95,6 @@ namespace RaspberryPiFCS.Equipments
                     break;
 
                 case "Msg_attitude_ext":
-                    type.GetField("time_boot_ms").SetValue(message, DateTime.Now.GetTimeStamp());
                     type.GetField("Aacceleration_X").SetValue(message, DataBus.FlightData.Attitude.Aacceleration_X);
                     type.GetField("Aacceleration_Y").SetValue(message, DataBus.FlightData.Attitude.Aacceleration_Y);
                     type.GetField("Aacceleration_Z").SetValue(message, DataBus.FlightData.Attitude.Aacceleration_Z);
@@ -106,7 +104,6 @@ namespace RaspberryPiFCS.Equipments
                     break;
 
                 case "Msg_global_position_int":
-                    type.GetField("time_boot_ms").SetValue(message, DateTime.Now.GetTimeStamp());
                     type.GetField("lat").SetValue(message, DataBus.FlightData.GPSData.Latitude);
                     type.GetField("lon").SetValue(message, DataBus.FlightData.GPSData.Longitude);
                     type.GetField("alt").SetValue(message, DataBus.FlightData.GPSData.GPSAltitude);
@@ -115,7 +112,6 @@ namespace RaspberryPiFCS.Equipments
                     break;
 
                 case "Msg_global_position_int_ext":
-                    type.GetField("time_boot_ms").SetValue(message, DateTime.Now.GetTimeStamp());
                     type.GetField("GPSSpeed").SetValue(message, DataBus.FlightData.GPSData.GPSSpeed);
                     type.GetField("GPSYaw").SetValue(message, DataBus.FlightData.GPSData.GPSYaw);
                     type.GetField("SatellitesCount").SetValue(message, DataBus.FlightData.GPSData.SatellitesCount);

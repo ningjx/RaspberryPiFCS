@@ -18,7 +18,7 @@ namespace RaspberryPiFCS
 
 
                 //启动其它设备
-                EquipmentBus.Lunch();
+                //EquipmentBus.Lunch();
                 //启动function
                 FunctionWatcher.Lunch();
 
