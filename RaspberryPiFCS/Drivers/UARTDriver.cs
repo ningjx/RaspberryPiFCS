@@ -5,7 +5,7 @@ using System.Timers;
 
 namespace RaspberryPiFCS.Drivers
 {
-    public class UARTDriver:IUARTDriver
+    public class UARTDriver : IUARTDriver
     {
         [DllImport(@"SerialPortLib.so")]
         public static extern void InitPort(string portName, int baudRate, int parity, int databits, int stopBits);
