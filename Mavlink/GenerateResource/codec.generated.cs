@@ -58,6 +58,7 @@ namespace MavLink
             {31, new MavPacketInfo(Deserialize_ATTITUDE_EXT, 147)},
             {33, new MavPacketInfo(Deserialize_GLOBAL_POSITION_INT, 240)},
             {34, new MavPacketInfo(Deserialize_GLOBAL_POSITION_INT_EXT, 111)},
+            {50, new MavPacketInfo(Deserialize_CONTROLINFO, 235)},
             {80, new MavPacketInfo(Deserialize_FUNCTIONSTATUS, 159)},
             {81, new MavPacketInfo(Deserialize_SETFUNCTIONSTATUS, 212)},
             {90, new MavPacketInfo(Deserialize_LOG, 186)},
@@ -171,6 +172,25 @@ namespace MavLink
                 PositionalAccuracy = bitconverter.ToInt32(bytes, offset + 20),
                 HorizontalAccuracy = bitconverter.ToInt16(bytes, offset + 24),
                 VerticalAccuracy = bitconverter.ToInt16(bytes, offset + 26),
+            };
+        }
+
+        internal static MavlinkMessage Deserialize_CONTROLINFO(byte[] bytes, int offset)
+        {
+            return new Msg_controlinfo
+            {
+                time_usec = bitconverter.ToUInt64(bytes, offset + 0),
+                roll = bitconverter.ToInt32(bytes, offset + 8),
+                pitch = bitconverter.ToInt32(bytes, offset + 12),
+                yaw = bitconverter.ToInt32(bytes, offset + 16),
+                airbreak = bitconverter.ToInt32(bytes, offset + 20),
+                flaps = bitconverter.ToInt32(bytes, offset + 24),
+                trim = bitconverter.ToInt32(bytes, offset + 28),
+                throttel = bitconverter.ToInt32(bytes, offset + 32),
+                gear = bitconverter.ToInt32(bytes, offset + 36),
+                pushback = bitconverter.ToInt32(bytes, offset + 40),
+                enpwl = bitconverter.ToInt32(bytes, offset + 44),
+                enpwr = bitconverter.ToInt32(bytes, offset + 48),
             };
         }
 
@@ -321,6 +341,24 @@ namespace MavLink
             bitconverter.GetBytes(msg.VerticalAccuracy, bytes, offset + 26);
             offset += 28;
             return 34;
+        }
+
+        internal static int Serialize_CONTROLINFO(this Msg_controlinfo msg, byte[] bytes, ref int offset)
+        {
+            bitconverter.GetBytes(msg.time_usec, bytes, offset + 0);
+            bitconverter.GetBytes(msg.roll, bytes, offset + 8);
+            bitconverter.GetBytes(msg.pitch, bytes, offset + 12);
+            bitconverter.GetBytes(msg.yaw, bytes, offset + 16);
+            bitconverter.GetBytes(msg.airbreak, bytes, offset + 20);
+            bitconverter.GetBytes(msg.flaps, bytes, offset + 24);
+            bitconverter.GetBytes(msg.trim, bytes, offset + 28);
+            bitconverter.GetBytes(msg.throttel, bytes, offset + 32);
+            bitconverter.GetBytes(msg.gear, bytes, offset + 36);
+            bitconverter.GetBytes(msg.pushback, bytes, offset + 40);
+            bitconverter.GetBytes(msg.enpwl, bytes, offset + 44);
+            bitconverter.GetBytes(msg.enpwr, bytes, offset + 48);
+            offset += 52;
+            return 50;
         }
 
         internal static int Serialize_FUNCTIONSTATUS(this Msg_functionstatus msg, byte[] bytes, ref int offset)

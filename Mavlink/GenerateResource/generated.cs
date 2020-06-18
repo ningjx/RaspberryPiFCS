@@ -11,7 +11,6 @@ using System;
 
 using System.Reflection;
 
-
 namespace MavLink
 {
 
@@ -475,6 +474,35 @@ namespace MavLink
         public override int Serialize(byte[] bytes, ref int offset)
         {
             return MavLinkSerializer.Serialize_GLOBAL_POSITION_INT_EXT(this, bytes, ref offset);
+        }
+    }
+
+
+    /// <summary>
+    /// CONTROLINFO
+    /// </summary>
+    public class Msg_controlinfo : MavlinkMessage
+    {
+
+        /// <summary>
+        /// Timestamp
+        /// </summary>
+        public UInt64 time_usec;
+        public Int32 roll;
+        public Int32 pitch;
+        public Int32 yaw;
+        public Int32 airbreak;
+        public Int32 flaps;
+        public Int32 trim;
+        public Int32 throttel;
+        public Int32 gear;
+        public Int32 pushback;
+        public Int32 enpwl;
+        public Int32 enpwr;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+        {
+            return MavLinkSerializer.Serialize_CONTROLINFO(this, bytes, ref offset);
         }
     }
 

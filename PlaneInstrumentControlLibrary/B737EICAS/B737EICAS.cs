@@ -35,8 +35,8 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
         Bitmap low_vol_2 = new Bitmap(B737EICASResource.LOE_VOL_2);
         Bitmap ail1 = new Bitmap(B737EICASResource.ail1);
         Bitmap ail2 = new Bitmap(B737EICASResource.ail2);
-        Bitmap flp1 = new Bitmap(B737EICASResource.flp1);
-        Bitmap flp2 = new Bitmap(B737EICASResource.flp2);
+        Bitmap break1 = new Bitmap(B737EICASResource.flp1);
+        Bitmap break2 = new Bitmap(B737EICASResource.flp2);
         Bitmap elev = new Bitmap(B737EICASResource.elev);
         Bitmap rudder = new Bitmap(B737EICASResource.rudder);
 
@@ -47,7 +47,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
         SolidBrush errorBrush = new SolidBrush(Color.FromArgb(255, 0, 0));
 
 
-        float tem, rpm1, rpm2, power1, power2, cos1, cos2, volte1, volte2, roll, pitch, yaw, flp;
+        float tem, rpm1, rpm2, power1, power2, cos1, cos2, volte1, volte2, roll, pitch, yaw, airbreak;
         List<EICASInfo> texts = new List<EICASInfo>();
 
         EngineStatus engineStatus1 = EngineStatus.Nor;
@@ -86,8 +86,8 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
             TranslateImage(pe, ail1, 0, 0, new Point(0, (int)(roll * 0.3)), scale);
             TranslateImage(pe, ail2, 0, 0, new Point(0, -(int)(roll * 0.3)), scale);
-            TranslateImage(pe, flp1, 0, 0, new Point(0, -(int)(flp * 0.3)), scale);
-            TranslateImage(pe, flp2, 0, 0, new Point(0, -(int)(flp * 0.3)), scale);
+            TranslateImage(pe, break1, 0, 0, new Point(0, -(int)(airbreak * 0.3)), scale);
+            TranslateImage(pe, break2, 0, 0, new Point(0, -(int)(airbreak * 0.3)), scale);
             TranslateImage(pe, elev, 0, 0, new Point(0, (int)(pitch * 0.3)), scale);
             TranslateImage(pe, rudder, 0, 0, new Point((int)(yaw * 0.35), 0), scale);
 
@@ -126,7 +126,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             }
         }
 
-        public void SetValues(float tem, float rpm1, float rpm2, float power1, float power2, float cos1, float cos2, float volte1, float volte2, float roll, float pitch, float yaw, float flp, EngineStatus en1 = EngineStatus.NoChange, EngineStatus en2 = EngineStatus.NoChange)
+        public void SetValues(float tem, float rpm1, float rpm2, float power1, float power2, float cos1, float cos2, float volte1, float volte2, float roll, float pitch, float yaw, float airbreak, EngineStatus en1 = EngineStatus.NoChange, EngineStatus en2 = EngineStatus.NoChange)
         {
             this.tem = tem;
             this.rpm1 = rpm1;
@@ -145,7 +145,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             this.roll = roll;
             this.pitch = pitch;
             this.yaw = yaw;
-            this.flp = flp;
+            this.airbreak = airbreak;
             if (en1 != EngineStatus.NoChange)
             {
                 if (engineStatus1 != en1 && en1 == EngineStatus.LowVol)

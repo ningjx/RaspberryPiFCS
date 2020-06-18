@@ -68,5 +68,9 @@ namespace RaspberryPiFCS.Fuctions
             Timer.Dispose();
         }
 
+        public void Excute(object sender, ElapsedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
