@@ -166,7 +166,7 @@
       <field type="int32_t" name="roll">roll</field>
       <field type="int32_t" name="pitch">pitch</field>
       <field type="int32_t" name="yaw">yaw</field>
-      <field type="int32_t" name="break">break</field>
+      <field type="int32_t" name="airbreak">airbreak</field>
       <field type="int32_t" name="flaps">flaps</field>
       <field type="int32_t" name="trim">trim</field>
       <field type="int32_t" name="throttel">throttel</field>

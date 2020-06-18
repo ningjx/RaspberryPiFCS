@@ -26,7 +26,7 @@ namespace RaspberryPiFCS.Fuctions
             Timer.Start();
         }
 
-        private void Excute(object sender, ElapsedEventArgs e)
+        public void Excute(object sender, ElapsedEventArgs e)
         {
             if (Lock)
                 return;

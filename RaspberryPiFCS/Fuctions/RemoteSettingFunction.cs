@@ -23,5 +23,10 @@ namespace RaspberryPiFCS.Fuctions
         {
             throw new NotImplementedException();
         }
+
+        public void Excute(object sender, ElapsedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
