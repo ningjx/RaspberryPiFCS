@@ -22,7 +22,7 @@ namespace RaspberryPiClient
         {
             InitializeComponent();
 
-            gMapControl1.MapProvider = AMapProvider.Instance;
+            gMapControl1.MapProvider = BMapSateliteMProvider.Instance;
             GMaps.Instance.Mode = AccessMode.ServerAndCache;
             gMapControl1.Zoom = 10;
             gMapControl1.MinZoom = 1;

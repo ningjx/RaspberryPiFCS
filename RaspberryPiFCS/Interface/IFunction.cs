@@ -5,13 +5,12 @@ using RaspberryPiFCS.Models;
 
 namespace RaspberryPiFCS.Interface
 {
-    public interface IFunction : IDisposable
+    public interface IFunction
     {
-        int RetryTime { get; set; }
-        abstract Timer Timer { get; set; }
         bool Lock { get; set; }
         FunctionStatus FunctionStatus { get; set; }
         RelyEquipment RelyEquipment { get; set; }
+        void Excute(object sender, ElapsedEventArgs e);
     }
 
 }

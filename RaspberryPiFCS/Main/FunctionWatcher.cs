@@ -8,35 +8,32 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using FunctionStatus = RaspberryPiFCS.Enum.FunctionStatus;
+using Timer = System.Timers.Timer;
 
 namespace RaspberryPiFCS.Main
 {
     /// <summary>
-    /// 修改watcher的功能，在启动watcher时，通过watcher去收集所有function（但不启动）
+    /// 将function的excute订阅到watcher
     /// 然后将所有function信息发送到地面站
     /// 通过地面站去手动启动function
     /// </summary>
     public static class FunctionWatcher
     {
-        public static Dictionary<string, FunctionStatus> Functions = new Dictionary<string, FunctionStatus>();
-
-        private static List<IFunction> FunctionInstances = new List<IFunction>();
+        private static Dictionary<string, IFunction> Functions = new Dictionary<string, IFunction>();
+        private static Timer Timer = new Timer(20);
         public static void Lunch()
         {
-            var funcTypes = typeof(IFunction).Assembly.GetTypes().Where(t => !t.IsAbstract && t.IsClass);
-            var functionNames = funcTypes.Select(t => t.Name).ToList();
+            Timer.AutoReset = true;
+            Timer.Enabled = true;
 
-            functionNames.ForEach(t =>
+            var funcTypes = typeof(IFunction).Assembly.GetTypes().Where(t => !t.IsAbstract && t.IsClass).ToList();
+            //初始化功能
+            funcTypes.ForEach(t =>
             {
-                Functions.Add(t, FunctionStatus.Offline);
-                Msg_functionstatus msg_Functionstatus = new Msg_functionstatus();
-                msg_Functionstatus.functionname = Encoding.UTF8.GetBytes(t);
-                msg_Functionstatus.status =  (byte)FunctionStatus.Offline;
-                msg_Functionstatus.time_usec = DateTime.Now.GetTimeStamp();
-                EquipmentBus.MavlinkEquipment.SendMessage(msg_Functionstatus);
+                Functions.Add(t.Name, Activator.CreateInstance(t) as IFunction);
             });
-
             EquipmentBus.MavlinkEquipment.RecivePacket += SetFunction;
 
             Task.Run(() =>
@@ -46,9 +43,13 @@ namespace RaspberryPiFCS.Main
                     try
                     {
                         Thread.Sleep(1000);
-                        foreach (var func in FunctionInstances)
+                        foreach (var func in Functions)
                         {
-                            Functions.AddOrUpdate(func.GetType().Name, func.FunctionStatus);
+                            Msg_functionstatus msg_Functionstatus = new Msg_functionstatus();
+                            msg_Functionstatus.functionname = Encoding.UTF8.GetBytes(func.Key);
+                            msg_Functionstatus.status = (byte)func.Value.FunctionStatus;
+                            msg_Functionstatus.time_usec = DateTime.Now.GetTimeStamp();
+                            EquipmentBus.MavlinkEquipment.SendMessage(msg_Functionstatus);
                         }
                     }
                     catch
@@ -63,25 +64,22 @@ namespace RaspberryPiFCS.Main
         /// 通过message操作function的状态
         /// </summary>
         /// <param name="packet"></param>
-        private static void SetFunction(MavLink.MavlinkPacket packet)
+        private static void SetFunction(MavlinkPacket packet)
         {
-            if (packet.ComponentId == 0)
+            if (packet.Message.GetType().Name == "Msg_setfunctionstatus")
             {
-
-            }
-        }
-
-        public static void LunchFailure()
-        {
-            var failureNames = Functions.Where(t => t.Value == FunctionStatus.Failure).Select(t => t.Key);
-            if (failureNames.Count() == 0)
-                return;
-            var needDalete = FunctionInstances.Where(t => failureNames.Contains(t.GetType().Name)).ToList();
-            needDalete.ForEach(t => FunctionInstances.Remove(t));
-            var funcTypes = typeof(IFunction).Assembly.GetTypes().Where(t => !t.IsAbstract && t.IsClass).Where(t => failureNames.Contains(t.Name));
-            foreach (Type type in funcTypes)//所有function Online
-            {
-                FunctionInstances.Add(Activator.CreateInstance(type) as IFunction);
+                var message = packet.Message as Msg_setfunctionstatus;
+                switch ((int)message.status)
+                {
+                    case (int)FunctionStatus.Online:
+                        Timer.Elapsed += Functions[Encoding.UTF8.GetString(message.functionname)].Excute;
+                        break;
+                    case (int)FunctionStatus.Offline:
+                        Timer.Elapsed -= Functions[Encoding.UTF8.GetString(message.functionname)].Excute;
+                        break;
+                    case (int)FunctionStatus.Failure:
+                        break;
+                }
             }
         }
     }
