@@ -51,6 +51,15 @@
     <Reference Include="flyfire.CustomSerialPort, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\flyfire.CustomSerialPort.1.0.1\lib\netstandard2.0\flyfire.CustomSerialPort.dll</HintPath>
     </Reference>
+    <Reference Include="GMap.NET.Core, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>..\packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>..\packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsPresentation, Version=2.0.1.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>..\packages\GMap.NET.WinPresentation.2.0.1\lib\net40\GMap.NET.WindowsPresentation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Win32.Registry, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.4.3.0\lib\net46\Microsoft.Win32.Registry.dll</HintPath>
     </Reference>
@@ -199,6 +208,10 @@
     <Compile Include="Forms\PFDTest.Designer.cs">
       <DependentUpon>PFDTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\AMapProvider.cs" />
+    <Compile Include="Helper\AMapSateliteProvider.cs" />
+    <Compile Include="Helper\BMapProvider.cs" />
+    <Compile Include="Helper\BMapSateliteMProvider.cs" />
     <Compile Include="Helper\HttpHelper.cs" />
     <Compile Include="Helper\UARTHelper.cs" />
     <Compile Include="Helper\XBOXHelper.cs" />
@@ -258,18 +271,6 @@
     <ProjectReference Include="..\FlightData\FlightData.csproj">
       <Project>{FEFCA397-D55A-477D-A165-2954E1C64557}</Project>
       <Name>FlightData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GMap.NET.Core\GMap.NET.Core.csproj">
-      <Project>{d0c39d9d-bed0-418b-9a5e-713176caf40c}</Project>
-      <Name>GMap.NET.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GMap.NET.WindowsForms\GMap.NET.WindowsForms.csproj">
-      <Project>{e06def77-f933-42fb-afd7-db2d0d8d6a98}</Project>
-      <Name>GMap.NET.WindowsForms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GMap.NET.WindowsPresentation\GMap.NET.WindowsPresentation.csproj">
-      <Project>{644fe7d4-0184-400f-b2d7-99cb41360658}</Project>
-      <Name>GMap.NET.WindowsPresentation</Name>
     </ProjectReference>
     <ProjectReference Include="..\HelperLib\HelperLib.csproj">
       <Project>{6E45F1A3-D3CD-47EB-99D4-FD3BD558CB87}</Project>
