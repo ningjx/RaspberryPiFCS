@@ -212,6 +212,7 @@
     <Compile Include="Helper\AMapSateliteProvider.cs" />
     <Compile Include="Helper\BMapProvider.cs" />
     <Compile Include="Helper\BMapSateliteMProvider.cs" />
+    <Compile Include="Helper\GMapOverlayExt.cs" />
     <Compile Include="Helper\HttpHelper.cs" />
     <Compile Include="Helper\UARTHelper.cs" />
     <Compile Include="Helper\XBOXHelper.cs" />

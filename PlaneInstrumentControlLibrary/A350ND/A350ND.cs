@@ -15,7 +15,7 @@ namespace PlaneInstrumentControlLibrary.A350ND
     {
         public A350ND()
         {
-            SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
             //SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             //BackColor = Color.FromArgb(0, 0, 0, 0);
             //Region = Extendsion.ImageToRegionPx(mapCover, Color.Transparent);
@@ -28,7 +28,7 @@ namespace PlaneInstrumentControlLibrary.A350ND
         Bitmap top = new Bitmap(A350NDResource.top);
         Bitmap point = new Bitmap(A350NDResource.point);
 
-        double heading,GPSHeading;
+        double heading, GPSHeading;
 
         float scale;
         Point rosePosition = new Point(0, 0);
@@ -55,7 +55,7 @@ namespace PlaneInstrumentControlLibrary.A350ND
             pe.Graphics.DrawImage(mapCover1, 0, 0, mapCover1.Width * scale, mapCover1.Height * scale);
             RotateImage(pe, rose, InterpolPhyToAngle((float)heading, 0, 360, 360, 0), rosePosition, roseRotation, scale);
             double angel;
-            if (GPSHeading>= heading)
+            if (GPSHeading >= heading)
             {
                 angel = GPSHeading - heading;
             }
@@ -67,13 +67,13 @@ namespace PlaneInstrumentControlLibrary.A350ND
             pe.Graphics.DrawImage(point, 0, 0, point.Width * scale, point.Height * scale);
         }
 
-        public void SetValues( double heading,double GPSHeading)
+        public void SetValues(double heading, double GPSHeading)
         {
             this.heading = heading;
             this.GPSHeading = GPSHeading;
             Refresh();
         }
-        public void SetXY(int x,int y)
+        public void SetXY(int x, int y)
         {
             this.x = x;
             this.y = y;

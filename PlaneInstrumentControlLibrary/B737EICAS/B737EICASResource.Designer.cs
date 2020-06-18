@@ -63,6 +63,26 @@ namespace PlaneInstrumentControlLibrary.B737EICAS {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap ail1 {
+            get {
+                object obj = ResourceManager.GetObject("ail1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap ail2 {
+            get {
+                object obj = ResourceManager.GetObject("ail2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap background {
             get {
                 object obj = ResourceManager.GetObject("background", resourceCulture);
@@ -93,6 +113,16 @@ namespace PlaneInstrumentControlLibrary.B737EICAS {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap elev {
+            get {
+                object obj = ResourceManager.GetObject("elev", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap ENG_FAIL_1 {
             get {
                 object obj = ResourceManager.GetObject("ENG_FAIL_1", resourceCulture);
@@ -106,6 +136,26 @@ namespace PlaneInstrumentControlLibrary.B737EICAS {
         internal static System.Drawing.Bitmap ENG_FAIL_2 {
             get {
                 object obj = ResourceManager.GetObject("ENG_FAIL_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap flp1 {
+            get {
+                object obj = ResourceManager.GetObject("flp1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap flp2 {
+            get {
+                object obj = ResourceManager.GetObject("flp2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -146,6 +196,16 @@ namespace PlaneInstrumentControlLibrary.B737EICAS {
         internal static System.Drawing.Bitmap LOW_VOL_1 {
             get {
                 object obj = ResourceManager.GetObject("LOW_VOL_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap rudder {
+            get {
+                object obj = ResourceManager.GetObject("rudder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
