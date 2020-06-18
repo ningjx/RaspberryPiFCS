@@ -1,7 +1,6 @@
 ﻿using MavLink;
 using FlightDataModel;
 using System.IO.Ports;
-using flyfire.IO.Ports;
 
 namespace RaspberryPiClient.Controllers
 {
@@ -16,7 +15,7 @@ namespace RaspberryPiClient.Controllers
             mavlink.PacketReceived += Mavlink_PacketReceived;
             FlightData = new FlightData();
 
-            string portName = CustomSerialPort.GetPortNames()[0];
+            string portName = SerialPort.GetPortNames()[0];
             serialPort = new SerialPort(portName,115200, Parity.None,8,StopBits.One);
             serialPort.DataReceived += SerialPort_DataReceived;
             serialPort.Open();

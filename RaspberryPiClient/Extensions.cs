@@ -1,7 +1,7 @@
-﻿using flyfire.IO.Ports;
-using GMap.NET;
+﻿using GMap.NET;
 using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Text;
 
 namespace RaspberryPiClient
@@ -136,7 +136,7 @@ namespace RaspberryPiClient
         /// <returns></returns>
         public static string[] GetPorts()
         {
-            return CustomSerialPort.GetPortNames();
+            return SerialPort.GetPortNames();
         }
 
         /// <summary>
