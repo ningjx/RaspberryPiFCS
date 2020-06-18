@@ -13,10 +13,8 @@ namespace RaspberryPiFCS.Fuctions
 {
     public class ControlFuncion : IFunction
     {
-        public int RetryTime { get; set; } = 0;
-        public Timer Timer { get; set; } = new Timer(20);
         public bool Lock { get; set; } = false;
-        public FunctionStatus FunctionStatus { get; set; } = FunctionStatus.Online;
+        public FunctionStatus FunctionStatus { get; set; } = FunctionStatus.Offline;
         public RelyEquipment RelyEquipment { get; set; } = new RelyEquipment
         {
             RegisterType.Sys,
@@ -28,46 +26,27 @@ namespace RaspberryPiFCS.Fuctions
             {
                 Logger.Add(LogType.Error, "无法启动控制功能，依赖设备不在线");
                 FunctionStatus = FunctionStatus.Failure;
-                return;
             }
-            Timer.AutoReset = true;
-            Timer.Elapsed += Excute;
-            Timer.Start();
         }
 
-        private void Excute(object sender, ElapsedEventArgs e)
+        public void Excute(object sender, ElapsedEventArgs e)
         {
             if (Lock)
                 return;
             else
                 Lock = true;
-
             try
             {
                 //根据控制信号操作
                 SetControl();
-
-
-
-
+                FunctionStatus = FunctionStatus.Online;
             }
             catch (Exception ex)
             {
-                RetryTime++;
-                if (RetryTime > 10)
-                {
-                    FunctionStatus = FunctionStatus.Failure;
-                    //打日志throw ex;
-                }
+                FunctionStatus = FunctionStatus.Failure;
+                Logger.Add(LogType.Error, "控制功能异常", ex);
             }
-
             Lock = false;
-        }
-
-
-        public void Dispose()
-        {
-            Timer.Dispose();
         }
 
         private void SetControl()
