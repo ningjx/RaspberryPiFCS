@@ -33,6 +33,13 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
         Bitmap eng_fail_2 = new Bitmap(B737EICASResource.ENG_FAIL_2);
         Bitmap low_vol_1 = new Bitmap(B737EICASResource.LOW_VOL_1);
         Bitmap low_vol_2 = new Bitmap(B737EICASResource.LOE_VOL_2);
+        Bitmap ail1 = new Bitmap(B737EICASResource.ail1);
+        Bitmap ail2 = new Bitmap(B737EICASResource.ail2);
+        Bitmap flp1 = new Bitmap(B737EICASResource.flp1);
+        Bitmap flp2 = new Bitmap(B737EICASResource.flp2);
+        Bitmap elev = new Bitmap(B737EICASResource.elev);
+        Bitmap rudder = new Bitmap(B737EICASResource.rudder);
+
 
         SolidBrush drawBrush = new SolidBrush(Color.White);
         SolidBrush infoBrush = new SolidBrush(Color.FromArgb(115, 255, 87));
@@ -40,7 +47,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
         SolidBrush errorBrush = new SolidBrush(Color.FromArgb(255, 0, 0));
 
 
-        float tem, rpm1, rpm2, power1, power2, cos1, cos2, volte1, volte2;
+        float tem, rpm1, rpm2, power1, power2, cos1, cos2, volte1, volte2, roll, pitch, yaw, flp;
         List<EICASInfo> texts = new List<EICASInfo>();
 
         EngineStatus engineStatus1 = EngineStatus.Nor;
@@ -77,6 +84,12 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
             pe.Graphics.DrawImage(top, 0, 0, top.Width * scale, top.Height * scale);
 
+            TranslateImage(pe, ail1, 0, 0, new Point(0, (int)(roll * 0.3)), scale);
+            TranslateImage(pe, ail2, 0, 0, new Point(0, -(int)(roll * 0.3)), scale);
+            TranslateImage(pe, flp1, 0, 0, new Point(0, -(int)(flp * 0.3)), scale);
+            TranslateImage(pe, flp2, 0, 0, new Point(0, -(int)(flp * 0.3)), scale);
+            TranslateImage(pe, elev, 0, 0, new Point(0, (int)(pitch * 0.3)), scale);
+            TranslateImage(pe, rudder, 0, 0, new Point((int)(yaw * 0.35), 0), scale);
 
             Font altFont = new Font("Arial", 12 * scale);
             Font altFont1 = new Font("Arial", 14 * scale);
@@ -94,13 +107,13 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
             //pe.Graphics.DrawImage(textRetan, 0, 0, textRetan.Width * scale, textRetan.Height * scale);
             int yPosition = 60;
-            foreach(var item in texts)
+            foreach (var item in texts)
             {
                 int rowCount = 1;
                 switch (item.WarningType)
                 {
                     case WarningType.Info:
-                        pe.Graphics.DrawString(GetString(item.Text,out rowCount), altFont3, infoBrush, 273 * scale, yPosition * scale);
+                        pe.Graphics.DrawString(GetString(item.Text, out rowCount), altFont3, infoBrush, 273 * scale, yPosition * scale);
                         break;
                     case WarningType.Warning:
                         pe.Graphics.DrawString(GetString(item.Text, out rowCount), altFont3, warningBrush, 273 * scale, yPosition * scale);
@@ -109,11 +122,11 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
                         pe.Graphics.DrawString(GetString(item.Text, out rowCount), altFont3, errorBrush, 273 * scale, yPosition * scale);
                         break;
                 }
-                yPosition += 20* rowCount;
+                yPosition += 20 * rowCount;
             }
         }
 
-        public void SetValues(float tem, float rpm1, float rpm2, float power1, float power2, float cos1, float cos2, float volte1, float volte2, EngineStatus en1 = EngineStatus.NoChange, EngineStatus en2 = EngineStatus.NoChange)
+        public void SetValues(float tem, float rpm1, float rpm2, float power1, float power2, float cos1, float cos2, float volte1, float volte2, float roll, float pitch, float yaw, float flp, EngineStatus en1 = EngineStatus.NoChange, EngineStatus en2 = EngineStatus.NoChange)
         {
             this.tem = tem;
             this.rpm1 = rpm1;
@@ -129,18 +142,22 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             this.rpm1 = rpm1;
             this.rpm1 = rpm1;
             this.rpm1 = rpm1;
-            if(en1!= EngineStatus.NoChange)
+            this.roll = roll;
+            this.pitch = pitch;
+            this.yaw = yaw;
+            this.flp = flp;
+            if (en1 != EngineStatus.NoChange)
             {
                 if (engineStatus1 != en1 && en1 == EngineStatus.LowVol)
                 {
-                    if(engineStatus1 == EngineStatus.Fail&& engineStatus2 != EngineStatus.Fail)
+                    if (engineStatus1 == EngineStatus.Fail && engineStatus2 != EngineStatus.Fail)
                         sound.cscSound.Stop();
                     sound.PlaySync(SoundType.scSound);
                 }
-                if (engineStatus1 != en1 && en1 == EngineStatus.Fail&& engineStatus2 != EngineStatus.Fail)
-                        sound.cscSound.PlayLooping();
-                if (engineStatus1 != en1 && en1 == EngineStatus.Nor&& engineStatus2 != EngineStatus.Fail)
-                        sound.cscSound.Stop();
+                if (engineStatus1 != en1 && en1 == EngineStatus.Fail && engineStatus2 != EngineStatus.Fail)
+                    sound.cscSound.PlayLooping();
+                if (engineStatus1 != en1 && en1 == EngineStatus.Nor && engineStatus2 != EngineStatus.Fail)
+                    sound.cscSound.Stop();
                 engineStatus1 = en1;
             }
             if (en2 != EngineStatus.NoChange)
@@ -151,9 +168,9 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
                         sound.cscSound.Stop();
                     sound.PlaySync(SoundType.scSound);
                 }
-                if (engineStatus2 != en2 && en2 == EngineStatus.Fail&& engineStatus1 != EngineStatus.Fail)
+                if (engineStatus2 != en2 && en2 == EngineStatus.Fail && engineStatus1 != EngineStatus.Fail)
                     sound.cscSound.PlayLooping();
-                if (engineStatus2 != en2 && en2 == EngineStatus.Nor&& engineStatus1 != EngineStatus.Fail)
+                if (engineStatus2 != en2 && en2 == EngineStatus.Nor && engineStatus1 != EngineStatus.Fail)
                     sound.cscSound.Stop();
                 engineStatus2 = en2;
             }
@@ -202,14 +219,14 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
             }
         }
 
-        private string GetString(string str,out int count)
+        private string GetString(string str, out int count)
         {
             string buffer = str.Clone() as string;
             int splitCount = 12;
             count = 1;
-            for (int i= splitCount; i< str.Length; i += splitCount)
+            for (int i = splitCount; i < str.Length; i += splitCount)
             {
-                buffer =buffer.Insert(i+ count-1, "\n");
+                buffer = buffer.Insert(i + count - 1, "\n");
                 count++;
             }
             return buffer;
@@ -229,7 +246,7 @@ namespace PlaneInstrumentControlLibrary.B737EICAS
 
     public enum EngineStatus
     {
-        Fail, LowVol, Nor,Unknown,NoChange
+        Fail, LowVol, Nor, Unknown, NoChange
     }
 
     class B737EICASSound : Sound

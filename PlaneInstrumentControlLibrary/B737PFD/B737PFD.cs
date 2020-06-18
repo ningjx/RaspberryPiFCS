@@ -138,7 +138,7 @@ namespace PlaneInstrumentControlLibrary.B737PFD
             pe.Graphics.DrawImage(speedCover, 0, 0, speedCover.Width * scale, speedCover.Height * scale);
 
             TranslateImage(pe, altTape, 0, 0, altTapePosition, scale * 0.8F);
-            pe.Graphics.DrawImage(altCover, 0, 0, altCover.Width * scale, altCover.Height * scale);
+            pe.Graphics.DrawImage(altCover, -5, 0, altCover.Width * scale, altCover.Height * scale);
             pe.Graphics.DrawImage(altNum, (backGroung.Width - altNum.Width) * scale * 0.65F, (backGroung.Height - altNum.Height) * scale * 0.45F, altNum.Width * scale, altNum.Height * scale);
 
             //显示高度速度数字

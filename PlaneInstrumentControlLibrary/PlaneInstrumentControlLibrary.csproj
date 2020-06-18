@@ -144,6 +144,12 @@
     <Content Include="A350ND\Images\mapCover.png" />
     <Content Include="A350ND\Images\point.png" />
     <Content Include="A350ND\Images\top.png" />
+    <Content Include="B737EICAS\Images\ail1.png" />
+    <Content Include="B737EICAS\Images\ail2.png" />
+    <Content Include="B737EICAS\Images\elev.png" />
+    <Content Include="B737EICAS\Images\flp1.png" />
+    <Content Include="B737EICAS\Images\flp2.png" />
+    <Content Include="B737EICAS\Images\rudder.png" />
     <Content Include="B737EICAS\Sounds\CSC_fix.wav" />
     <Content Include="B737EICAS\Sounds\CSC_short.wav" />
     <Content Include="B737PFD\Images\altScroll.png" />
