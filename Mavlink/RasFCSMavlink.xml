@@ -160,6 +160,21 @@
       <field type="int16_t" name="HorizontalAccuracy" units="m">HorizontalAccuracy</field>
       <field type="int16_t" name="VerticalAccuracy" units="m">VerticalAccuracy</field>
     </message>
+    <message id="50" name="CONTROLINFO">
+      <description>CONTROLINFO</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
+      <field type="int32_t" name="roll">roll</field>
+      <field type="int32_t" name="pitch">pitch</field>
+      <field type="int32_t" name="yaw">yaw</field>
+      <field type="int32_t" name="break">break</field>
+      <field type="int32_t" name="flaps">flaps</field>
+      <field type="int32_t" name="trim">trim</field>
+      <field type="int32_t" name="throttel">throttel</field>
+      <field type="int32_t" name="gear">gear</field>
+      <field type="int32_t" name="pushback">pushback</field>
+      <field type="int32_t" name="enpwl">enpwl</field>
+      <field type="int32_t" name="enpwr">enpwr</field>
+    </message>
     <message id="80" name="FUNCTIONSTATUS">
       <description>FunctionStatus</description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp</field>
