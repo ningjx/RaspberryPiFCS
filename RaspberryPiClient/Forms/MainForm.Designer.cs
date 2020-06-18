@@ -434,7 +434,7 @@
             // 
             this.trackBar1.Location = new System.Drawing.Point(1280, 915);
             this.trackBar1.Margin = new System.Windows.Forms.Padding(4);
-            this.trackBar1.Maximum = 500;
+            this.trackBar1.Maximum = 1000;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(628, 69);
             this.trackBar1.TabIndex = 43;

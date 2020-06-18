@@ -180,6 +180,7 @@ namespace RaspberryPiClient
 
         private void button3_Click(object sender, EventArgs e)
         {
+            b737EICAS1.SetValues(20, 50, 75, 60, 80, 66, 99, 4.2F, 4.3F, 100, 100, 100, 100, en2: EngineStatus.LowVol);
             string[] aa = textBox1.Text.Split('.');
             List<EICASInfo> infos = new List<EICASInfo>();
             foreach (var item in aa)
