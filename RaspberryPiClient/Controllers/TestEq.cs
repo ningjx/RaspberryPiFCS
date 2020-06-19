@@ -17,7 +17,7 @@ namespace RaspberryPiClient.Controllers
         {
             FlightData = new FlightData();
 
-            string portName = "COM3";
+            string portName = SerialPort.GetPortNames()[0];// "COM3";
             serialPort = new SerialPort(portName, 115200, Parity.None, 8, StopBits.One);
             serialPort.DataReceived += SerialPort_DataReceived; 
             serialPort.Open();

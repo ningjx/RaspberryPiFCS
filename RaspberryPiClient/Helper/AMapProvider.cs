@@ -16,7 +16,7 @@ namespace GMap.NET.MapProviders
         {
             MaxZoom = null;
             RefererUrl = "http://www.amap.com/";
-            Copyright = string.Format("©{0} 高德 Corporation, ©{0} NAVTEQ, ©{0} Image courtesy of NASA", DateTime.Today.Year);
+            Copyright = "";//string.Format("©{0} 高德 Corporation, ©{0} NAVTEQ, ©{0} Image courtesy of NASA", DateTime.Today.Year);
         }
 
         //public GeoCoderStatusCode GetPoints(string keywords, out List<PointLatLng> pointList)
