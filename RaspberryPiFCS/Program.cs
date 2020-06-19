@@ -1,37 +1,57 @@
-﻿using RaspberryPiFCS.Main;
+﻿using RaspberryPiFCS.Drivers;
+using RaspberryPiFCS.Main;
 using System;
 
 namespace RaspberryPiFCS
 {
     public class Program
     {
+        //static void Main(string[] args)
+        //{
+        //    try
+        //    {
+        //        //读取配置信息
+        //        Config.ReadConfig();
+        //        //注册系统//启动远程通信；
+        //        EquipmentBus.ControllerRegister.Register(Enum.RegisterType.Sys, true);
+        //
+        //
+        //
+        //
+        //        //启动其它设备
+        //        //EquipmentBus.Lunch();
+        //        //启动function
+        //        FunctionWatcher.Lunch();
+        //
+        //
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.Add(Enum.LogType.Error, "系统异常", ex);
+        //    }
+        //    finally
+        //    {
+        //        Config.SaveConfig();
+        //    }
+        //}
         static void Main(string[] args)
         {
             try
             {
-                //读取配置信息
-                Config.ReadConfig();
-                //注册系统//启动远程通信；
-                EquipmentBus.ControllerRegister.Register(Enum.RegisterType.Sys, true);
-
-
-
-
-                //启动其它设备
-                //EquipmentBus.Lunch();
-                //启动function
-                FunctionWatcher.Lunch();
-
-
+                var driver = DriversFactory.GetUARTDriver("ttyUSB0");
+                driver.RecEvent += Driver_RecEvent;
+                Console.Read();
             }
             catch (Exception ex)
             {
-                Logger.Add(Enum.LogType.Error, "系统异常", ex);
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
             }
-            finally
-            {
-                Config.SaveConfig();
-            }
+        }
+
+        private static void Driver_RecEvent(byte[] bytes)
+        {
+            Console.WriteLine(bytes);
         }
     }
 }
