@@ -11,9 +11,9 @@ namespace RaspberryPiFCS.Drivers
         public static extern void InitPort(string portName, int baudRate, int parity, int databits, int stopBits);
         [DllImport(@"/home/pi/Desktop/run/SerialPortLib.so")]
         public static extern byte[] Read();
-        [DllImport("SerialPortLib.so")]
+        [DllImport(@"/home/pi/Desktop/run/SerialPortLib.so")]
         public static extern void Write(byte[] bytes);
-        [DllImport("SerialPortLib.so")]
+        [DllImport(@"/home/pi/Desktop/run/SerialPortLib.so")]
         public static extern void Close();
 
         private Timer Timer = new Timer(20);
