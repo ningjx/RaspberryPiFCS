@@ -129,6 +129,17 @@ namespace RaspberryPiFCS
             return intTmp.ToString();
         }
 
+        public static string BytesToStr(this byte[] bytes)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            for(int i = 0; i < bytes.Length; i++)
+            {
+                int intTmp = bytes[i];
+                stringBuilder.Append(intTmp);
+            }
+            return stringBuilder.ToString();
+        }
+
         /// <summary>
         /// 获取系统的全部串口名
         /// </summary>

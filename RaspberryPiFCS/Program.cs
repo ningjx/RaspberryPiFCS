@@ -1,6 +1,7 @@
 ﻿using RaspberryPiFCS.Drivers;
 using RaspberryPiFCS.Main;
 using System;
+using System.Diagnostics;
 
 namespace RaspberryPiFCS
 {
@@ -38,9 +39,9 @@ namespace RaspberryPiFCS
         {
             try
             {
-                var driver = DriversFactory.GetUARTDriver("ttyUSB0");
-                driver.RecEvent += Driver_RecEvent;
-                Console.Read();
+                //var driver = DriversFactory.GetUARTDriver("ttyUSB0");
+                //driver.RecEvent += Driver_RecEvent;
+                //Console.Read();
             }
             catch (Exception ex)
             {
@@ -51,7 +52,8 @@ namespace RaspberryPiFCS
 
         private static void Driver_RecEvent(byte[] bytes)
         {
-            Console.WriteLine(bytes);
+            Console.WriteLine("________________");
+            Console.WriteLine(bytes.BytesToStr());
         }
     }
 }
