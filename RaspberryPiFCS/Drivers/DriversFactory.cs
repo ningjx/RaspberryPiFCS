@@ -18,13 +18,11 @@ namespace RaspberryPiFCS.Drivers
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                //return new UARTDriver(portName, baudRate, parity, databits, stopBits);
-                return new UARTDriver_Console(portName, baudRate, parity, databits, stopBits);
+                return new UARTDriver_Socket(portName, baudRate, parity, databits, stopBits);
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                //return new UART_Win_Driver(portName, baudRate, parity, databits, stopBits);
-                return new UARTDriver_Console(portName, baudRate, parity, databits, stopBits);
+                return new UART_Win_Driver(portName, baudRate, parity, databits, stopBits);
             }
             else
             {
