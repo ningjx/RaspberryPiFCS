@@ -38,7 +38,7 @@ namespace RaspberryPiFCS.Fuctions
             }
             catch (Exception ex)
             {
-                Logger.Add(Enum.LogType.Error, "启动遥控器失败！", ex);
+                LogService.Add(Enum.LogType.Error, "启动遥控器失败！", ex);
             }
         }
 
@@ -58,7 +58,7 @@ namespace RaspberryPiFCS.Fuctions
                 if (RetryTime > 10)
                 {
                     FunctionStatus = FunctionStatus.Failure;
-                    Logger.Add(LogType.Error, "遥控功能启动失败", exception);
+                    LogService.Add(LogType.Error, "遥控功能启动失败", exception);
                 }
             }
         }

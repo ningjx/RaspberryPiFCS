@@ -13,7 +13,7 @@ namespace RaspberryPiFCS.Configs.Tests
         [TestMethod()]
         public void ChangeConfigTest()
         {
-            var config = Config.SysConfig;
+            var config = ConfigService.SysConfigs;
         }
     }
 }

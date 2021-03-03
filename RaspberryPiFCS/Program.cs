@@ -12,7 +12,7 @@ namespace RaspberryPiFCS
             try
             {
                 //读取配置信息
-                Config.ReadConfig();
+                ConfigService.ReadConfig();
                 //注册系统//启动远程通信；
                 EquipmentBus.ControllerRegister.Register(Enum.RegisterType.Sys, true);
         
@@ -25,11 +25,11 @@ namespace RaspberryPiFCS
             }
             catch (Exception ex)
             {
-                Logger.Add(Enum.LogType.Error, "系统异常", ex);
+                LogService.Add(Enum.LogType.Error, "系统异常", ex);
             }
             finally
             {
-                Config.SaveConfig();
+                ConfigService.SaveConfig();
             }
         }
         //static void Main(string[] args)

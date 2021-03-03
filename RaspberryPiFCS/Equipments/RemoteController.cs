@@ -47,7 +47,7 @@ namespace RaspberryPiFCS.Equipments
             catch (Exception ex)
             {
                 EquipmentData.AddError(Enum.LogType.Error, "启动遥控器失败！", ex);
-                Logger.Add(Enum.LogType.Error, "启动遥控器失败！", ex);
+                LogService.Add(Enum.LogType.Error, "启动遥控器失败！", ex);
                 EquipmentData.IsEnable = false;
                 return false;
             }

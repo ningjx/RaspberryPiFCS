@@ -12,11 +12,11 @@ namespace RaspberryPiFCS.Main.Tests
         [TestMethod()]
         public void AddTest()
         {
-            Logger.Add(Enum.LogType.Error, "测试日志系统1", new Exception("日志打印测试"));
-            Logger.Add(Enum.LogType.Error, "测试日志系统2", new Exception("日志打印测试"));
-            Logger.Add(Enum.LogType.Error, "测试日志系统3", new Exception("日志打印测试"));
-            Logger.Add(Enum.LogType.Error, "测试日志系统4", new Exception("日志打印测试"));
-            Logger.Add(Enum.LogType.Error, "测试日志系统5", new Exception("日志打印测试"));
+            LogService.Add(Enum.LogType.Error, "测试日志系统1", new Exception("日志打印测试"));
+            LogService.Add(Enum.LogType.Error, "测试日志系统2", new Exception("日志打印测试"));
+            LogService.Add(Enum.LogType.Error, "测试日志系统3", new Exception("日志打印测试"));
+            LogService.Add(Enum.LogType.Error, "测试日志系统4", new Exception("日志打印测试"));
+            LogService.Add(Enum.LogType.Error, "测试日志系统5", new Exception("日志打印测试"));
         }
     }
 }

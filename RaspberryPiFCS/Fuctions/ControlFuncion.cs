@@ -24,7 +24,7 @@ namespace RaspberryPiFCS.Fuctions
         {
             if (!EquipmentBus.ControllerRegister.CheckRely(RelyEquipment))
             {
-                Logger.Add(LogType.Error, "无法启动控制功能，依赖设备不在线");
+                //LogService.Add(LogType.Error, "无法启动控制功能，依赖设备不在线");
                 FunctionStatus = FunctionStatus.Failure;
             }
         }
@@ -44,7 +44,7 @@ namespace RaspberryPiFCS.Fuctions
             catch (Exception ex)
             {
                 FunctionStatus = FunctionStatus.Failure;
-                Logger.Add(LogType.Error, "控制功能异常", ex);
+                LogService.Add(LogType.Error, "控制功能异常", ex);
             }
             Lock = false;
         }

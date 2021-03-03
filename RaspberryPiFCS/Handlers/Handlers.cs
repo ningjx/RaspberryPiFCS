@@ -10,4 +10,6 @@ namespace RaspberryPiFCS
     public delegate void ErrorMessageHandler(LogType errorType, string message, Exception ex);
     public delegate void UARTRecHandler(byte[] bytes);
     public delegate void MavlinkHandler(MavlinkPacket packet);
+    public delegate bool LogServiceHandler(string logger);
+    public delegate void ProcessHandler();
 }

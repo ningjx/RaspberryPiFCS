@@ -17,7 +17,7 @@ namespace RaspberryPiFCS
         static EquipmentBus()
         {
             MavlinkEquipment = new MavlinkEquipment();
-            Logger.ReadyToSend = true;
+            //LogService.ReadyToSend = true;
         }
 
         public static void Lunch()

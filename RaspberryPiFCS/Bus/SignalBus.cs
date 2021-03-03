@@ -17,29 +17,29 @@ namespace RaspberryPiFCS
         {
             get
             {
-                if (Config.RemoteConfigs.Count == 0)
+                if (ConfigService.RemoteConfigs.Count == 0)
                     return null;
-                var time = Config.RemoteConfigs.Values.Max(t => t.EffctiveTime);
-                return Config.RemoteConfigs.Values.FirstOrDefault(t => t.EffctiveTime == time);
+                var time = ConfigService.RemoteConfigs.Values.Max(t => t.EffctiveTime);
+                return ConfigService.RemoteConfigs.Values.FirstOrDefault(t => t.EffctiveTime == time);
             }
             set
             {
                 string controlName = value.ControlName;
                 value.EffctiveTime = DateTime.Now;
-                Config.RemoteConfigs.AddOrUpdate(controlName, value);
-                Config.SaveConfig();
+                ConfigService.RemoteConfigs.AddOrUpdate(controlName, value);
+                ConfigService.SaveConfig();
             }
         }
 
         /// <summary>
         /// 原始遥控信号
         /// </summary>
-        public static OriginSignal OriginSignal = new OriginSignal();
+        public static RemoteSignal OriginSignal = new RemoteSignal();
 
         /// <summary>
         /// 转换后的遥控信号
         /// </summary>
-        public static RemoteSignal RemoteSignal = new RemoteSignal();
+        public static ControlSignal RemoteSignal = new ControlSignal();
 
         /// <summary>
         /// 中心控制信号

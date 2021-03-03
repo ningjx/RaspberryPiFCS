@@ -1,4 +1,5 @@
-﻿using RaspberryPiFCS.Interface;
+﻿using DotNetPID;
+using RaspberryPiFCS.Interface;
 using RJCP.IO.Ports;
 using System;
 using System.Collections.Generic;
@@ -30,9 +31,9 @@ namespace RaspberryPiFCS.Drivers
             }
         }
 
-        public static PIDDriver GetPIDDriver(float kp = 0.1f, float ki = 0.2f, float kd = 0.4f)
+        public static PID GetPIDDriver(float kp = 0.1f, float ki = 0.2f, float kd = 0.4f)
         {
-            return new PIDDriver(kp, ki, kd);
+            return  PID.Create(kp, ki, kd,100,PIDType.Increment);
         }
 
         public static SocketDriver GetSocketDriver(int bindPort, int sendPort = 0)

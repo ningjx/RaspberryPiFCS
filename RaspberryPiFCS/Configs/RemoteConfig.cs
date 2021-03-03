@@ -25,19 +25,19 @@ namespace RaspberryPiFCS.Configs
         /// 通道数量
         /// </summary>
         [JsonProperty("通道数量")]
-        public int ChannelCount { get { return Channels == null ? 0 : Channels.Count; } }
+        public int ChannelCount = 0;
 
         /// <summary>
         /// 通道信息
         /// </summary>
         [JsonProperty("通道信息")]
-        public List<Channel> Channels;
+        public List<Channel> Channels = new List<Channel>();
 
         /// <summary>
         /// 生效时间
         /// </summary>
         [JsonProperty("生效时间")]
-        public DateTime EffctiveTime;
+        public DateTime EffctiveTime = DateTime.MinValue;
     }
 
     /// <summary>
